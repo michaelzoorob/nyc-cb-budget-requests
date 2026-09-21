@@ -1,0 +1,11 @@
+.vercel
+.DS_Store
+
+# Local data inputs and build artifacts (not redistributed)
+# The committee form contains CB2 members' names.
+Submitting Budget Requests to Budget Committee (Responses)*.csv
+Register_FY*_allboards.csv
+parsed_*.csv
+out_*.csv
+CB FY*Requests*.csv
+*.pdf
