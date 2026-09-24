@@ -44,6 +44,8 @@ An Opus agent labeled a random sample of 100 of these texts without seeing the S
 
 Three of the five disagreements were DOT street reconstructions. Across all eight years, DOT's "Reconstruct streets" category splits 77% City Services and 23% Transportation. About 40% of the Transportation share are safety or street-redesign projects, which the rubric sends to Transportation. The other 120 or so are plain reconstructions and sit on the boundary the rubric draws.
 
+A September 2026 audit fixed the PDF parser and rebuilt every year. Fixing a request's title or text changes its id, so 281 such requests were given the label of the same request's old id. Ten new texts were labeled with the same method. They are Brooklyn CB16's FY2025 requests, which come from its Statement, and requests the parser had garbled or dropped.
+
 ## Labeling a new fiscal year
 
 1. Add the year to `pipeline/shared.py` and build its CSV with `pipeline/build_all_boards.py --fy YEAR`.

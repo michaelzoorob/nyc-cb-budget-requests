@@ -56,7 +56,9 @@ def main():
             rows.append({"id": rid, "board": m["board"], "agency": m["agency"], "title": m["title"],
                          "primary": x["primary"], "secondary": x.get("secondary") or "",
                          "ei_reason": x.get("ei_reason", ""), "labeler": note})
-    new = pd.concat([pd.DataFrame(rows), pd.read_csv(f"{work}/reuse.csv", dtype=str).fillna("")])
+    reuse_csv = f"{work}/reuse.csv"
+    reused = pd.read_csv(reuse_csv, dtype=str).fillna("") if os.path.getsize(reuse_csv) else pd.DataFrame()
+    new = pd.concat([pd.DataFrame(rows), reused])
     old = pd.read_csv(DEST, dtype=str).fillna("") if os.path.exists(DEST) else pd.DataFrame(columns=new.columns)
     new = new[~new["id"].isin(old["id"])].drop_duplicates("id")
     out = pd.concat([old, new]).sort_values(["board", "title"])

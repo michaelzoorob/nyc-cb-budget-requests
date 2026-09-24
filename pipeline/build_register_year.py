@@ -59,7 +59,9 @@ def build(fy, register_csv, boards=None):
         agency = REGISTER_AGENCY_NAMES.get(r["responsible_agency"], r["responsible_agency"])
         if agency not in known:
             unmapped[agency] = unmapped.get(agency, 0) + 1
-        pr = r["priority"].strip()
+        # The Register numbers continued-support requests in FY2026+ and marks them only
+        # in the tracking code; show "CS" as the PDFs and earlier years do.
+        pr = "CS" if tc.strip().endswith("CS") else r["priority"].strip()
         title, expl = r["request"], r["explanation"]
         a_resp = ag.at[tc, "response"] if tc in ag.index else ""
         o_resp = om.at[tc, "response"] if tc in om.index else ""
@@ -71,11 +73,12 @@ def build(fy, register_csv, boards=None):
             "Agency Response": a_resp, "OMB Executive Response": o_resp,
             "Agency Stance (MZ added)": stance(a_resp),
             "Committees": "|".join(labels.get(rid) or infer_committees(title, expl, AGENCY_ABBR.get(agency))),
+            "Label ID": rid,
         })
     out = pd.DataFrame(rows, columns=COLS)
     if unmapped:
         sys.stderr.write(f"  FY{fy}: agency names kept as they appear in the Register "
-                         f"(not on the FY2027 dashboard): {unmapped}\n")
+                         f"(not among shared.AGENCY's names): {unmapped}\n")
     out["_b"] = out["Board"].map(lambda b: (BOARD_ORDER.index(b.split("CB")[0]), int(b.split("CB")[1])))
     out["_t"] = out["Type"].map({"Capital": 0, "Expense": 1})
     out["_p"] = pd.to_numeric(out["Priority"], errors="coerce")

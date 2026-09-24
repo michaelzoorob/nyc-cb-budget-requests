@@ -54,7 +54,13 @@ def main():
              "title": inputs[i]["title"], "primary": x["primary"],
              "secondary": x.get("secondary") or "", "ei_reason": x.get("ei_reason", ""),
              "labeler": note} for i, x in labels.items()]
-    out = pd.DataFrame(rows).sort_values(["board", "title"])
+    out = pd.DataFrame(rows)
+    # Merge: keep every label already in the file that this run does not cover, so a
+    # re-run cannot drop the other years' labels.
+    if os.path.exists(DEST):
+        old = pd.read_csv(DEST, dtype=str).fillna("")
+        out = pd.concat([out, old[~old["id"].isin(out["id"])]])
+    out = out.sort_values(["board", "title"])
     out.to_csv(DEST, index=False)
     print(f"wrote {len(out)} labels -> {os.path.normpath(DEST)}")
     print(out["primary"].value_counts().to_string())

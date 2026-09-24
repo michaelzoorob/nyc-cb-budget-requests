@@ -94,6 +94,17 @@ REGISTER_AGENCY_NAMES = {
 }
 
 
+# Agencies answered in two vocabularies. FY2026+ uses "Agency supports / does not
+# support ...". FY2020-FY2025 uses OMB's standard dispositions, where "will (try to)
+# accommodate", "would support" and "in favor of" mean support and "not recommended for
+# funding" means opposition. Dispositions that take no position ("further study is needed", "funds
+# are insufficient", "contact the agency") stay Neutral/Unclear. The older phrases
+# change no FY2026-FY2027 row.
+OPPOSE_PHRASES = ("does not support", "not recommended for funding", "does not recommend")
+SUPPORT_PHRASES = ("supports", "would support", "recommends funding", "in favor of", "will accommodate",
+                   "will try to accommodate")
+
+
 def stance(resp):
     """Classify from the leading disposition sentence only -- incidental phrases
     later in the prose ("NYC supports 100,000 youth jobs...") must not count."""
@@ -101,11 +112,44 @@ def stance(resp):
     if not t or t.lower() == "nan":
         return "Neutral/Unclear"
     first = re.split(r"(?<=[.!?])\s", t)[0].lower()
-    if "does not support" in first:
+    if any(p in first for p in OPPOSE_PHRASES):
         return "Oppose"
-    if "supports" in first or "recommends funding" in first:
+    if any(p in first for p in SUPPORT_PHRASES):
         return "Support"
     return "Neutral/Unclear"
+
+
+_URL_END = re.compile(r"(?:https?://|www\.)\S*$")
+_WEB_EXT = r"\.(?:page|pdf|html?|shtml|aspx?|php)\b"
+
+
+def _url_continues(prev, nxt):
+    """True when `prev` ends inside a URL that the next line continues."""
+    m = _URL_END.search(prev)
+    if not m:
+        return False
+    url, tok = m.group(), nxt.split(" ", 1)[0]
+    if url[-1] in ")]},;:!'\"":
+        return False
+    if url.endswith("."):                       # "bayview." / "page." vs a sentence's end
+        return bool(re.match(_WEB_EXT[2:], tok))
+    return bool(tok[:1] in "-/?=&#%" or re.search(r"[/=?&%]|-\w|" + _WEB_EXT, tok)
+                or re.fullmatch(r"\d+[.,;:)]?", tok))
+
+
+def join_wrapped(parts):
+    """Join a text cell's wrapped lines. A line that ends in a hyphen joined to a word
+    ("contact-" / "form.shtml", "well-" / "being") continues without a space, and so
+    does a URL broken across lines (".../article/?" / "kanumber=KA-02491"); the Register
+    prints these whole. A spaced dash ("Avenue -") keeps its space."""
+    out = ""
+    for part in parts:
+        part = part.strip()
+        if not part:
+            continue
+        glue = out and (re.search(r"\S-$", out) or _url_continues(out, part))
+        out = out + part if glue else (f"{out} {part}" if out else part)
+    return out
 
 
 def norm(s):
@@ -180,4 +224,8 @@ STANCE_OVERRIDE = {
 }
 
 COLS = ["Priority", "Type", "Board", "Agency", "Title", "Explanation",
-        "Agency Response", "OMB Executive Response", "Agency Stance (MZ added)", "Committees"]
+        "Agency Response", "OMB Executive Response", "Agency Stance (MZ added)", "Committees",
+        # The request id the committee label is keyed by. It is request_id(Board, Title,
+        # Explanation) except where a title was restored after the label was assigned
+        # (FY2026 Bronx boards), so the labeling scripts read it from here.
+        "Label ID"]

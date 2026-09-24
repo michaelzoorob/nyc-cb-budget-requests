@@ -4,7 +4,8 @@
 #   ./update.sh               full rebuild: refreshes the latest year's Register from
 #                             NYC Open Data and re-parses the PDF years
 #   REUSE=1 ./update.sh       reuse parsed PDFs and downloaded Registers; use this when
-#                             only the code or committee_labels.csv changed
+#                             only committee_labels.csv or the code after the PDF parse
+#                             changed (a parser change needs the full rebuild)
 #   DATA=/some/dir ./update.sh
 #
 # Code runs from pipeline/. Downloads and intermediate CSVs go to the data directory
@@ -28,6 +29,14 @@ for fy in $YEARS; do
   if [ "$fy" = "$LATEST" ]; then out="$PROJ/index.html"; else mkdir -p "$PROJ/fy$fy"; out="$PROJ/fy$fy/index.html"; fi
   python3 "$PIPELINE/generate_cb2_html.py" --fy "$fy" "CB FY$fy Requests (all boards, detailed, 2-stage).csv" "$out"
 done
+# /fy<LATEST>/ forwards to the root, so a link naming the latest year explicitly keeps
+# working. When a newer year is added, the loop above overwrites it with a real page.
+mkdir -p "$PROJ/fy$LATEST"
+cat > "$PROJ/fy$LATEST/index.html" <<EOF
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>FY$LATEST Community Board Budget Requests</title>
+<script>location.replace("/"+location.search+location.hash)</script></head>
+<body><a href="/">FY$LATEST is the latest year. Continue to the dashboard.</a></body></html>
+EOF
 
 echo "Deploying to Vercel..."
 cd "$PROJ"

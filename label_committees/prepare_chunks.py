@@ -6,7 +6,7 @@
 Writes OUT_DIR/chunks/chunk_NN.jsonl (every board except QCB2, whose committees
 come from its own committee form) and OUT_DIR/pilot_cb2.jsonl (QCB2's requests,
 used to score a labeler blind against CB2's human assignments). Each record
-carries the same id that pipeline/build_statement_sheet.py computes, so labels
+carries the same id that request_id() in pipeline/shared.py computes, so labels
 join back to requests.
 """
 import hashlib
@@ -19,7 +19,7 @@ import sys
 import pandas as pd
 
 
-def norm(s):   # must stay identical to norm() in pipeline/build_statement_sheet.py
+def norm(s):   # must stay identical to norm() in pipeline/shared.py
     return re.sub(r"[^a-z0-9 ]", "", str(s).lower()).strip()
 
 
