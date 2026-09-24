@@ -1,20 +1,41 @@
 #!/usr/bin/env python3
-"""Render the FY2027 two-stage detailed spreadsheet as a single self-contained
-HTML file. Each request shows the agency's full response (Statement PDF) and
-OMB's Executive response (open-data Register). Click a column name to sort;
-click its funnel button to filter."""
+"""Render one fiscal year's two-stage detailed spreadsheet as a single self-contained
+HTML page. Each request shows the agency's response and OMB's Executive response.
+Click a column name to sort; click its funnel button to filter.
+
+    generate_cb2_html.py [--fy YEAR] [CSV] [OUT]
+
+A Year menu links the pages for every year in shared.YEARS. The latest year is the
+site root (/); earlier years live at /fy<YEAR>/. Filters carry across years."""
 import html
 import json
+import os
 import re
 import sys
 import pandas as pd
 
-CSV = sys.argv[1] if len(sys.argv) > 1 else \
-    "CB FY2027 Requests (multi-board, detailed, 2-stage).csv"
-OUT = sys.argv[2] if len(sys.argv) > 2 else "CB2 FY2027 Requests and Agency Responses.html"
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from shared import LATEST, PDF_YEARS, PUBLICATIONS, YEARS  # noqa: E402
+
+argv = sys.argv[1:]
+FY = LATEST
+if "--fy" in argv:
+    _i = argv.index("--fy")
+    FY = argv[_i + 1]
+    del argv[_i:_i + 2]
+CSV = argv[0] if len(argv) > 0 else f"CB FY{FY} Requests (all boards, detailed, 2-stage).csv"
+OUT = argv[1] if len(argv) > 1 else f"CB2 FY{FY} Requests and Agency Responses.html"
+FROM_PDF = FY in PDF_YEARS
+YEAR_URL = {y: ("/" if y == LATEST else f"/fy{y}/") for y in YEARS}
+MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August",
+          "September", "October", "November", "December"]
+
+
+def pub_month(pub):                       # "20240116" -> "January 2024"
+    return f"{MONTHS[int(pub[4:6]) - 1]} {pub[:4]}"
 
 REG_URL = "https://data.cityofnewyork.us/City-Government/Register-of-Community-Board-Budget-Requests/vn4m-mk4t"
-REPO_DIR = "https://github.com/NYCPlanning/labs-cd-needs-statements/tree/master/QN%20DNS%20FY%202027"
+REPO_DIR = f"https://github.com/NYCPlanning/labs-cd-needs-statements/tree/master/QN%20DNS%20FY%20{FY}"
 
 BORO_FULL = {"M": "Manhattan", "BX": "Bronx", "BK": "Brooklyn", "Q": "Queens", "SI": "Staten Island"}
 DCP2 = {"M": "MN", "BX": "BX", "BK": "BK", "Q": "QN", "SI": "SI"}
@@ -25,7 +46,7 @@ def board_meta(b):                       # "QCB2" -> ("Queens CB2", statement-PD
     abbr, num = m.group(1), m.group(2)
     code = DCP2[abbr] + num.zfill(2)
     pdf = ("https://raw.githubusercontent.com/NYCPlanning/labs-cd-needs-statements/master/"
-           f"{DCP2[abbr]}%20DNS%20FY%202027/FY2027_Statement_{code}.pdf")
+           f"{DCP2[abbr]}%20DNS%20FY%20{FY}/FY{FY}_Statement_{code}.pdf")
     return f"{BORO_FULL[abbr]} CB{num}", pdf
 
 
@@ -69,17 +90,33 @@ PCT = {"Priority": 6, "Type": 6, "Board": 5, "Agency": 9, "Title": 13,
        "Explanation": 15, "Agency Response": 19.5, "OMB Executive Response": 19,
        "Agency Stance (MZ added)": 7.5}
 LABEL = {"Agency Stance (MZ added)": "Agency Stance"}
-TOOLTIP = {
-    "Priority": "The board's priority/order for this request, as listed in its FY2027 Statement of Community District Needs (PDF).",
-    "Type": "Capital or Expense — taken from the Capital/Expense sections of the Statement PDF.",
-    "Board": "Borough + community board (e.g. QCB2 = Queens Community Board 2).",
-    "Agency": "The city agency responsible for the request (from the Statement PDF).",
-    "Title": "The community board's short title for the request (from the Statement PDF).",
-    "Explanation": "The board's description and justification of the request (from the Statement PDF).",
-    "Agency Response": "The agency's full written response, from the FY2027 Statement of Community District Needs (PDF), published Nov 2025.",
-    "OMB Executive Response": "OMB's Executive Budget response, from NYC Open Data's Register of Community Board Budget Requests, matched to each request by its text (99.8% of requests matched).",
-    "Agency Stance (MZ added)": "Added by MZ: Support / Oppose / Neutral-Unclear, derived from the agency response — whether the agency supports the request (regardless of whether it can fund it).",
-}
+n_omb_all = (df["OMB Executive Response"].str.strip() != "").sum()
+if FROM_PDF:
+    TOOLTIP = {
+        "Priority": f"The board's priority/order for this request, as listed in its FY{FY} Statement of Community District Needs (PDF).",
+        "Type": "Capital or Expense — taken from the Capital/Expense sections of the Statement PDF.",
+        "Board": "Borough + community board (e.g. QCB2 = Queens Community Board 2).",
+        "Agency": "The city agency responsible for the request (from the Statement PDF).",
+        "Title": "The community board's short title for the request (from the Statement PDF).",
+        "Explanation": "The board's description and justification of the request (from the Statement PDF).",
+        "Agency Response": f"The agency's full written response, from the FY{FY} Statement of Community District Needs (PDF), published Nov {int(FY) - 2}.",
+        "OMB Executive Response": "OMB's Executive Budget response, from NYC Open Data's Register of Community Board Budget Requests, "
+                                  f"matched to each request by its text ({100 * n_omb_all / max(1, len(df)):.1f}% of requests matched).",
+    }
+else:
+    _ag, _omb = PUBLICATIONS[FY]
+    TOOLTIP = {
+        "Priority": "The board's priority for this request (from NYC Open Data's Register of Community Board Budget Requests).",
+        "Type": "Capital or Expense, from the request's tracking code in the Register.",
+        "Board": "Borough + community board (e.g. QCB2 = Queens Community Board 2).",
+        "Agency": "The city agency responsible for the request (from the Register).",
+        "Title": "DCP's standard category for the request (from the Register). Boards' own titles begin in FY2026.",
+        "Explanation": "The board's description and justification of the request (from the Register).",
+        "Agency Response": f"The agency's response, from the Register's {pub_month(_ag)} round of agency responses.",
+        "OMB Executive Response": f"OMB's Executive Budget response, from the Register's {pub_month(_omb)} round.",
+    }
+TOOLTIP["Agency Stance (MZ added)"] = ("Added by MZ: Support / Oppose / Neutral-Unclear, derived from the agency response — "
+                                       "whether the agency supports the request (regardless of whether it can fund it).")
 
 sc = df["Agency Stance (MZ added)"].value_counts()
 n_exp = (df["Type"] == "Expense").sum()
@@ -143,7 +180,7 @@ colgroup = "<colgroup>" + "".join(f"<col style='width:{PCT[c]}%'>" for c in DISP
 HEAD = """<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CB2 FY2027 Budget Requests &amp; Agency Responses</title>
+<title>CB2 FY__FY__ Budget Requests &amp; Agency Responses</title>
 <style>
 :root{--bd:#e2e8f0;--mut:#64748b;--ink:#0f172a;}
 *{box-sizing:border-box}
@@ -224,6 +261,7 @@ tr.hide{display:none}
   .bsel{flex:1 1 100%}
   .boardbtn{width:100%;text-align:left}
   #commSel{flex:1 1 48%;max-width:none}
+  #yearSel{flex:1 1 48%;max-width:none}
   .msort{display:block;flex:1 1 48%;max-width:none}
   .dlbtn{flex:1 1 100%}
   .hint{display:none}
@@ -245,6 +283,7 @@ tr.hide{display:none}
 }
 </style></head><body>
 """
+HEAD = HEAD.replace("__FY__", FY)
 
 SCRIPT = """
 <script>
@@ -362,6 +401,8 @@ SCRIPT = """
   q.addEventListener('input',function(){term=q.value.trim().toLowerCase(); apply();});
   var commSel=document.getElementById('commSel');
   if(commSel) commSel.addEventListener('change',function(){commFilter=commSel.value; apply();});
+  var ySel=document.getElementById('yearSel');
+  if(ySel) ySel.addEventListener('change',function(){var u=(window.yearUrl||{})[ySel.value]; if(u) location.href=u+location.search;});
   var msort=document.getElementById('msort');
   if(msort) msort.addEventListener('change',function(){if(!msort.value)return; var pr=msort.value.split('.'); doSort(+pr[0], pr[1]==='desc'?-1:1);});
   var bTotal=document.querySelectorAll('#boardList input').length;
@@ -403,7 +444,7 @@ SCRIPT = """
       lines.push(c.join(',')); });
     var blob=new Blob(['\\ufeff'+lines.join('\\r\\n')],{type:'text/csv;charset=utf-8;'});
     var url=URL.createObjectURL(blob), a=document.createElement('a');
-    a.href=url; a.download='CB2_FY2027_'+(commFilter?commFilter.replace(/[^a-z0-9]+/gi,'_'):'requests')+'.csv';
+    a.href=url; a.download='CB2_FY__FY___'+(commFilter?commFilter.replace(/[^a-z0-9]+/gi,'_'):'requests')+'.csv';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(function(){URL.revokeObjectURL(url);},1500);
   }
@@ -457,14 +498,29 @@ SCRIPT = """
 </script>
 </body></html>
 """
+SCRIPT = SCRIPT.replace("__FY__", FY)
 
-parts = [HEAD, '<header>']
-parts.append('<h1><span id="h1board">Queens Community Board 2</span> &mdash; FY2027 Budget Requests &amp; Agency Responses</h1>')
-parts.append('<p class="sub">The <b>Agency Response</b> '
-             f'(<a id="stmtLink" href="{REPO_DIR}" target="_blank" rel="noopener">FY2027 Statement PDF</a>) '
-             'and the <b>OMB Executive Response</b> '
-             f'(from NYC Open Data <a href="{REG_URL}" target="_blank" rel="noopener">Register of Community '
-             'Board Budget Requests</a>).</p>')
+# ?year=2026&board=QCB2 style links: jump to that year's page before the table loads.
+YEAR_REDIRECT = ("<script>(function(){var p=new URLSearchParams(location.search),y=p.get('year');"
+                 "if(!y)return;var U=" + json.dumps(YEAR_URL) + ";p.delete('year');var qs=p.toString();"
+                 "if(y!=='" + FY + "'&&U[y])location.replace(U[y]+(qs?'?'+qs:'')+location.hash);"
+                 "else history.replaceState(null,'',location.pathname+(qs?'?'+qs:'')+location.hash);})();</script>")
+STMT = f'<a id="stmtLink" href="{REPO_DIR}" target="_blank" rel="noopener">FY{FY} Statement PDF</a>'
+REG = f'<a href="{REG_URL}" target="_blank" rel="noopener">Register of Community Board Budget Requests</a>'
+if FROM_PDF:
+    SOURCE = f"The <b>Agency Response</b> ({STMT}) and the <b>OMB Executive Response</b> (from NYC Open Data {REG})."
+else:
+    SOURCE = (f"The <b>Agency Response</b> and the <b>OMB Executive Response</b> both come from NYC Open Data's {REG}. "
+              f"Titles are DCP's standard request categories, since boards' own titles begin in FY2026. "
+              f"The {STMT} is linked for reference.")
+YEAR_NOTE = {
+    "2026": (" In FY2026 the 11 Bronx boards and Manhattan CB7 come from the Register, because the Bronx PDFs "
+             "list no per-request responses and DCP's Manhattan CB7 file holds CB6's requests. "
+             "Bronx CB12 has no FY2026 requests in either source."),
+}
+parts = [HEAD, YEAR_REDIRECT, '<header>']
+parts.append(f'<h1><span id="h1board">Queens Community Board 2</span> &mdash; FY{FY} Budget Requests &amp; Agency Responses</h1>')
+parts.append(f'<p class="sub">{SOURCE}{YEAR_NOTE.get(FY, "")}</p>')
 parts.append('<div class="cards">')
 for k, key in [("Requests", "requests"), ("Expense", "expense"), ("Capital", "capital"),
                ("Support", "support"), ("Oppose", "oppose"), ("Neutral/Unclear", "neutral")]:
@@ -473,6 +529,9 @@ parts.append('</div>')
 parts.append('</header>')
 
 parts.append('<div class="controls">')
+parts.append('<select id="yearSel" class="commsel" title="Fiscal year" aria-label="Fiscal year">'
+             + "".join(f'<option value="{y}"{" selected" if y == FY else ""}>FY{y}</option>' for y in YEARS)
+             + '</select>')
 parts.append('<input id="q" type="search" placeholder="Search all columns…">')
 parts.append('<div class="bsel"><button id="boardBtn" class="commsel boardbtn" title="Filter by community board">Queens CB2 &#9662;</button>'
              '<div id="boardPanel" class="boardpanel" style="display:none">'
@@ -481,9 +540,9 @@ parts.append('<div class="bsel"><button id="boardBtn" class="commsel boardbtn" t
              '<button type="button" class="cm-mini" data-act="none">None</button></div>'
              '<div class="cm-list" id="boardList">' + board_checklist + '</div></div></div>')
 parts.append('<select id="commSel" class="commsel" '
-             'title="Filter by committee (CB2 taxonomy). Queens CB2: as submitted via the '
-             'committee form; all other boards: inferred from the responsible agency and '
-             'request text.">'
+             'title="Filter by committee (CB2 taxonomy). Queens CB2 FY2027: as submitted via '
+             'CB2\'s committee form. Everything else: assigned by a model following CB2\'s '
+             'committee definitions (label_committees/ in the GitHub repo).">'
              '<option value="">All committees</option>'
              + "".join(f'<option value="{html.escape(c)}">{html.escape(c)}</option>' for c in committees_list)
              + '</select>')
@@ -501,7 +560,7 @@ parts.append('</div>')
 parts.append('<div class="wrap"><table>' + colgroup + '<thead><tr>' + header_cells + '</tr></thead><tbody>')
 parts.extend(body)
 parts.append('</tbody></table></div>')
-parts.append('<script>window.boardPdf=' + json.dumps(board_pdf) + ';window.repoDir=' + json.dumps(REPO_DIR) + ';window.boardName=' + json.dumps(board_name) + ';window.boardFull=' + json.dumps(board_full) + ';</script>')
+parts.append('<script>window.boardPdf=' + json.dumps(board_pdf) + ';window.repoDir=' + json.dumps(REPO_DIR) + ';window.boardName=' + json.dumps(board_name) + ';window.boardFull=' + json.dumps(board_full) + ';window.yearUrl=' + json.dumps(YEAR_URL) + ';</script>')
 parts.append(SCRIPT)
 
 with open(OUT, "w", encoding="utf-8") as f:

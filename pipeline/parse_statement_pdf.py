@@ -17,6 +17,12 @@ cols = [l.index("Agency Response:") for l in lines if "Agency Response:" in l]
 SPLIT = max(set(cols), key=cols.count)
 
 HDR = re.compile(r"^\s*(?:(\d+) of (\d+)|(CS))\s+(.*?)\s{2,}(\S.*?)\s*$")
+# FY2026 Statements also have per-policy-area summary tables whose continued-support
+# rows read "CS  <agency>  <title>". They match HDR but are not requests: the detailed
+# entry appears later as "CS  <title>  <agency>". Reading them as entries swapped
+# agency and title and duplicated requests. A CS match whose title slot is a bare
+# agency code while its agency slot is prose is one of these summary rows.
+AGENCY_CODE = re.compile(r"^[A-Z][A-Z0-9&+/.-]{1,7}$")
 PAGENUM = re.compile(r"^\s*\d+\s*$")
 SKIP = re.compile(r"^\s*(CAPITAL BUDGET REQUESTS|EXPENSE BUDGET REQUESTS|Agency\s+Priority\s+Title)\s*$", re.I)
 DIV = re.compile(r"^\s*(CAPITAL|EXPENSE) BUDGET REQUESTS\s*$", re.I)   # Capital/Expense section
@@ -33,6 +39,9 @@ while i < len(lines):
     m = HDR.match(lines[i])
     if not m:
         i += 1
+        continue
+    if m.group(3) and AGENCY_CODE.match(m.group(4).strip()) and not AGENCY_CODE.match(m.group(5).strip()):
+        i += 1                              # summary-table row, not a request
         continue
     entry_section = section
     if m.group(3):                      # "CS" = sited capital request (no "N of M")
@@ -58,6 +67,11 @@ while i < len(lines):
         elif not PAGENUM.match(lines[j]) and not SKIP.match(lines[j]):
             body.append(lines[j])
         j += 1
+    # A real CS request always carries an "Agency Response:". A summary-table row
+    # whose single-word title slipped past AGENCY_CODE ("CS  DEP  SE2Q") has none.
+    if m.group(3) and not any("Agency Response:" in b for b in body):
+        i += 1
+        continue
     # the right column starts where "Agency Response:" begins in THIS entry
     arcol = next((b.index("Agency Response:") for b in body if "Agency Response:" in b), SPLIT)
     left, right = [], []

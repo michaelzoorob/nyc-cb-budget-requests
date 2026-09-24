@@ -1,58 +1,78 @@
-# NYC Community Board Budget Requests Dashboard (FY2027)
+# NYC Community Board Budget Requests Dashboard
 
 A browsable dashboard of community board budget requests and the city's responses to
-them, for **all 59 NYC community boards**. It joins two sources the city publishes
-separately:
-
-- the **full agency response** to each request, which only appears in each board's
-  *Statement of Community District Needs* PDF, and
-- **OMB's Executive response**, which only appears in the open-data *Register of
-  Community Board Budget Requests*.
-
-The result is a two-stage view of each request: what the board asked for, what the
-agency said, and what OMB said afterward.
+them, for **all 59 NYC community boards** and **fiscal years 2020 through 2027**. Each
+request shows what the board asked for, how the responsible agency responded, and
+OMB's Executive Budget response.
 
 **Live:** https://cb2-budget-requests-fy2027.vercel.app
 
-The dashboard is a single self-contained `index.html` (~7 MB, all data embedded
-inline, no backend and no external JS), deployed as a Vercel static site. It opens
-on Queens CB2 but every board is in the file and selectable.
+The site root shows the latest year. Earlier years are at `/fy2026/`, `/fy2025/` and so
+on. The Year menu switches between them and keeps the board, committee, search and
+column filters. A link such as `?year=2024&board=QCB2` also works.
+
+Each year is one self-contained HTML page of about 6 MB, with the data embedded inline
+and no backend or external JS. The pages are deployed as a Vercel static site.
+
+## Where each year's data comes from
+
+| Fiscal years | Board requests and agency responses | OMB Executive response |
+| --- | --- | --- |
+| FY2026–FY2027 | Each board's *Statement of Community District Needs* PDF, which carries the agency's full written response | NYC Open Data *Register of Community Board Budget Requests* (`vn4m-mk4t`), matched to each request by its text |
+| FY2020–FY2025 | The Register's January round of agency responses | The Register's April or May round |
+
+Statement PDFs come from DCP's public
+[NYCPlanning/labs-cd-needs-statements](https://github.com/NYCPlanning/labs-cd-needs-statements)
+repository. The PDFs before FY2026 either list requests without responses
+(FY2017–FY2023) or repeat the Register's text in a table (FY2024–FY2025), so the
+Register is the source for those years. Two consequences follow. Agency responses
+before FY2026 are usually one or two sentences, because that is what agencies wrote.
+Titles before FY2026 are DCP's standard request categories, because boards' own titles
+first appear in the FY2026 PDFs.
+
+In FY2026 the Register also supplies 12 boards whose PDFs cannot be used. The 11 Bronx
+board PDFs have no per-request responses, and DCP's file for Manhattan CB7 holds CB6's
+requests. Bronx CB12 has no FY2026 requests in either source. The build catches a
+mismatched file like Manhattan CB7's by checking that a PDF's requests match that
+board's own Register entries.
+
+The Register has no agency round for FY2019 and no data before it, so earlier years are
+not included.
 
 ## Repo layout
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | The built dashboard. Generated, but committed so the site deploys. |
-| `pipeline/parse_statement_pdf.py` | One Statement PDF (as `pdftotext -layout` text) into structured rows. Each request is a two-column block: the board's explanation on the left, the agency's response on the right. |
-| `pipeline/build_statement_sheet.py` | One board's two-stage sheet. Joins the PDF parse to the Register on explanation text, derives Capital/Expense from the tracking-code suffix, and assigns committees. |
-| `pipeline/build_all_boards.py` | Driver. Fetches and parses all 59 Statement PDFs in parallel, runs the per-board build, concatenates into one all-boards CSV. |
-| `pipeline/generate_cb2_html.py` | The all-boards CSV into `index.html`. Sorting, filtering, and CSV export are generated inline. |
-| `pipeline/build_cb2_register.py` | Standalone: rebuilds a CB2-only sheet from the open-data Register alone, without the PDFs. |
-| `pipeline/committee_labels.csv` | The committee for each request, keyed by request id. Produced by `label_committees/`. |
+| `index.html`, `fy<YEAR>/index.html` | The built pages, with the latest year at the root. Generated, but committed. |
+| `pipeline/shared.py` | The fiscal years, each year's Register publications, agency names, request ids, the stance rule and the committee fallback. Every builder imports it. |
+| `pipeline/build_all_boards.py` | Builds one year (`--fy YEAR`). For a PDF year it fetches and parses all 59 Statement PDFs in parallel, builds each board, and falls back to the Register for a board whose PDF lacks per-request responses or holds another board's requests. Other years go to `build_register_year.py`. |
+| `pipeline/parse_statement_pdf.py` | One Statement PDF (as `pdftotext -layout` text) into structured rows. |
+| `pipeline/build_statement_sheet.py` | One board's two-stage sheet for a PDF year. Joins the PDF parse to the Register on explanation text. |
+| `pipeline/build_register_year.py` | A year's sheet from the Register alone, and the per-board fallback for PDF years. |
+| `pipeline/generate_cb2_html.py` | One year's CSV into one page, including the Year menu. |
+| `pipeline/build_cb2_register.py` | Standalone. Builds a CB2-only sheet from the Register alone. |
+| `pipeline/committee_labels.csv` | The committee for each request, keyed by request id. |
 | `label_committees/` | The committee definitions, labeling scripts and validation. See its README. |
-| `update.sh` | Runs the whole pipeline and redeploys. |
-
-Statement PDFs come from DCP's public
-[NYCPlanning/labs-cd-needs-statements](https://github.com/NYCPlanning/labs-cd-needs-statements)
-repo; the Register comes from NYC Open Data dataset `vn4m-mk4t`.
+| `update.sh` | Rebuilds every year and redeploys. |
 
 ## Rebuilding
 
-Requires `python3` with `pandas`, `pdftotext` (poppler), and the `vercel` CLI.
+Requires `python3` with `pandas`, `pdftotext` (poppler) and the `vercel` CLI.
 
 ```sh
-./update.sh            # data scratch dir defaults to ~/Downloads
+./update.sh              # full rebuild; the data directory defaults to ~/Downloads
+REUSE=1 ./update.sh      # reuse parsed PDFs and downloaded Registers (code or labels changed)
 DATA=/some/dir ./update.sh
 ```
 
-Code runs from `pipeline/`; the downloaded PDFs, the Register CSV, and the
-intermediate per-board CSVs are written to the data directory and are gitignored.
-
-When only the build logic or the committee labels change, skip the download and
-the PDF parsing. Run this from the data directory. It takes about a minute.
+Code runs from `pipeline/`. Downloaded PDFs, Registers and intermediate CSVs go to the
+data directory and are gitignored. To rebuild one year, run these from the data
+directory.
 
 ```sh
-python3 ~/cb2-budget-requests-fy2027/pipeline/build_all_boards.py --reuse-parsed
+python3 ~/cb2-budget-requests-fy2027/pipeline/build_all_boards.py --fy 2025
+python3 ~/cb2-budget-requests-fy2027/pipeline/generate_cb2_html.py --fy 2025 \
+    "CB FY2025 Requests (all boards, detailed, 2-stage).csv" ~/cb2-budget-requests-fy2027/fy2025/index.html
 ```
 
 ### One input is not in this repo
@@ -62,34 +82,31 @@ python3 ~/cb2-budget-requests-fy2027/pipeline/build_all_boards.py --reuse-parsed
     Submitting Budget Requests to Budget Committee (Responses) - Form Responses 1.csv
 
 That is a CB2 internal Google Form containing the names of the board members who
-filed each request, so it is deliberately not published here. It is used **only** to
-give Queens CB2 exact committee assignments. Without it the build still works, and
-CB2's committees come from `pipeline/committee_labels.csv` like every other board's.
-Those labels match the form's primary committee for 58 of CB2's 65 requests.
+filed each request, so it is deliberately not published here. It gives Queens CB2's
+FY2027 requests their exact committee assignments, and it covers only FY2027. Without
+it the build still works, and CB2's committees come from `pipeline/committee_labels.csv`
+like every other board's. Those labels match the form's primary committee for 58 of
+CB2's 65 FY2027 requests.
 
-## Generalizing to other years and boards
+## Adding a fiscal year
 
-The **board** dimension is already general: `build_all_boards.py` iterates all five
-boroughs (`PREFIX`, `MAXCB`) and `build_statement_sheet.py` takes `BORO` and `CB` as
-arguments.
+1. Add the year to `YEARS` in `pipeline/shared.py`, with its two Register publications
+   in `PUBLICATIONS`. Each year has a January round in which `responded_by` holds an
+   agency code, and an April or May round in which it is `OMB`. Grouping the Register
+   by `publication` and `responded_by` shows both.
+2. If that year's Statement PDFs carry per-request "Agency Response:" blocks, add the
+   year to `PDF_YEARS`.
+3. Build the year's CSV, then label its new requests with `label_committees/prepare_years.py`
+   and `label_committees/assemble_years.py`. Requests resubmitted from earlier years
+   keep their existing labels.
+4. Run `./update.sh`.
 
-The **fiscal year** is still hardcoded. To move to another FY, these are the places
-that need to change:
+## Committees
 
-| File | Line | What is hardcoded |
-| --- | --- | --- |
-| `update.sh` | 16 | Register query: `publication='20270217' OR '20260512'` (the Executive and Preliminary publication dates) |
-| `update.sh` | 12, 21 | Combined-CSV and built-HTML filenames |
-| `pipeline/build_all_boards.py` | 19 | `REGISTER` filename |
-| `pipeline/build_all_boards.py` | 26 | PDF URL path: `{pre} DNS FY 2027/FY2027_Statement_{code}.pdf` |
-| `pipeline/build_all_boards.py` | 86 | Output CSV filename |
-| `pipeline/build_statement_sheet.py` | 151 | Register row filter `d["fy"] == "2027"` |
-| `pipeline/generate_cb2_html.py` | 13, 14, 17, 28 | Default in/out filenames, DCP repo directory, per-board PDF links |
-| `pipeline/generate_cb2_html.py` | 73, 79, 146, 406, 462, 464 | Column help text, page title, CSV export filename, `<h1>`, Statement link label |
-
-The other CB2-specific piece is the **committee taxonomy**. Every board's requests
-are labeled with CB2's seven committees, defined in `label_committees/rubric.md`. A
-new fiscal year needs new labels, and `label_committees/README.md` describes how to
-produce them. Until then, unlabeled requests fall back to the agency and keyword rule
-in `build_statement_sheet.py`, and the build log says how many did. A board with a
-different committee structure would need its own rubric and its own labels.
+Every request is assigned to one of Queens CB2's seven committees, defined in
+`label_committees/rubric.md`. CB2's own FY2027 requests take theirs from CB2's
+committee form. Everything else is labeled by a model following the rubric, and
+`label_committees/README.md` describes the method and its validation. A request with
+no label falls back to an agency and keyword rule, and the build log reports how many
+did. A board with a different committee structure would need its own rubric and
+labels.

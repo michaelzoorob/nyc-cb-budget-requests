@@ -9,3 +9,4 @@ parsed_*.csv
 out_*.csv
 CB FY*Requests*.csv
 *.pdf
+__pycache__/
