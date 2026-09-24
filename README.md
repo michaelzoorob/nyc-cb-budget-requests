@@ -28,6 +28,8 @@ on Queens CB2 but every board is in the file and selectable.
 | `pipeline/build_all_boards.py` | Driver. Fetches and parses all 59 Statement PDFs in parallel, runs the per-board build, concatenates into one all-boards CSV. |
 | `pipeline/generate_cb2_html.py` | The all-boards CSV into `index.html`. Sorting, filtering, and CSV export are generated inline. |
 | `pipeline/build_cb2_register.py` | Standalone: rebuilds a CB2-only sheet from the open-data Register alone, without the PDFs. |
+| `pipeline/committee_labels.csv` | The committee for each request, keyed by request id. Produced by `label_committees/`. |
+| `label_committees/` | The committee definitions, labeling scripts and validation. See its README. |
 | `update.sh` | Runs the whole pipeline and redeploys. |
 
 Statement PDFs come from DCP's public
@@ -46,6 +48,13 @@ DATA=/some/dir ./update.sh
 Code runs from `pipeline/`; the downloaded PDFs, the Register CSV, and the
 intermediate per-board CSVs are written to the data directory and are gitignored.
 
+When only the build logic or the committee labels change, skip the download and
+the PDF parsing. Run this from the data directory. It takes about a minute.
+
+```sh
+python3 ~/cb2-budget-requests-fy2027/pipeline/build_all_boards.py --reuse-parsed
+```
+
 ### One input is not in this repo
 
 `build_all_boards.py` expects a committee-assignment form export:
@@ -54,9 +63,9 @@ intermediate per-board CSVs are written to the data directory and are gitignored
 
 That is a CB2 internal Google Form containing the names of the board members who
 filed each request, so it is deliberately not published here. It is used **only** to
-give Queens CB2 exact committee assignments. Without it the build still works and
-CB2's committees are inferred the same way every other board's are, from the
-responsible agency plus the request text.
+give Queens CB2 exact committee assignments. Without it the build still works, and
+CB2's committees come from `pipeline/committee_labels.csv` like every other board's.
+Those labels match the form's primary committee for 58 of CB2's 65 requests.
 
 ## Generalizing to other years and boards
 
@@ -73,12 +82,14 @@ that need to change:
 | `update.sh` | 12, 21 | Combined-CSV and built-HTML filenames |
 | `pipeline/build_all_boards.py` | 19 | `REGISTER` filename |
 | `pipeline/build_all_boards.py` | 26 | PDF URL path: `{pre} DNS FY 2027/FY2027_Statement_{code}.pdf` |
-| `pipeline/build_all_boards.py` | 73 | Output CSV filename |
-| `pipeline/build_statement_sheet.py` | 125 | Register row filter `d["fy"] == "2027"` |
+| `pipeline/build_all_boards.py` | 86 | Output CSV filename |
+| `pipeline/build_statement_sheet.py` | 151 | Register row filter `d["fy"] == "2027"` |
 | `pipeline/generate_cb2_html.py` | 13, 14, 17, 28 | Default in/out filenames, DCP repo directory, per-board PDF links |
 | `pipeline/generate_cb2_html.py` | 73, 79, 146, 406, 462, 464 | Column help text, page title, CSV export filename, `<h1>`, Statement link label |
 
-The other CB2-specific piece is the **committee taxonomy** in
-`build_statement_sheet.py`, which is used to infer committees for every board. A
-generalized version would take the year as a CLI argument or config value and let a
-board supply its own committee list.
+The other CB2-specific piece is the **committee taxonomy**. Every board's requests
+are labeled with CB2's seven committees, defined in `label_committees/rubric.md`. A
+new fiscal year needs new labels, and `label_committees/README.md` describes how to
+produce them. Until then, unlabeled requests fall back to the agency and keyword rule
+in `build_statement_sheet.py`, and the build log says how many did. A board with a
+different committee structure would need its own rubric and its own labels.

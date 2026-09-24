@@ -10,12 +10,15 @@ Usage:
   which is board-independent (the PDF's own "N of M" numbering is not).
 - Agency Stance (MZ added)                              <- from the agency response.
 - Committees                                           <- CB2: from the committee form
-  (when supplied); all other boards: inferred from the agency + request text using
-  CB2's committee taxonomy.
+  (when supplied); otherwise from committee_labels.csv (model-assigned, see
+  label_committees/README.md), falling back to an agency + keyword rule for any
+  request that has no label yet.
 """
+import os
 import re
 import sys
 import difflib
+import hashlib
 import pandas as pd
 
 BORO = sys.argv[1]
@@ -95,18 +98,42 @@ AGENCY_COMMITTEE = {
 }
 
 
+# Whole words only. A bare substring test for "esol" matched r-ESOL-ution and
+# r-ESOL-ve, which put 35 unrelated requests into Engagement and Inclusion.
+# "language accessibility" is spelled out because it means language access.
+EI_KEYWORDS = re.compile(r"\b(esol|language access(?:ibility)?|immigrants?)\b")
+
+
 def infer_committees(title, expl, ab):
-    """CB2-taxonomy committee guess for boards without a committee form.
+    """Fallback CB2-taxonomy guess, used only for requests with no entry in
+    committee_labels.csv (e.g. a new fiscal year before it has been labeled).
     Agency decides the primary committee; the language-access/immigrant keyword
     only APPENDS Engagement and Inclusion (never replaces the topic). No
     memorial/monument rule here -- citywide it false-positives on park names
     ("Flushing Memorial Field") and landmark mentions."""
     t = (str(title) + " " + str(expl)).lower()
     out = [AGENCY_COMMITTEE.get(ab, "City Services")]
-    if ("esol" in t or "language access" in t or "immigrant" in t) \
-            and "Engagement and Inclusion" not in out:
+    if EI_KEYWORDS.search(t) and "Engagement and Inclusion" not in out:
         out.append("Engagement and Inclusion")
     return out
+
+
+# Model-assigned committees for boards without a committee form, produced by
+# label_committees/ (see its README) and keyed by request_id(). CB2's own rows
+# never use this file: its committee form is the ground truth.
+LABELS_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), "committee_labels.csv")
+
+
+def request_id(board, title, expl):
+    """Stable id for one request: survives re-parsing, changes if the text changes."""
+    return hashlib.sha1(f"{board}|{norm(title)}|{norm(expl)}".encode()).hexdigest()[:12]
+
+
+def load_labels():
+    if not os.path.exists(LABELS_CSV):
+        return {}
+    lab = pd.read_csv(LABELS_CSV, dtype=str).fillna("")
+    return {i: [c for c in (p, s) if c] for i, p, s in zip(lab["id"], lab["primary"], lab["secondary"])}
 
 
 # Hand overrides (MZ's judgment where the standardized leading disposition is
@@ -214,7 +241,7 @@ if FORM_CSV:
         if mm:
             return [by_t[mm[0]]]
         t = (str(title) + " " + str(expl)).lower()
-        if "esol" in t or "language access" in t or "immigrant" in t:
+        if EI_KEYWORDS.search(t):
             return ["Health and Human Services", "Engagement and Inclusion"]
         out = [ag_def.get(ab) or AGENCY_COMMITTEE.get(ab) or "City Services"]
         if ("memorial" in t or "monument" in t) and "Arts and Culture" not in out:
@@ -224,8 +251,14 @@ if FORM_CSV:
     p["Committees"] = ["|".join(committees(t, e, a))
                        for t, e, a in zip(p["Title"], p["Explanation"], p["agency"])]
 else:
-    p["Committees"] = ["|".join(infer_committees(t, e, a))
-                       for t, e, a in zip(p["Title"], p["Explanation"], p["agency"])]
+    LABELS = load_labels()
+    ids = [request_id(BOARD, t, e) for t, e in zip(p["Title"], p["Explanation"])]
+    p["Committees"] = ["|".join(LABELS.get(i) or infer_committees(t, e, a))
+                       for i, t, e, a in zip(ids, p["Title"], p["Explanation"], p["agency"])]
+    n_lab = sum(i in LABELS for i in ids)
+    if n_lab < len(ids):
+        print(f"  committees: {n_lab} from committee_labels.csv, "
+              f"{len(ids) - n_lab} fell back to the agency/keyword rule", file=sys.stderr)
 
 p["_t"] = p["Type"].map({"Capital": 0, "Expense": 1}).fillna(2)
 p["_p"] = pd.to_numeric(p["Priority"], errors="coerce")

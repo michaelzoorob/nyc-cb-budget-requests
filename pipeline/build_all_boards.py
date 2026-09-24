@@ -42,13 +42,24 @@ def fetch_parse(boro, cb):
     return (boro, cb, code, "PARSED" if n else "PARSE_FAIL", n)
 
 
-for _f in glob.glob("parsed_*.csv") + glob.glob("out_*.csv"):
-    os.remove(_f)
+# --reuse-parsed skips the download + PDF parse and rebuilds from the parsed_*.csv
+# already in the working directory. Use it when only the build logic or the
+# committee labels changed; the Statement PDFs themselves don't change.
+REUSE = "--reuse-parsed" in sys.argv
 tasks = [(b, cb) for b in PREFIX for cb in range(1, MAXCB[b] + 1)]
-sys.stderr.write(f"Fetching + parsing {len(tasks)} boards (parallel)...\n")
-sys.stderr.flush()
-with concurrent.futures.ThreadPoolExecutor(max_workers=12) as ex:
-    parsed = list(ex.map(lambda t: fetch_parse(*t), tasks))
+for _f in glob.glob("out_*.csv") + ([] if REUSE else glob.glob("parsed_*.csv")):
+    os.remove(_f)
+if REUSE:
+    parsed = []
+    for b, cb in tasks:
+        code = f"{PREFIX[b]}{cb:02d}"
+        n = len(pd.read_csv(f"parsed_{code}.csv", dtype=str)) if os.path.exists(f"parsed_{code}.csv") else 0
+        parsed.append((b, cb, code, "PARSED" if n else "NO_PARSED_CSV", n))
+else:
+    sys.stderr.write(f"Fetching + parsing {len(tasks)} boards (parallel)...\n")
+    sys.stderr.flush()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=12) as ex:
+        parsed = list(ex.map(lambda t: fetch_parse(*t), tasks))
 
 ok = [p for p in parsed if p[3] == "PARSED"]
 sys.stderr.write(f"Parsed OK: {len(ok)}/{len(tasks)}\n")
@@ -64,6 +75,8 @@ for boro, cb, code, st, n in ok:
     if code == "QN02":
         args.append(FORM)
     r = subprocess.run(args, capture_output=True, text=True)
+    if "fell back" in r.stderr:     # requests with no committee label yet
+        sys.stderr.write(f"  {code}:{r.stderr.strip().split('committees:', 1)[-1]}\n")
     if os.path.exists(out):
         dfs.append(pd.read_csv(out, dtype=str))
     else:
