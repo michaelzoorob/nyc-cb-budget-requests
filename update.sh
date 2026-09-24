@@ -33,7 +33,7 @@ done
 # working. When a newer year is added, the loop above overwrites it with a real page.
 mkdir -p "$PROJ/fy$LATEST"
 cat > "$PROJ/fy$LATEST/index.html" <<EOF
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>FY$LATEST Community Board Budget Requests</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="data:,"><title>FY$LATEST Community Board Budget Requests</title>
 <script>location.replace("/"+location.search+location.hash)</script></head>
 <body><a href="/">FY$LATEST is the latest year. Continue to the dashboard.</a></body></html>
 EOF
