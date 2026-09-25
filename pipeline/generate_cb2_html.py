@@ -214,7 +214,9 @@ for idx, (_, r) in enumerate(df.iterrows()):
                 why = html.escape(clean_text(r["Follow-up Why"]), quote=True)
                 tds.append(f'<td class="fu-td" data-v="{html.escape(clean_text(r[c]), quote=True)}"><div class="fu-cell">'
                            f'<span class="pill fu-pill fu-{FU_SLUG.get(r[c], "n")}" title="{why}">{val}</span>'
-                           f'<button type="button" class="fu-btn">Draft letter</button></div></td>')
+                           + (f'<span class="fu-dest">{html.escape(clean_text(r["Follow-up Agency"]))}</span>'
+                              if str(r["Follow-up Agency"]).strip() else "")
+                           + '<button type="button" class="fu-btn">Draft letter</button></div></td>')
             else:
                 tds.append('<td class="fu-td" data-v=""></td>')
         elif c == "Board":
@@ -228,7 +230,8 @@ for idx, (_, r) in enumerate(df.iterrows()):
             tds.append(f'<td class="nowrap">{val}</td>')
     fu_attrs = "".join(f' {a}="{html.escape(clean_text(r[c]), quote=True)}"' for a, c in
                        [("data-tc", "Tracking Code"), ("data-fp", "Follow-up Purpose"),
-                        ("data-fc", "Follow-up Contact"), ("data-fu", "Follow-up URL")] if str(r[c]).strip())
+                        ("data-fc", "Follow-up Contact"), ("data-fu", "Follow-up URL"),
+                        ("data-fa", "Follow-up Agency")] if str(r[c]).strip())
     body.append(f'<tr class="{z}" data-search="{blob}" '
                 f'data-board="{html.escape(str(r["Board"]), quote=True)}" '
                 f'data-committees="{html.escape(str(r["Committees"]), quote=True)}"{fu_attrs}>' + "".join(tds) + "</tr>")
@@ -343,6 +346,8 @@ td .fu-pill{white-space:normal;overflow-wrap:normal}
 .fu-t{background:#ccfbf1;color:#115e59}
 .fu-c{background:#ffedd5;color:#9a3412}
 .fu-n{background:#f1f5f9;color:#475569}
+.fu-dest{font-size:11px;color:var(--mut);line-height:1.25}
+.fu-dest::before{content:"\2192  "}
 .fu-btn{border:1px solid #cbd5e1;background:#fff;border-radius:6px;padding:2px 8px;font-size:11px;cursor:pointer;color:#0f172a}
 .fu-btn:hover{background:#eef2ff;border-color:#a5b4fc}
 .fu-ov{position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:flex-start;justify-content:center;
@@ -761,7 +766,8 @@ FU_SCRIPT = r"""
   function andList(a){ return a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a[a.length-1]; }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   function reach(o){ return !!(o&&(o.email||o.form)); }
-  function agencyPhrase(a){ return a==='Other'||!a?'a city agency':'the '+a; }
+  function agencyPhrase(a){ if(a==='Other'||!a) return 'a city agency';
+    return /^(the |Con ?Edison|Consolidated Edison|Amtrak|National Grid|Verizon|Spectrum|PSEG|Optimum|Metro-North|LIRR)/i.test(a)?a:'the '+a; }
   function loadSender(){ try{ return JSON.parse(localStorage.getItem(SKEY)||'{}')||{}; }catch(e){ return {}; } }
   function saveSender(){ try{ localStorage.setItem(SKEY,JSON.stringify({name:fuName.value,role:fuRole.value})); }catch(e){} }
 
@@ -771,7 +777,7 @@ FU_SCRIPT = r"""
       boro:boroOf(tr.dataset.board), pri:val(tr,'Priority'), type:val(tr,'Type'), agency:val(tr,'Agency'),
       title:val(tr,'Title'), expl:val(tr,'Explanation'), ar:val(tr,'Agency Response'), omb:val(tr,'OMB Executive Response'),
       action:val(tr,'Follow-up'), why:pill?pill.title:'', purpose:tr.dataset.fp||'', named:tr.dataset.fc||'',
-      url:tr.dataset.fu||'', tc:tr.dataset.tc||''};
+      url:tr.dataset.fu||'', tc:tr.dataset.tc||'', dest:tr.dataset.fa||''};
   }
   function recipients(r){
     var out=[], a=r.action;
@@ -779,14 +785,19 @@ FU_SCRIPT = r"""
     // An agency's offices for this board: its own contact when the agency assigns staff by
     // board, the borough office, then a citywide liaison, then the head. Press offices and
     // contacts for a single facility or school district are listed but never pre-selected.
-    var offs=(C.agency[r.agency]||[]).filter(function(o){ return (!o.borough||o.borough===r.boro)&&(reach(o)||o.phone)&&
-      (!o.boards||!o.boards.length||o.boards.indexOf(r.board)>-1); });
     var rank=function(o){ if(!reach(o)) return 9; if(o.boards&&o.boards.indexOf(r.board)>-1) return 0;
       return {borough:1, liaison:2, head:3}[o.role]||8; };
-    offs.sort(function(a,b){ return rank(a)-rank(b); });
-    var pick=offs.filter(function(o){ return rank(o)<4; })[0];
-    offs.forEach(function(o){
-      out.push({kind:'agency', o:o, label:r.agency+', '+o.office+(o.person?' ('+o.person+')':''), on:wantA&&o===pick}); });
+    function offices(ag){ var offs=(C.agency[ag]||[]).filter(function(o){ return (!o.borough||o.borough===r.boro)&&(reach(o)||o.phone)&&
+      (!o.boards||!o.boards.length||o.boards.indexOf(r.board)>-1); });
+      offs.sort(function(a,b){ return rank(a)-rank(b); }); return offs; }
+    // A response that sends the board to another agency makes that agency the recipient;
+    // the agency that responded stays on the list, unselected.
+    [r.dest, r.agency].forEach(function(ag,k){ if(!ag||(k===1&&ag===r.dest)) return;
+      var offs=offices(ag), pick=offs.filter(function(o){ return rank(o)<4; })[0], main=(k===0)||!r.dest;
+      offs.forEach(function(o){ out.push({kind:'agency', ag:ag, orig:!!r.dest&&ag!==r.dest, o:o,
+        label:ag+', '+o.office+(o.person?' ('+o.person+')':''), on:wantA&&main&&o===pick}); });
+      if(!offs.length&&k===0) out.push({kind:'agency', ag:ag, orig:false, o:{office:'', person:'', email:'', form:'', phone:''},
+        label:ag+' (no contact on file)', on:wantA}); });
     (C.boardCouncil[r.board]||[]).forEach(function(p){ var m=C.council[String(p[0])]; if(!m) return;
       out.push({kind:'council', o:m, label:m.salutation+', District '+p[0]+' (covers '+Math.round(p[1]*100)+'% of the board’s area)',
                 on:wantE&&p[1]>=0.1}); });
@@ -798,14 +809,19 @@ FU_SCRIPT = r"""
   }
   function isBP(o){ return o.role==='head'||/^Borough President$/i.test(o.office||''); }
   function bpName(o){ return isBP(o)?'Borough President'+(o.person?' '+o.person:''):(o.person||'colleagues at the Borough President\u2019s office'); }
+  // The honorific for a salutation ("Commissioner Diya Vij"), from a formal title such as
+  // "Commissioner of the NYC Department of Cultural Affairs". Other titles use the name alone.
+  function honor(t){ t=t||''; var m=/^(Deputy|Assistant) Commissioner/i.exec(t);
+    if(m) return m[0]; if(/Commissioner/i.test(t)) return 'Commissioner';
+    if(/^Chancellor/i.test(t)) return 'Chancellor'; if(/^Chair/i.test(t)) return 'Chair';
+    if(/^President/i.test(t)) return 'President'; return ''; }
   function salute(x,r){
     if(x.kind==='council') return x.o.salutation;
     if(x.kind==='bp') return bpName(x.o);
-    if(x.o.person){ var t=x.o.title||(/(Commissioner|Chancellor|Director|Chair|President)$/.test(x.o.office||'')?x.o.office:'');
-      return (t?t+' ':'')+x.o.person; }
-    return 'colleagues at '+agencyPhrase(r.agency);
+    if(x.o.person){ var t=honor(x.o.title||x.o.office); return (t?t+' ':'')+x.o.person; }
+    return 'colleagues at '+agencyPhrase(x.ag||r.agency);
   }
-  function agencyAsk(r,direct){
+  function agencyAsk(r,direct,orig){
     var Y=direct?'Your response':'The response from '+agencyPhrase(r.agency);
     switch(r.purpose){
       case 'clarify': return Y+' says the agency needs more information about this request. We would like to provide it. Please tell us what information would help, or suggest a time for board members to discuss the request with the right staff.';
@@ -816,6 +832,9 @@ FU_SCRIPT = r"""
       case 'advocacy': return Y+' indicates that this request needs a decision beyond the agency. Please tell us which office or level of government would need to act, and what the board can do to help.';
       case 'status': return 'Thank you for the agency’s response. Please tell us the current status of this request, the expected timeline and whom we should contact for updates.';
       case 'channel': return Y+' directs the board to '+(r.url||'311')+'. We will use that process. Please tell us if the board should take any other step.';
+      case 'redirect': return r.dest?(orig?'Your response directs the board to '+agencyPhrase(r.dest)+'. We are bringing the request to that agency. Please tell us whom there we should contact, or whether your agency can take on any part of the request.'
+        :agencyPhrase(r.agency).replace(/^t/,'T')+' directed the board to your agency for this request. Please tell us whether your agency can consider it in the next budget, and whom we should contact about it.')
+        :Y+' directs the board to another office. Please tell us whom we should contact.';
       case 'no_response': return 'We could not find a published response to this request in the Statement of Community District Needs or in the City’s Register of Community Board Budget Requests. Please tell us the agency’s position on the request.';
       default: return 'Please tell us the current status of this request and whether any work remains.';
     }
@@ -844,7 +863,7 @@ FU_SCRIPT = r"""
     var ar=lead(r.ar,2,360), echo=!r.omb||/^OMB supports the agency.s position/i.test(r.omb);
     var p2=ar?(r.agency&&r.agency!=='Other'?'The '+r.agency:'The agency')+' responded, “'+ar+'”':'We could not find a published response from '+agencyPhrase(r.agency)+'.';
     if(!echo) p2+=' In the Executive Budget, OMB responded, “'+lead(r.omb,2,300)+'”';
-    var asks=[]; if(ag.length) asks.push(agencyAsk(r,!joint)); if(el.length) asks.push(electedAsk(r,el,joint));
+    var asks=[]; if(ag.length) asks.push(agencyAsk(r,!joint,ag.every(function(x){return x.orig;}))); if(el.length) asks.push(electedAsk(r,el,joint));
     var s={name:fuName.value.trim(), role:fuRole.value.trim()};
     var lines=['Dear '+andList(xs.map(function(x){return salute(x,r);}))+',','',p1,'',p2,''];
     asks.forEach(function(a){ lines.push(a,''); });
@@ -900,7 +919,8 @@ FU_SCRIPT = r"""
     document.getElementById('fuTitle').textContent=cur.title||'Follow up';
     var meta='<span class="pill fu-pill fu-'+({'Contact agency':'a','Contact elected officials':'e','Contact agency and elected officials':'ae','Track with agency':'t','Use 311 or another channel':'c','No follow-up needed':'n'}[cur.action]||'n')+'">'+esc(cur.action||'No label')+'</span> '+esc(cur.why);
     meta+='<div class="fu-small">'+esc(cur.full)+' · FY'+esc(FY)+' '+esc(cur.type)+(cur.pri?' priority '+esc(cur.pri):'')+(cur.tc?' · tracking code '+esc(cur.tc):'')+' · '+esc(cur.agency)+'</div>';
-    if(cur.named) meta+='<div class="fu-small">The response names this contact: '+esc(cur.named)+'</div>';
+    if(cur.dest) meta+='<div class="fu-small">The response points to '+esc(agencyPhrase(cur.dest))+(C.agency[cur.dest]?'.':'. No contact for it is on file, so add its address yourself.')+'</div>';
+    else if(cur.named) meta+='<div class="fu-small">The response names this contact: '+esc(cur.named)+'</div>';
     if(cur.url) meta+='<div class="fu-small">The response links to <a href="'+esc(cur.url)+'" target="_blank" rel="noopener">'+esc(clip(cur.url,80))+'</a></div>';
     if(cur.action==='Use 311 or another channel') meta+='<div class="fu-small"><a href="'+esc(cur.url||'https://portal.311.nyc.gov/')+'" target="_blank" rel="noopener">'+(cur.url?'Open the channel the response names':'Open 311')+'</a></div>';
     if(cur.action==='No follow-up needed') meta+='<div class="fu-small">No follow-up is needed. Select a recipient to draft a letter anyway.</div>';

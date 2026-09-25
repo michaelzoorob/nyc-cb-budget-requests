@@ -10,18 +10,18 @@ Requests that received the same agency response and the same OMB response share 
 
 | Action | Response pairs | Requests |
 | --- | --- | --- |
-| Contact agency | 2,189 | 11,573 (39.3%) |
-| Contact elected officials | 1,559 | 8,502 (28.9%) |
-| Track with agency | 1,710 | 6,421 (21.8%) |
-| Use 311 or another channel | 696 | 1,834 (6.2%) |
-| No follow-up needed | 461 | 765 (2.6%) |
-| Contact agency and elected officials | 63 | 333 (1.1%) |
+| Contact agency | 2,407 | 12,034 (40.9%) |
+| Contact elected officials | 1,622 | 8,804 (29.9%) |
+| Track with agency | 1,807 | 6,628 (22.5%) |
+| Use 311 or another channel | 325 | 1,028 (3.5%) |
+| No follow-up needed | 478 | 799 (2.7%) |
+| Contact agency and elected officials | 39 | 135 (0.5%) |
 
 ## Pilot
 
 Before the full run, a Sonnet agent and an Opus agent each labeled 120 pairs without seeing the other's labels. The sample held the 60 most common pairs, which answer 44% of all requests, and 60 random pairs. The two chose the same action for 107 of the 120 pairs, which cover 99% of the requests in the sample, and for all 76 the Opus agent rated high confidence.
 
-Both agents flagged the same gaps, and the rubric now settles them. The most specific statement decides, so OMB text that only restates the agency defers to the agency's own reason. An instruction to contact the agency makes the purpose discuss, even when the agency also declines the request. Partial funding goes to the agency to discuss. A request that needs legislation or a decision beyond the agency goes to elected officials, with the purpose advocacy.
+Both agents flagged the same gaps, and the rubric now settles them. The most specific statement decides, so OMB text that only restates the agency defers to the agency's own reason. An instruction to contact the agency makes the purpose discuss, even when the agency also declines the request. Partial funding goes to the agency to discuss. A request that needs legislation or a decision beyond the agency goes to elected officials, with the purpose advocacy. After release, a user pointed out that a letter went to the Department of Cultural Affairs although its response said the request belongs to Parks. The rubric now gives such responses the purpose redirect and names the agency they point to, and the letter goes to that agency. Every pair labeled Use 311 or another channel, every pair naming a contact and every pair with redirect wording (1,591 pairs) was relabeled under the new rule. Of these, 341 pairs (787 requests) now point to another agency or public body.
 
 ## Validation
 

@@ -241,7 +241,8 @@ COLS = ["Priority", "Type", "Board", "Agency", "Title", "Explanation",
         "Tracking Code"]
 
 # Added to every year's CSV by add_followup(), from followup_labels.csv (label_followup/).
-FOLLOWUP_COLS = ["Follow-up", "Follow-up Purpose", "Follow-up Why", "Follow-up Contact", "Follow-up URL"]
+FOLLOWUP_COLS = ["Follow-up", "Follow-up Purpose", "Follow-up Why", "Follow-up Contact", "Follow-up URL",
+                 "Follow-up Agency"]   # the agency a response points to, when it is not the request's agency
 FOLLOWUP_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), "followup_labels.csv")
 
 
@@ -254,6 +255,6 @@ def add_followup(df):
         lab = {r["id"]: r for r in f.to_dict("records")}
     keys = [response_key(a, o) for a, o in zip(df["Agency Response"], df["OMB Executive Response"])]
     df = df.copy()
-    for col, field in zip(FOLLOWUP_COLS, ["action", "purpose", "why", "contact", "url"]):
-        df[col] = [lab[k][field] if k in lab else "" for k in keys]
+    for col, field in zip(FOLLOWUP_COLS, ["action", "purpose", "why", "contact", "url", "agency"]):
+        df[col] = [lab[k].get(field, "") if k in lab else "" for k in keys]
     return df, sum(k not in lab for k in keys)

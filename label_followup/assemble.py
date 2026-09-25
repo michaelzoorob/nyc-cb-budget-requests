@@ -22,14 +22,14 @@ from shared import response_key  # noqa: E402
 
 DEST = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "pipeline", "followup_labels.csv")
 ALLOWED = {
-    "Contact agency": {"clarify", "study", "discuss", "reconsider", "no_response"},
+    "Contact agency": {"clarify", "study", "discuss", "reconsider", "redirect", "no_response"},
     "Contact elected officials": {"funding", "advocacy"},
     "Contact agency and elected officials": {"funding", "advocacy", "discuss", "clarify", "study"},
     "Track with agency": {"status"},
     "Use 311 or another channel": {"channel"},
     "No follow-up needed": {"none"},
 }
-COLUMNS = ["id", "action", "purpose", "why", "contact", "url", "labeler"]
+COLUMNS = ["id", "action", "purpose", "why", "contact", "url", "agency", "labeler"]
 
 
 def main():
@@ -62,10 +62,11 @@ def main():
         sys.exit(1)
     # A URL never contains whitespace; the PDFs sometimes break one across lines.
     rows = [{"id": i, "action": x["action"], "purpose": x["purpose"], "why": x.get("why") or "",
-             "contact": x.get("contact") or "", "url": re.sub(r"\s+", "", x.get("url") or ""), "labeler": note}
+             "contact": x.get("contact") or "", "url": re.sub(r"\s+", "", x.get("url") or ""),
+             "agency": (x.get("agency") or "") if x["purpose"] == "redirect" else "", "labeler": note}
             for i, x in labels.items()]
     rows.append({"id": response_key("", ""), "action": "Contact agency", "purpose": "no_response",
-                 "why": "No agency or OMB response was published.", "contact": "", "url": "",
+                 "why": "No agency or OMB response was published.", "contact": "", "url": "", "agency": "",
                  "labeler": "rule: no response published"})
     new = pd.DataFrame(rows, columns=COLUMNS)
     old = pd.read_csv(DEST, dtype=str).fillna("") if os.path.exists(DEST) else pd.DataFrame(columns=COLUMNS)
