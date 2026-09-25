@@ -75,7 +75,8 @@ def _bk(b):
 
 
 df = pd.read_csv(CSV, dtype=str).fillna("")
-for _c in FOLLOWUP_COLS + ["Tracking Code"]:          # CSVs built before follow-up labels existed
+for _c in FOLLOWUP_COLS + ["Tracking Code", "Label ID", "History Years", "Prior Response",
+                           "Location Districts", "Location Match"]:   # older CSVs lack some of these
     if _c not in df:
         df[_c] = ""
 boards = sorted(df["Board"].unique(), key=_bk)
@@ -231,7 +232,9 @@ for idx, (_, r) in enumerate(df.iterrows()):
     fu_attrs = "".join(f' {a}="{html.escape(clean_text(r[c]), quote=True)}"' for a, c in
                        [("data-tc", "Tracking Code"), ("data-fp", "Follow-up Purpose"),
                         ("data-fc", "Follow-up Contact"), ("data-fu", "Follow-up URL"),
-                        ("data-fa", "Follow-up Agency")] if str(r[c]).strip())
+                        ("data-fa", "Follow-up Agency"), ("data-id", "Label ID"), ("data-hy", "History Years"),
+                        ("data-pr", "Prior Response"), ("data-cd", "Location Districts"),
+                        ("data-cw", "Location Match")] if str(r[c]).strip())
     body.append(f'<tr class="{z}" data-search="{blob}" '
                 f'data-board="{html.escape(str(r["Board"]), quote=True)}" '
                 f'data-committees="{html.escape(str(r["Committees"]), quote=True)}"{fu_attrs}>' + "".join(tds) + "</tr>")
@@ -347,12 +350,12 @@ td .fu-pill{white-space:normal;overflow-wrap:normal}
 .fu-c{background:#ffedd5;color:#9a3412}
 .fu-n{background:#f1f5f9;color:#475569}
 .fu-dest{font-size:11px;color:var(--mut);line-height:1.25}
-.fu-dest::before{content:"\2192  "}
+.fu-dest::before{content:"\u2192 "}
 .fu-btn{border:1px solid #cbd5e1;background:#fff;border-radius:6px;padding:2px 8px;font-size:11px;cursor:pointer;color:#0f172a}
 .fu-btn:hover{background:#eef2ff;border-color:#a5b4fc}
 .fu-ov{position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:flex-start;justify-content:center;
   z-index:60;padding:32px 16px;overflow:auto}
-.fu-ov[hidden]{display:none}
+.fu-ov[hidden],.fu-ov [hidden]{display:none!important}
 body.fu-lock{overflow:hidden}
 .fu-box{background:#fff;border-radius:12px;max-width:780px;width:100%;padding:16px 20px 18px;box-shadow:0 12px 36px rgba(15,23,42,.25)}
 .fu-head{display:flex;align-items:flex-start;gap:10px}
@@ -376,6 +379,23 @@ body.fu-lock{overflow:hidden}
 .fu-act.fu-copy{background:#fff;color:#1d4ed8}
 .fu-copied{font-size:12px;color:#166534}
 .fu-empty,.fu-note{font-size:12px;color:var(--mut)}
+.fu-cards{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.fu-card{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:1px;border:1px solid transparent;border-radius:8px;padding:5px 9px;font:inherit;font-size:11px;cursor:pointer;min-width:0}
+.fu-card b{font-size:15px}
+.fu-card.on{border-color:currentColor;box-shadow:0 0 0 1px currentColor inset}
+.fu-card.fu-sentcount{background:#f0fdf4;color:#166534;cursor:default}
+.fu-digest{align-self:center;margin-left:auto;border:1px solid #2563eb;background:#2563eb;color:#fff;border-radius:8px;padding:8px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.fu-digest:disabled{background:#94a3b8;border-color:#94a3b8;cursor:default}
+.fu-sent{font-size:11px;color:#166534;font-weight:600}
+.fu-sent::before{content:"\u2713 "}
+.fu-sentnote{color:#166534}
+.fu-warn{font-size:12px;color:#92400e;margin-top:4px}
+.fu-add{margin-top:6px;font-size:12.5px}
+.fu-add summary{cursor:pointer;color:#1d4ed8}
+.fu-add .fu-row{margin:6px 0 2px}
+.fu-link{border:0;background:none;color:#b42318;cursor:pointer;padding:0;font:inherit;font-size:12px;text-decoration:underline}
+.fu-act.fu-sentbtn{background:#f0fdf4;color:#166534;border-color:#86efac}
+#fuSel{max-width:230px}
 @media (max-width:820px){
   header{padding:14px 14px 10px}
   h1{font-size:16px;line-height:1.3}
@@ -411,6 +431,12 @@ body.fu-lock{overflow:hidden}
   .fu-ov{padding:0}
   .fu-box{border-radius:0;min-height:100vh;padding:14px}
   .fu-cell{flex-direction:row;align-items:center;flex-wrap:wrap}
+  /* On a phone the follow-up comes right after the title, above the long texts. */
+  tr:not(.hide){display:flex;flex-direction:column}
+  td{order:3} td:nth-child(-n+5){order:1} td.fu-td{order:2;border-bottom:1px solid #f1f5f9} td:nth-last-child(2){border-bottom:0}
+  #fuSel{flex:1 1 100%;max-width:none}
+  .fu-digest{margin-left:0;flex:1 1 100%}
+  .fu-card{flex:1 1 30%}
 }
 </style></head><body>
 """
@@ -419,6 +445,7 @@ HEAD = HEAD.replace("__FY__", FY)
 SCRIPT = r"""
 <script>
 (function(){
+  window.cbInitialSearch=location.search;
   var FY=window.pageYear;
   var has=function(o,k){return o!=null && Object.prototype.hasOwnProperty.call(o,k);};
   var table=document.querySelector('table');
@@ -453,6 +480,7 @@ SCRIPT = r"""
     for(var ci in filters){var f=filters[ci], v=cell(tr,+ci);
       if(f.type==='set'){ if(!has(f.allowed,v)) return false; }
       else if(f.type==='text'){ if(v.toLowerCase().indexOf(f.q)===-1) return false; }}
+    if(window.cbRowFilter && !window.cbRowFilter(tr)) return false;
     return true;
   }
   function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
@@ -493,7 +521,23 @@ SCRIPT = r"""
     });
     renderNotice(); renderChips(); setStick();
     writeURL();
+    try{ document.dispatchEvent(new CustomEvent('cb:applied')); }catch(e){}
   }
+  // For the follow-up controls: read and set a column's checkbox filter, and count a
+  // column's values over the rows every other filter keeps.
+  window.cbTable={
+    col:function(label){ for(var i=0;i<ths.length;i++) if(ths[i].dataset.label===label) return i; return -1; },
+    getSet:function(label){ var f=filters[this.col(label)]; return f&&f.type==='set'?Object.keys(f.allowed):null; },
+    setSet:function(label,vals){ var ci=this.col(label); if(ci<0) return;
+      if(vals){ var al={}; vals.forEach(function(v){al[v]=1;}); filters[ci]={type:'set',allowed:al}; } else delete filters[ci];
+      apply(); },
+    countBy:function(label,extra){ var ci=this.col(label), saved=filters[ci], rf=window.cbRowFilter, out={};
+      delete filters[ci]; window.cbRowFilter=null;
+      rows.forEach(function(tr){ if(rowOk(tr)){ var v=cell(tr,ci); out[v]=(out[v]||0)+1; if(extra&&extra(tr)) out.__extra=(out.__extra||0)+1; } });
+      if(saved) filters[ci]=saved; window.cbRowFilter=rf; return out; },
+    visible:function(){ return rows.filter(function(tr){ return !tr.classList.contains('hide'); }); },
+    apply:function(){ apply(); }
+  };
   function doSort(ci,dir){
     sortCol=ci; sortDir=dir; var num=numeric[ci];
     var ms=document.getElementById('msort'); if(ms) ms.value=ci+'.'+(dir===1?'asc':'desc');
@@ -613,11 +657,13 @@ SCRIPT = r"""
     if(/^[=+\-@]/.test(s)) s="'"+s;                      // keep spreadsheets from reading text as a formula
     return /[",]/.test(s)?('"'+s.replace(/"/g,'""')+'"'):s;}
   function downloadCSV(){
-    var cols=ths.map(function(t){return t.dataset.label;}).concat(['Committees']);
+    var ex=window.cbCsvExtras;
+    var cols=ths.map(function(t){return t.dataset.label;}).concat(['Committees']).concat(ex?ex.cols:[]);
     var lines=[cols.map(csvCell).join(',')];
     [].forEach.call(tbody.children,function(tr){ if(tr.classList.contains('hide')) return;   // current sort order
       var c=[]; for(var i=0;i<ths.length;i++) c.push(csvCell(cell(tr,i)));
       c.push(csvCell((tr.dataset.committees||'').split('|').join('; ')));
+      if(ex) ex.values(tr).forEach(function(v){ c.push(csvCell(v)); });
       lines.push(c.join(',')); });
     var blob=new Blob(['﻿'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'});
     var url=URL.createObjectURL(blob), a=document.createElement('a');
@@ -647,6 +693,7 @@ SCRIPT = r"""
       if(f.type==='set'){var v=Object.keys(f.allowed); if(!v.length) p.append(k,'__none__'); v.forEach(function(x){p.append(k,x);});}
       else if(f.type==='text'){p.set(k,f.q);}});
     if(sortCol>=0) p.set('sort',colKey(sortCol).slice(2)+(sortDir===1?'.asc':'.desc'));
+    if(window.cbUrlExtras) window.cbUrlExtras(p);
     var qs=p.toString();
     try{history.replaceState(null,'',(qs?('?'+qs):location.pathname)+location.hash);}catch(e){}
   }
@@ -735,94 +782,157 @@ FU_MODAL = """<div id="fuModal" class="fu-ov" hidden>
 <div class="fu-box" role="dialog" aria-modal="true" aria-labelledby="fuTitle">
 <div class="fu-head"><h2 id="fuTitle"></h2><button type="button" class="fu-x" aria-label="Close">&times;</button></div>
 <div id="fuMeta" class="fu-meta"></div>
-<div class="fu-sec"><div class="fu-h">Recipients</div><div id="fuRecips"></div></div>
-<div class="fu-sec fu-row"><label><input type="radio" name="fuMode" value="each" checked> A separate letter for each recipient</label>
+<div id="fuRecipSec" class="fu-sec"><div class="fu-h">Recipients</div><div id="fuRecips"></div></div>
+<div id="fuModeSec" class="fu-sec fu-row"><label><input type="radio" name="fuMode" value="each" checked> A separate letter for each recipient</label>
 <label><input type="radio" name="fuMode" value="joint"> One letter to all</label></div>
 <div class="fu-sec fu-row"><input id="fuName" class="fu-in" placeholder="Your name" autocomplete="name">
 <input id="fuRole" class="fu-in" placeholder="Your title (for example, Chair)"></div>
 <div id="fuLetters"></div>
 <p class="fu-note">Each draft quotes the request and the city's responses. Review and edit it before sending.
-Changing recipients redrafts the letters, so edit last. Contacts come from official city websites
-(<span id="fuAsOf"></span>); check them before relying on them.</p>
+Your name, your saved contacts and the letters you mark as sent stay in this browser.
+Contacts come from official city websites (<span id="fuAsOf"></span>); check them before relying on them.</p>
 </div></div>"""
 
 FU_SCRIPT = r"""
 <script>
 (function(){
-  var dlg=document.getElementById('fuModal'); if(!dlg) return;
+  var dlg=document.getElementById('fuModal'), T=window.cbTable; if(!dlg||!T) return;
   var C=window.contacts||{}; ['council','boardCouncil','bp','agency'].forEach(function(k){ if(!C[k]) C[k]={}; });
   var FY=window.pageYear, boardFull=window.boardFull||{}, boardName=window.boardName||{};
   var ths=[].slice.call(document.querySelectorAll('table thead th')), col={};
   ths.forEach(function(t,i){ col[t.dataset.label]=i; });
   var BORO={M:'Manhattan',BX:'Bronx',BK:'Brooklyn',Q:'Queens',SI:'Staten Island'};
-  var SKEY='cbFollowupSender', cur=null, list=[], mode='each', lastFocus=null;
-  function boroOf(b){ var m=/^(BX|BK|SI|M|Q)CB\d+$/.exec(b||''); return m?BORO[m[1]]:''; }
+  var ACTIONS=['Contact agency','Contact elected officials','Contact agency and elected officials','Track with agency',
+               'Use 311 or another channel','No follow-up needed'];
+  var SLUG={'Contact agency':'a','Contact elected officials':'e','Contact agency and elected officials':'ae',
+            'Track with agency':'t','Use 311 or another channel':'c','No follow-up needed':'n'};
+  var MONTH=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var fuName=document.getElementById('fuName'), fuRole=document.getElementById('fuRole');
+  var cur=null, list=[], mode='each', lastFocus=null, digest=null, edits={};
+
+  // ---- saved in this browser ----
+  function load(k,d){ try{ var v=JSON.parse(localStorage.getItem(k)||'null'); return v==null?d:v; }catch(e){ return d; } }
+  function save(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+  var sender=load('cbFollowupSender',{}), sent=load('cbFollowupSent',{}), mine=load('cbFollowupContacts',{});
+  fuName.value=sender.name||''; fuRole.value=sender.role||'';
+  function rowKey(tr){ return FY+'|'+(tr.dataset.id||tr.dataset.tc||tr.dataset.search.slice(0,60)); }
+
+  // ---- text ----
   function val(tr,label){ var i=col[label]; if(i==null) return ''; var td=tr.children[i], v=td.getAttribute('data-v');
     return (v!==null?v:td.textContent).replace(/\s+/g,' ').trim(); }
   function clip(s,max){ s=(s||'').replace(/\s+/g,' ').trim(); if(s.length<=max) return s;
     var c=s.slice(0,max), d=c.lastIndexOf('. '); return d>max*0.5?c.slice(0,d+1):c.replace(/\s+\S*$/,'')+'…'; }
-  function lead(s,n,max){ s=(s||'').replace(/\s+/g,' ').trim(); if(!s) return '';
-    var parts=s.match(/[^.!?]+(?:[.!?]+|$)/g)||[s]; return clip(parts.slice(0,n).join('').trim(),max); }
+  // A response's sentences, without breaking at "U.S." or "St." or inside a URL.
+  var ABBR=/^(?:\(?[A-Z]\.|(?:[A-Za-z]\.){2,}|(?:St|Ave|Dept|No|Nos|Mr|Ms|Mrs|Dr|Inc|Co|Corp|Jr|Sr|vs|approx|Blvd|Rd|Pl|Pkwy|Bldg|Fl|Rm|Ste|Div)\.)$/;
+  function sentences(s){ s=(s||'').replace(/\s+/g,' ').trim(); var out=[], start=0, re=/[.!?]+(?=\s|$)/g, m;
+    while((m=re.exec(s))){ var end=m.index+m[0].length, w=(/\S+$/.exec(s.slice(start,end))||[''])[0];
+      if(end<s.length&&ABBR.test(w)) continue; out.push(s.slice(start,end).trim()); start=end; }
+    if(s.slice(start).trim()) out.push(s.slice(start).trim()); return out; }
+  function lead(s,n,max){ return clip(sentences(s).slice(0,n).join(' '),max); }
+  // A quoted text ends a sentence in the letter, so it needs end punctuation.
+  function stop(s){ return !s||/[.!?…]$/.test(s)?s:s+'.'; }
+  // The response as a letter quotes it. When the follow-up turns on a contact, a process or
+  // another agency that the response names after its first two sentences, the quote adds
+  // that sentence.
+  var KEY=/\b(contact|reach out|call|e-?mail|apply|application|programs?|submit|forms?|311|portal|www\.|https?:|refer|jurisdiction|responsib|handled by|purview)/i;
+  function quote(s,r,max){ var p=sentences(s), q=clip(p.slice(0,2).join(' '),max), k=-1;
+    if(/^(channel|redirect|discuss|clarify)$/.test(r.purpose)&&!KEY.test(q))
+      for(var j=2;j<p.length;j++) if(KEY.test(p[j])){ k=j; break; }
+    return k<0?q:q+(k===2?' ':' … ')+clip(p[k],280); }
   function andList(a){ return a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a[a.length-1]; }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   function reach(o){ return !!(o&&(o.email||o.form)); }
+  function boroOf(b){ var m=/^(BX|BK|SI|M|Q)CB\d+$/.exec(b||''); return m?BORO[m[1]]:''; }
   function agencyPhrase(a){ if(a==='Other'||!a) return 'a city agency';
-    return /^(the |Con ?Edison|Consolidated Edison|Amtrak|National Grid|Verizon|Spectrum|PSEG|Optimum|Metro-North|LIRR)/i.test(a)?a:'the '+a; }
-  function loadSender(){ try{ return JSON.parse(localStorage.getItem(SKEY)||'{}')||{}; }catch(e){ return {}; } }
-  function saveSender(){ try{ localStorage.setItem(SKEY,JSON.stringify({name:fuName.value,role:fuRole.value})); }catch(e){} }
-
-  function request(tr){
-    var pill=tr.querySelector('.fu-pill');
-    return {board:tr.dataset.board||'', full:boardFull[tr.dataset.board]||tr.dataset.board||'the community board',
-      boro:boroOf(tr.dataset.board), pri:val(tr,'Priority'), type:val(tr,'Type'), agency:val(tr,'Agency'),
-      title:val(tr,'Title'), expl:val(tr,'Explanation'), ar:val(tr,'Agency Response'), omb:val(tr,'OMB Executive Response'),
-      action:val(tr,'Follow-up'), why:pill?pill.title:'', purpose:tr.dataset.fp||'', named:tr.dataset.fc||'',
-      url:tr.dataset.fu||'', tc:tr.dataset.tc||'', dest:tr.dataset.fa||''};
-  }
-  function recipients(r){
-    var out=[], a=r.action;
-    var wantA=/^(Contact agency|Track with agency)/.test(a), wantE=/elected officials$/.test(a);
-    // An agency's offices for this board: its own contact when the agency assigns staff by
-    // board, the borough office, then a citywide liaison, then the head. Press offices and
-    // contacts for a single facility or school district are listed but never pre-selected.
-    var rank=function(o){ if(!reach(o)) return 9; if(o.boards&&o.boards.indexOf(r.board)>-1) return 0;
-      return {borough:1, liaison:2, head:3}[o.role]||8; };
-    function offices(ag){ var offs=(C.agency[ag]||[]).filter(function(o){ return (!o.borough||o.borough===r.boro)&&(reach(o)||o.phone)&&
-      (!o.boards||!o.boards.length||o.boards.indexOf(r.board)>-1); });
-      offs.sort(function(a,b){ return rank(a)-rank(b); }); return offs; }
-    // A response that sends the board to another agency makes that agency the recipient;
-    // the agency that responded stays on the list, unselected.
-    [r.dest, r.agency].forEach(function(ag,k){ if(!ag||(k===1&&ag===r.dest)) return;
-      var offs=offices(ag), pick=offs.filter(function(o){ return rank(o)<4; })[0], main=(k===0)||!r.dest;
-      offs.forEach(function(o){ out.push({kind:'agency', ag:ag, orig:!!r.dest&&ag!==r.dest, o:o,
-        label:ag+', '+o.office+(o.person?' ('+o.person+')':''), on:wantA&&main&&o===pick}); });
-      if(!offs.length&&k===0) out.push({kind:'agency', ag:ag, orig:false, o:{office:'', person:'', email:'', form:'', phone:''},
-        label:ag+' (no contact on file)', on:wantA}); });
-    (C.boardCouncil[r.board]||[]).forEach(function(p){ var m=C.council[String(p[0])]; if(!m) return;
-      out.push({kind:'council', o:m, label:m.salutation+', District '+p[0]+' (covers '+Math.round(p[1]*100)+'% of the board’s area)',
-                on:wantE&&p[1]>=0.1}); });
-    var bps=C.bp[r.boro]||[], lead=bps.filter(isBP)[0]||bps[0];
-    bps.forEach(function(b){
-      out.push({kind:'bp', o:b, label:isBP(b)?'Borough President'+(b.person?' '+b.person:''):r.boro+' Borough President\u2019s office, '+b.office+(b.person?' ('+b.person+')':''),
-                on:wantE&&b===lead}); });
-    return out;
-  }
-  function isBP(o){ return o.role==='head'||/^Borough President$/i.test(o.office||''); }
-  function bpName(o){ return isBP(o)?'Borough President'+(o.person?' '+o.person:''):(o.person||'colleagues at the Borough President\u2019s office'); }
+    return /^(the |Con ?Edison|Consolidated Edison|Amtrak|National Grid|Verizon|Spectrum|PSEG|Optimum|Metro-North|LIRR|FDNY Foundation)/i.test(a)?a:'the '+a; }
+  function Cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
   // The honorific for a salutation ("Commissioner Diya Vij"), from a formal title such as
   // "Commissioner of the NYC Department of Cultural Affairs". Other titles use the name alone.
   function honor(t){ t=t||''; var m=/^(Deputy|Assistant) Commissioner/i.exec(t);
     if(m) return m[0]; if(/Commissioner/i.test(t)) return 'Commissioner';
     if(/^Chancellor/i.test(t)) return 'Chancellor'; if(/^Chair/i.test(t)) return 'Chair';
     if(/^President/i.test(t)) return 'President'; return ''; }
-  function salute(x,r){
+  function isBP(o){ return o.role==='head'||/^Borough President$/i.test(o.office||''); }
+  function bpName(o){ return isBP(o)?'Borough President'+(o.person?' '+o.person:''):(o.person||'colleagues at the Borough President’s office'); }
+  function today(){ var d=new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
+  function niceDate(s){ var p=(s||'').split('-'); return p.length===3?MONTH[+p[1]-1]+' '+(+p[2])+', '+p[0]:s; }
+
+  // ---- one request ----
+  function request(tr){
+    var pill=tr.querySelector('.fu-pill');
+    return {tr:tr, key:rowKey(tr), board:tr.dataset.board||'', full:boardFull[tr.dataset.board]||tr.dataset.board||'the community board',
+      boro:boroOf(tr.dataset.board), pri:val(tr,'Priority'), type:val(tr,'Type'), agency:val(tr,'Agency'),
+      title:val(tr,'Title'), expl:val(tr,'Explanation'), ar:val(tr,'Agency Response'), omb:val(tr,'OMB Executive Response'),
+      action:val(tr,'Follow-up'), why:pill?pill.title:'', purpose:tr.dataset.fp||'', named:tr.dataset.fc||'',
+      url:tr.dataset.fu||'', tc:tr.dataset.tc||'', dest:tr.dataset.fa||'',
+      cds:(tr.dataset.cd||'').split('|').filter(Boolean).map(Number), where:tr.dataset.cw||'',
+      hist:(tr.dataset.hy||'').split('|').filter(function(y){ return y&&+y<=+FY; }), prior:tr.dataset.pr||''};
+  }
+  function says311(r){ return /\b311\b/.test(r.ar+' '+r.omb+' '+r.why+' '+r.named); }
+  // "Use 311 or another channel" needs no letter when the response gives a link or 311;
+  // a named process ("Submit a space request") is a question for the agency.
+  function linkOnly(r){ return r.action==='Use 311 or another channel'&&(!!r.url||says311(r)); }
+  function histSentence(r){ return r.hist.length>=2?'The board has made this request in '+r.hist.length+' budget years since FY'+r.hist[0]+'.':''; }
+
+  function recipients(r){
+    var out=[], a=r.action;
+    var wantA=/^(Contact agency|Track with agency)/.test(a)||(a==='Use 311 or another channel'&&!linkOnly(r));
+    var wantE=/elected officials$/.test(a);
+    var rank=function(o){ if(o.mine) return -1; if(!reach(o)) return 9; if(o.boards&&o.boards.indexOf(r.board)>-1) return 0;
+      return {borough:1, liaison:2, head:3}[o.role]||8; };
+    function offices(ag){
+      var own=(mine[ag]||[]).map(function(m,i){ return {office:'your contact', person:m.name, email:m.email, form:'', phone:'', mine:true, idx:i}; });
+      var offs=own.concat((C.agency[ag]||[]).filter(function(o){ return (!o.borough||o.borough===r.boro)&&(reach(o)||o.phone)&&
+        (!o.boards||!o.boards.length||o.boards.indexOf(r.board)>-1); }));
+      offs.sort(function(x,y){ return rank(x)-rank(y); }); return offs; }
+    // A response that sends the board to another agency makes that agency the recipient;
+    // the agency that responded stays on the list, unselected.
+    [r.dest, r.agency].forEach(function(ag,k){ if(!ag||ag==='Other'||(k===1&&ag===r.dest)) return;
+      // A press office is the recipient only when it is the body's one published channel.
+      var offs=offices(ag), main=(k===0)||!r.dest, pick=offs.filter(function(o){ return rank(o)<4; })[0]||
+        offs.filter(function(o){ return reach(o)&&o.role==='press'; })[0];
+      offs.forEach(function(o){ var nm=o.mine?(o.person||o.email)+', '+ag:ag+', '+o.office+(o.person?(/\)$/.test(o.office)?', '+o.person:' ('+o.person+')'):'');
+        out.push({kind:'agency', ag:ag, orig:!!r.dest&&ag!==r.dest, o:o, id:'ag|'+nm+'|'+(o.email||o.form||''), name:nm,
+          label:nm+(o.mine?' (your contact)':''), on:wantA&&main&&o===pick}); });
+      if(!offs.length&&main) out.push({kind:'agency', ag:ag, orig:false, o:{office:'', person:'', email:'', form:'', phone:''},
+        id:'ag|'+ag, name:ag, label:ag+' (no contact on file)', on:wantA}); });
+    // Council Members: the member for the request's site when the site is known,
+    // otherwise those whose districts cover at least 10% of the board's land.
+    var ov=(C.boardCouncil[r.board]||[]).slice(), seen={};
+    r.cds.forEach(function(d){ if(!ov.some(function(p){ return p[0]===d; })) ov.push([d,0]); });
+    ov.forEach(function(p){ var m=C.council[String(p[0])]; if(!m||seen[p[0]]) return; seen[p[0]]=1;
+      var here=r.cds.indexOf(p[0])>-1;
+      out.push({kind:'council', o:m, id:'cm|'+p[0], name:m.salutation+', District '+p[0], label:m.salutation+', District '+p[0]+(here?' (the request’s site)':
+        (p[1]?' (covers '+Math.round(p[1]*100)+'% of the board’s area)':'')), on:wantE&&(r.cds.length?here:p[1]>=0.1)}); });
+    // Borough President: the budget office for money, otherwise the Borough President.
+    var bps=C.bp[r.boro]||[], budget=bps.filter(function(b){ return !isBP(b)&&/budget|capital/i.test(b.office||'')&&reach(b); })[0];
+    var bpLead=(r.purpose==='funding'&&budget)||bps.filter(isBP)[0]||bps[0];
+    bps.forEach(function(b){ out.push({kind:'bp', o:b, id:'bp|'+r.boro+'|'+b.office,
+      name:isBP(b)?'Borough President'+(b.person?' '+b.person:''):r.boro+' Borough President’s office, '+b.office+(b.person?' ('+b.person+')':''), label:isBP(b)?'Borough President'+(b.person?' '+b.person:''):
+      r.boro+' Borough President’s office, '+b.office+(b.person?' ('+b.person+')':''), on:wantE&&b===bpLead}); });
+    return out;
+  }
+  function salute(x){
     if(x.kind==='council') return x.o.salutation;
     if(x.kind==='bp') return bpName(x.o);
-    if(x.o.person){ var t=honor(x.o.title||x.o.office); return (t?t+' ':'')+x.o.person; }
-    return 'colleagues at '+agencyPhrase(x.ag||r.agency);
+    if(x.o.person){ var t=x.o.mine?'':honor(x.o.title||x.o.office); return (t?t+' ':'')+x.o.person; }
+    return 'colleagues at '+agencyPhrase(x.ag);
   }
-  function agencyAsk(r,direct,orig){
-    var Y=direct?'Your response':'The response from '+agencyPhrase(r.agency);
+  function channelText(r,Y){ return r.url?Y+' directs the board to '+r.url+'. We will use it. Please tell us if the board should take any other step.'
+    :says311(r)?Y+' directs the board to 311. We will use it. Please tell us if the board should take any other step.'
+    :Y+' directs the board to another process for this request. Please tell us how the board should submit it, or send us the form.'; }
+  // The ask to an agency. short=true gives one sentence for a list of requests.
+  function agencyAsk(r,Y,orig,short){
+    var S={clarify:'Please tell us what information would help.', study:'Please tell us where the agency’s review stands.',
+      discuss:'Please tell us whom we should contact.', reconsider:'Please tell us what would allow the agency to reconsider it.',
+      funding:'Please share the estimated cost and the funding the agency would need.', advocacy:'Please tell us which office would need to act.',
+      status:'Please share its current status and timeline.', channel:'Please tell us how the board should submit it.',
+      no_response:'Please tell us the agency’s position on it.'};
+    if(r.purpose==='redirect'&&r.dest) return orig?(short?'Your response directed the board to '+agencyPhrase(r.dest)+'; please tell us whom there to contact.':
+        'Your response directs the board to '+agencyPhrase(r.dest)+'. We are bringing the request to that agency. Please tell us whom there we should contact, or whether your agency can take on any part of the request.')
+      :(short?Cap(agencyPhrase(r.agency))+' directed the board to your agency. Please tell us whether your agency can consider it.':
+        Cap(agencyPhrase(r.agency))+' directed the board to your agency for this request. Please tell us whether your agency can consider it in the next budget, and whom we should contact about it.');
+    if(short) return S[r.purpose]||'Please tell us its current status.';
     switch(r.purpose){
       case 'clarify': return Y+' says the agency needs more information about this request. We would like to provide it. Please tell us what information would help, or suggest a time for board members to discuss the request with the right staff.';
       case 'study': return Y+' says the agency needs to study this request further. Please tell us where that review stands and when you expect to finish it. We can provide any information that would help.';
@@ -831,61 +941,155 @@ FU_SCRIPT = r"""
       case 'funding': return Y+' indicates that funding is the obstacle to this request. Please share the estimated cost and the funding the agency would need to proceed.';
       case 'advocacy': return Y+' indicates that this request needs a decision beyond the agency. Please tell us which office or level of government would need to act, and what the board can do to help.';
       case 'status': return 'Thank you for the agency’s response. Please tell us the current status of this request, the expected timeline and whom we should contact for updates.';
-      case 'channel': return Y+' directs the board to '+(r.url||'311')+'. We will use that process. Please tell us if the board should take any other step.';
-      case 'redirect': return r.dest?(orig?'Your response directs the board to '+agencyPhrase(r.dest)+'. We are bringing the request to that agency. Please tell us whom there we should contact, or whether your agency can take on any part of the request.'
-        :agencyPhrase(r.agency).replace(/^t/,'T')+' directed the board to your agency for this request. Please tell us whether your agency can consider it in the next budget, and whom we should contact about it.')
-        :Y+' directs the board to another office. Please tell us whom we should contact.';
+      case 'channel': return channelText(r,Y);
       case 'no_response': return 'We could not find a published response to this request in the Statement of Community District Needs or in the City’s Register of Community Board Budget Requests. Please tell us the agency’s position on the request.';
       default: return 'Please tell us the current status of this request and whether any work remains.';
     }
   }
+  // Who a letter to elected officials asks: "you", or the Borough President when the
+  // letter goes to the Borough President's staff.
+  function youFor(els){ return els.length===1&&els[0].kind==='bp'&&!isBP(els[0].o)?'the Borough President':'you'; }
   function electedAsk(r,els,joint){
-    var who=andList(els.map(function(x){ return x.kind==='bp'?bpName(x.o):x.o.salutation; }));
+    var who=andList(els.map(function(x){ return x.kind==='bp'?bpName(x.o):x.o.salutation; })), you=youFor(els);
+    var lead0=joint?'We ask '+who+' to consider ':'We ask that '+you+' consider ';
     if(r.purpose==='advocacy'){
-      var adv=(joint?'We ask '+who+' to consider':'We ask that you consider')+' supporting this request with '+agencyPhrase(r.agency)+', including any legislation or policy change it requires.';
-      return joint?adv:'The response from '+agencyPhrase(r.agency)+' indicates that this request needs a decision beyond the agency. '+adv;
-    }
+      var adv=lead0+'supporting this request with '+agencyPhrase(r.agency)+', including any legislation or policy change it requires.';
+      return joint?adv:'The response from '+agencyPhrase(r.agency)+' indicates that this request needs a decision beyond the agency. '+adv; }
     if(r.purpose==='funding'||/elected officials$/.test(r.action)){
       var money=r.type==='Capital'?'allocating capital funds (Reso A) to this project':'providing discretionary funding for this need';
-      var ask=(joint?'We ask '+who+' to consider ':'We ask that you consider ')+money+' and advocating for it with '+agencyPhrase(r.agency)+' and OMB in the next budget.';
-      return joint?ask:'The response from '+agencyPhrase(r.agency)+' indicates that funding is the obstacle to this request. '+ask;
-    }
-    return (joint?'We ask '+who+' to help us':'We would appreciate your office’s help')+' in getting a response from '+agencyPhrase(r.agency)+' and moving this request forward.';
+      var ask=lead0+money+' and advocating for it with '+agencyPhrase(r.agency)+' and OMB in the next budget.';
+      return joint?ask:'The response from '+agencyPhrase(r.agency)+' indicates that funding is the obstacle to this request. '+ask; }
+    return (joint?'We ask '+who+' to help us':'We would appreciate '+(you==='you'?'your office’s':'the Borough President’s')+' help')+' in getting a response from '+agencyPhrase(r.agency)+' and moving this request forward.';
   }
-  function subject(r){ return 'FY'+FY+' '+(r.type?r.type.toLowerCase()+' ':'')+'budget request, '+clip(r.title,70)+' ('+(boardName[r.board]||r.board)+(r.tc?', '+r.tc:'')+')'; }
-  function letter(r,xs){
+  function signature(full){ return ['Sincerely,', fuName.value.trim()||'[Your name]', fuRole.value.trim()||'[Your title]', full].join('\n'); }
+  function kindWord(r){ var w=(r.type?r.type.toLowerCase()+' ':'')+'request'; return (/^[aeiou]/.test(w)?'an ':'a ')+w; }
+  // A "CS" request has no rank, so the letter names only its tracking code.
+  function ids(r){ return [/^\d+$/.test(r.pri)?'priority '+r.pri:'', r.tc?'tracking code '+r.tc:''].filter(Boolean).join(', '); }
+  function letterBody(r,xs){
     var ag=xs.filter(function(x){return x.kind==='agency';}), el=xs.filter(function(x){return x.kind!=='agency';});
     var joint=ag.length>0&&el.length>0;
-    var ids=[r.pri?'priority '+r.pri:'', r.tc?'tracking code '+r.tc:''].filter(Boolean).join(', ');
-    var kindWord=(r.type?r.type.toLowerCase()+' ':'')+'request', art=/^[aeiou]/.test(kindWord)?'an ':'a ';
-    var p1='In its FY'+FY+' budget requests, '+r.full+' submitted '+art+kindWord+' to '+agencyPhrase(r.agency)+' titled “'+r.title+'”'+(ids?' ('+ids+')':'')+'.';
-    if(r.expl) p1+=' The request reads, “'+clip(r.expl,320)+'”';
-    var ar=lead(r.ar,2,360), echo=!r.omb||/^OMB supports the agency.s position/i.test(r.omb);
-    var p2=ar?(r.agency&&r.agency!=='Other'?'The '+r.agency:'The agency')+' responded, “'+ar+'”':'We could not find a published response from '+agencyPhrase(r.agency)+'.';
-    if(!echo) p2+=' In the Executive Budget, OMB responded, “'+lead(r.omb,2,300)+'”';
-    var asks=[]; if(ag.length) asks.push(agencyAsk(r,!joint,ag.every(function(x){return x.orig;}))); if(el.length) asks.push(electedAsk(r,el,joint));
-    var s={name:fuName.value.trim(), role:fuRole.value.trim()};
-    var lines=['Dear '+andList(xs.map(function(x){return salute(x,r);}))+',','',p1,'',p2,''];
-    asks.forEach(function(a){ lines.push(a,''); });
-    lines.push('Thank you for your attention to this request.','','Sincerely,',s.name||'[Your name]',s.role||'[Your title]',r.full);
-    return lines.join('\n');
+    var p1='In its FY'+FY+' budget requests, '+r.full+' submitted '+kindWord(r)+' to '+agencyPhrase(r.agency)+' titled “'+r.title+'”'+(ids(r)?' ('+ids(r)+')':'')+'.';
+    if(r.expl) p1+=' The request reads, “'+stop(clip(r.expl,320))+'”';
+    var h=histSentence(r); if(h) p1+=' '+h;
+    var parts=['Dear '+andList(xs.map(salute))+',', p1];
+    if(r.purpose!=='no_response'){
+      var ar=stop(quote(r.ar,r,360)), echo=!r.omb||/^OMB supports the agency.s position/i.test(r.omb);
+      var p2=ar?(r.agency&&r.agency!=='Other'?'The '+r.agency:'The agency')+' responded, “'+ar+'”':'We could not find a published response from '+agencyPhrase(r.agency)+'.';
+      if(!echo) p2+=' In the Executive Budget, OMB responded, “'+stop(lead(r.omb,2,300))+'”';
+      parts.push(p2); }
+    if(ag.length) parts.push(agencyAsk(r, joint?'The response from '+agencyPhrase(r.agency):'Your response', ag.every(function(x){return x.orig;}), false));
+    if(el.length) parts.push(electedAsk(r,el,joint));
+    parts.push('Thank you for your attention to this request.');
+    return parts.join('\n\n');
   }
+  function subject(r){ return 'FY'+FY+' '+(r.type?r.type.toLowerCase()+' ':'')+'budget request, '+clip(r.title,70)+' ('+(boardName[r.board]||r.board)+(r.tc?', '+r.tc:'')+')'; }
+
+  // ---- a list of requests for one official (the digest) ----
+  function digestBody(g){
+    var x=g.x, rs=g.reqs, lines=[], elected=x.kind!=='agency';
+    lines.push('Dear '+salute(x)+',');
+    if(elected){
+      var allMoney=rs.every(function(r){ return r.purpose==='funding'; }), anyCap=rs.some(function(r){ return r.type==='Capital'; }),
+          anyExp=rs.some(function(r){ return r.type==='Expense'; }), you=youFor([x]);
+      var money=anyCap&&anyExp?'allocating capital funds (Reso A) to the capital requests and providing discretionary funding for the expense requests'
+        :anyCap?'allocating capital funds (Reso A) to them':'providing discretionary funding for them';
+      lines.push('In its FY'+FY+' budget requests, '+g.full+' made the '+(rs.length>1?rs.length+' requests':'request')+' listed below. '+
+        (allMoney?'The city’s responses indicate that '+(rs.length>1?'these requests need':'this request needs')+' funding to move forward. We ask that '+you+' consider '+money+', and advocating for '+(rs.length>1?'them':'it')+' with the agencies and OMB in the next budget.'
+          :'We ask for '+(you==='you'?'your':'the Borough President’s')+' help with '+(rs.length>1?'them':'it')+', through funding and through advocacy with the agencies and OMB.'));
+    } else {
+      var redirected=rs.every(function(r){ return r.dest===x.ag&&r.agency!==x.ag; });
+      lines.push('In its FY'+FY+' budget requests, '+g.full+' submitted the '+(rs.length>1?rs.length+' requests':'request')+' listed below'+
+        (redirected?'. Each was directed to your agency by the agency that responded.':' to '+agencyPhrase(x.ag)+'.')+' We are following up on '+(rs.length>1?'each of them':'it')+'.');
+    }
+    rs.forEach(function(r,i){
+      var head=(i+1)+'. “'+r.title+'” ('+(elected||r.agency!==x.ag?r.agency+'; ':'')+(r.type?r.type.toLowerCase():'')+(ids(r)?', '+ids(r):'')+').';
+      var resp=stop(quote(r.ar,r,260));
+      var item=head+(resp?' '+(elected||r.agency!==x.ag?'The agency':'Your agency')+' responded, “'+resp+'”':' No response was published.');
+      if(!elected) item+=' '+agencyAsk(r,'Your response',x.orig,true);
+      var h=histSentence(r); if(h) item+=' '+h;
+      lines.push(item);
+    });
+    lines.push('Thank you for your attention to '+(rs.length>1?'these requests':'this request')+'.');
+    return lines.join('\n\n');
+  }
+
+  // ---- letters on screen ----
   function contactBits(o){
     var b=[]; if(o.email) b.push('<a href="mailto:'+esc(o.email)+'">'+esc(o.email)+'</a>');
     if(o.form) b.push('<a href="'+esc(o.form)+'" target="_blank" rel="noopener">contact form</a>');
     if(o.phone) b.push(esc(o.phone)); var u=o.url||o.src; if(u) b.push('<a href="'+esc(u)+'" target="_blank" rel="noopener">source</a>');
+    if(o.mine) b.push('<button type="button" class="fu-link" data-forget="'+esc(o.idx)+'">remove</button>');
     return b.join(' · ');
+  }
+  function mailHref(to,subj,body){ return 'mailto:'+to.join(',')+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body.replace(/\n/g,'\r\n')); }
+  function markSent(rows,to){ var d=today(); rows.forEach(function(r){ sent[r.key]={d:d, to:to}; paintSent(r.tr); }); save('cbFollowupSent',sent); renderCards(); }
+  function unmark(rows){ rows.forEach(function(r){ delete sent[r.key]; paintSent(r.tr); }); save('cbFollowupSent',sent); renderCards(); }
+  // One letter card. key keeps a user's edits across redraws; sig is the signature in the text.
+  function letterCard(key,toLabel,xs,subj,body,rows,full){
+    var emails=xs.map(function(x){return x.o.email;}).filter(Boolean), forms=xs.filter(function(x){return !x.o.email&&x.o.form;});
+    var w=document.createElement('div'); w.className='fu-letter';
+    var isSent=rows.length&&rows.every(function(r){ return sent[r.key]; });
+    w.innerHTML='<div class="fu-to"><b>To</b> '+esc(toLabel)+'</div><input class="fu-subj fu-in" aria-label="Subject">'+
+      '<textarea class="fu-body" rows="14" aria-label="Letter"></textarea><div class="fu-acts">'+
+      '<button type="button" class="fu-act fu-copy">Copy letter</button>'+(emails.length?'<a class="fu-act fu-mail" href="#">Open in email</a>':'')+
+      forms.map(function(x){ return '<a class="fu-act" href="'+esc(x.o.form)+'" target="_blank" rel="noopener">Open '+esc((x.ag||'').replace(/^Department of /,'')||'contact')+' form</a>'; }).join('')+
+      '<button type="button" class="fu-act fu-sentbtn">'+(isSent?'Sent ✓ (undo)':(rows.length>1?'Mark these '+rows.length+' requests sent':'Mark as sent'))+'</button>'+
+      '<span class="fu-copied" hidden>Copied</span></div><div class="fu-warn" hidden></div>';
+    var subjEl=w.querySelector('.fu-subj'), bodyEl=w.querySelector('.fu-body');
+    var sig=signature(full), text=edits[key]!=null?edits[key]:body+'\n\n'+sig;
+    subjEl.value=edits[key+'|s']!=null?edits[key+'|s']:subj; bodyEl.value=text; w.dataset.sig=sig; w.dataset.full=full;
+    bodyEl.addEventListener('input',function(){ edits[key]=bodyEl.value; warn(); });
+    subjEl.addEventListener('input',function(){ edits[key+'|s']=subjEl.value; warn(); });
+    function warn(){ var n=mailHref(emails,subjEl.value,bodyEl.value).length, el=w.querySelector('.fu-warn');
+      el.hidden=!(emails.length&&n>1900); el.textContent='This letter is long for an email link. If your email program cuts it off, use Copy letter.'; }
+    warn();
+    w.querySelector('.fu-copy').addEventListener('click',function(){
+      var t=bodyEl.value, done=function(){ var c=w.querySelector('.fu-copied'); c.hidden=false; setTimeout(function(){c.hidden=true;},1500); };
+      if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done,function(){ bodyEl.select(); document.execCommand('copy'); done(); });
+      else { bodyEl.select(); document.execCommand('copy'); done(); } });
+    var m=w.querySelector('.fu-mail');
+    if(m) m.addEventListener('click',function(e){ e.preventDefault(); location.href=mailHref(emails,subjEl.value,bodyEl.value); });
+    w.querySelector('.fu-sentbtn').addEventListener('click',function(){
+      var all=rows.every(function(r){ return sent[r.key]; });
+      if(all) unmark(rows); else markSent(rows, xs.map(function(x){ return x.name; }));
+      var now=rows.every(function(r){ return sent[r.key]; });
+      this.textContent=now?'Sent ✓ (undo)':(rows.length>1?'Mark these '+rows.length+' requests sent':'Mark as sent'); });
+    return w;
+  }
+  // A new name or title updates each letter's signature in place, keeping any edits.
+  function updateSignatures(){
+    save('cbFollowupSender',{name:fuName.value, role:fuRole.value});
+    [].forEach.call(document.querySelectorAll('#fuLetters .fu-letter'),function(w){
+      var b=w.querySelector('.fu-body'), old=w.dataset.sig, neu=signature(w.dataset.full);
+      if(old&&b.value.slice(-old.length)===old){ b.value=b.value.slice(0,-old.length)+neu; w.dataset.sig=neu;
+        Object.keys(edits).forEach(function(k){ if(edits[k]&&edits[k].slice(-old.length)===old) edits[k]=edits[k].slice(0,-old.length)+neu; }); }
+    });
   }
   function renderRecips(){
     var box=document.getElementById('fuRecips'); box.innerHTML='';
-    if(!list.length){ box.innerHTML='<p class="fu-empty">No contacts are on file for this request.</p>'; return; }
-    var heads={agency:'Agency',council:'Council Members',bp:'Borough President'}, last='';
+    var heads={agency:'Agency',council:'Council Members',bp:'Borough President'}, last='', agencies=[];
     list.forEach(function(x,i){
       if(x.kind!==last){ var h=document.createElement('div'); h.className='fu-sub'; h.textContent=heads[x.kind]; box.appendChild(h); last=x.kind; }
+      if(x.kind==='agency'&&agencies.indexOf(x.ag)<0) agencies.push(x.ag);
       var l=document.createElement('label'); l.className='fu-rcp';
       l.innerHTML='<input type="checkbox" data-i="'+i+'"'+(x.on?' checked':'')+'><span><b>'+esc(x.label)+'</b><br><small>'+(contactBits(x.o)||'no email or form on file')+'</small></span>';
       box.appendChild(l);
+      [].forEach.call(l.querySelectorAll('[data-forget]'),function(b){ b.addEventListener('click',function(e){ e.preventDefault();
+        mine[x.ag].splice(+b.dataset.forget,1); if(!mine[x.ag].length) delete mine[x.ag]; save('cbFollowupContacts',mine); list=recipients(cur); renderRecips(); renderLetters(); }); });
     });
+    var ag=cur.dest||cur.agency;
+    if(ag&&ag!=='Other'){
+      var f=document.createElement('div'); f.className='fu-add';
+      f.innerHTML='<details><summary>Add your own contact for '+esc(ag)+'</summary><div class="fu-row">'+
+        '<input class="fu-in" placeholder="Name" data-f="name"><input class="fu-in" placeholder="Email" type="email" data-f="email">'+
+        '<button type="button" class="fu-act fu-copy">Save</button></div><small>Saved in this browser and offered first for '+esc(ag)+' requests.</small></details>';
+      f.querySelector('button').addEventListener('click',function(){
+        var n=f.querySelector('[data-f=name]').value.trim(), e=f.querySelector('[data-f=email]').value.trim();
+        if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)) return;
+        (mine[ag]=mine[ag]||[]).push({name:n, email:e}); save('cbFollowupContacts',mine);
+        list=recipients(cur); renderRecips(); renderLetters(); });
+      box.appendChild(f);
+    }
   }
   function renderLetters(){
     var box=document.getElementById('fuLetters'); box.innerHTML='';
@@ -893,55 +1097,113 @@ FU_SCRIPT = r"""
     if(!sel.length){ box.innerHTML='<p class="fu-empty">Select at least one recipient to draft a letter.</p>'; return; }
     var groups=mode==='joint'?[sel]:sel.map(function(x){return [x];});
     groups.forEach(function(g){
-      var emails=g.map(function(x){return x.o.email;}).filter(Boolean), forms=g.filter(function(x){return !x.o.email&&x.o.form;});
-      var w=document.createElement('div'); w.className='fu-letter';
-      w.innerHTML='<div class="fu-to"><b>To</b> '+esc(g.map(function(x){return x.label.split(' (')[0];}).join('; '))+'</div>'+
-        '<input class="fu-subj fu-in" aria-label="Subject">'+'<textarea class="fu-body" rows="14" aria-label="Letter"></textarea>'+
-        '<div class="fu-acts"><button type="button" class="fu-act fu-copy">Copy letter</button>'+
-        (emails.length?'<a class="fu-act fu-mail" href="#">Open in email</a>':'')+
-        forms.map(function(x){return '<a class="fu-act" href="'+esc(x.o.form)+'" target="_blank" rel="noopener">Open '+esc(x.label.split(',')[0])+' contact form</a>';}).join('')+
-        '<span class="fu-copied" hidden>Copied</span></div>';
-      box.appendChild(w);
-      var subj=w.querySelector('.fu-subj'), body=w.querySelector('.fu-body');
-      subj.value=subject(cur); body.value=letter(cur,g);
-      w.querySelector('.fu-copy').addEventListener('click',function(){
-        var t=body.value, done=function(){ var c=w.querySelector('.fu-copied'); c.hidden=false; setTimeout(function(){c.hidden=true;},1500); };
-        if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done,function(){ body.select(); document.execCommand('copy'); done(); });
-        else { body.select(); document.execCommand('copy'); done(); }
-      });
-      var m=w.querySelector('.fu-mail');
-      if(m) m.addEventListener('click',function(e){ e.preventDefault();
-        location.href='mailto:'+emails.join(',')+'?subject='+encodeURIComponent(subj.value)+'&body='+encodeURIComponent(body.value.replace(/\n/g,'\r\n')); });
+      var key='one|'+g.map(function(x){return x.label;}).join(';');
+      box.appendChild(letterCard(key, g.map(function(x){return x.name;}).join('; '), g, subject(cur), letterBody(cur,g), [cur], cur.full));
     });
   }
+  function show(){ dlg.hidden=false; document.body.classList.add('fu-lock'); dlg.querySelector('.fu-x').focus(); }
   function open(tr){
-    cur=request(tr); list=recipients(cur); lastFocus=document.activeElement;
+    cur=request(tr); list=recipients(cur); lastFocus=document.activeElement; edits={}; digest=null;
+    document.getElementById('fuRecipSec').hidden=false; document.getElementById('fuModeSec').hidden=false;
     document.getElementById('fuTitle').textContent=cur.title||'Follow up';
-    var meta='<span class="pill fu-pill fu-'+({'Contact agency':'a','Contact elected officials':'e','Contact agency and elected officials':'ae','Track with agency':'t','Use 311 or another channel':'c','No follow-up needed':'n'}[cur.action]||'n')+'">'+esc(cur.action||'No label')+'</span> '+esc(cur.why);
+    var meta='<span class="pill fu-pill fu-'+(SLUG[cur.action]||'n')+'">'+esc(cur.action||'No label')+'</span> '+esc(cur.why);
     meta+='<div class="fu-small">'+esc(cur.full)+' · FY'+esc(FY)+' '+esc(cur.type)+(cur.pri?' priority '+esc(cur.pri):'')+(cur.tc?' · tracking code '+esc(cur.tc):'')+' · '+esc(cur.agency)+'</div>';
-    if(cur.dest) meta+='<div class="fu-small">The response points to '+esc(agencyPhrase(cur.dest))+(C.agency[cur.dest]?'.':'. No contact for it is on file, so add its address yourself.')+'</div>';
+    if(cur.hist.length>=2) meta+='<div class="fu-small">Requested in '+cur.hist.length+' budget years: '+esc(cur.hist.map(function(y){return 'FY'+y;}).join(', '))+'.'+
+      (cur.prior?' The FY'+esc(cur.prior.slice(0,4))+' response was “'+esc(stop(cur.prior.slice(6)))+'”':'')+'</div>';
+    if(cur.cds.length) meta+='<div class="fu-small">The request’s site ('+esc(cur.where)+') is in Council District '+esc(cur.cds.join(' and '))+'.</div>';
+    if(cur.dest) meta+='<div class="fu-small">The response points to '+esc(agencyPhrase(cur.dest))+(C.agency[cur.dest]?'.':'. No contact for it is on file, so add one below or add its address yourself.')+'</div>';
     else if(cur.named) meta+='<div class="fu-small">The response names this contact: '+esc(cur.named)+'</div>';
-    if(cur.url) meta+='<div class="fu-small">The response links to <a href="'+esc(cur.url)+'" target="_blank" rel="noopener">'+esc(clip(cur.url,80))+'</a></div>';
-    if(cur.action==='Use 311 or another channel') meta+='<div class="fu-small"><a href="'+esc(cur.url||'https://portal.311.nyc.gov/')+'" target="_blank" rel="noopener">'+(cur.url?'Open the channel the response names':'Open 311')+'</a></div>';
+    if(cur.action==='Use 311 or another channel'){
+      if(cur.url) meta+='<div class="fu-small"><a href="'+esc(cur.url)+'" target="_blank" rel="noopener">Open the link the response gives</a></div>';
+      else if(says311(cur)) meta+='<div class="fu-small"><a href="https://portal.311.nyc.gov/" target="_blank" rel="noopener">Open 311</a></div>';
+      else meta+='<div class="fu-small">The response names another process. The letter below asks the agency how to use it.</div>'; }
+    else if(cur.url) meta+='<div class="fu-small">The response links to <a href="'+esc(cur.url)+'" target="_blank" rel="noopener">'+esc(clip(cur.url,80))+'</a></div>';
     if(cur.action==='No follow-up needed') meta+='<div class="fu-small">No follow-up is needed. Select a recipient to draft a letter anyway.</div>';
+    var st=sent[cur.key]; if(st) meta+='<div class="fu-small fu-sentnote">Marked sent '+esc(niceDate(st.d))+(st.to&&st.to.length?' to '+esc(st.to.join('; ')):'')+'.</div>';
     document.getElementById('fuMeta').innerHTML=meta;
     document.getElementById('fuAsOf').textContent=C.asOf?'council contacts as of '+C.asOf:'as published';
-    renderRecips(); renderLetters(); dlg.hidden=false; document.body.classList.add('fu-lock');
-    dlg.querySelector('.fu-x').focus();
+    renderRecips(); renderLetters(); show();
+  }
+  function openDigest(){
+    var rows=T.visible().filter(function(tr){ var a=val(tr,'Follow-up'); return a&&a!=='No follow-up needed'; });
+    var groups={}, order=[];
+    rows.forEach(function(tr){ var r=request(tr);
+      recipients(r).filter(function(x){ return x.on; }).forEach(function(x){
+        var k=r.board+'|'+x.id; if(!groups[k]){ groups[k]={board:r.board, full:r.full, x:x, reqs:[]}; order.push(k); }
+        groups[k].reqs.push(r); }); });
+    var kindRank={agency:0, council:1, bp:2};
+    order.sort(function(a,b){ var A=groups[a], B=groups[b];
+      return A.board.localeCompare(B.board)||kindRank[A.x.kind]-kindRank[B.x.kind]||A.x.name.localeCompare(B.x.name); });
+    edits={}; cur=null; lastFocus=document.activeElement;
+    digest=order.map(function(k){ return groups[k]; });
+    document.getElementById('fuRecipSec').hidden=true; document.getElementById('fuModeSec').hidden=true;
+    var boards={}; digest.forEach(function(g){ boards[g.board]=1; });
+    document.getElementById('fuTitle').textContent='Letters for the '+rows.length+' requests shown';
+    document.getElementById('fuMeta').innerHTML='<div class="fu-small">One letter per official, listing every request shown that the official can help with. '+
+      'Recipients follow each request’s follow-up, as in its own Draft letter panel. Requests marked “No follow-up needed” and those that only need 311 or a link are left out.'+
+      (Object.keys(boards).length>1?' The requests come from '+Object.keys(boards).length+' boards, so each board gets its own letters.':'')+'</div>';
+    document.getElementById('fuAsOf').textContent=C.asOf?'council contacts as of '+C.asOf:'as published';
+    var box=document.getElementById('fuLetters'); box.innerHTML='';
+    if(!digest.length) box.innerHTML='<p class="fu-empty">None of the requests shown has a recipient to write to.</p>';
+    var many=Object.keys(boards).length>1, lastBoard='';
+    digest.forEach(function(g,i){
+      if(many&&g.board!==lastBoard){ var h=document.createElement('div'); h.className='fu-sub'; h.textContent=g.full; box.appendChild(h); lastBoard=g.board; }
+      var subj='FY'+FY+' budget requests from '+(boardName[g.board]||g.board)+': '+g.reqs.length+' request'+(g.reqs.length>1?'s':'')+' for follow-up';
+      box.appendChild(letterCard('dig|'+i, g.x.name+' · '+g.reqs.length+' request'+(g.reqs.length>1?'s':''), [g.x], subj, digestBody(g), g.reqs, g.full));
+    });
+    show();
   }
   function close(){ dlg.hidden=true; document.body.classList.remove('fu-lock'); if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
-  var fuName=document.getElementById('fuName'), fuRole=document.getElementById('fuRole'), s0=loadSender();
-  fuName.value=s0.name||''; fuRole.value=s0.role||'';
-  [fuName,fuRole].forEach(function(el){ el.addEventListener('change',function(){ saveSender(); if(cur) renderLetters(); }); });
-  document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('.fu-btn'); if(b){ open(b.closest('tr')); } });
+
+  // ---- the table: sent marks, counts, the Follow-up menu ----
+  function paintSent(tr){ var cell=tr.querySelector('.fu-cell'); if(!cell) return; var b=cell.querySelector('.fu-sent'), s=sent[rowKey(tr)];
+    if(s){ if(!b){ b=document.createElement('span'); b.className='fu-sent'; cell.insertBefore(b,cell.querySelector('.fu-btn')); } b.textContent='Sent '+niceDate(s.d).replace(/, \d{4}$/,''); }
+    else if(b) b.remove(); }
+  function unsent(tr){ return !sent[rowKey(tr)]; }
+  var fuSel=document.getElementById('fuSel'), cards=document.getElementById('fuCards');
+  function renderCards(){
+    if(!cards) return;
+    var c=T.countBy('Follow-up', function(tr){ return !!sent[rowKey(tr)]; }), shown=T.visible().filter(function(tr){ var a=val(tr,'Follow-up'); return a&&a!=='No follow-up needed'; }).length;
+    var cur0=T.getSet('Follow-up'), one=cur0&&cur0.length===1?cur0[0]:'';
+    cards.innerHTML=ACTIONS.map(function(a){ return '<button type="button" class="fu-card fu-'+SLUG[a]+(one===a?' on':'')+'" data-a="'+esc(a)+'"><span>'+esc(a)+'</span><b>'+(c[a]||0)+'</b></button>'; }).join('')+
+      '<span class="fu-card fu-sentcount"><span>Marked sent</span><b>'+(c.__extra||0)+'</b></span>'+
+      '<button type="button" class="fu-digest"'+(shown?'':' disabled')+'>Draft one letter per official ('+shown+' requests)</button>';
+    [].forEach.call(cards.querySelectorAll('.fu-card[data-a]'),function(b){ b.addEventListener('click',function(){
+      window.cbRowFilter=null; var a=b.dataset.a; T.setSet('Follow-up', one===a?null:[a]); }); });
+    cards.querySelector('.fu-digest').addEventListener('click',openDigest);
+  }
+  function syncSel(){ if(!fuSel) return; var s=T.getSet('Follow-up'), v='';
+    if(window.cbRowFilter===unsent) v='__unsent';
+    else if(s&&s.length===1) v=s[0];
+    else if(s&&s.length===5&&s.indexOf('No follow-up needed')<0) v='__needs';
+    else if(s) v='__custom';
+    fuSel.value=v; }
+  if(fuSel) fuSel.addEventListener('change',function(){ var v=fuSel.value; window.cbRowFilter=null;
+    if(!v) T.setSet('Follow-up',null);
+    else if(v==='__needs') T.setSet('Follow-up',ACTIONS.slice(0,5));
+    else if(v==='__unsent'){ window.cbRowFilter=unsent; T.setSet('Follow-up',ACTIONS.slice(0,5)); }
+    else if(v!=='__custom') T.setSet('Follow-up',[v]); });
+  window.cbUrlExtras=function(p){ if(window.cbRowFilter===unsent) p.set('fu','unsent'); };
+  window.cbCsvExtras={cols:['Tracking Code','Follow-up Agency','Follow-up Why','Requested In','Letter Sent','Letter Sent To'],
+    values:function(tr){ var s=sent[rowKey(tr)], pill=tr.querySelector('.fu-pill');
+      return [tr.dataset.tc||'', tr.dataset.fa||'', pill?pill.title:'', (tr.dataset.hy||'').split('|').filter(Boolean).map(function(y){return 'FY'+y;}).join(', '), s?s.d:'', s&&s.to?s.to.join('; '):'']; }};
+  document.addEventListener('cb:applied',function(){ renderCards(); syncSel(); });
+
+  [fuName,fuRole].forEach(function(el){ el.addEventListener('input',updateSignatures); });
+  document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('.fu-btn'); if(b) open(b.closest('tr')); });
   document.getElementById('fuRecips').addEventListener('change',function(e){ var i=e.target.getAttribute('data-i'); if(i===null) return; list[+i].on=e.target.checked; renderLetters(); });
   [].forEach.call(document.querySelectorAll('input[name=fuMode]'),function(r){ r.addEventListener('change',function(){ mode=r.value; renderLetters(); }); });
   dlg.querySelector('.fu-x').addEventListener('click',close);
   dlg.addEventListener('click',function(e){ if(e.target===dlg) close(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!dlg.hidden) close(); });
+
+  [].forEach.call(document.querySelectorAll('tbody tr'),paintSent);
+  if(new URLSearchParams(window.cbInitialSearch||'').get('fu')==='unsent'){ window.cbRowFilter=unsent; T.apply(); }
+  else { renderCards(); syncSel(); }
 })();
 </script>
 """
+
 
 parts = [HEAD, YEAR_REDIRECT, '<header>']
 parts.append(f'<h1><span id="h1board">Queens Community Board 2</span> &mdash; FY{FY} Budget Requests &amp; Agency Responses</h1>')
@@ -951,6 +1213,7 @@ for k, key in [("Requests", "requests"), ("Expense", "expense"), ("Capital", "ca
                ("Support", "support"), ("Oppose", "oppose"), ("Neutral/Unclear", "neutral")]:
     parts.append(f'<div class="card"><div class="k">{k}</div><div class="v" data-card="{key}">0</div></div>')
 parts.append('</div>')
+parts.append('<div id="fuCards" class="fu-cards" aria-label="Follow-up counts"></div>')
 parts.append('</header>')
 
 parts.append('<div class="controls">')
@@ -971,6 +1234,11 @@ parts.append('<select id="commSel" class="commsel" '
              '<option value="">All committees</option>'
              + "".join(f'<option value="{html.escape(c)}">{html.escape(c)}</option>' for c in committees_list)
              + '</select>')
+parts.append('<select id="fuSel" class="commsel" title="Filter by follow-up. Letters sent are marked in this browser only." '
+             'aria-label="Filter by follow-up"><option value="">All follow-ups</option>'
+             '<option value="__needs">Needs follow-up</option><option value="__unsent">Needs follow-up, not yet sent</option>'
+             + "".join(f'<option value="{html.escape(a)}">{html.escape(a)}</option>' for a in FU_SLUG)
+             + '<option value="__custom" hidden>Custom filter</option></select>')
 _msort_opts = "".join(
     f'<option value="{i}.asc">{html.escape(LABEL.get(c, c))} ↑</option>'
     f'<option value="{i}.desc">{html.escape(LABEL.get(c, c))} ↓</option>'

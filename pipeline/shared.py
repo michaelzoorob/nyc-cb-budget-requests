@@ -246,6 +246,39 @@ FOLLOWUP_COLS = ["Follow-up", "Follow-up Purpose", "Follow-up Why", "Follow-up C
 FOLLOWUP_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), "followup_labels.csv")
 
 
+# Bodies that responses point to, under the one name the contact directory uses.
+BODY_ALIASES = {
+    "port authority": "Port Authority of New York and New Jersey",
+    "hcr": "NYS Homes and Community Renewal",
+    "nys hcr": "NYS Homes and Community Renewal",
+    "nys division of housing and community renewal": "NYS Homes and Community Renewal",
+    "nys dec": "NYS Department of Environmental Conservation",
+    "ny state department of health": "NYS Department of Health",
+    "office of veteran's affairs": "Department of Veterans' Services",
+    "mayor's office of veterans affairs": "Department of Veterans' Services",
+    "hydc": "Hudson Yards Development Corporation",
+    "mayor's office on food policy": "Mayor's Office of Food Policy",
+    "dept. of records": "Department of Records and Information Services",
+    "mopt": "Mayor's Office to Protect Tenants",
+    "panynj": "Port Authority of New York and New Jersey",
+    "department of records": "Department of Records and Information Services",
+    "mayor's office of people with disabilities": "Mayor's Office for People with Disabilities",
+    "office of technology & innovation": "Office of Technology & Innovation (DoITT)",   # the data's own name
+}
+
+
+def canonical_body(name):
+    """'Port Authority of New York and New Jersey (PANYNJ)' -> 'Port Authority of New York
+    and New Jersey'; 'HCR' -> 'NYS Homes and Community Renewal'. Of several bodies joined
+    by ';', the first is kept."""
+    first = str(name).split(";")[0]
+    acronym = re.search(r"\(([A-Za-z&.]{2,})\)", first)
+    if acronym and acronym.group(1).lower() in BODY_ALIASES:
+        return BODY_ALIASES[acronym.group(1).lower()]
+    n = re.sub(r"\s*\([^)]*\)", "", first).strip()
+    return BODY_ALIASES.get(n.lower(), n)
+
+
 def add_followup(df):
     """Append the follow-up columns, looked up by the pair of responses. Returns the new
     frame and the number of requests whose responses have no follow-up label yet."""
@@ -257,4 +290,5 @@ def add_followup(df):
     df = df.copy()
     for col, field in zip(FOLLOWUP_COLS, ["action", "purpose", "why", "contact", "url", "agency"]):
         df[col] = [lab[k].get(field, "") if k in lab else "" for k in keys]
+    df["Follow-up Agency"] = [canonical_body(a) if a else "" for a in df["Follow-up Agency"]]
     return df, sum(k not in lab for k in keys)

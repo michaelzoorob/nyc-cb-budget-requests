@@ -11,7 +11,7 @@ The site root shows the latest year. Earlier years are at `/fy2026/`, `/fy2025/`
 on. The Year menu switches between them and keeps the board, committee, search and
 column filters. A link such as `?year=2024&board=QCB2` also works.
 
-Each year is one self-contained HTML page of 7 to 9 MB, with the data embedded inline
+Each year is one self-contained HTML page of 7 to 10 MB, with the data embedded inline
 and no backend or external JS. The pages are deployed as a Vercel static site.
 
 ## Where each year's data comes from
@@ -66,6 +66,8 @@ not included.
 | `pipeline/build_cb2_register.py` | Standalone. Builds a CB2-only sheet from the Register alone. |
 | `pipeline/committee_labels.csv` | The committee for each request, keyed by request id. |
 | `pipeline/followup_labels.csv` | The follow-up action for each pair of agency and OMB responses. |
+| `pipeline/locate_requests.py`, `pipeline/request_locations.csv` | The council district of each request whose site is known, from the park or street intersection it names. |
+| `pipeline/enrich_years.py` | Links each request to the same board's requests in other years, and adds the site's council district, to every year's CSV. |
 | `pipeline/build_contacts.py`, `pipeline/contacts/` | The follow-up letters' recipients, with Council Members by district, Borough Presidents and agency offices. See its README. |
 | `label_followup/` | The follow-up rubric, labeling scripts and validation. See its README. |
 | `label_committees/` | The committee definitions, labeling scripts and validation. See its README. |
@@ -82,12 +84,15 @@ DATA=/some/dir ./update.sh
 ```
 
 Code runs from `pipeline/`. Downloaded Registers and intermediate CSVs go to the data
-directory, and Statement PDFs with their text go to its `statement_text/` folder. Use
+directory, and Statement PDFs with their text go to its `statement_text/` folder. After
+every year is built, `update.sh` runs `locate_requests.py` and `enrich_years.py`, since
+both read all the years at once, and then writes the pages. Use
 `REUSE=1` only when the PDF parser is unchanged, since it skips re-parsing. To rebuild
-one year, run these from the data directory.
+one year's page after the other years exist, run these from the data directory.
 
 ```sh
 python3 ~/cb2-budget-requests-fy2027/pipeline/build_all_boards.py --fy 2025
+python3 ~/cb2-budget-requests-fy2027/pipeline/enrich_years.py .
 python3 ~/cb2-budget-requests-fy2027/pipeline/generate_cb2_html.py --fy 2025 \
     "CB FY2025 Requests (all boards, detailed, 2-stage).csv" ~/cb2-budget-requests-fy2027/fy2025/index.html
 ```
@@ -141,6 +146,16 @@ The Follow-up column gives the next step for a board that still wants a request.
 
 A model read each pair of agency and OMB responses and chose the step, following `label_followup/rubric.md`. `label_followup/README.md` describes the method and its validation.
 
-The Draft letter button opens a panel of recipients. Depending on the step, it pre-selects the agency's office for the board (or the office of the agency a response points to, when the response says another agency handles the request), the Council Members whose districts cover at least 10% of the board's land area, and the Borough President. It drafts a separate letter for each recipient or one joint letter. Each letter quotes the request, its tracking code and both responses. The letter opens in the viewer's email program, or it can be copied into an agency's contact form. The page drafts letters in the browser from fixed templates and sends nothing itself.
+A count of each step appears above the table. Clicking a count, or choosing a step in the Follow-up menu, shows only those requests. The menu can also show the requests that still need follow-up and have not been marked sent.
+
+The Draft letter button opens a panel of recipients. Depending on the step, it pre-selects the agency's office for the board (or the office of the agency a response points to, when the response says another agency handles the request), the Council Member for the request and the Borough President. For a request whose obstacle is money, it pre-selects the Borough President's budget office. It drafts a separate letter for each recipient or one joint letter. Each letter quotes the request, its tracking code and both responses, and says how many budget years the board has made the request. The letter opens in the viewer's email program, or it can be copied into an agency's contact form. The page drafts letters in the browser from fixed templates and sends nothing itself.
+
+The Draft one letter per official button writes one letter to each official for all the requests shown, with each request's own recipients. With the Contact elected officials filter on, for example, each Council Member gets a single letter listing that member's requests.
+
+The Council Member for a request is the member whose district holds the request's site, when the site is known. `pipeline/locate_requests.py` places a request that names a park with NYC Parks Properties, and a Statement explanation that begins with a street and its cross streets with the NYC Street Centerline. It keeps a site only if the site lies in one of the board's own council districts. It places 2,182 of the 16,872 distinct requests from FY2020 to FY2027 (identical requests in different years count once), 1,730 by park and 452 by street intersection. The letters for other requests go to the Council Members whose districts cover at least 10% of the board's land area.
+
+`pipeline/enrich_years.py` links a request to the same board's requests in other years when their explanations begin with the same text. In FY2027, 2,549 of the 3,809 requests also appear in another year. The letter panel lists those years and the most recent earlier response.
+
+Mark as sent records the date and the recipients of a letter, and the Follow-up column then shows the date. A board can also add its own contact for an agency, which the panel offers first for that agency's requests. Both are saved only in the viewer's browser. The CSV download adds the tracking code, the agency a response points to, the reason for the step, the years of the request, and the sent date with its recipients.
 
 Recipients come from `pipeline/contacts/`. `pipeline/build_contacts.py` rebuilds the Council Members and their districts from council.nyc.gov and DCP's district maps. Agency and Borough President contacts were gathered from official websites in September 2026, and every row cites its source page. Agency staff change, so check a contact before relying on it.

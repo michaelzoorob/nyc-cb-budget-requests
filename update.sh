@@ -26,6 +26,12 @@ fi
 for fy in $YEARS; do
   echo "== FY$fy =="
   python3 "$PIPELINE/build_all_boards.py" --fy "$fy" ${REUSE:+--reuse-parsed}
+done
+# Every year must exist before these two: they link requests across years.
+echo "Locating requests (parks and street intersections)..."
+python3 "$PIPELINE/locate_requests.py" "$DATA"
+python3 "$PIPELINE/enrich_years.py" "$DATA"
+for fy in $YEARS; do
   if [ "$fy" = "$LATEST" ]; then out="$PROJ/index.html"; else mkdir -p "$PROJ/fy$fy"; out="$PROJ/fy$fy/index.html"; fi
   python3 "$PIPELINE/generate_cb2_html.py" --fy "$fy" "CB FY$fy Requests (all boards, detailed, 2-stage).csv" "$out"
 done
