@@ -28,10 +28,10 @@ Rebuilding the dashboard with the labels changed only the Committees column, and
 
 ## Judgment calls
 
-Three rules in `rubric.md` extend CB2's precedent to cases CB2 never filed. Each is a choice the board may want to revisit.
+Three rules in `rubric.md` extend CB2's precedent to cases CB2 never filed. One of them has since changed, and the other two remain choices the board may want to revisit.
 
 - **Schools go to Health and Human Services.** CB2 filed no school requests in FY2027. CB2 placed after-school programs in Health and Human Services, and the rubric extends that to education. In FY2027 this moved 275 of the 279 DOE and SCA requests out of City Services, the old catch-all.
-- **Street reconstruction, resurfacing and street lighting go to City Services.** Traffic safety, bike lanes, bus service and transit stay in Transportation. This follows CB2's placement of its Winfield street reconstruction request in City Services. In FY2027 it moved 203 of the 609 DOT requests out of Transportation.
+- **Street reconstruction goes to Transportation (changed September 2026).** The rubric first sent it to City Services, following CB2's placement of its Winfield street reconstruction request. The rule changed in September 2026. Resurfacing, pothole repair and street lighting stay in City Services. `move_street_reconstruction.py` applied the change to the existing labels. Sonnet agents answered one question for each of 987 candidate request texts, and 392 were street reconstruction. A blind Opus agent agreed on 76 of a sample of 80, including all 58 it rated high confidence. A consistency pass gave one answer to each of three requests that boards resubmitted with small wording changes. Across the eight years, 895 requests moved to Transportation. In FY2027, 471 of the 617 DOT requests are now Transportation, up from 397. CB2's own FY2027 Winfield request keeps City Services, the committee it was filed under on CB2's form.
 - **A board's own operations go to Engagement and Inclusion.** CB2's Engagement and Inclusion requests cover its storefront, website, newsletter, meeting technology and events. The rubric extends that to a board's office, staff, budget and training. In FY2027, 42 of the 59 non-CB2 requests labeled Engagement and Inclusion were filed with OMB, DCAS or OTI and concern board operations.
 
 To change a call, edit `rubric.md` and relabel, or edit `committee_labels.csv` directly.
@@ -42,7 +42,7 @@ FY2020 through FY2026 hold 25,537 requests. Of those, 4,021 are identical to an 
 
 An Opus agent labeled a random sample of 100 of these texts without seeing the Sonnet labels. The two chose the same primary committee for 95 of the 100, including all 67 the Opus labeler rated high confidence. The agency and keyword rule matched the Opus labeler on 79. No request in the sample was Engagement and Inclusion, so this check says nothing specific about that committee in earlier years.
 
-Three of the five disagreements were DOT street reconstructions. Across all eight years, DOT's "Reconstruct streets" category splits 77% City Services and 23% Transportation. About 40% of the Transportation share are safety or street-redesign projects, which the rubric sends to Transportation. The other 120 or so are plain reconstructions and sit on the boundary the rubric draws.
+Three of the five disagreements were DOT street reconstructions. Across all eight years, DOT's "Reconstruct streets" category splits 77% City Services and 23% Transportation. About 40% of the Transportation share are safety or street-redesign projects, which the rubric sends to Transportation. The other 120 or so are plain reconstructions and sit on the boundary the rubric drew. Since the September 2026 change, 88% of the category is Transportation. The 102 requests left in City Services ask for resurfacing, trench restoration, curbs, sidewalks or drainage.
 
 A September 2026 audit fixed the PDF parser and rebuilt every year. Fixing a request's title or text changes its id, so 281 such requests were given the label of the same request's old id. Ten new texts were labeled with the same method. They are Brooklyn CB16's FY2025 requests, which come from its Statement, and requests the parser had garbled or dropped.
 
