@@ -20,7 +20,7 @@ import urllib.request
 
 import pandas as pd
 
-from shared import (AGENCY, AGENCY_ABBR, COLS, PUBLICATIONS, REG_BORO_ABBR, REGISTER_AGENCY_NAMES,
+from shared import (AGENCY, AGENCY_ABBR, COLS, PUBLICATIONS, add_followup, REG_BORO_ABBR, REGISTER_AGENCY_NAMES,
                     infer_committees, load_labels, request_id, stance)
 
 BOARD_ORDER = ["M", "BX", "BK", "Q", "SI"]   # same board order as the PDF years
@@ -74,6 +74,7 @@ def build(fy, register_csv, boards=None):
             "Agency Stance (MZ added)": stance(a_resp),
             "Committees": "|".join(labels.get(rid) or infer_committees(title, expl, AGENCY_ABBR.get(agency))),
             "Label ID": rid,
+            "Tracking Code": tc.strip(),
         })
     out = pd.DataFrame(rows, columns=COLS)
     if unmapped:
@@ -91,7 +92,7 @@ if __name__ == "__main__":
     if not os.path.exists(reg):
         sys.stderr.write(f"Downloading the FY{fy} Register ({' + '.join(PUBLICATIONS[fy])})...\n")
         fetch_register(fy, reg)
-    out = build(fy, reg)
+    out, n_nofu = add_followup(build(fy, reg))
     out.to_csv(dest, index=False)
     lab = load_labels()
     n_lab = sum(request_id(b, t, e) in lab for b, t, e in zip(out.Board, out.Title, out.Explanation))

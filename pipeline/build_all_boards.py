@@ -27,7 +27,7 @@ import difflib
 
 from build_register_year import BOARD_ORDER, build as build_from_register, fetch_register
 from parse_request_table import parse as parse_request_table, parse_five_column
-from shared import (AGENCY, BORO_ABBR, COLS, LATEST, PDF_YEARS, PUBLICATIONS, infer_committees, load_labels,
+from shared import (AGENCY, BORO_ABBR, COLS, LATEST, PDF_YEARS, PUBLICATIONS, add_followup, infer_committees, load_labels,
                     norm, request_id, stance)
 
 PREFIX = {1: "MN", 2: "BX", 3: "BK", 4: "QN", 5: "SI"}
@@ -128,7 +128,7 @@ def rows_from_table(table, board):
                     "Title": t["title"], "Explanation": t["explanation"], "Agency Response": "",
                     "OMB Executive Response": "", "Agency Stance (MZ added)": stance(""),
                     "Committees": "|".join(labels.get(rid) or infer_committees(t["title"], t["explanation"], t["agency"])),
-                    "Label ID": rid})
+                    "Label ID": rid, "Tracking Code": ""})
     df = pd.DataFrame(out, columns=COLS)
     df["_t"] = df["Type"].map({"Capital": 0, "Expense": 1})
     df["_p"] = pd.to_numeric(df["Priority"], errors="coerce")
@@ -159,6 +159,7 @@ if FY not in PDF_YEARS:
             absent.append(code)
     out["_b"] = out["Board"].map(lambda b: (BOARD_ORDER.index(b.split("CB")[0]), int(b.split("CB")[1])))
     out = out.sort_values("_b", kind="stable").drop(columns="_b")
+    out, n_nofu = add_followup(out)
     out.to_csv(OUT_CSV, index=False)
     lab = load_labels()
     n_lab = sum(i in lab for i in out["Label ID"])
@@ -167,6 +168,8 @@ if FY not in PDF_YEARS:
                      f"labels for {n_lab}, rule for {len(out) - n_lab}\n")
     if absent:
         sys.stderr.write(f"  in neither the Register nor a Statement: {absent}\n")
+    if n_nofu:
+        sys.stderr.write(f"  follow-up: {n_nofu} requests have responses with no follow-up label yet\n")
     sys.exit(0)
 
 
@@ -237,6 +240,9 @@ if missing:
         sys.stderr.write(f"  NO DATA in either source: {nodata}\n")
 
 allb = pd.concat([built[c] for c in code_to_board if c in built], ignore_index=True).fillna("")
+allb, n_nofu = add_followup(allb)
 allb.to_csv(OUT_CSV, index=False)
+if n_nofu:
+    sys.stderr.write(f"  follow-up: {n_nofu} requests have responses with no follow-up label yet\n")
 sys.stderr.write(f"COMBINED FY{FY}: {len(allb)} rows across {allb['Board'].nunique()} boards\n")
 sys.stderr.write(str(dict(sorted(collections.Counter(allb["Board"]).items()))) + "\n")

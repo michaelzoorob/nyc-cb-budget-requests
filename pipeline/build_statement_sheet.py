@@ -188,6 +188,7 @@ if len(omb) and len(p) and len(match) / len(p) < 0.5:
              f"entries (wrong board's file?)")
 
 p["OMB Executive Response"] = [omb.at[match[i], "response"] if i in match else "" for i in range(len(p))]
+p["Tracking Code"] = [omb.at[match[i], "tracking_code"].strip() if i in match else "" for i in range(len(p))]
 p["explanation"] = [(omb.at[match[i], "explanation"] if i in match else "") if bad else e
                     for i, (bad, e) in enumerate(zip(name_err, p["explanation"]))]
 # An entry whose columns pdftotext interleaved (the parser flags it; one FY2027 entry)
@@ -225,6 +226,7 @@ for j in range(len(omb)):
     extra.append({"Priority": r["pri"], "Type": r["type"], "Board": BOARD, "Agency": agency,
                   "Title": r["request"], "Explanation": r["explanation"], "Agency Response": a_resp,
                   "OMB Executive Response": r["response"], "Agency Stance (MZ added)": stance(a_resp),
+                  "Tracking Code": r["tracking_code"].strip(),
                   "agency": AGENCY_ABBR.get(agency, "")})
 if extra:
     p = pd.concat([p, pd.DataFrame(extra)], ignore_index=True).fillna("")

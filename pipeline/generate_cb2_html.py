@@ -17,7 +17,7 @@ import sys
 import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from shared import LATEST, PDF_YEARS, PUBLICATIONS, YEARS  # noqa: E402
+from shared import FOLLOWUP_COLS, LATEST, PDF_YEARS, PUBLICATIONS, YEARS  # noqa: E402
 
 argv = sys.argv[1:]
 FY = LATEST
@@ -75,6 +75,9 @@ def _bk(b):
 
 
 df = pd.read_csv(CSV, dtype=str).fillna("")
+for _c in FOLLOWUP_COLS + ["Tracking Code"]:          # CSVs built before follow-up labels existed
+    if _c not in df:
+        df[_c] = ""
 boards = sorted(df["Board"].unique(), key=_bk)
 DEFAULT_BOARD = "QCB2" if "QCB2" in boards else ""
 board_name = {b: board_short(b) for b in ALL_BOARDS}
@@ -93,16 +96,18 @@ for _b in boards:
 board_checklist = "".join(_chk)
 
 DISPLAY = ["Priority", "Type", "Board", "Agency", "Title", "Explanation",
-           "Agency Response", "OMB Executive Response", "Agency Stance (MZ added)"]
+           "Agency Response", "OMB Executive Response", "Agency Stance (MZ added)", "Follow-up"]
 WIDE = {"Title", "Explanation", "Agency Response", "OMB Executive Response"}
-PCT = {"Priority": 6, "Type": 6, "Board": 5, "Agency": 9, "Title": 13,
-       "Explanation": 15, "Agency Response": 18.5, "OMB Executive Response": 19,
-       "Agency Stance (MZ added)": 8.5}
+PCT = {"Priority": 6, "Type": 6, "Board": 5, "Agency": 8, "Title": 12,
+       "Explanation": 13, "Agency Response": 16.5, "OMB Executive Response": 16.5,
+       "Agency Stance (MZ added)": 7.5, "Follow-up": 9.5}
 LABEL = {"Agency Stance (MZ added)": "Agency Stance"}
 # Each column's filter kind is fixed, so a filter means the same thing on every year's
 # page. (Choosing by the number of distinct values made Priority a checkbox list on
 # FY2027 and a "contains" text box on earlier years.)
-FILTER_KIND = {"Priority": "set", "Type": "set", "Board": "set", "Agency Stance": "set"}
+FILTER_KIND = {"Priority": "set", "Type": "set", "Board": "set", "Agency Stance": "set", "Follow-up": "set"}
+FU_SLUG = {"Contact agency": "a", "Contact elected officials": "e", "Contact agency and elected officials": "ae",
+           "Track with agency": "t", "Use 311 or another channel": "c", "No follow-up needed": "n"}
 
 # Some years' Statement PDFs could not be used for a few boards, which then come
 # from the Register. The page says which.
@@ -166,6 +171,11 @@ TOOLTIP["Agency Stance (MZ added)"] = (
        " Before FY2026 agencies mostly answered with standard phrases that take no position, such as "
        "\"Further study by the agency of this request is needed\", so most requests read Neutral/Unclear."))
 
+TOOLTIP["Follow-up"] = (
+    "The next step for a board that still wants this request, read from the agency and OMB responses by a model "
+    "following label_followup/rubric.md in the repository. Draft letter writes a follow-up letter to the agency, "
+    "the district's Council Members or the Borough President.")
+
 committees_list = sorted({c for cs in df["Committees"] for c in str(cs).split("|") if c})
 
 
@@ -198,6 +208,15 @@ for idx, (_, r) in enumerate(df.iterrows()):
             tds.append(f'<td><span class="pill i-{stance_slug(r[c])}">{val.replace("/", "/<wbr>")}</span></td>')
         elif c == "Type":
             tds.append(f'<td><span class="pill {"ce-e" if r[c] == "Expense" else "ce-c"}">{val}</span></td>')
+        elif c == "Follow-up":
+            # data-v is the cell's value for sorting, filters and the CSV; the button is not.
+            if val:
+                why = html.escape(clean_text(r["Follow-up Why"]), quote=True)
+                tds.append(f'<td class="fu-td" data-v="{html.escape(clean_text(r[c]), quote=True)}"><div class="fu-cell">'
+                           f'<span class="pill fu-pill fu-{FU_SLUG.get(r[c], "n")}" title="{why}">{val}</span>'
+                           f'<button type="button" class="fu-btn">Draft letter</button></div></td>')
+            else:
+                tds.append('<td class="fu-td" data-v=""></td>')
         elif c == "Board":
             tds.append(f'<td class="board">{val}</td>')
         elif c == "Agency":
@@ -207,9 +226,12 @@ for idx, (_, r) in enumerate(df.iterrows()):
             tds.append(f'<td class="wide{extra}">{val}</td>')
         else:
             tds.append(f'<td class="nowrap">{val}</td>')
+    fu_attrs = "".join(f' {a}="{html.escape(clean_text(r[c]), quote=True)}"' for a, c in
+                       [("data-tc", "Tracking Code"), ("data-fp", "Follow-up Purpose"),
+                        ("data-fc", "Follow-up Contact"), ("data-fu", "Follow-up URL")] if str(r[c]).strip())
     body.append(f'<tr class="{z}" data-search="{blob}" '
                 f'data-board="{html.escape(str(r["Board"]), quote=True)}" '
-                f'data-committees="{html.escape(str(r["Committees"]), quote=True)}">' + "".join(tds) + "</tr>")
+                f'data-committees="{html.escape(str(r["Committees"]), quote=True)}"{fu_attrs}>' + "".join(tds) + "</tr>")
 
 FUNNEL = ("<svg viewBox='0 0 16 16' width='11' height='11' aria-hidden='true'>"
           "<path fill='currentColor' d='M1 3h14l-5.5 6.5V14l-3 1.5V9.5z'/></svg>")
@@ -313,6 +335,42 @@ tr.hide{display:none}
 .cm-clear{width:100%;margin-top:6px;border:1px solid #fecaca;background:#fef2f2;color:#b42318;border-radius:6px;padding:5px;cursor:pointer;font-size:12px}
 .cm-clear:hover{background:#fee2e2}
 .msort{display:none}
+.fu-cell{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+td .fu-pill{white-space:normal;overflow-wrap:normal}
+.fu-a{background:#dbeafe;color:#1e40af}
+.fu-e{background:#ede9fe;color:#5b21b6}
+.fu-ae{background:#e0e7ff;color:#3730a3}
+.fu-t{background:#ccfbf1;color:#115e59}
+.fu-c{background:#ffedd5;color:#9a3412}
+.fu-n{background:#f1f5f9;color:#475569}
+.fu-btn{border:1px solid #cbd5e1;background:#fff;border-radius:6px;padding:2px 8px;font-size:11px;cursor:pointer;color:#0f172a}
+.fu-btn:hover{background:#eef2ff;border-color:#a5b4fc}
+.fu-ov{position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:flex-start;justify-content:center;
+  z-index:60;padding:32px 16px;overflow:auto}
+.fu-ov[hidden]{display:none}
+body.fu-lock{overflow:hidden}
+.fu-box{background:#fff;border-radius:12px;max-width:780px;width:100%;padding:16px 20px 18px;box-shadow:0 12px 36px rgba(15,23,42,.25)}
+.fu-head{display:flex;align-items:flex-start;gap:10px}
+.fu-head h2{font-size:17px;margin:2px 0 8px;flex:1}
+.fu-x{border:0;background:#f1f5f9;border-radius:8px;width:32px;height:32px;font-size:20px;cursor:pointer;line-height:1}
+.fu-meta{font-size:13px;color:#334155;margin-bottom:6px}
+.fu-small{font-size:12px;color:var(--mut);margin-top:4px}
+.fu-sec{margin:12px 0}
+.fu-h{font-weight:700;font-size:13px;margin-bottom:4px}
+.fu-sub{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--mut);margin:8px 0 2px}
+.fu-rcp{display:flex;gap:8px;align-items:flex-start;padding:4px 0;font-size:13px;cursor:pointer}
+.fu-rcp small{color:var(--mut)}
+.fu-row{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px}
+.fu-in{border:1px solid #cbd5e1;border-radius:6px;padding:6px 8px;font:inherit;font-size:13px;flex:1 1 200px;min-width:0}
+.fu-letter{border:1px solid var(--bd);border-radius:10px;padding:10px;margin:10px 0;background:#f8fafc}
+.fu-to{font-size:13px;margin-bottom:6px}
+.fu-subj{width:100%;box-sizing:border-box;margin-bottom:6px}
+.fu-body{width:100%;box-sizing:border-box;font:inherit;font-size:13px;line-height:1.45;border:1px solid #cbd5e1;border-radius:6px;padding:8px}
+.fu-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
+.fu-act{border:1px solid #2563eb;background:#2563eb;color:#fff;border-radius:6px;padding:6px 10px;font-size:12.5px;cursor:pointer;text-decoration:none}
+.fu-act.fu-copy{background:#fff;color:#1d4ed8}
+.fu-copied{font-size:12px;color:#166534}
+.fu-empty,.fu-note{font-size:12px;color:var(--mut)}
 @media (max-width:820px){
   header{padding:14px 14px 10px}
   h1{font-size:16px;line-height:1.3}
@@ -345,6 +403,9 @@ tr.hide{display:none}
      font-size:10px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px}
   td.mtitle{font-size:14.5px;font-weight:600}
   .wide{white-space:pre-wrap!important}
+  .fu-ov{padding:0}
+  .fu-box{border-radius:0;min-height:100vh;padding:14px}
+  .fu-cell{flex-direction:row;align-items:center;flex-wrap:wrap}
 }
 </style></head><body>
 """
@@ -374,7 +435,7 @@ SCRIPT = r"""
   // for that have no requests this year; they stay in the URL so switching back to a
   // year that has them restores them, and they empty the view with a notice.
   var boardPick=new Set(), absentReq=[];
-  function cell(tr,ci){return tr.children[ci].textContent.trim();}
+  function cell(tr,ci){var td=tr.children[ci], v=td.getAttribute('data-v'); return (v!==null?v:td.textContent).trim();}
   function kindOf(ci){return KIND[ths[ci].dataset.label]==='set'?'set':'text';}
   var typeCol=-1,stanceCol=-1;
   ths.forEach(function(t,i){var l=(t.dataset.label||'').toLowerCase(); if(l==='type')typeCol=i; if(l.indexOf('stance')>-1)stanceCol=i;});
@@ -637,6 +698,231 @@ else:
               f"Titles are DCP's standard request categories, since boards' own titles begin in FY2026. "
               f"Agencies then mostly answered with standard phrases that take no position, so most stances read "
               f"Neutral/Unclear. For reference, see the {STMT}.")
+CONTACTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "contacts")
+
+
+def load_contacts():
+    """The follow-up letters' recipients: each board's Council Members (by share of the
+    board's land area), its Borough President, and each agency's offices. See
+    pipeline/contacts/README.md for sources."""
+    def rd(name):
+        p = os.path.join(CONTACTS_DIR, name)
+        return pd.read_csv(p, dtype=str).fillna("").to_dict("records") if os.path.exists(p) else []
+    office = lambda r: {"borough": r.get("borough", ""), "office": r.get("office", ""), "person": r.get("person", ""),
+                        "title": r.get("title", ""), "email": r.get("email", ""), "form": r.get("form_url", ""),
+                        "phone": r.get("phone", ""), "src": r.get("source_url", ""), "role": r.get("role", ""),
+                        "boards": [b for b in r.get("boards", "").split("|") if b]}
+    out = {"council": {}, "boardCouncil": {}, "bp": {}, "agency": {}, "asOf": ""}
+    for r in rd("council_members.csv"):
+        out["council"][r["council_district"]] = {"name": r["name"], "salutation": r["salutation"],
+                                                 "email": r["email"], "url": r["url"]}
+        out["asOf"] = max(out["asOf"], r.get("as_of", ""))
+    for r in rd("board_council_districts.csv"):
+        out["boardCouncil"].setdefault(r["board"], []).append([int(r["council_district"]), float(r["share"])])
+    for r in rd("borough_presidents.csv"):
+        out["bp"].setdefault(r["borough"], []).append(office(r))
+    for r in rd("agency_contacts.csv"):
+        out["agency"].setdefault(r["agency"], []).append(office(r))
+    return out
+
+
+FU_MODAL = """<div id="fuModal" class="fu-ov" hidden>
+<div class="fu-box" role="dialog" aria-modal="true" aria-labelledby="fuTitle">
+<div class="fu-head"><h2 id="fuTitle"></h2><button type="button" class="fu-x" aria-label="Close">&times;</button></div>
+<div id="fuMeta" class="fu-meta"></div>
+<div class="fu-sec"><div class="fu-h">Recipients</div><div id="fuRecips"></div></div>
+<div class="fu-sec fu-row"><label><input type="radio" name="fuMode" value="each" checked> A separate letter for each recipient</label>
+<label><input type="radio" name="fuMode" value="joint"> One letter to all</label></div>
+<div class="fu-sec fu-row"><input id="fuName" class="fu-in" placeholder="Your name" autocomplete="name">
+<input id="fuRole" class="fu-in" placeholder="Your title (for example, Chair)"></div>
+<div id="fuLetters"></div>
+<p class="fu-note">Each draft quotes the request and the city's responses. Review and edit it before sending.
+Changing recipients redrafts the letters, so edit last. Contacts come from official city websites
+(<span id="fuAsOf"></span>); check them before relying on them.</p>
+</div></div>"""
+
+FU_SCRIPT = r"""
+<script>
+(function(){
+  var dlg=document.getElementById('fuModal'); if(!dlg) return;
+  var C=window.contacts||{}; ['council','boardCouncil','bp','agency'].forEach(function(k){ if(!C[k]) C[k]={}; });
+  var FY=window.pageYear, boardFull=window.boardFull||{}, boardName=window.boardName||{};
+  var ths=[].slice.call(document.querySelectorAll('table thead th')), col={};
+  ths.forEach(function(t,i){ col[t.dataset.label]=i; });
+  var BORO={M:'Manhattan',BX:'Bronx',BK:'Brooklyn',Q:'Queens',SI:'Staten Island'};
+  var SKEY='cbFollowupSender', cur=null, list=[], mode='each', lastFocus=null;
+  function boroOf(b){ var m=/^(BX|BK|SI|M|Q)CB\d+$/.exec(b||''); return m?BORO[m[1]]:''; }
+  function val(tr,label){ var i=col[label]; if(i==null) return ''; var td=tr.children[i], v=td.getAttribute('data-v');
+    return (v!==null?v:td.textContent).replace(/\s+/g,' ').trim(); }
+  function clip(s,max){ s=(s||'').replace(/\s+/g,' ').trim(); if(s.length<=max) return s;
+    var c=s.slice(0,max), d=c.lastIndexOf('. '); return d>max*0.5?c.slice(0,d+1):c.replace(/\s+\S*$/,'')+'…'; }
+  function lead(s,n,max){ s=(s||'').replace(/\s+/g,' ').trim(); if(!s) return '';
+    var parts=s.match(/[^.!?]+(?:[.!?]+|$)/g)||[s]; return clip(parts.slice(0,n).join('').trim(),max); }
+  function andList(a){ return a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a[a.length-1]; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function reach(o){ return !!(o&&(o.email||o.form)); }
+  function agencyPhrase(a){ return a==='Other'||!a?'a city agency':'the '+a; }
+  function loadSender(){ try{ return JSON.parse(localStorage.getItem(SKEY)||'{}')||{}; }catch(e){ return {}; } }
+  function saveSender(){ try{ localStorage.setItem(SKEY,JSON.stringify({name:fuName.value,role:fuRole.value})); }catch(e){} }
+
+  function request(tr){
+    var pill=tr.querySelector('.fu-pill');
+    return {board:tr.dataset.board||'', full:boardFull[tr.dataset.board]||tr.dataset.board||'the community board',
+      boro:boroOf(tr.dataset.board), pri:val(tr,'Priority'), type:val(tr,'Type'), agency:val(tr,'Agency'),
+      title:val(tr,'Title'), expl:val(tr,'Explanation'), ar:val(tr,'Agency Response'), omb:val(tr,'OMB Executive Response'),
+      action:val(tr,'Follow-up'), why:pill?pill.title:'', purpose:tr.dataset.fp||'', named:tr.dataset.fc||'',
+      url:tr.dataset.fu||'', tc:tr.dataset.tc||''};
+  }
+  function recipients(r){
+    var out=[], a=r.action;
+    var wantA=/^(Contact agency|Track with agency)/.test(a), wantE=/elected officials$/.test(a);
+    // An agency's offices for this board: its own contact when the agency assigns staff by
+    // board, the borough office, then a citywide liaison, then the head. Press offices and
+    // contacts for a single facility or school district are listed but never pre-selected.
+    var offs=(C.agency[r.agency]||[]).filter(function(o){ return (!o.borough||o.borough===r.boro)&&(reach(o)||o.phone)&&
+      (!o.boards||!o.boards.length||o.boards.indexOf(r.board)>-1); });
+    var rank=function(o){ if(!reach(o)) return 9; if(o.boards&&o.boards.indexOf(r.board)>-1) return 0;
+      return {borough:1, liaison:2, head:3}[o.role]||8; };
+    offs.sort(function(a,b){ return rank(a)-rank(b); });
+    var pick=offs.filter(function(o){ return rank(o)<4; })[0];
+    offs.forEach(function(o){
+      out.push({kind:'agency', o:o, label:r.agency+', '+o.office+(o.person?' ('+o.person+')':''), on:wantA&&o===pick}); });
+    (C.boardCouncil[r.board]||[]).forEach(function(p){ var m=C.council[String(p[0])]; if(!m) return;
+      out.push({kind:'council', o:m, label:m.salutation+', District '+p[0]+' (covers '+Math.round(p[1]*100)+'% of the board’s area)',
+                on:wantE&&p[1]>=0.1}); });
+    var bps=C.bp[r.boro]||[], lead=bps.filter(isBP)[0]||bps[0];
+    bps.forEach(function(b){
+      out.push({kind:'bp', o:b, label:isBP(b)?'Borough President'+(b.person?' '+b.person:''):r.boro+' Borough President\u2019s office, '+b.office+(b.person?' ('+b.person+')':''),
+                on:wantE&&b===lead}); });
+    return out;
+  }
+  function isBP(o){ return o.role==='head'||/^Borough President$/i.test(o.office||''); }
+  function bpName(o){ return isBP(o)?'Borough President'+(o.person?' '+o.person:''):(o.person||'colleagues at the Borough President\u2019s office'); }
+  function salute(x,r){
+    if(x.kind==='council') return x.o.salutation;
+    if(x.kind==='bp') return bpName(x.o);
+    if(x.o.person){ var t=x.o.title||(/(Commissioner|Chancellor|Director|Chair|President)$/.test(x.o.office||'')?x.o.office:'');
+      return (t?t+' ':'')+x.o.person; }
+    return 'colleagues at '+agencyPhrase(r.agency);
+  }
+  function agencyAsk(r,direct){
+    var Y=direct?'Your response':'The response from '+agencyPhrase(r.agency);
+    switch(r.purpose){
+      case 'clarify': return Y+' says the agency needs more information about this request. We would like to provide it. Please tell us what information would help, or suggest a time for board members to discuss the request with the right staff.';
+      case 'study': return Y+' says the agency needs to study this request further. Please tell us where that review stands and when you expect to finish it. We can provide any information that would help.';
+      case 'discuss': return Y+' asks the board to contact the agency about this request. We would like to discuss it with the right staff. Please tell us whom to contact and when they are available.';
+      case 'reconsider': return 'We understand the agency does not support this request at this time. The need remains a priority for our district. Please explain the agency’s reasons in more detail and tell us what would allow it to reconsider the request in the next budget cycle.';
+      case 'funding': return Y+' indicates that funding is the obstacle to this request. Please share the estimated cost and the funding the agency would need to proceed.';
+      case 'advocacy': return Y+' indicates that this request needs a decision beyond the agency. Please tell us which office or level of government would need to act, and what the board can do to help.';
+      case 'status': return 'Thank you for the agency’s response. Please tell us the current status of this request, the expected timeline and whom we should contact for updates.';
+      case 'channel': return Y+' directs the board to '+(r.url||'311')+'. We will use that process. Please tell us if the board should take any other step.';
+      case 'no_response': return 'We could not find a published response to this request in the Statement of Community District Needs or in the City’s Register of Community Board Budget Requests. Please tell us the agency’s position on the request.';
+      default: return 'Please tell us the current status of this request and whether any work remains.';
+    }
+  }
+  function electedAsk(r,els,joint){
+    var who=andList(els.map(function(x){ return x.kind==='bp'?bpName(x.o):x.o.salutation; }));
+    if(r.purpose==='advocacy'){
+      var adv=(joint?'We ask '+who+' to consider':'We ask that you consider')+' supporting this request with '+agencyPhrase(r.agency)+', including any legislation or policy change it requires.';
+      return joint?adv:'The response from '+agencyPhrase(r.agency)+' indicates that this request needs a decision beyond the agency. '+adv;
+    }
+    if(r.purpose==='funding'||/elected officials$/.test(r.action)){
+      var money=r.type==='Capital'?'allocating capital funds (Reso A) to this project':'providing discretionary funding for this need';
+      var ask=(joint?'We ask '+who+' to consider ':'We ask that you consider ')+money+' and advocating for it with '+agencyPhrase(r.agency)+' and OMB in the next budget.';
+      return joint?ask:'The response from '+agencyPhrase(r.agency)+' indicates that funding is the obstacle to this request. '+ask;
+    }
+    return (joint?'We ask '+who+' to help us':'We would appreciate your office’s help')+' in getting a response from '+agencyPhrase(r.agency)+' and moving this request forward.';
+  }
+  function subject(r){ return 'FY'+FY+' '+(r.type?r.type.toLowerCase()+' ':'')+'budget request, '+clip(r.title,70)+' ('+(boardName[r.board]||r.board)+(r.tc?', '+r.tc:'')+')'; }
+  function letter(r,xs){
+    var ag=xs.filter(function(x){return x.kind==='agency';}), el=xs.filter(function(x){return x.kind!=='agency';});
+    var joint=ag.length>0&&el.length>0;
+    var ids=[r.pri?'priority '+r.pri:'', r.tc?'tracking code '+r.tc:''].filter(Boolean).join(', ');
+    var kindWord=(r.type?r.type.toLowerCase()+' ':'')+'request', art=/^[aeiou]/.test(kindWord)?'an ':'a ';
+    var p1='In its FY'+FY+' budget requests, '+r.full+' submitted '+art+kindWord+' to '+agencyPhrase(r.agency)+' titled “'+r.title+'”'+(ids?' ('+ids+')':'')+'.';
+    if(r.expl) p1+=' The request reads, “'+clip(r.expl,320)+'”';
+    var ar=lead(r.ar,2,360), echo=!r.omb||/^OMB supports the agency.s position/i.test(r.omb);
+    var p2=ar?(r.agency&&r.agency!=='Other'?'The '+r.agency:'The agency')+' responded, “'+ar+'”':'We could not find a published response from '+agencyPhrase(r.agency)+'.';
+    if(!echo) p2+=' In the Executive Budget, OMB responded, “'+lead(r.omb,2,300)+'”';
+    var asks=[]; if(ag.length) asks.push(agencyAsk(r,!joint)); if(el.length) asks.push(electedAsk(r,el,joint));
+    var s={name:fuName.value.trim(), role:fuRole.value.trim()};
+    var lines=['Dear '+andList(xs.map(function(x){return salute(x,r);}))+',','',p1,'',p2,''];
+    asks.forEach(function(a){ lines.push(a,''); });
+    lines.push('Thank you for your attention to this request.','','Sincerely,',s.name||'[Your name]',s.role||'[Your title]',r.full);
+    return lines.join('\n');
+  }
+  function contactBits(o){
+    var b=[]; if(o.email) b.push('<a href="mailto:'+esc(o.email)+'">'+esc(o.email)+'</a>');
+    if(o.form) b.push('<a href="'+esc(o.form)+'" target="_blank" rel="noopener">contact form</a>');
+    if(o.phone) b.push(esc(o.phone)); var u=o.url||o.src; if(u) b.push('<a href="'+esc(u)+'" target="_blank" rel="noopener">source</a>');
+    return b.join(' · ');
+  }
+  function renderRecips(){
+    var box=document.getElementById('fuRecips'); box.innerHTML='';
+    if(!list.length){ box.innerHTML='<p class="fu-empty">No contacts are on file for this request.</p>'; return; }
+    var heads={agency:'Agency',council:'Council Members',bp:'Borough President'}, last='';
+    list.forEach(function(x,i){
+      if(x.kind!==last){ var h=document.createElement('div'); h.className='fu-sub'; h.textContent=heads[x.kind]; box.appendChild(h); last=x.kind; }
+      var l=document.createElement('label'); l.className='fu-rcp';
+      l.innerHTML='<input type="checkbox" data-i="'+i+'"'+(x.on?' checked':'')+'><span><b>'+esc(x.label)+'</b><br><small>'+(contactBits(x.o)||'no email or form on file')+'</small></span>';
+      box.appendChild(l);
+    });
+  }
+  function renderLetters(){
+    var box=document.getElementById('fuLetters'); box.innerHTML='';
+    var sel=list.filter(function(x){return x.on;});
+    if(!sel.length){ box.innerHTML='<p class="fu-empty">Select at least one recipient to draft a letter.</p>'; return; }
+    var groups=mode==='joint'?[sel]:sel.map(function(x){return [x];});
+    groups.forEach(function(g){
+      var emails=g.map(function(x){return x.o.email;}).filter(Boolean), forms=g.filter(function(x){return !x.o.email&&x.o.form;});
+      var w=document.createElement('div'); w.className='fu-letter';
+      w.innerHTML='<div class="fu-to"><b>To</b> '+esc(g.map(function(x){return x.label.split(' (')[0];}).join('; '))+'</div>'+
+        '<input class="fu-subj fu-in" aria-label="Subject">'+'<textarea class="fu-body" rows="14" aria-label="Letter"></textarea>'+
+        '<div class="fu-acts"><button type="button" class="fu-act fu-copy">Copy letter</button>'+
+        (emails.length?'<a class="fu-act fu-mail" href="#">Open in email</a>':'')+
+        forms.map(function(x){return '<a class="fu-act" href="'+esc(x.o.form)+'" target="_blank" rel="noopener">Open '+esc(x.label.split(',')[0])+' contact form</a>';}).join('')+
+        '<span class="fu-copied" hidden>Copied</span></div>';
+      box.appendChild(w);
+      var subj=w.querySelector('.fu-subj'), body=w.querySelector('.fu-body');
+      subj.value=subject(cur); body.value=letter(cur,g);
+      w.querySelector('.fu-copy').addEventListener('click',function(){
+        var t=body.value, done=function(){ var c=w.querySelector('.fu-copied'); c.hidden=false; setTimeout(function(){c.hidden=true;},1500); };
+        if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done,function(){ body.select(); document.execCommand('copy'); done(); });
+        else { body.select(); document.execCommand('copy'); done(); }
+      });
+      var m=w.querySelector('.fu-mail');
+      if(m) m.addEventListener('click',function(e){ e.preventDefault();
+        location.href='mailto:'+emails.join(',')+'?subject='+encodeURIComponent(subj.value)+'&body='+encodeURIComponent(body.value.replace(/\n/g,'\r\n')); });
+    });
+  }
+  function open(tr){
+    cur=request(tr); list=recipients(cur); lastFocus=document.activeElement;
+    document.getElementById('fuTitle').textContent=cur.title||'Follow up';
+    var meta='<span class="pill fu-pill fu-'+({'Contact agency':'a','Contact elected officials':'e','Contact agency and elected officials':'ae','Track with agency':'t','Use 311 or another channel':'c','No follow-up needed':'n'}[cur.action]||'n')+'">'+esc(cur.action||'No label')+'</span> '+esc(cur.why);
+    meta+='<div class="fu-small">'+esc(cur.full)+' · FY'+esc(FY)+' '+esc(cur.type)+(cur.pri?' priority '+esc(cur.pri):'')+(cur.tc?' · tracking code '+esc(cur.tc):'')+' · '+esc(cur.agency)+'</div>';
+    if(cur.named) meta+='<div class="fu-small">The response names this contact: '+esc(cur.named)+'</div>';
+    if(cur.url) meta+='<div class="fu-small">The response links to <a href="'+esc(cur.url)+'" target="_blank" rel="noopener">'+esc(clip(cur.url,80))+'</a></div>';
+    if(cur.action==='Use 311 or another channel') meta+='<div class="fu-small"><a href="'+esc(cur.url||'https://portal.311.nyc.gov/')+'" target="_blank" rel="noopener">'+(cur.url?'Open the channel the response names':'Open 311')+'</a></div>';
+    if(cur.action==='No follow-up needed') meta+='<div class="fu-small">No follow-up is needed. Select a recipient to draft a letter anyway.</div>';
+    document.getElementById('fuMeta').innerHTML=meta;
+    document.getElementById('fuAsOf').textContent=C.asOf?'council contacts as of '+C.asOf:'as published';
+    renderRecips(); renderLetters(); dlg.hidden=false; document.body.classList.add('fu-lock');
+    dlg.querySelector('.fu-x').focus();
+  }
+  function close(){ dlg.hidden=true; document.body.classList.remove('fu-lock'); if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
+  var fuName=document.getElementById('fuName'), fuRole=document.getElementById('fuRole'), s0=loadSender();
+  fuName.value=s0.name||''; fuRole.value=s0.role||'';
+  [fuName,fuRole].forEach(function(el){ el.addEventListener('change',function(){ saveSender(); if(cur) renderLetters(); }); });
+  document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('.fu-btn'); if(b){ open(b.closest('tr')); } });
+  document.getElementById('fuRecips').addEventListener('change',function(e){ var i=e.target.getAttribute('data-i'); if(i===null) return; list[+i].on=e.target.checked; renderLetters(); });
+  [].forEach.call(document.querySelectorAll('input[name=fuMode]'),function(r){ r.addEventListener('change',function(){ mode=r.value; renderLetters(); }); });
+  dlg.querySelector('.fu-x').addEventListener('click',close);
+  dlg.addEventListener('click',function(e){ if(e.target===dlg) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!dlg.hidden) close(); });
+})();
+</script>
+"""
+
 parts = [HEAD, YEAR_REDIRECT, '<header>']
 parts.append(f'<h1><span id="h1board">Queens Community Board 2</span> &mdash; FY{FY} Budget Requests &amp; Agency Responses</h1>')
 parts.append(f'<p class="sub">{SOURCE}{YEAR_NOTE.get(FY, "")}</p>')
@@ -684,8 +970,11 @@ parts.append('</tbody></table></div>')
 parts.append('<script>window.pageYear=' + json.dumps(FY) + ';window.boardPdf=' + json.dumps(board_pdf)
              + ';window.repoUrl=' + json.dumps(REPO_URL) + ';window.boardName=' + json.dumps(board_name)
              + ';window.boardFull=' + json.dumps(board_full) + ';window.yearUrl=' + json.dumps(YEAR_URL)
-             + ';window.filterKind=' + json.dumps(FILTER_KIND) + ';</script>')
+             + ';window.filterKind=' + json.dumps(FILTER_KIND) + ';window.contacts=' + json.dumps(load_contacts())
+             + ';</script>')
 parts.append(SCRIPT)
+parts.append(FU_MODAL)
+parts.append(FU_SCRIPT)
 
 with open(OUT, "w", encoding="utf-8") as f:
     f.write("\n".join(parts))

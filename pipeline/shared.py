@@ -207,6 +207,13 @@ def request_id(board, title, expl):
     return hashlib.sha1(f"{board}|{norm(title)}|{norm(expl)}".encode()).hexdigest()[:12]
 
 
+def response_key(agency_response, omb_response):
+    """Follow-up labels are keyed by the pair of responses: requests that got the same
+    two responses share one label (label_followup/)."""
+    t = lambda x: " ".join(str(x).split()).lower()
+    return hashlib.sha1(f"{t(agency_response)}||{t(omb_response)}".encode()).hexdigest()[:12]
+
+
 def load_labels():
     if not os.path.exists(LABELS_CSV):
         return {}
@@ -228,4 +235,25 @@ COLS = ["Priority", "Type", "Board", "Agency", "Title", "Explanation",
         # The request id the committee label is keyed by. It is request_id(Board, Title,
         # Explanation) except where a title was restored after the label was assigned
         # (FY2026 Bronx boards), so the labeling scripts read it from here.
-        "Label ID"]
+        "Label ID",
+        # The Register's tracking code (blank for requests the Register lacks). Agencies
+        # and OMB file requests under it, so follow-up letters cite it.
+        "Tracking Code"]
+
+# Added to every year's CSV by add_followup(), from followup_labels.csv (label_followup/).
+FOLLOWUP_COLS = ["Follow-up", "Follow-up Purpose", "Follow-up Why", "Follow-up Contact", "Follow-up URL"]
+FOLLOWUP_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), "followup_labels.csv")
+
+
+def add_followup(df):
+    """Append the follow-up columns, looked up by the pair of responses. Returns the new
+    frame and the number of requests whose responses have no follow-up label yet."""
+    lab = {}
+    if os.path.exists(FOLLOWUP_CSV):
+        f = pd.read_csv(FOLLOWUP_CSV, dtype=str).fillna("")
+        lab = {r["id"]: r for r in f.to_dict("records")}
+    keys = [response_key(a, o) for a, o in zip(df["Agency Response"], df["OMB Executive Response"])]
+    df = df.copy()
+    for col, field in zip(FOLLOWUP_COLS, ["action", "purpose", "why", "contact", "url"]):
+        df[col] = [lab[k][field] if k in lab else "" for k in keys]
+    return df, sum(k not in lab for k in keys)

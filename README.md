@@ -11,8 +11,8 @@ The site root shows the latest year. Earlier years are at `/fy2026/`, `/fy2025/`
 on. The Year menu switches between them and keeps the board, committee, search and
 column filters. A link such as `?year=2024&board=QCB2` also works.
 
-Each year is one self-contained HTML page of 5.5 to 7.5 MB, with the data embedded
-inline and no backend or external JS. The pages are deployed as a Vercel static site.
+Each year is one self-contained HTML page of 7 to 9 MB, with the data embedded inline
+and no backend or external JS. The pages are deployed as a Vercel static site.
 
 ## Where each year's data comes from
 
@@ -65,6 +65,9 @@ not included.
 | `pipeline/generate_cb2_html.py` | One year's CSV into one page, including the Year menu. |
 | `pipeline/build_cb2_register.py` | Standalone. Builds a CB2-only sheet from the Register alone. |
 | `pipeline/committee_labels.csv` | The committee for each request, keyed by request id. |
+| `pipeline/followup_labels.csv` | The follow-up action for each pair of agency and OMB responses. |
+| `pipeline/build_contacts.py`, `pipeline/contacts/` | The follow-up letters' recipients, with Council Members by district, Borough Presidents and agency offices. See its README. |
+| `label_followup/` | The follow-up rubric, labeling scripts and validation. See its README. |
 | `label_committees/` | The committee definitions, labeling scripts and validation. See its README. |
 | `update.sh` | Rebuilds every year and redeploys. |
 
@@ -124,3 +127,20 @@ committee form. Everything else is labeled by a model following the rubric, and
 no label falls back to an agency and keyword rule, and the build log reports how many
 did. A board with a different committee structure would need its own rubric and
 labels.
+
+## Follow-up letters
+
+The Follow-up column gives the next step for a board that still wants a request. The step is one of these:
+
+- contact the agency
+- contact elected officials
+- contact both
+- track the request with the agency
+- use 311 or another channel
+- no follow-up needed
+
+A model read each pair of agency and OMB responses and chose the step, following `label_followup/rubric.md`. `label_followup/README.md` describes the method and its validation.
+
+The Draft letter button opens a panel of recipients. Depending on the step, it pre-selects the agency's office for the board, the Council Members whose districts cover at least 10% of the board's land area, and the Borough President. It drafts a separate letter for each recipient or one joint letter. Each letter quotes the request, its tracking code and both responses. The letter opens in the viewer's email program, or it can be copied into an agency's contact form. The page drafts letters in the browser from fixed templates and sends nothing itself.
+
+Recipients come from `pipeline/contacts/`. `pipeline/build_contacts.py` rebuilds the Council Members and their districts from council.nyc.gov and DCP's district maps. Agency and Borough President contacts were gathered from official websites in September 2026, and every row cites its source page. Agency staff change, so check a contact before relying on it.
