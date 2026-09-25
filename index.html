@@ -11712,7 +11712,7 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
     if(s.slice(start).trim()) out.push(s.slice(start).trim()); return out; }
   function lead(s,n,max){ return clip(sentences(s).slice(0,n).join(' '),max); }
   // A quoted text ends a sentence in the letter, so it needs end punctuation.
-  function stop(s){ return !s||/[.!?…]$/.test(s)?s:s+'.'; }
+  function stop(s){ s=(s||'').replace(/[\s,;:]+$/,''); return !s||/[.!?…]$/.test(s)?s:s+'.'; }
   // The response as a letter quotes it. When the follow-up turns on a contact, a process or
   // another agency that the response names after its first two sentences, the quote adds
   // that sentence.
@@ -11754,7 +11754,10 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
   // "Use 311 or another channel" needs no letter when the response gives a link or 311;
   // a named process ("Submit a space request") is a question for the agency.
   function linkOnly(r){ return r.action==='Use 311 or another channel'&&(!!r.url||says311(r)); }
-  function histSentence(r){ return r.hist.length>=2?'The board has made this request in '+r.hist.length+' budget years since FY'+r.hist[0]+'.':''; }
+  // "every year since FY2024" when the years run without a gap to this one.
+  function histSentence(r){ var h=r.hist; if(h.length<2) return '';
+    var every=+h[h.length-1]===+FY&&h.every(function(y,i){ return !i||+y===+h[i-1]+1; });
+    return every?'We have made this request every year since FY'+h[0]+'.':'We have made this request in '+h.length+' budget years, starting in FY'+h[0]+'.'; }
 
   function recipients(r){
     var out=[], a=r.action;
@@ -11800,98 +11803,158 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
     if(x.o.person){ var t=x.o.mine?'':honor(x.o.title||x.o.office); return (t?t+' ':'')+x.o.person; }
     return 'colleagues at '+agencyPhrase(x.ag);
   }
-  function channelText(r,Y){ return r.url?Y+' directs the board to '+r.url+'. We will use it. Please tell us if the board should take any other step.'
-    :says311(r)?Y+' directs the board to 311. We will use it. Please tell us if the board should take any other step.'
-    :Y+' directs the board to another process for this request. Please tell us how the board should submit it, or send us the form.'; }
-  // The ask to an agency. short=true gives one sentence for a list of requests.
+  function channelText(r,Y){ return r.url?Y+' points the board to '+r.url+'. Please tell us if the board should take any other step.'
+    :says311(r)?Y+' points the board to 311. Please tell us if the board should take any other step.'
+    :'Please tell us how the board should submit this request through the process '+(Y==='Your response'?'your':'the')+' response describes, or send us the form.'; }
+  // The ask to an agency. The response is quoted just above it, so the ask does not
+  // restate it. short=true gives one sentence for a list of requests.
   function agencyAsk(r,Y,orig,short){
     var S={clarify:'Please tell us what information would help.', study:'Please tell us where the agency’s review stands.',
       discuss:'Please tell us whom we should contact.', reconsider:'Please tell us what would allow the agency to reconsider it.',
       funding:'Please share the estimated cost and the funding the agency would need.', advocacy:'Please tell us which office would need to act.',
       status:'Please share its current status and timeline.', channel:'Please tell us how the board should submit it.',
       no_response:'Please tell us the agency’s position on it.'};
-    if(r.purpose==='redirect'&&r.dest) return orig?(short?'Your response directed the board to '+agencyPhrase(r.dest)+'; please tell us whom there to contact.':
-        'Your response directs the board to '+agencyPhrase(r.dest)+'. We are bringing the request to that agency. Please tell us whom there we should contact, or whether your agency can take on any part of the request.')
-      :(short?Cap(agencyPhrase(r.agency))+' directed the board to your agency. Please tell us whether your agency can consider it.':
-        Cap(agencyPhrase(r.agency))+' directed the board to your agency for this request. Please tell us whether your agency can consider it in the next budget, and whom we should contact about it.');
+    var own=Y==='Your response', your=own?'your':'the agency’s', yours=own?'your agency':'the agency';
+    if(r.purpose==='redirect'&&r.dest) return orig
+      ?(short?'We are bringing it to '+agencyPhrase(r.dest)+'. Please tell us whom there we should contact.'
+        :'We are bringing this request to '+agencyPhrase(r.dest)+'. Please tell us whom there we should contact, or whether your agency can take on any part of it.')
+      :(short?'Please tell us whether your agency can consider it.'
+        :'Please tell us whether '+(own?'your agency':agencyPhrase(r.dest))+' can take up this request in the next budget, and whom we should contact about it.');
     if(short) return S[r.purpose]||'Please tell us its current status.';
     switch(r.purpose){
-      case 'clarify': return Y+' says the agency needs more information about this request. We would like to provide it. Please tell us what information would help, or suggest a time for board members to discuss the request with the right staff.';
-      case 'study': return Y+' says the agency needs to study this request further. Please tell us where that review stands and when you expect to finish it. We can provide any information that would help.';
-      case 'discuss': return Y+' asks the board to contact the agency about this request. We would like to discuss it with the right staff. Please tell us whom to contact and when they are available.';
-      case 'reconsider': return 'We understand the agency does not support this request at this time. The need remains a priority for our district. Please explain the agency’s reasons in more detail and tell us what would allow it to reconsider the request in the next budget cycle.';
-      case 'funding': return Y+' indicates that funding is the obstacle to this request. Please share the estimated cost and the funding the agency would need to proceed.';
-      case 'advocacy': return Y+' indicates that this request needs a decision beyond the agency. Please tell us which office or level of government would need to act, and what the board can do to help.';
-      case 'status': return 'Thank you for the agency’s response. Please tell us the current status of this request, the expected timeline and whom we should contact for updates.';
+      case 'clarify': return 'We would like to give '+yours+' the information it needs. Please tell us what would help, or suggest a time for board members to meet with the right staff.';
+      case 'study': return 'Please tell us where '+your+' review stands and when you expect to finish it. We can provide any information that would help.';
+      case 'discuss': return 'We would like to discuss this request with the right staff. Please tell us whom to contact and when they are available.';
+      case 'reconsider': return 'This request remains a priority for our district. Please explain '+your+' reasons in more detail, and tell us what would allow '+yours+' to reconsider it in the next budget.';
+      case 'funding': return 'Please share the estimated cost of this request and the funding '+yours+' would need to move it forward.';
+      case 'advocacy': return 'Please tell us which office or level of government would need to act on this request, and what the board can do to help.';
+      case 'status': return 'Please tell us where this request stands, when you expect the work to be done, and whom we should contact for updates.';
       case 'channel': return channelText(r,Y);
-      case 'no_response': return 'We could not find a published response to this request in the Statement of Community District Needs or in the City’s Register of Community Board Budget Requests. Please tell us the agency’s position on the request.';
-      default: return 'Please tell us the current status of this request and whether any work remains.';
+      case 'no_response': return 'We could not find a published response to this request in the Statement of Community District Needs or in the City’s Register of Community Board Budget Requests. Please tell us the agency’s position on it.';
+      default: return 'Please tell us where this request stands and whether any work remains.';
     }
   }
   // Who a letter to elected officials asks: "you", or the Borough President when the
   // letter goes to the Borough President's staff.
   function youFor(els){ return els.length===1&&els[0].kind==='bp'&&!isBP(els[0].o)?'the Borough President':'you'; }
+  // Elected officials can advocate for a request in the City's budget. For a capital
+  // project they can also allocate Reso A funds, which the letter offers as a second ask.
   function electedAsk(r,els,joint){
-    var who=andList(els.map(function(x){ return x.kind==='bp'?bpName(x.o):x.o.salutation; })), you=youFor(els);
-    var lead0=joint?'We ask '+who+' to consider ':'We ask that '+you+' consider ';
-    if(r.purpose==='advocacy'){
-      var adv=lead0+'supporting this request with '+agencyPhrase(r.agency)+', including any legislation or policy change it requires.';
-      return joint?adv:'The response from '+agencyPhrase(r.agency)+' indicates that this request needs a decision beyond the agency. '+adv; }
-    if(r.purpose==='funding'||/elected officials$/.test(r.action)){
-      var money=r.type==='Capital'?'allocating capital funds (Reso A) to this project':'providing discretionary funding for this need';
-      var ask=lead0+money+' and advocating for it with '+agencyPhrase(r.agency)+' and OMB in the next budget.';
-      return joint?ask:'The response from '+agencyPhrase(r.agency)+' indicates that funding is the obstacle to this request. '+ask; }
-    return (joint?'We ask '+who+' to help us':'We would appreciate '+(you==='you'?'your office’s':'the Borough President’s')+' help')+' in getting a response from '+agencyPhrase(r.agency)+' and moving this request forward.';
+    var who=andList(els.map(function(x){ return x.kind!=='bp'?x.o.salutation:isBP(x.o)?bpName(x.o):'the Borough President'; })), you=youFor(els);
+    var ask=function(verb){ return joint?'We ask '+who+' to '+verb+'.':'We ask that '+you+' '+verb+'.'; };
+    var yours=joint?'':you==='you'?'your ':'the Borough President’s ';
+    if(r.purpose==='advocacy') return 'The response indicates that this request needs a decision beyond the agency. '+
+      ask('help advance it, including through any legislation or policy change it requires');
+    if(r.purpose==='funding'||/elected officials$/.test(r.action))
+      return r.type==='Capital'?ask('advocate for funding this project in the City’s capital budget')+' We would also welcome '+yours+'consideration of Reso A capital funds for it.'
+        :ask('advocate for funding this request in the City’s next budget');
+    return (joint?'We ask '+who+' to help us':'We would appreciate '+(you==='you'?'your':'the Borough President’s')+' help')+
+      ' getting a response from '+agencyPhrase(r.dest||r.agency)+' and moving this request forward.';
+  }
+  // OMB's Executive Budget response, as the letter reports it. OMB mostly answers in stock
+  // phrases, summarized here in a short clause; each kind of clause goes only in letters it
+  // bears on. A response that restates the agency, repeats what the agency said or sends the
+  // board back to the agency is left out. Other text is quoted.
+  var OMB_SAYS=[
+    [/brought to the attention of your elected officials/i,'elected','recommended that the board bring this request to its elected officials'],
+    [/recommends funding this budget request, but at this time the availability of funds is uncertain/i,'money','said the agency recommends funding it but that funds are uncertain'],
+    [/availability of funds is uncertain|funding for this request cannot be determined/i,'money','said the availability of funds is uncertain'],
+    [/available funds are insufficient/i,'money','said available funds are insufficient'],
+    [/cannot be funded in FY ?(\d{4})/i,'money','said it cannot be funded in FY$1'],
+    [/not recommended for funding/i,'money','did not recommend it for funding'],
+    [/has not submitted a proposal to increase funding/i,'money','said the agency has not proposed more funding for it'],
+    [/restoring and\/or increasing funding is needed/i,'money','said more funding is needed for it'],
+    [/depends on sufficient federal\/state funds|approved if the city receives sufficient federal and\/or state funds/i,'money','said approval depends on federal or state funds'],
+    [/citywide personnel\/program\/equipment funds are maintained/i,'money','said citywide funds for this work stay at their current level'],
+    [/will accommodate part of this request/i,'status','said the agency will accommodate part of it within existing resources'],
+    [/will try to accommodate this (issue|request)/i,'status','said the agency will try to accommodate it within existing resources'],
+    [/will accommodate this request within existing resources/i,'status','said the agency will accommodate it within existing resources'],
+    [/partially funded/i,'status','said it is partially funded'],
+    [/funded in a prior fiscal year and the scope is now underway/i,'status','said it was funded in a prior year and the work is underway'],
+    [/funded in a prior fiscal year and the construction contract has been let/i,'status','said it was funded in a prior year and the construction contract has been let'],
+    [/funded in a prior fiscal year and the (preliminary |final )?design contract has been let/i,'status','said it was funded in a prior year and the design contract has been let'],
+    [/has already been funded/i,'status','said it has already been funded'],
+    [/included in the ten-year plan/i,'status','said the project is in the Ten-Year Plan'],
+    [/project is ongoing/i,'status','said the project is ongoing'],
+    [/funding and\/or headcount was recently added/i,'status','said funding or staff was recently added'],
+    [/includes a city-wide allocation for this work/i,'status','said the Executive Budget includes a citywide allocation for this work'],
+    [/has already been completed/i,'status','said it has been completed'],
+    [/not eligible for capital funding/i,'info','said it is not eligible for capital funding'],
+    [/not a budget request/i,'info','said this is not a budget request'],
+    [/does not seem to be applicable to the responsible agency/i,'info','said the request does not seem to apply to the agency'],
+    [/sidewalks are the responsibility of the adjacent property owner/i,'info','said sidewalks are the responsibility of the adjacent property owner'],
+    [/more information is needed from the community board|requires additional information from the community board/i,'info','said the agency needs more information from the board'],
+    [/includes more than one proposal/i,'info','noted that the request includes more than one proposal'],
+    [/further (study|investigation)|requires further study|contact the (relevant |responsible )?(agency|borough commissioner|transit authority)|for more information|reach out to the agency/i,'skip','']
+  ];
+  function ombNote(r,toElected){
+    var o=(r.omb||'').replace(/\s+/g,' ').trim(), norm=function(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(); };
+    if(!o||/^OMB (supports the agency.s position|agrees with the agency)/i.test(o)||/^Agency (supports|does not support|will|has|is|cannot)/i.test(o)) return '';
+    for(var i=0;i<OMB_SAYS.length;i++){
+      var re=OMB_SAYS[i][0], kind=OMB_SAYS[i][1], m=re.exec(o); if(!m) continue;
+      if(kind==='skip'||re.test(r.ar)) return '';
+      var fits=kind==='info'||(kind==='elected'&&toElected)||(kind==='money'&&(toElected||/^(funding|advocacy|reconsider)$/.test(r.purpose)))||
+        (kind==='status'&&/^(status|none)$/.test(r.purpose));
+      return fits?'In the Executive Budget, OMB '+OMB_SAYS[i][2].replace('$1',m[1]||'')+'.':'';
+    }
+    if(norm(r.ar).indexOf(norm(o).slice(0,60))>-1) return '';
+    return 'In the Executive Budget, OMB responded, “'+stop(lead(o,2,300))+'”';
   }
   function signature(full){ return ['Sincerely,', fuName.value.trim()||'[Your name]', fuRole.value.trim()||'[Your title]', full].join('\n'); }
   function kindWord(r){ var w=(r.type?r.type.toLowerCase()+' ':'')+'request'; return (/^[aeiou]/.test(w)?'an ':'a ')+w; }
   // A "CS" request has no rank, so the letter names only its tracking code.
   function ids(r){ return [/^\d+$/.test(r.pri)?'priority '+r.pri:'', r.tc?'tracking code '+r.tc:''].filter(Boolean).join(', '); }
+  function titleOf(r){ return (r.title||'').replace(/[\s.,;:]+$/,''); }
   function letterBody(r,xs){
     var ag=xs.filter(function(x){return x.kind==='agency';}), el=xs.filter(function(x){return x.kind!=='agency';});
-    var joint=ag.length>0&&el.length>0;
-    var p1='In its FY'+FY+' budget requests, '+r.full+' submitted '+kindWord(r)+' to '+agencyPhrase(r.agency)+' titled “'+r.title+'”'+(ids(r)?' ('+ids(r)+')':'')+'.';
-    if(r.expl) p1+=' The request reads, “'+stop(clip(r.expl,320))+'”';
+    // A letter to the agency that responded calls it "your agency".
+    var joint=ag.length>0&&el.length>0, own=!joint&&ag.length>0&&ag.every(function(x){ return x.ag===r.agency; });
+    // Before FY2026 a request's title is DCP's category for it, not the board's own title.
+    var to=own?'your agency':agencyPhrase(r.agency);
+    var p1=r.full+'’s FY'+FY+' budget requests included '+(+FY<2026?kindWord(r)+' to '+to+' in the category “'+titleOf(r)+'”':
+      '“'+titleOf(r)+',” '+kindWord(r)+' to '+to)+(ids(r)?' ('+ids(r)+')':'')+'.';
+    if(r.expl) p1+=' We wrote, “'+stop(clip(r.expl,320))+'”';
     var h=histSentence(r); if(h) p1+=' '+h;
     var parts=['Dear '+andList(xs.map(salute))+',', p1];
     if(r.purpose!=='no_response'){
-      var ar=stop(quote(r.ar,r,360)), echo=!r.omb||/^OMB supports the agency.s position/i.test(r.omb);
-      var p2=ar?(r.agency&&r.agency!=='Other'?'The '+r.agency:'The agency')+' responded, “'+ar+'”':'We could not find a published response from '+agencyPhrase(r.agency)+'.';
-      if(!echo) p2+=' In the Executive Budget, OMB responded, “'+stop(lead(r.omb,2,300))+'”';
+      var ar=stop(quote(r.ar,r,360)), who=own?'Your agency':el.length&&!joint?'The agency':Cap(agencyPhrase(r.agency));
+      var p2=ar?who+' responded, “'+ar+'”':'We could not find a published response from '+agencyPhrase(r.agency)+'.';
+      var o=ombNote(r,el.length>0); if(o) p2+=' '+o;
       parts.push(p2); }
     if(ag.length) parts.push(agencyAsk(r, joint?'The response from '+agencyPhrase(r.agency):'Your response', ag.every(function(x){return x.orig;}), false));
     if(el.length) parts.push(electedAsk(r,el,joint));
-    parts.push('Thank you for your attention to this request.');
+    parts.push('Thank you for your help.');
     return parts.join('\n\n');
   }
   function subject(r){ return 'FY'+FY+' '+(r.type?r.type.toLowerCase()+' ':'')+'budget request, '+clip(r.title,70)+' ('+(boardName[r.board]||r.board)+(r.tc?', '+r.tc:'')+')'; }
 
   // ---- a list of requests for one official (the digest) ----
   function digestBody(g){
-    var x=g.x, rs=g.reqs, lines=[], elected=x.kind!=='agency';
+    var x=g.x, rs=g.reqs, lines=[], elected=x.kind!=='agency', n=rs.length, many=n>1, it=many?'them':'it';
     lines.push('Dear '+salute(x)+',');
+    var intro=g.full+'’s FY'+FY+' budget requests included ';
     if(elected){
-      var allMoney=rs.every(function(r){ return r.purpose==='funding'; }), anyCap=rs.some(function(r){ return r.type==='Capital'; }),
-          anyExp=rs.some(function(r){ return r.type==='Expense'; }), you=youFor([x]);
-      var money=anyCap&&anyExp?'allocating capital funds (Reso A) to the capital requests and providing discretionary funding for the expense requests'
-        :anyCap?'allocating capital funds (Reso A) to them':'providing discretionary funding for them';
-      lines.push('In its FY'+FY+' budget requests, '+g.full+' made the '+(rs.length>1?rs.length+' requests':'request')+' listed below. '+
-        (allMoney?'The city’s responses indicate that '+(rs.length>1?'these requests need':'this request needs')+' funding to move forward. We ask that '+you+' consider '+money+', and advocating for '+(rs.length>1?'them':'it')+' with the agencies and OMB in the next budget.'
-          :'We ask for '+(you==='you'?'your':'the Borough President’s')+' help with '+(rs.length>1?'them':'it')+', through funding and through advocacy with the agencies and OMB.'));
+      var you=youFor([x]), yours=you==='you'?'your':'the Borough President’s';
+      var money=rs.every(function(r){ return r.purpose==='funding'||(/elected officials$/.test(r.action)&&r.purpose!=='advocacy'); });
+      var caps=rs.filter(function(r){ return r.type==='Capital'; }).length;
+      lines.push(intro+(many?'the '+n+' requests below.':'the request below.')+' '+(money
+        ?'The City’s responses indicate that '+(many?'each needs':'it needs')+' funding to move forward. We ask that '+you+' advocate for funding '+it+' in the City’s next budget.'+
+          (caps?' We would also welcome '+yours+' consideration of Reso A capital funds for '+(caps===n?it:'the capital projects')+'.':'')
+        :'We ask for '+yours+' help moving '+it+' forward, through advocacy with the agencies and in the City’s budget.'));
     } else {
       var redirected=rs.every(function(r){ return r.dest===x.ag&&r.agency!==x.ag; });
-      lines.push('In its FY'+FY+' budget requests, '+g.full+' submitted the '+(rs.length>1?rs.length+' requests':'request')+' listed below'+
-        (redirected?'. Each was directed to your agency by the agency that responded.':' to '+agencyPhrase(x.ag)+'.')+' We are following up on '+(rs.length>1?'each of them':'it')+'.');
+      lines.push(intro+(many?'the '+n+' requests':'the request')+(redirected?' below, which '+(many?'other agencies':'another agency')+' directed to your agency.':' to your agency listed below.')+
+        ' We are following up on '+(many?'each of them':'it')+'.');
     }
     rs.forEach(function(r,i){
-      var head=(i+1)+'. “'+r.title+'” ('+(elected||r.agency!==x.ag?r.agency+'; ':'')+(r.type?r.type.toLowerCase():'')+(ids(r)?', '+ids(r):'')+').';
-      var resp=stop(quote(r.ar,r,260));
-      var item=head+(resp?' '+(elected||r.agency!==x.ag?'The agency':'Your agency')+' responded, “'+resp+'”':' No response was published.');
+      var own=!elected&&r.agency===x.ag;
+      var head=(i+1)+'. “'+titleOf(r)+'” ('+[own?'':r.agency, r.type?r.type.toLowerCase():'', ids(r)].filter(Boolean).join(', ')+').';
+      var resp=stop(quote(r.ar,r,260)), h=histSentence(r);
+      var item=head+(h?' '+h:'')+(resp?' '+(own?'Your agency':'The agency')+' responded, “'+resp+'”':' No response was published.');
       if(!elected) item+=' '+agencyAsk(r,'Your response',x.orig,true);
-      var h=histSentence(r); if(h) item+=' '+h;
       lines.push(item);
     });
-    lines.push('Thank you for your attention to '+(rs.length>1?'these requests':'this request')+'.');
+    lines.push('Thank you for your help.');
     return lines.join('\n\n');
   }
 
