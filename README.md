@@ -74,11 +74,11 @@ not included.
 | `label_committees/` | The committee definitions, labeling scripts and validation. See its README. |
 | `plan/index.html` | The next-cycle planner at `/plan/?board=QCB2`: a board's 311 conditions next to its requests, how the City answers each request category, and the district profile. Static; reads `plan/planner.json`. |
 | `pipeline/build_planner_data.py`, `plan/planner.json` | The next-cycle planner's data: 311 need rates per board over three years, the district profile from nyc-cd-atlas, which Register requests address each need, and how agencies have answered each request category. Standard library only; run it from `pipeline/`. |
-| `update.sh` | Rebuilds every year and redeploys. |
+| `update.sh` | Rebuilds every year's page. Merging them into `main` deploys them. |
 
 ## Rebuilding
 
-Requires `python3` with `pandas`, `pdftotext` (poppler) and the `vercel` CLI.
+Requires `python3` with `pandas` and `pdftotext` (poppler).
 
 ```sh
 ./update.sh              # full rebuild; the data directory defaults to ~/Downloads
@@ -99,6 +99,14 @@ python3 ~/cb2-budget-requests-fy2027/pipeline/enrich_years.py .
 python3 ~/cb2-budget-requests-fy2027/pipeline/generate_cb2_html.py --fy 2025 \
     "CB FY2025 Requests (all boards, detailed, 2-stage).csv" ~/cb2-budget-requests-fy2027/fy2025/index.html
 ```
+
+### Deploying
+
+`main` is protected, so every change goes through a pull request. Vercel builds a
+preview of each pull request and deploys `main` to the live site when a pull request
+merges. Nobody deploys from their own machine. The page files are rewritten on every
+rebuild, so two pull requests that both rebuild pages will conflict. If yours does,
+rebase onto `main` and rerun the generator instead of merging the HTML by hand.
 
 ### One input is not in this repo
 
@@ -124,7 +132,7 @@ CB2's 65 FY2027 requests.
 3. Build the year's CSV, then label its new requests with `label_committees/prepare_years.py`
    and `label_committees/assemble_years.py`. Requests resubmitted from earlier years
    keep their existing labels.
-4. Run `./update.sh`.
+4. Run `./update.sh`, then open a pull request with the rebuilt pages.
 
 ## Committees
 
