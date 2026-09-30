@@ -281,6 +281,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Ar
   margin:0;color:var(--ink);background:#f8fafc;font-size:13px;line-height:1.45}
 header{padding:20px 24px 12px;background:#fff;border-bottom:1px solid var(--bd)}
 h1{margin:0 0 4px;font-size:19px}
+.backlink{display:inline-block;margin:0 0 6px;font-size:12px;color:#2563eb;text-decoration:none}
+.backlink:hover{text-decoration:underline}
 .sub{color:var(--mut);margin:0 0 14px;font-size:13px;max-width:1100px}
 .sub a{color:#2563eb;text-decoration:underline}
 .cards{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:6px}
@@ -1362,6 +1364,7 @@ FU_SCRIPT = r"""
 
 
 parts = [HEAD, YEAR_REDIRECT, '<header>']
+parts.append('<a class="backlink" href="/home/">&larr; Back to map</a>')
 parts.append(f'<h1><span id="h1board">NYC Community Boards</span>: FY{FY} Budget Requests &amp; Agency Responses</h1>')
 parts.append(f'<p class="sub">{SOURCE}{YEAR_NOTE.get(FY, "")}</p>')
 # Each summary card filters the column it counts. Requests clears the Type and Agency
