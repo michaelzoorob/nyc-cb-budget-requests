@@ -9,6 +9,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Ar
   margin:0;color:var(--ink);background:#f8fafc;font-size:13px;line-height:1.45}
 header{padding:20px 24px 12px;background:#fff;border-bottom:1px solid var(--bd)}
 h1{margin:0 0 4px;font-size:19px}
+.backlink{display:inline-block;margin:0 0 6px;font-size:12px;color:#2563eb;text-decoration:none}
+.backlink:hover{text-decoration:underline}
 .sub{color:var(--mut);margin:0 0 14px;font-size:13px;max-width:1100px}
 .sub a{color:#2563eb;text-decoration:underline}
 .cards{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:6px}
@@ -178,6 +180,7 @@ body.fu-lock{overflow:hidden}
 
 <script>(function(){var p=new URLSearchParams(location.search),y=p.get('year');if(!y)return;var U={"2027": "/", "2026": "/fy2026/", "2025": "/fy2025/", "2024": "/fy2024/", "2023": "/fy2023/", "2022": "/fy2022/", "2021": "/fy2021/", "2020": "/fy2020/"};p.delete('year');var qs=p.toString();if(y!=='2021'&&Object.prototype.hasOwnProperty.call(U,y))location.replace(U[y]+(qs?'?'+qs:'')+location.hash);else history.replaceState(null,'',location.pathname+(qs?'?'+qs:'')+location.hash);})();</script>
 <header>
+<a class="backlink" href="/home/">&larr; Back to map</a>
 <h1><span id="h1board">NYC Community Boards</span>: FY2021 Budget Requests &amp; Agency Responses</h1>
 <p class="sub">The <b>Agency Response</b> and the <b>OMB Executive Response</b> both come from NYC Open Data's <a href="https://data.cityofnewyork.us/City-Government/Register-of-Community-Board-Budget-Requests/vn4m-mk4t" target="_blank" rel="noopener">Register of Community Board Budget Requests</a>. Titles are DCP's standard request categories, since boards' own titles begin in FY2026. Agencies then mostly answered with standard phrases that take no position, so most stances read Neutral/Unclear. For reference, see the <a id="stmtLink" href="https://github.com/NYCPlanning/labs-cd-needs-statements" target="_blank" rel="noopener">FY2021 Statement PDFs</a>.</p>
 <div class="cards">
