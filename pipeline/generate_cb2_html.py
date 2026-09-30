@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Render one fiscal year's two-stage detailed spreadsheet as a single self-contained
 HTML page. Each request shows the agency's response and OMB's Executive response.
-Click a column name to sort; click its funnel button to filter.
+Click a column name to sort; click its funnel button to filter. The summary cards and
+a row's type, board, agency, stance and follow-up are buttons that filter the table to
+that value, and clicking one again removes the filter.
 
     generate_cb2_html.py [--fy YEAR] [CSV] [OUT]
 
@@ -105,7 +107,10 @@ LABEL = {"Agency Stance (MZ added)": "Agency Stance"}
 # Each column's filter kind is fixed, so a filter means the same thing on every year's
 # page. (Choosing by the number of distinct values made Priority a checkbox list on
 # FY2027 and a "contains" text box on earlier years.)
-FILTER_KIND = {"Priority": "set", "Type": "set", "Board": "set", "Agency Stance": "set", "Follow-up": "set"}
+# Agency was a "contains" text box until the Agency cells became clickable. readURL()
+# still reads an old link's text ("?c_agency=parks") as every agency that contains it.
+FILTER_KIND = {"Priority": "set", "Type": "set", "Board": "set", "Agency": "set", "Agency Stance": "set",
+               "Follow-up": "set"}
 FU_SLUG = {"Contact agency": "a", "Contact elected officials": "e", "Contact agency and elected officials": "ae",
            "Track with agency": "t", "Use 311 or another channel": "c", "No follow-up needed": "n"}
 
@@ -197,6 +202,10 @@ def stance_slug(v):
 
 
 body = []
+# A row's type, board, agency, stance and follow-up are buttons (class "cf") that filter
+# the table to that value. The page script finds the column from the cell and sets
+# aria-pressed. There is no form on the page, so they need no type="button", which would
+# add about 260 KB across the table.
 for idx, (_, r) in enumerate(df.iterrows()):
     z = "odd" if idx % 2 else "even"
     blob = html.escape(" ".join(clean_text(r[c]) for c in DISPLAY).lower(), quote=True)
@@ -205,24 +214,24 @@ for idx, (_, r) in enumerate(df.iterrows()):
         val = html.escape(clean_text(r[c]))
         if c == "Agency Stance (MZ added)":
             # <wbr>: a narrow column breaks "Neutral/Unclear" at the slash, not mid-word
-            tds.append(f'<td><span class="pill i-{stance_slug(r[c])}">{val.replace("/", "/<wbr>")}</span></td>')
+            tds.append(f'<td><button class="pill cf i-{stance_slug(r[c])}">{val.replace("/", "/<wbr>")}</button></td>')
         elif c == "Type":
-            tds.append(f'<td><span class="pill {"ce-e" if r[c] == "Expense" else "ce-c"}">{val}</span></td>')
+            tds.append(f'<td><button class="pill cf {"ce-e" if r[c] == "Expense" else "ce-c"}">{val}</button></td>')
         elif c == "Follow-up":
             # data-v is the cell's value for sorting, filters and the CSV; the button is not.
             if val:
                 why = html.escape(clean_text(r["Follow-up Why"]), quote=True)
                 tds.append(f'<td class="fu-td" data-v="{html.escape(clean_text(r[c]), quote=True)}"><div class="fu-cell">'
-                           f'<span class="pill fu-pill fu-{FU_SLUG.get(r[c], "n")}" title="{why}">{val}</span>'
+                           f'<button class="pill fu-pill cf fu-{FU_SLUG.get(r[c], "n")}" title="{why}">{val}</button>'
                            + (f'<span class="fu-dest">{html.escape(clean_text(r["Follow-up Agency"]))}</span>'
                               if str(r["Follow-up Agency"]).strip() else "")
                            + '<button type="button" class="fu-btn">Draft letter</button></div></td>')
             else:
                 tds.append('<td class="fu-td" data-v=""></td>')
         elif c == "Board":
-            tds.append(f'<td class="board">{val}</td>')
+            tds.append(f'<td class="board"><button class="cf">{val}</button></td>')
         elif c == "Agency":
-            tds.append(f'<td class="agency">{val}</td>')
+            tds.append(f'<td class="agency"><button class="cf">{val}</button></td>')
         elif c in WIDE:
             extra = " mtitle" if c == "Title" else ""
             tds.append(f'<td class="wide{extra}">{val}</td>')
@@ -245,7 +254,7 @@ FUNNEL = ("<svg viewBox='0 0 16 16' width='11' height='11' aria-hidden='true'>"
 def th(idx, label, cls, tip):
     lab = html.escape(label)
     return (f'<th class="{cls}" data-ci="{idx}" data-label="{lab}" title="{html.escape(tip)}"><div class="th-in">'
-            f'<span class="th-lbl">{lab}<span class="th-arrow"></span></span>'
+            f'<span class="th-lbl" role="button" tabindex="0">{lab}<span class="th-arrow"></span></span>'
             f'<button class="th-funnel" title="Filter this column" aria-label="Filter this column">{FUNNEL}</button>'
             f'</div></th>')
 
@@ -275,9 +284,13 @@ h1{margin:0 0 4px;font-size:19px}
 .sub{color:var(--mut);margin:0 0 14px;font-size:13px;max-width:1100px}
 .sub a{color:#2563eb;text-decoration:underline}
 .cards{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:6px}
-.card{background:#f1f5f9;border:1px solid var(--bd);border-radius:8px;padding:8px 12px;min-width:104px}
-.card .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.03em}
-.card .v{font-size:16px;font-weight:600}
+.card{background:#f1f5f9;border:1px solid var(--bd);border-radius:8px;padding:8px 12px;min-width:104px;
+  font:inherit;color:inherit;text-align:left;cursor:pointer}
+.card:hover{background:#e2e8f0}
+.card[aria-pressed="true"],.card.on{background:#fff;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink) inset}
+.card .k{display:block;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.03em}
+.card .v{display:block;font-size:16px;font-weight:600}
+.card:focus-visible,.cf:focus-visible,.fu-card:focus-visible{outline:2px solid #2563eb;outline-offset:2px}
 .controls{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--bd);
   padding:10px 24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 input#q{flex:1;min-width:220px;padding:8px 10px;border:1px solid var(--bd);border-radius:8px;font-size:13px}
@@ -297,6 +310,9 @@ input#q{flex:1;min-width:220px;padding:8px 10px;border:1px solid var(--bd);borde
   color:#0c4a6e;border-radius:999px;font-size:12px}
 .chip button{border:0;background:#e0f2fe;color:#0c4a6e;border-radius:999px;width:18px;height:18px;cursor:pointer;line-height:1;padding:0}
 .chip button:hover{background:#bae6fd}
+.chip .chip-edit{width:auto;height:auto;background:none;border-radius:0;font:inherit;line-height:inherit;text-align:left}
+.chip .chip-edit:hover{background:none;text-decoration:underline}
+.chip button:focus-visible{outline:2px solid #2563eb;outline-offset:1px}
 .wrap{padding:0 12px 40px}
 table{border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed;background:#fff;margin-top:8px}
 thead th{position:sticky;top:var(--ch,0px);background:#1e293b;color:#fff;text-align:left;padding:8px 6px;
@@ -304,6 +320,7 @@ thead th{position:sticky;top:var(--ch,0px);background:#1e293b;color:#fff;text-al
 .th-in{display:flex;align-items:flex-end;gap:3px;justify-content:space-between}
 .th-lbl{cursor:pointer;flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
 .th-lbl:hover{text-decoration:underline}
+.th-lbl:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
 .th-arrow{font-size:9px}
 .th-funnel{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
   border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#cbd5e1;border-radius:4px;
@@ -317,8 +334,17 @@ tr.odd td{background:#f8fafc}
 .nowrap{white-space:normal}
 td.agency{white-space:normal;font-size:12px}
 .board{white-space:nowrap;font-weight:600}
+/* Buttons in the rows that filter the table (class cf). The reset comes before .pill and
+   the color classes so that they still style the pills. */
+.cf{font:inherit;color:inherit;background:none;border:0;border-radius:0;padding:0;margin:0;text-align:inherit;
+  cursor:pointer;-webkit-appearance:none;appearance:none}
+.cf:not(.pill):hover{text-decoration:underline;text-underline-offset:2px}
+.cf:not(.pill)[aria-pressed="true"]{background:#e0f2fe;color:#0c4a6e;border-radius:2px;box-shadow:0 0 0 2px #e0f2fe;
+  text-decoration:underline;text-underline-offset:2px}
 .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap;
   max-width:100%;overflow-wrap:anywhere}
+.pill.cf:hover{box-shadow:0 0 0 1px currentColor}
+.pill.cf[aria-pressed="true"]{box-shadow:0 0 0 2px currentColor}
 td .i-neutral{white-space:normal;overflow-wrap:normal}
 .i-support{background:#dcfce7;color:#166534}
 .i-oppose{background:#fee2e2;color:#b42318}
@@ -382,7 +408,7 @@ body.fu-lock{overflow:hidden}
 .fu-card{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:1px;border:1px solid transparent;border-radius:8px;padding:5px 9px;font:inherit;font-size:11px;cursor:pointer;min-width:0}
 .fu-card b{font-size:15px}
 .fu-card.on{border-color:currentColor;box-shadow:0 0 0 1px currentColor inset}
-.fu-card.fu-sentcount{background:#f0fdf4;color:#166534;cursor:default}
+.fu-card.fu-sentcount{background:#f0fdf4;color:#166534}
 .fu-digest{align-self:center;margin-left:auto;border:1px solid #2563eb;background:#2563eb;color:#fff;border-radius:8px;padding:8px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
 .fu-digest:disabled{background:#94a3b8;border-color:#94a3b8;cursor:default}
 .fu-sent{font-size:11px;color:#166534;font-weight:600}
@@ -471,6 +497,27 @@ SCRIPT = r"""
   var typeCol=-1,stanceCol=-1;
   ths.forEach(function(t,i){var l=(t.dataset.label||'').toLowerCase(); if(l==='type')typeCol=i; if(l.indexOf('stance')>-1)stanceCol=i;});
   function setCard(k,v){var e=document.querySelector('[data-card="'+k+'"]'); if(e)e.textContent=v;}
+  // ---- clicking a value: the summary cards and a row's type, board, agency, stance and follow-up ----
+  var colOf={}; ths.forEach(function(t,i){colOf[t.dataset.label]=i;});
+  var boardCol=has(colOf,'Board')?colOf.Board:-1;
+  var sumCards=[].slice.call(document.querySelectorAll('.cards .card'));
+  // Each row's value buttons (class cf) with the column and value they filter, for aria-pressed.
+  rows.forEach(function(tr){ tr._cf=[].map.call(tr.getElementsByClassName('cf'),function(b){
+    var ci=b.closest('td').cellIndex; return {ci:ci,b:b,v:cell(tr,ci),p:null}; }); });
+  // The one value a column's filter keeps, or null when it keeps none or several.
+  function onlyVal(ci){var f=filters[ci]; if(!f||f.type!=='set') return null; var k=Object.keys(f.allowed); return k.length===1?k[0]:null;}
+  function onlyBoard(){return (boardPick.size===1&&!absentReq.length)?Array.from(boardPick)[0]:null;}
+  function toggleVal(ci,v){ if(onlyVal(ci)===v) delete filters[ci]; else {var al={}; al[v]=1; filters[ci]={type:'set',allowed:al};} apply(); }
+  // A board's cell narrows the board menu to that board. Clicking it again brings back the
+  // boards selected before, or every board when there is none to go back to.
+  var prevBoards=null;
+  function toggleBoard(b){
+    if(onlyBoard()===b){ var pv=prevBoards; prevBoards=null;
+      boardPick=new Set(pv?pv.pick:boxes.map(function(c){return c.value;})); absentReq=pv?pv.absent:[]; }
+    else { prevBoards={pick:Array.from(boardPick),absent:absentReq.slice()}; boardPick=new Set([b]); absentReq=[]; }
+    boxes.forEach(function(c){c.checked=boardPick.has(c.value);});
+    updBoard();
+  }
   function rowOk(tr){
     if(absentReq.length && boardPick.size===0) return false;
     if(boardPick.size && !boardPick.has(tr.dataset.board)) return false;
@@ -499,7 +546,12 @@ SCRIPT = r"""
         txt=v.length? v.slice(0,3).join(', ')+(v.length>3?' +'+(v.length-3)+' more':'') : 'none';}
       else txt='contains “'+f.q+'”';
       var s=document.createElement('span'); s.className='chip';
-      s.innerHTML='<span><b>'+esc(lab)+':</b> '+esc(txt)+'</span>';
+      // The chip's label opens its column's filter menu, which a phone can reach no other way.
+      s.innerHTML='<button type="button" class="chip-edit" title="Change this filter"><b>'+esc(lab)+':</b> '+esc(txt)+'</button>';
+      var ed=s.firstChild; ed.dataset.label=lab;
+      ed.onclick=function(e){e.stopPropagation();
+        if(menu.style.display==='block'&&menu.dataset.ci==ci){menu.style.display='none'; return;}
+        menu.dataset.ci=ci; openMenu(+ci,ed);};
       var x=document.createElement('button'); x.type='button'; x.title='Clear this filter'; x.setAttribute('aria-label','Clear '+lab+' filter'); x.textContent='×';
       x.onclick=function(){delete filters[ci]; apply();};
       s.appendChild(x); box.appendChild(s);
@@ -507,20 +559,31 @@ SCRIPT = r"""
   }
   function apply(){
     var n=0,exp=0,cap=0,sup=0,opp=0,neu=0;
+    // A value button is pressed when its column's filter keeps only that value.
+    var pv=ths.map(function(t,i){return i===boardCol?onlyBoard():onlyVal(i);});
     rows.forEach(function(tr){var ok=rowOk(tr); tr.classList.toggle('hide',!ok);
+      for(var j=0,cf=tr._cf;j<cf.length;j++){var x=cf[j], p=pv[x.ci]===x.v; if(x.p!==p){x.p=p; x.b.setAttribute('aria-pressed',p);}}
       if(ok){n++; var ty=cell(tr,typeCol),st=cell(tr,stanceCol);
         if(ty==='Expense')exp++; else if(ty==='Capital')cap++;
         if(st==='Support')sup++; else if(st==='Oppose')opp++; else neu++;}});
     countEl.textContent=n+' / '+rows.length+' rows';
     setCard('requests',n);setCard('expense',exp);setCard('capital',cap);
     setCard('support',sup);setCard('oppose',opp);setCard('neutral',neu);
+    sumCards.forEach(function(b){var c=b.dataset.col;
+      if(c) b.setAttribute('aria-pressed',pv[colOf[c]]===b.dataset.val);
+      else b.classList.toggle('on',!has(filters,typeCol)&&!has(filters,stanceCol));});
     ths.forEach(function(t,i){
       var fn=t.querySelector('.th-funnel'); if(fn) fn.classList.toggle('active',has(filters,i));
       var ar=t.querySelector('.th-arrow'); if(ar) ar.textContent=(sortCol===i)?(sortDir===1?' ▲':' ▼'):'';
+      if(sortCol===i) t.setAttribute('aria-sort',sortDir===1?'ascending':'descending'); else t.removeAttribute('aria-sort');
     });
     renderNotice(); renderChips(); setStick();
     writeURL();
+    // The follow-up cards are redrawn on cb:applied. Keep the keyboard focus on the same card.
+    var fc=document.getElementById('fuCards'), ae=document.activeElement, fi=-1;
+    if(fc&&ae&&fc.contains(ae)) fi=[].indexOf.call(fc.querySelectorAll('button'),ae);
     try{ document.dispatchEvent(new CustomEvent('cb:applied')); }catch(e){}
+    if(fi>-1&&!fc.contains(document.activeElement)){var nb=fc.querySelectorAll('button')[fi]; if(nb) nb.focus();}
   }
   // For the follow-up controls: read and set a column's checkbox filter, and count a
   // column's values over the rows every other filter keeps.
@@ -606,10 +669,28 @@ SCRIPT = r"""
   ths.forEach(function(thEl,ci){
     var lbl=thEl.querySelector('.th-lbl'), fun=thEl.querySelector('.th-funnel');
     if(lbl) lbl.addEventListener('click',function(e){e.stopPropagation(); menu.style.display='none'; toggleSort(ci);});
+    if(lbl) lbl.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault(); lbl.click();}});
     if(fun) fun.addEventListener('click',function(e){e.stopPropagation();
       if(menu.style.display==='block'&&menu.dataset.ci==ci){menu.style.display='none'; return;}
       menu.dataset.ci=ci; openMenu(ci,thEl);});
   });
+  // A summary card filters the Type or Agency Stance column to its value. Requests clears both.
+  sumCards.forEach(function(b){ b.addEventListener('click',function(){
+    if(!b.dataset.col){ delete filters[typeCol]; delete filters[stanceCol]; apply(); }
+    else toggleVal(colOf[b.dataset.col],b.dataset.val); }); });
+  // A row's value button filters its column to that value. The follow-up pill works like the
+  // follow-up cards, and the board cell narrows the board menu.
+  function cfTitle(b){ if(b.classList.contains('fu-pill')) return;   // its title explains the follow-up
+    var td=b.closest('td'), ci=td.cellIndex, v=cell(td.parentNode,ci), on=b.getAttribute('aria-pressed')==='true';
+    b.title=ci===boardCol?(on?(prevBoards?'Show the boards selected before':'Show all boards'):'Show only '+(boardName[v]||v))
+      :(on?'Remove the '+ths[ci].dataset.label+' filter':'Show only '+v); }
+  tbody.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('.cf'); if(!b) return;
+    var td=b.closest('td'), ci=td.cellIndex, v=cell(td.parentNode,ci);
+    if(ci===boardCol) toggleBoard(v);
+    else { if(ths[ci].dataset.label==='Follow-up') window.cbRowFilter=null; toggleVal(ci,v); }
+    cfTitle(b); });
+  ['mouseover','focusin'].forEach(function(ev){ tbody.addEventListener(ev,function(e){
+    var b=e.target.closest&&e.target.closest('.cf'); if(b) cfTitle(b); }); });
   q.addEventListener('input',function(){rawTerm=q.value.trim(); term=rawTerm.toLowerCase(); apply();});
   var commSel=document.getElementById('commSel');
   if(commSel) commSel.addEventListener('change',function(){commFilter=commSel.value; apply();});
@@ -639,10 +720,10 @@ SCRIPT = r"""
     apply();
   }
   boxes.forEach(function(c){
-    c.addEventListener('change',function(){ absentReq=[]; if(c.checked)boardPick.add(c.value); else boardPick.delete(c.value); updBoard(); });
+    c.addEventListener('change',function(){ absentReq=[]; prevBoards=null; if(c.checked)boardPick.add(c.value); else boardPick.delete(c.value); updBoard(); });
   });
   [].forEach.call(document.querySelectorAll('#boardPanel .cm-mini'),function(b){
-    b.addEventListener('click',function(){ var on=b.dataset.act==='all'; absentReq=[];
+    b.addEventListener('click',function(){ var on=b.dataset.act==='all'; absentReq=[]; prevBoards=null;
       boxes.forEach(function(c){c.checked=on; if(on)boardPick.add(c.value); else boardPick.delete(c.value);});
       updBoard(); });
   });
@@ -719,6 +800,12 @@ SCRIPT = r"""
     var slug2ci={}; ths.forEach(function(t,i){slug2ci[colKey(i)]=i;});
     Object.keys(slug2ci).forEach(function(k){ if(!p.has(k)) return;
       var ci=slug2ci[k], vals=p.getAll(k);
+      // Agency was a "contains" filter, so an older link's text ("parks") that names no
+      // agency on this page stands for every agency that contains it. Empty text was no filter.
+      if(ths[ci].dataset.label==='Agency'&&vals.length===1&&kindOf(ci)==='set'){ if(!vals[0]) return;
+        var ds=distinct(ci);
+        if(ds.indexOf(vals[0])<0){ var lq=vals[0].toLowerCase(), m=ds.filter(function(d){return d.toLowerCase().indexOf(lq)>-1;});
+          if(m.length) vals=m; } }
       if(kindOf(ci)==='set'){var al={}; vals.forEach(function(v){if(v!=='__none__') al[v]=1;}); filters[ci]={type:'set',allowed:al};}
       else if(vals[0]) {filters[ci]={type:'text',q:vals[0].toLowerCase()};}
     });
@@ -1222,13 +1309,14 @@ FU_SCRIPT = r"""
     if(s){ if(!b){ b=document.createElement('span'); b.className='fu-sent'; cell.insertBefore(b,cell.querySelector('.fu-btn')); } b.textContent='Sent '+niceDate(s.d).replace(/, \d{4}$/,''); }
     else if(b) b.remove(); }
   function unsent(tr){ return !sent[rowKey(tr)]; }
+  function isSent(tr){ return !!sent[rowKey(tr)]; }
   var fuSel=document.getElementById('fuSel'), cards=document.getElementById('fuCards');
   function renderCards(){
     if(!cards) return;
     var c=T.countBy('Follow-up', function(tr){ return !!sent[rowKey(tr)]; }), shown=T.visible().filter(function(tr){ var a=val(tr,'Follow-up'); return a&&a!=='No follow-up needed'; }).length;
     var cur0=T.getSet('Follow-up'), one=cur0&&cur0.length===1?cur0[0]:'';
-    cards.innerHTML=ACTIONS.map(function(a){ return '<button type="button" class="fu-card fu-'+SLUG[a]+(one===a?' on':'')+'" data-a="'+esc(a)+'"><span>'+esc(a)+'</span><b>'+(c[a]||0)+'</b></button>'; }).join('')+
-      '<span class="fu-card fu-sentcount"><span>Marked sent</span><b>'+(c.__extra||0)+'</b></span>'+
+    cards.innerHTML=ACTIONS.map(function(a){ return '<button type="button" class="fu-card fu-'+SLUG[a]+(one===a?' on':'')+'" data-a="'+esc(a)+'" aria-pressed="'+(one===a)+'"><span>'+esc(a)+'</span><b>'+(c[a]||0)+'</b></button>'; }).join('')+
+      '<button type="button" class="fu-card fu-sentcount'+(window.cbRowFilter===isSent?' on':'')+'" aria-pressed="'+(window.cbRowFilter===isSent)+'"><span>Marked sent</span><b>'+(c.__extra||0)+'</b></button>'+
       '<button type="button" class="fu-digest"'+(shown?'':' disabled')+'>Draft one letter per official ('+shown+' requests)</button>';
     [].forEach.call(cards.querySelectorAll('.fu-card[data-a]'),function(b){ b.addEventListener('click',function(){
       window.cbRowFilter=null; var a=b.dataset.a; T.setSet('Follow-up', one===a?null:[a]); }); });
@@ -1236,6 +1324,7 @@ FU_SCRIPT = r"""
   }
   function syncSel(){ if(!fuSel) return; var s=T.getSet('Follow-up'), v='';
     if(window.cbRowFilter===unsent) v='__unsent';
+    else if(window.cbRowFilter===isSent) v='__sent';
     else if(s&&s.length===1) v=s[0];
     else if(s&&s.length===5&&s.indexOf('No follow-up needed')<0) v='__needs';
     else if(s) v='__custom';
@@ -1244,8 +1333,12 @@ FU_SCRIPT = r"""
     if(!v) T.setSet('Follow-up',null);
     else if(v==='__needs') T.setSet('Follow-up',ACTIONS.slice(0,5));
     else if(v==='__unsent'){ window.cbRowFilter=unsent; T.setSet('Follow-up',ACTIONS.slice(0,5)); }
+    else if(v==='__sent'){ window.cbRowFilter=isSent; T.setSet('Follow-up',null); }
     else if(v!=='__custom') T.setSet('Follow-up',[v]); });
-  window.cbUrlExtras=function(p){ if(window.cbRowFilter===unsent) p.set('fu','unsent'); };
+  // The Marked sent card shows the requests whose letters are marked sent in this browser.
+  if(cards) cards.addEventListener('click',function(e){ if(!e.target.closest('.fu-sentcount')) return;
+    if(window.cbRowFilter===isSent){ window.cbRowFilter=null; T.apply(); } else { window.cbRowFilter=isSent; T.setSet('Follow-up',null); } });
+  window.cbUrlExtras=function(p){ if(window.cbRowFilter===unsent) p.set('fu','unsent'); else if(window.cbRowFilter===isSent) p.set('fu','sent'); };
   window.cbCsvExtras={cols:['Tracking Code','Follow-up Agency','Follow-up Why','Requested In','Letter Sent','Letter Sent To'],
     values:function(tr){ var s=sent[rowKey(tr)], pill=tr.querySelector('.fu-pill');
       return [tr.dataset.tc||'', tr.dataset.fa||'', pill?pill.title:'', (tr.dataset.hy||'').split('|').filter(Boolean).map(function(y){return 'FY'+y;}).join(', '), s?s.d:'', s&&s.to?s.to.join('; '):'']; }};
@@ -1260,7 +1353,8 @@ FU_SCRIPT = r"""
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!dlg.hidden) close(); });
 
   [].forEach.call(document.querySelectorAll('tbody tr'),paintSent);
-  if(new URLSearchParams(window.cbInitialSearch||'').get('fu')==='unsent'){ window.cbRowFilter=unsent; T.apply(); }
+  var fu0=new URLSearchParams(window.cbInitialSearch||'').get('fu');
+  if(fu0==='unsent'||fu0==='sent'){ window.cbRowFilter=fu0==='sent'?isSent:unsent; T.apply(); }
   else { renderCards(); syncSel(); }
 })();
 </script>
@@ -1270,10 +1364,21 @@ FU_SCRIPT = r"""
 parts = [HEAD, YEAR_REDIRECT, '<header>']
 parts.append(f'<h1><span id="h1board">NYC Community Boards</span>: FY{FY} Budget Requests &amp; Agency Responses</h1>')
 parts.append(f'<p class="sub">{SOURCE}{YEAR_NOTE.get(FY, "")}</p>')
-parts.append('<div class="cards">')
-for k, key in [("Requests", "requests"), ("Expense", "expense"), ("Capital", "capital"),
-               ("Support", "support"), ("Oppose", "oppose"), ("Neutral/Unclear", "neutral")]:
-    parts.append(f'<div class="card"><div class="k">{k}</div><div class="v" data-card="{key}">0</div></div>')
+# Each summary card filters the column it counts. Requests clears the Type and Agency
+# Stance filters. The page script sets aria-pressed, and class "on" on Requests.
+parts.append('<div class="cards" role="group" aria-label="Filter by type or agency stance">')
+for k, key, col, tip in [
+        ("Requests", "requests", "", "Show every type and stance. This clears the Type and Agency Stance filters."),
+        ("Expense", "expense", "Type", "Show only expense requests. Click again to show both types."),
+        ("Capital", "capital", "Type", "Show only capital requests. Click again to show both types."),
+        ("Support", "support", "Agency Stance", "Show only requests the agency supports. Click again to show every stance."),
+        ("Oppose", "oppose", "Agency Stance", "Show only requests the agency opposes. Click again to show every stance."),
+        ("Neutral/Unclear", "neutral", "Agency Stance",
+         "Show only requests where the agency takes no clear position. Click again to show every stance.")]:
+    # Requests cannot be switched off, so it is a plain button and not a toggle.
+    flt = f' data-col="{col}" data-val="{html.escape(k)}" aria-pressed="false"' if col else ""
+    parts.append(f'<button type="button" class="card"{flt} title="{html.escape(tip)}">'
+                 f'<span class="k">{k}</span><span class="v" data-card="{key}">0</span></button>')
 parts.append('</div>')
 parts.append('<div id="fuCards" class="fu-cards" aria-label="Follow-up counts"></div>')
 parts.append('</header>')
@@ -1299,6 +1404,7 @@ parts.append('<select id="commSel" class="commsel" '
 parts.append('<select id="fuSel" class="commsel" title="Filter by follow-up. Letters sent are marked in this browser only." '
              'aria-label="Filter by follow-up"><option value="">All follow-ups</option>'
              '<option value="__needs">Needs follow-up</option><option value="__unsent">Needs follow-up, not yet sent</option>'
+             '<option value="__sent">Marked sent</option>'
              + "".join(f'<option value="{html.escape(a)}">{html.escape(a)}</option>' for a in FU_SLUG)
              + '<option value="__custom" hidden>Custom filter</option></select>')
 _msort_opts = "".join(
@@ -1308,7 +1414,8 @@ _msort_opts = "".join(
 parts.append('<select id="msort" class="commsel msort" title="Sort rows" aria-label="Sort rows">'
              '<option value="">Sort by…</option>' + _msort_opts + '</select>')
 parts.append('<button id="dlBtn" class="dlbtn" title="Download the current filtered view as CSV">&#8595; Download CSV</button>')
-parts.append(f'<span class="hint">Click a column name to sort; click its {FUNNEL} to filter</span>')
+parts.append(f'<span class="hint">Click a column name to sort, or its {FUNNEL} to filter. '
+             'Click a value in a row to show only that value.</span>')
 parts.append('<span id="count" class="count"></span>')
 parts.append('</div>')
 parts.append('<div id="notice" class="notice" style="display:none" role="status"></div>')
