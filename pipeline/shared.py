@@ -212,6 +212,32 @@ def response_key(agency_response, omb_response):
     return hashlib.sha1(f"{t(agency_response)}||{t(omb_response)}".encode()).hexdigest()[:12]
 
 
+# Plain-language descriptions for the follow-up letters (label_letters/): what a request
+# asked for, and what an agency or OMB said in response. Keyed by the text described.
+LETTER_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), "letter_descriptions.csv")
+
+
+def text_key(s):
+    """Key for a letter description: the text it describes, with whitespace and case
+    normalized. A request's text is its title and explanation joined by ' || '."""
+    return hashlib.sha1(" ".join(str(s).split()).lower().encode()).hexdigest()[:12]
+
+
+def request_text(title, expl):
+    return f"{title} || {expl}"
+
+
+def load_letter_descriptions():
+    """{kind: {key: description}} for kinds 'request', 'response' and 'omb'."""
+    import pandas as pd   # imported here, like the other loaders, so shared.py stays light
+    out = {"request": {}, "response": {}, "omb": {}}
+    if os.path.exists(LETTER_CSV):
+        d = pd.read_csv(LETTER_CSV, dtype=str).fillna("")
+        for k, i, t in zip(d["kind"], d["id"], d["text"]):
+            out.setdefault(k, {})[i] = t
+    return out
+
+
 def load_labels():
     if not os.path.exists(LABELS_CSV):
         return {}
