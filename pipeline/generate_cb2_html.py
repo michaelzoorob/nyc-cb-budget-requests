@@ -80,7 +80,6 @@ for _c in FOLLOWUP_COLS + ["Tracking Code", "Label ID", "History Years", "Prior 
     if _c not in df:
         df[_c] = ""
 boards = sorted(df["Board"].unique(), key=_bk)
-DEFAULT_BOARD = "QCB2" if "QCB2" in boards else ""
 board_name = {b: board_short(b) for b in ALL_BOARDS}
 board_full = {b: board_full_name(b) for b in ALL_BOARDS}
 board_pdf = {b: board_pdf_url(b) for b in boards}
@@ -91,7 +90,7 @@ for _b in boards:
     if _ab != _cur:
         _cur = _ab
         _chk.append(f'<div class="cm-grp">{html.escape(BORO_FULL[_ab])}</div>')
-    _ck = " checked" if _b == DEFAULT_BOARD else ""
+    _ck = " checked"                      # the page opens on every board; ?board= narrows it
     _chk.append(f'<label class="cm-opt" data-name="{html.escape(board_name[_b] + " " + _b)}">'
                 f'<input type="checkbox" value="{html.escape(_b)}"{_ck}> {html.escape(board_name[_b])}</label>')
 board_checklist = "".join(_chk)
@@ -682,7 +681,7 @@ SCRIPT = r"""
     if(!urlReady) return;
     var p=new URLSearchParams();
     if(absentReq.length) p.set('board',Array.from(boardPick).concat(absentReq).join(','));
-    else if(boardPick.size===0||boardPick.size===bTotal) p.set('board','all');
+    else if(boardPick.size===0||boardPick.size===bTotal){}   // every board is the default: no parameter
     else if(boardPick.size>bTotal/2){          // "all but a few" survives a switch to a year with other boards
       p.set('board','all');
       p.set('xboard',boxes.filter(function(c){return !boardPick.has(c.value);}).map(function(c){return c.value;}).join(','));
@@ -1269,7 +1268,7 @@ FU_SCRIPT = r"""
 
 
 parts = [HEAD, YEAR_REDIRECT, '<header>']
-parts.append(f'<h1><span id="h1board">Queens Community Board 2</span> &mdash; FY{FY} Budget Requests &amp; Agency Responses</h1>')
+parts.append(f'<h1><span id="h1board">NYC Community Boards</span>: FY{FY} Budget Requests &amp; Agency Responses</h1>')
 parts.append(f'<p class="sub">{SOURCE}{YEAR_NOTE.get(FY, "")}</p>')
 parts.append('<div class="cards">')
 for k, key in [("Requests", "requests"), ("Expense", "expense"), ("Capital", "capital"),

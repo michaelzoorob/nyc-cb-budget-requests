@@ -7,9 +7,10 @@ OMB's Executive Budget response.
 
 **Live:** https://nyc-cb-budget-requests.vercel.app
 
-The site root shows the latest year. Earlier years are at `/fy2026/`, `/fy2025/` and so
+The site root shows the latest year for all boards. Earlier years are at `/fy2026/`, `/fy2025/` and so
 on. The Year menu switches between them and keeps the board, committee, search and
-column filters. A link such as `?year=2024&board=QCB2` also works.
+column filters. A link such as `?board=QCB2` narrows it to one board, and
+`?year=2024&board=QCB2` also works.
 
 Each year is one self-contained HTML page of 7 to 10 MB, with the data embedded inline
 and no backend or external JS. The pages are deployed as a Vercel static site.
