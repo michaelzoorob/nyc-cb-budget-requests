@@ -15,6 +15,33 @@ column filters. A link such as `?board=QCB2` narrows it to one board, and
 Each year is one self-contained HTML page of 7 to 10 MB, with the data embedded inline
 and no backend or external JS. The pages are deployed as a Vercel static site.
 
+## Filtering and sharing a view
+
+The summary cards above the table are filters. Expense and Capital filter the Type
+column, and Support, Oppose and Neutral/Unclear filter the Agency Stance column.
+Requests clears both. In a row, clicking the type, agency, stance or follow-up shows
+only the requests with that value. Clicking the board narrows the board menu to that
+board. Clicking the same value again removes the filter. The follow-up cards work the
+same way. Each column filter in use appears as a label above the table. Clicking the
+label opens that column's filter menu, which is how a phone reaches it, and its × removes
+the filter.
+
+Every filter is saved in the page's address, so a copied link opens the same view.
+
+| Parameter | What it sets |
+| --- | --- |
+| `year` | Opens that year's page, as in `?year=2024&board=QCB2`. |
+| `board` | The boards shown, as in `board=QCB1,QCB2`. |
+| `board=all&xboard=` | Every board except those listed in `xboard`. A switch to a year with other boards keeps this form. |
+| `q` | The search box. |
+| `committee` | The committee menu. |
+| `c_<column>` | A column filter. The name is the column's name in lowercase without spaces or punctuation, such as `c_agency`, `c_type`, `c_agencystance` or `c_followup`. Priority, Type, Board, Agency, Agency Stance and Follow-up take checkbox filters, which repeat the parameter for each value kept (`c_agency=Fire Department&c_agency=Police Department`). The value `__none__` keeps none. The other columns take text, as in `c_title=school`. |
+| `sort` | The sort column and direction, as in `sort=priority.desc`. |
+| `fu` | `fu=unsent` shows requests that need follow-up and have no letter marked sent. `fu=sent` shows requests with a letter marked sent. Both use the marks saved in the viewer's browser. |
+
+Agency used to take text, so an older link such as `?c_agency=parks` still shows every
+agency whose name contains that text.
+
 ## Where each year's data comes from
 
 | Fiscal years | Board requests and agency responses | OMB Executive response |
@@ -157,7 +184,7 @@ The Follow-up column gives the next step for a board that still wants a request.
 
 A model read each pair of agency and OMB responses and chose the step, following `label_followup/rubric.md`. `label_followup/README.md` describes the method and its validation.
 
-A count of each step appears above the table. Clicking a count, or choosing a step in the Follow-up menu, shows only those requests. The menu can also show the requests that still need follow-up and have not been marked sent.
+A count of each step appears above the table. Clicking a count, clicking the step in a row, or choosing a step in the Follow-up menu shows only those requests. The menu can also show the requests that still need follow-up and have not been marked sent. The Marked sent count, or the menu, shows the requests with a letter marked sent.
 
 The Draft letter button opens a panel of recipients. Depending on the step, it pre-selects the agency's office for the board (or the office of the agency a response points to, when the response says another agency handles the request), the Council Member for the request and the Borough President. For a request whose obstacle is money, it pre-selects the Borough President's budget office. It drafts a separate letter for each recipient or one joint letter. Each letter quotes the request and the agency's response, gives the tracking code, and says how many budget years the board has made the request. OMB's Executive Budget response appears as a short summary when it bears on the letter, such as OMB's recommendation to bring a request to elected officials, and is left out when it only restates the agency or refers the board back to it. A letter to elected officials asks them to advocate for the request in the City's budget, and for a capital project also to consider Reso A funds. The letter opens in the viewer's email program, or it can be copied into an agency's contact form. The page drafts letters in the browser from fixed templates and sends nothing itself.
 
