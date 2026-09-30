@@ -1,5 +1,6 @@
 #!/bin/bash
-# Rebuild every fiscal year's page and redeploy to Vercel.
+# Rebuild every fiscal year's page. Vercel deploys main from GitHub, so the rebuilt
+# pages go live when a pull request with them merges into main.
 #
 #   ./update.sh               full rebuild: refreshes the latest year's Register from
 #                             NYC Open Data and re-parses the PDF years
@@ -44,8 +45,6 @@ cat > "$PROJ/fy$LATEST/index.html" <<EOF
 <body><a href="/">FY$LATEST is the latest year. Continue to the dashboard.</a></body></html>
 EOF
 
-echo "Deploying to Vercel..."
-cd "$PROJ"
-vercel --prod --yes
 echo
-echo "Done -> https://nyc-cb-budget-requests.vercel.app"
+echo "Pages rebuilt. Commit them on a branch and open a pull request."
+echo "Vercel builds a preview for the pull request and deploys the site when it merges into main."
