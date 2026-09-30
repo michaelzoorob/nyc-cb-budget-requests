@@ -5,7 +5,7 @@ them, for **all 59 NYC community boards** and **fiscal years 2020 through 2027**
 request shows what the board asked for, how the responsible agency responded, and
 OMB's Executive Budget response.
 
-**Live:** https://cb2-budget-requests-fy2027.vercel.app
+**Live:** https://nyc-cb-budget-requests.vercel.app
 
 The site root shows the latest year. Earlier years are at `/fy2026/`, `/fy2025/` and so
 on. The Year menu switches between them and keeps the board, committee, search and
