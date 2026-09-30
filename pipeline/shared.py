@@ -10,8 +10,6 @@ import hashlib
 import os
 import re
 
-import pandas as pd
-
 # Fiscal years on the dashboard. PDF_YEARS have per-request agency responses in
 # their Statement PDFs, fuller than the Register's for FY2027. The other years
 # take every column from the Register: their PDFs either have no responses
@@ -217,6 +215,7 @@ def response_key(agency_response, omb_response):
 def load_labels():
     if not os.path.exists(LABELS_CSV):
         return {}
+    import pandas as pd
     lab = pd.read_csv(LABELS_CSV, dtype=str).fillna("")
     return {i: [c for c in (p, s) if c] for i, p, s in zip(lab["id"], lab["primary"], lab["secondary"])}
 
@@ -284,6 +283,7 @@ def add_followup(df):
     frame and the number of requests whose responses have no follow-up label yet."""
     lab = {}
     if os.path.exists(FOLLOWUP_CSV):
+        import pandas as pd
         f = pd.read_csv(FOLLOWUP_CSV, dtype=str).fillna("")
         lab = {r["id"]: r for r in f.to_dict("records")}
     keys = [response_key(a, o) for a, o in zip(df["Agency Response"], df["OMB Executive Response"])]

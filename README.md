@@ -72,6 +72,8 @@ not included.
 | `pipeline/build_contacts.py`, `pipeline/contacts/` | The follow-up letters' recipients, with Council Members by district, Borough Presidents and agency offices. See its README. |
 | `label_followup/` | The follow-up rubric, labeling scripts and validation. See its README. |
 | `label_committees/` | The committee definitions, labeling scripts and validation. See its README. |
+| `plan/index.html` | The next-cycle planner at `/plan/?board=QCB2`: a board's 311 conditions next to its requests, how the City answers each request category, and the district profile. Static; reads `plan/planner.json`. |
+| `pipeline/build_planner_data.py`, `plan/planner.json` | The next-cycle planner's data: 311 need rates per board over three years, the district profile from nyc-cd-atlas, which Register requests address each need, and how agencies have answered each request category. Standard library only; run it from `pipeline/`. |
 | `update.sh` | Rebuilds every year's page. Merging them into `main` deploys them. |
 
 ## Rebuilding

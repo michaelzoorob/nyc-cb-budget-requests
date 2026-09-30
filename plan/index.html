@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Next-Cycle Planner · NYC Community Board Budget Requests</title>
+<style>
+:root{--bd:#e2e8f0;--mut:#64748b;--ink:#0f172a;--acc:#2563eb;--bar:#cbd5e1}
+*{box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  margin:0;color:var(--ink);background:#f8fafc;font-size:13px;line-height:1.45}
+a{color:var(--acc)}
+header{padding:20px 24px 14px;background:#fff;border-bottom:1px solid var(--bd)}
+h1{margin:0 0 4px;font-size:19px}
+h2{font-size:15px;margin:0 0 4px}
+.sub{color:var(--mut);margin:0 0 12px;font-size:13px;max-width:900px}
+.bar-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+select{padding:7px 9px;border:1px solid var(--bd);border-radius:8px;font-size:13px;background:#fff;color:var(--ink)}
+.btn{padding:7px 12px;border:1px solid var(--acc);border-radius:8px;font-size:13px;text-decoration:none;white-space:nowrap}
+.cards{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.card{background:#f1f5f9;border:1px solid var(--bd);border-radius:8px;padding:8px 12px;min-width:110px}
+.card .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.03em}
+.card .v{font-size:16px;font-weight:600}
+.card .s{font-size:11px;color:var(--mut)}
+main{padding:0 24px 48px;max-width:1280px}
+section{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:16px 18px;margin-top:16px}
+.lead{color:#334155;margin:0 0 12px;max-width:900px}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--mut);font-weight:600;
+  padding:6px 8px;border-bottom:1px solid var(--bd);vertical-align:bottom}
+td{padding:8px;border-bottom:1px solid #eef2f7;vertical-align:top}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.need{cursor:pointer}
+tr.need:hover td{background:#f8fafc}
+tr.need td:first-child::before{content:"▸ ";color:var(--mut)}
+tr.need.open td:first-child::before{content:"▾ "}
+tr.detail td{background:#f8fafc;padding:12px 16px 16px}
+tr.detail[hidden]{display:none}
+.nm{font-weight:600}
+tr.need td.nm{min-width:150px}
+.small{font-size:11.5px;color:var(--mut)}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.t-gap{background:#fef3c7;color:#92400e}
+.t-mention{background:#ffedd5;color:#9a3412}
+.t-backs{background:#dcfce7;color:#166534}
+.t-res{background:#f1f5f9;color:#475569}
+.t-redirect{background:#fee2e2;color:#b42318}
+.i-support{background:#dcfce7;color:#166534}
+.i-oppose{background:#fee2e2;color:#b42318}
+.i-neutral{background:#fef3c7;color:#92400e}
+.years{display:grid;grid-template-columns:repeat(4,auto);gap:3px;justify-content:start}
+.yr{font-size:10px;padding:1px 5px;border-radius:4px;border:1px solid var(--bd);color:#94a3b8;font-variant-numeric:tabular-nums}
+.yr.y-req{background:var(--acc);border-color:var(--acc);color:#fff}
+.yr.y-men{background:#dbeafe;border-color:#bfdbfe;color:#1e40af}
+.yr.y-nod{text-decoration:line-through}
+.strip rect{fill:var(--bar)}
+.strip rect.me{fill:var(--acc)}
+.strip rect:hover{fill:#64748b}
+.strip rect.me:hover{fill:#1d4ed8}
+.trend{font-variant-numeric:tabular-nums;white-space:nowrap}
+.up{color:#b42318}.down{color:#166534}
+.req{margin:8px 0;padding:8px 10px;background:#fff;border:1px solid var(--bd);border-radius:8px}
+.req .meta{font-size:11.5px;color:var(--mut);margin-bottom:3px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+h3{font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:#475569;margin:0 0 6px}
+.meter{display:inline-block;width:70px;height:8px;background:#f1f5f9;border-radius:4px;vertical-align:middle;margin-right:6px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--acc);border-radius:0 4px 4px 0}
+.ex{font-style:italic;color:#334155;border-left:3px solid var(--bd);padding-left:8px;margin:4px 0}
+.overview{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.ov-b h3{margin-top:4px}
+.ov-b a{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:4px 6px;border-radius:6px;text-decoration:none;color:var(--ink)}
+.ov-b a:hover{background:#f1f5f9}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:0 0 10px;font-size:12px;color:#334155}
+.notes li{margin-bottom:6px}
+footer{color:var(--mut);font-size:12px;padding:8px 24px 32px;max-width:1280px}
+.tip{position:fixed;pointer-events:none;background:#0f172a;color:#fff;font-size:12px;padding:5px 8px;border-radius:6px;z-index:50;white-space:nowrap}
+@media (max-width:640px){header,main,footer{padding-left:16px;padding-right:16px} section{padding:14px 12px} .hide-sm{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Next-cycle planner</h1>
+  <p class="sub" id="subtitle">What a community board's district data and the City's past responses suggest about next year's budget requests.</p>
+  <div class="bar-row">
+    <select id="board" aria-label="Community board"><option value="">Choose a community board…</option></select>
+    <a class="btn" id="dash" href="/">Budget requests dashboard →</a>
+  </div>
+  <div class="cards" id="cards"></div>
+</header>
+<main id="main"><section><p class="small">Loading…</p></section></main>
+<footer id="footer"></footer>
+<div class="tip" id="tip" hidden></div>
+<script>
+(function(){
+var D, TOP = 15, BOROS = ["Manhattan","Bronx","Brooklyn","Queens","Staten Island"];
+// Years the Register has no requests for a board (README: "Three boards are missing from the Register in some years").
+var NO_REGISTER = {BKCB6:["2020","2025"], BKCB12:["2025"], BKCB16:["2025"], BXCB12:["2026"]};
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function fmt(n, d){ return Number(n).toLocaleString("en-US", {maximumFractionDigits: d == null ? 0 : d}); }
+function pct(x){ return Math.round(x * 100) + "%"; }
+function boardName(b){ return b.borough + " Community Board " + b.code.replace(/^\D+/, ""); }
+function shortName(code){ var b = D.boards[code]; return b.borough + " CB" + code.replace(/^\D+/, ""); }
+function fy(y){ return "FY" + y; }
+function yearRange(ys){
+  if (!ys.length) return "";
+  var runs = [], s = ys[0], p = ys[0];
+  ys.slice(1).concat([null]).forEach(function(y){
+    if (y && +y === +p + 1){ p = y; return; }
+    runs.push(s === p ? fy(s) : fy(s) + "–" + p.slice(2)); s = p = y;
+  });
+  return runs.join(", ");
+}
+function dashLink(code, expl){
+  var q = String(expl || "").replace(/\s+/g, " ").trim().split(" ").slice(0, 6).join(" ");
+  return "/?board=" + encodeURIComponent(code) + (q ? "&q=" + encodeURIComponent(q) : "");
+}
+
+// ---- classification ------------------------------------------------------------
+function classify(n){
+  var cat = n.requests.some(function(r){ return r.matchedBy === "category"; });
+  var kw = n.requests.length > 0;
+  var high = n.rank <= TOP && n.countRank <= TOP;
+  if (high && !kw) return {k:"gap", o:0, label:"Possible gap", cls:"t-gap",
+    why:"Top " + TOP + " both per resident and by count, and no FY" + D.latestFy + " request addresses it."};
+  if (high && !cat) return {k:"mention", o:1, label:"Only mentioned", cls:"t-mention",
+    why:"Top " + TOP + " on both measures. FY" + D.latestFy + " requests mention it, but none asks for it directly."};
+  if (high) return {k:"backs", o:2, label:"Backs your request", cls:"t-backs",
+    why:"Top " + TOP + " on both measures, and the board asks for it. Cite these numbers."};
+  if (n.rank <= TOP && n.countRank > 25) return {k:"res", o:3, label:"High per resident only", cls:"t-res",
+    why:"High per resident but not by count: often a district with many workers or visitors and few residents."};
+  return {k:"", o:4, label:"", cls:"", why:""};
+}
+
+// ---- small charts: every board's value, sorted, this board highlighted -------------
+function strip(vals, code, unit){
+  var codes = Object.keys(vals).sort(function(a, b){ return vals[b] - vals[a]; });
+  var sorted = codes.map(function(c){ return vals[c]; }).slice().sort(function(a, b){ return a - b; });
+  var cap = sorted[Math.floor(sorted.length * 0.95)] || 1;
+  var W = 3, G = 1, H = 26, out = "";
+  codes.forEach(function(c, i){
+    var v = vals[c], h = Math.max(2, Math.min(v, cap) / cap * H);
+    out += '<rect data-tip="' + esc(shortName(c) + " · #" + (i + 1) + " · " + fmt(v, 2) + (unit ? " " + unit : "")) + '"' +
+      (c === code ? ' class="me"' : "") + ' x="' + i * (W + G) + '" y="' + (H - h) + '" width="' + W + '" height="' + h + '" rx="1"/>';
+  });
+  return '<svg class="strip" width="' + codes.length * (W + G) + '" height="' + H + '" role="img" aria-label="' +
+    esc(shortName(code) + " ranks #" + (codes.indexOf(code) + 1) + " of " + codes.length) + '">' + out + "</svg>";
+}
+document.addEventListener("mousemove", function(e){
+  var t = e.target.getAttribute && e.target.getAttribute("data-tip"), tip = $("tip");
+  if (!t){ tip.hidden = true; return; }
+  tip.textContent = t; tip.hidden = false;
+  tip.style.left = Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 8) + "px"; tip.style.top = (e.clientY - 34) + "px";
+});
+
+function trend(c){
+  var a = c[0], b = c[c.length - 1], ch = a ? (b - a) / a : 0;
+  var cls = ch > 0.1 ? "up" : ch < -0.1 ? "down" : "";
+  return '<span class="trend" data-tip="' + esc(D.windows.map(function(w, i){ return w[0].slice(0, 7) + "→" + w[1].slice(0, 7) + ": " + fmt(c[i]); }).join("   ")) + '">' +
+    c.map(function(x){ return fmt(x); }).join(" → ") +
+    (a ? ' <span class="' + cls + '">(' + (ch >= 0 ? "+" : "") + Math.round(ch * 100) + "%)</span>" : "") + "</span>";
+}
+
+function years(n, code){
+  var out = "", nod = NO_REGISTER[code] || [];
+  for (var y = 2020; y <= +D.latestFy; y++){
+    var s = String(y), c = n.yearsRequested.indexOf(s) >= 0 ? "y-req" : n.yearsMentioned.indexOf(s) >= 0 ? "y-men" : nod.indexOf(s) >= 0 ? "y-nod" : "";
+    var t = c === "y-req" ? "requested" : c === "y-men" ? "mentioned in a request" : c === "y-nod" ? "no Register data" : "not requested";
+    out += '<span class="yr ' + c + '" data-tip="' + fy(s) + ": " + t + '">' + s.slice(2) + "</span>";
+  }
+  return '<div class="years">' + out + "</div>";
+}
+
+function stancePill(s){
+  var c = s === "Support" ? "i-support" : s === "Oppose" ? "i-oppose" : "i-neutral";
+  return '<span class="tag ' + c + '">' + (s === "Neutral/Unclear" ? "Neutral" : esc(s)) + "</span>";
+}
+
+function whatWorks(cats, mine, pattern){
+  var re = pattern ? new RegExp(pattern, "i") : null;
+  var rows = cats.filter(function(c){ return D.categories[c] && D.categories[c].n >= 10; })
+    .sort(function(a, b){ return D.categories[b].n - D.categories[a].n; });
+  if (!rows.length) return '<p class="small">No standard request category covers this need, so there is no track record to show.</p>';
+  return rows.map(function(c){
+    var k = D.categories[c], ex = k.examples.filter(function(e){ return !re || re.test(e.explanation); })[0];
+    return '<div class="req"><div class="nm">' + esc(c) + (mine && mine[c] ? ' <span class="small">· you filed ' + mine[c] + " this year</span>" : "") + "</div>" +
+      '<div class="small">' + fmt(k.n) + " requests citywide FY2020–" + D.latestFy.slice(2) + " · " + esc(k.agency) + "</div>" +
+      '<div style="margin:4px 0"><span class="meter"><i style="width:' + pct(k.support) + '"></i></span>' + pct(k.support) + " supported by the agency · " +
+      pct(k.redirect) + " sent elsewhere</div>" +
+      '<div class="small">Most common response: “' + esc(k.topResponses[0][0]) + "”</div>" +
+      (ex ? '<div class="small" style="margin-top:6px">Wording that got support (' + esc(shortName(ex.board)) + ", FY" + ex.fy + "):</div>" +
+        '<div class="ex">' + esc(ex.explanation) + "</div>" : "") + "</div>";
+  }).join("");
+}
+
+// ---- pages -----------------------------------------------------------------------
+function renderOverview(){
+  $("title").textContent = "Next-cycle planner";
+  $("dash").href = "/";
+  document.title = "Next-Cycle Planner · NYC Community Board Budget Requests";
+  $("cards").innerHTML = "";
+  var html = '<section><h2>Choose a community board</h2><p class="lead">Each board page compares the district’s 311 complaints ' +
+    "with the board’s FY" + D.latestFy + " requests and with how the City has answered similar requests. The number beside each board counts " +
+    '<span class="tag t-gap">possible gaps</span>: needs where the district ranks in the top ' + TOP + " of 59 and no FY" + D.latestFy +
+    ' request addresses them.</p><div class="overview">';
+  BOROS.forEach(function(boro){
+    var codes = Object.keys(D.boards).filter(function(c){ return D.boards[c].borough === boro; })
+      .sort(function(a, b){ return D.boards[a].borocd - D.boards[b].borocd; });
+    html += '<div class="ov-b"><h3>' + boro + "</h3>";
+    codes.forEach(function(c){
+      var gaps = Object.values(D.boards[c].needs).filter(function(n){ return classify(n).k === "gap"; }).length;
+      html += '<a href="?board=' + c + '"><span>CB ' + c.replace(/^\D+/, "") + ' <span class="small">' + esc(D.boards[c].neighborhoods.split(",").slice(0, 2).join(",")) + "</span></span>" +
+        (gaps ? '<span class="tag t-gap">' + gaps + "</span>" : '<span class="small">–</span>') + "</a>";
+    });
+    html += "</div>";
+  });
+  $("main").innerHTML = html + "</div></section>";
+}
+
+function renderBoard(code){
+  var b = D.boards[code], P = b.profile;
+  $("title").textContent = boardName(b) + ": next-cycle planner";
+  document.title = shortName(code) + " · Next-Cycle Planner";
+  $("subtitle").textContent = b.neighborhoods + ". What the district’s data and the City’s past responses suggest for the FY" + (+D.latestFy + 1) + " budget requests.";
+  $("dash").href = "/?board=" + code;
+  var card = function(k, v, s){ return '<div class="card"><div class="k">' + k + '</div><div class="v">' + v + "</div>" + (s ? '<div class="s">' + s + "</div>" : "") + "</div>"; };
+  var needs = D.needs.map(function(n){ return {def: n, d: b.needs[n.id], c: classify(b.needs[n.id])}; });
+  var count = function(k){ return needs.filter(function(n){ return n.c.k === k; }).length; };
+  $("cards").innerHTML =
+    card("Residents", fmt(P.pop_acs.value), "ACS 2020–2024") +
+    card("Median household income", "$" + fmt(P.mdn_hh_inc_interp.value), "rank #" + P.mdn_hh_inc_interp.rank + " of 59") +
+    card("FY" + D.latestFy + " requests", fmt(b.requestCount), "in the Register") +
+    card("Possible gaps", count("gap"), (count("mention") ? count("mention") + " more only mentioned · " : "") + D.needs.length + " needs tracked") +
+    card("Board’s top issues", esc(b.statementIssues.slice(0, 2).join(" · ") || "–"), "from its Statement of Needs");
+
+  needs.sort(function(a, b){ return a.c.o - b.c.o || Math.min(a.d.rank, a.d.countRank) - Math.min(b.d.rank, b.d.countRank); });
+  var nod = NO_REGISTER[code];
+  var html = '<section><h2>District conditions compared with your requests</h2><p class="lead">311 service requests in the last three 12-month windows, ' +
+    "ranked among all 59 districts. Rank 1 means the most complaints. Click a row for the requests that match it and how the City has answered similar requests.</p>" +
+    '<div class="legend"><span><span class="tag t-gap">Possible gap</span> top ' + TOP + " on both ranks, no request</span>" +
+    '<span><span class="tag t-mention">Only mentioned</span> a request mentions it but doesn’t ask for it</span>' +
+    '<span><span class="tag t-backs">Backs your request</span> data supports what you asked for</span>' +
+    '<span><span class="yr y-req">24</span> requested <span class="yr y-men">24</span> mentioned' + (nod ? ' <span class="yr y-nod">24</span> no Register data' : "") + "</span></div>" +
+    '<div class="tbl-wrap"><table><thead><tr><th>Need</th><th></th><th class="num">Per 1,000 residents</th><th class="num">Rank per resident</th>' +
+    '<th class="num">Rank by count</th><th class="hide-sm">All 59 districts, per resident</th><th class="hide-sm">Complaints, 3 years</th><th>Years requested</th></tr></thead><tbody>';
+  needs.forEach(function(n, i){
+    var vals = {}; Object.keys(D.boards).forEach(function(c){ vals[c] = D.boards[c].needs[n.def.id].rate; });
+    var med = n.def.medianRate;
+    html += '<tr class="need" data-i="' + i + '"><td class="nm">' + esc(n.def.label) + "</td>" +
+      "<td>" + (n.c.label ? '<span class="tag ' + n.c.cls + '" data-tip="' + esc(n.c.why) + '">' + n.c.label + "</span>" : "") + "</td>" +
+      '<td class="num">' + fmt(n.d.rate, 1) + '<div class="small">median ' + fmt(med, 1) + "</div></td>" +
+      '<td class="num">#' + n.d.rank + '</td><td class="num">#' + n.d.countRank + "</td>" +
+      '<td class="hide-sm">' + strip(vals, code, "per 1,000") + "</td>" +
+      '<td class="hide-sm">' + trend(n.d.counts) + "</td><td>" + years(n.d, code) + "</td></tr>" +
+      '<tr class="detail" id="d' + i + '" hidden><td colspan="8">' + detail(n, code) + "</td></tr>";
+  });
+  html += "</tbody></table></div></section>";
+
+  // what works for the categories this board files
+  var cats = Object.keys(b.categories).filter(function(c){ return D.categories[c]; });
+  var flag = function(k){ return k.n < 30 ? 0 : k.redirect >= 0.3 ? 2 : k.support < 0.1 ? 1 : 0; };
+  var flagTag = function(k){ var f = flag(k); return f === 2 ? ' <span class="tag t-redirect">Usually sent elsewhere</span>' : f === 1 ? ' <span class="tag t-gap">Rarely supported</span>' : ""; };
+  cats.sort(function(x, y){ var a = D.categories[x], c = D.categories[y];
+    return (flag(c) - flag(a)) || (b.categories[y] - b.categories[x]) || (c.n - a.n); });
+  html += '<section><h2>How the City answers the kinds of requests you file</h2><p class="lead">Each FY' + D.latestFy +
+    " request category this board used, with how agencies answered it for every board from FY2020 to FY" + D.latestFy +
+    ". <b>Supported</b> means the agency’s response began with support. That is not the same as funded. " +
+    '<span class="tag t-redirect">Usually sent elsewhere</span> marks categories where agencies mostly point the board to someone else (the MTA, a property owner, a borough office). A different channel may work better. ' +
+    '<span class="tag t-gap">Rarely supported</span> marks categories that agencies supported less than 10% of the time, usually by answering “further study is needed.”</p>' +
+    '<div class="tbl-wrap"><table><thead><tr><th>Request category</th><th class="num">Yours</th><th class="num">Citywide</th><th>Agency supported</th>' +
+    '<th class="num">Sent elsewhere</th><th class="hide-sm">Most common response</th></tr></thead><tbody>';
+  cats.forEach(function(c){
+    var k = D.categories[c];
+    html += "<tr><td>" + esc(c) + flagTag(k) + '<div class="small">' + esc(k.agency) + " · " + k.type + "</div></td>" +
+      '<td class="num">' + b.categories[c] + '</td><td class="num">' + fmt(k.n) + "</td>" +
+      '<td style="white-space:nowrap"><span class="meter"><i style="width:' + pct(k.support) + '"></i></span>' + pct(k.support) + "</td>" +
+      '<td class="num">' + pct(k.redirect) + '</td><td class="hide-sm small">“' + esc(k.topResponses[0][0]) + "”</td></tr>";
+  });
+  html += "</tbody></table></div></section>";
+
+  // district profile
+  html += '<section><h2>District profile</h2><p class="lead">Figures from the updated DCP Community District Profiles (nyc-cd-atlas), ranked among the 59 districts. Rank 1 is the highest value.</p>' +
+    '<div class="tbl-wrap"><table><thead><tr><th>Indicator</th><th class="num">This district</th><th class="num">Median district</th><th class="num">Rank</th>' +
+    '<th class="hide-sm">All 59 districts</th><th>Source</th></tr></thead><tbody>';
+  Object.keys(D.indicators).forEach(function(k){
+    var ind = D.indicators[k], p = P[k]; if (!p) return;
+    var f = function(v){ return v == null ? "–" : ind.unit === "%" ? fmt(v, 1) + "%" : ind.unit === "$" ? "$" + fmt(v) : fmt(v, ind.unit === "per 1,000" ? 1 : 0); };
+    var vals = {}; Object.keys(D.boards).forEach(function(c){ var q = D.boards[c].profile[k]; if (q) vals[c] = q.value; });
+    var sv = Object.values(vals).sort(function(a, b){ return a - b; }), med = sv[Math.floor(sv.length / 2)];
+    html += "<tr><td>" + esc(ind.label) + '</td><td class="num">' + f(p.value) + (p.moe != null ? '<div class="small">± ' + fmt(p.moe, 1) + "</div>" : "") +
+      '</td><td class="num">' + f(med) + '</td><td class="num">#' + p.rank + '</td><td class="hide-sm">' + strip(vals, code, ind.unit === "%" ? "%" : "") +
+      '</td><td class="small">' + esc(ind.source) + "</td></tr>";
+  });
+  html += "</tbody></table></div>" + (b.sharedPuma ? '<p class="small">This district shares a Census PUMA with ' + esc(b.sharedPuma) +
+    ". Its figures are built from census tracts, but median income is interpolated and less precise.</p>" : "") + "</section>";
+
+  $("main").innerHTML = html;
+  [].forEach.call(document.querySelectorAll("tr.need"), function(tr){
+    tr.addEventListener("click", function(){ var d = $("d" + tr.dataset.i); d.hidden = !d.hidden; tr.classList.toggle("open", !d.hidden); });
+  });
+}
+
+function detail(n, code){
+  var b = D.boards[code], r = n.d.requests;
+  var reqs = r.length ? r.map(function(x){
+    return '<div class="req"><div class="meta">' + stancePill(x.stance) + " " + esc(x.type) + (x.priority && /^\d+$/.test(x.priority) ? " · priority " + x.priority : "") +
+      " · " + esc(x.agency) + (x.matchedBy === "keyword" ? ' · <span data-tip="The explanation mentions this need; the category is something else.">mentions it</span>' : "") +
+      '</div><div class="nm">' + esc(x.category) + '</div><div>' + esc(x.explanation) + (x.explanation.length >= 300 ? "…" : "") + "</div>" +
+      '<div class="small" style="margin-top:4px">Agency: “' + esc(x.response) + '” · <a href="' + dashLink(code, x.explanation) + '">Open in dashboard</a></div></div>';
+  }).join("") : '<p>No FY' + D.latestFy + " request addresses this." +
+    (n.d.yearsRequested.length ? " The board asked for it in " + yearRange(n.d.yearsRequested) + "." : " The board hasn’t asked for it since at least FY2020.") + "</p>";
+  return '<div class="cols"><div><h3>Your FY' + D.latestFy + " requests</h3>" + (n.c.why ? '<p class="small">' + esc(n.c.why) + "</p>" : "") + reqs +
+    '<p class="small">311 complaint types counted: ' + esc(n.def.types.join(", ")) + ".</p></div>" +
+    "<div><h3>How the City has answered this kind of request</h3>" + whatWorks(n.def.categories, b.categories, n.def.pattern) + "</div></div>";
+}
+
+function footer(){
+  var w = D.windows;
+  $("footer").innerHTML = '<h2 style="font-size:13px;color:var(--ink)">How to read this</h2><ul class="notes">' +
+    "<li><b>311 measures reporting, not conditions.</b> Some neighborhoods call 311 more than others. A high rank is a reason to look, not proof of need. Latest window: " + w[w.length - 1][0] + " to " + w[w.length - 1][1] + ".</li>" +
+    "<li><b>Two ranks.</b> Per-resident rates overstate districts with many workers and visitors and few residents, such as Midtown. That’s why the page also ranks raw counts. A need is flagged only when both ranks are in the top " + TOP + ".</li>" +
+    "<li><b>Matching is approximate.</b> A request addresses a need when its DCP category is one of the need’s categories (“requested”), or when its explanation mentions the need (“mentioned”). Keyword matches can be incidental.</li>" +
+    "<li><b>Supported is not funded.</b> Support is read from the first sentence of the agency’s response. The Register has no funded amount.</li>" +
+    "<li><b>Profiles approximate district boundaries.</b> ACS figures are aggregated from census tracts. Community districts are not Census geographies.</li>" +
+    '</ul><p>Sources: <a href="' + D.sources["311"].url + '">' + esc(D.sources["311"].name) + '</a> · <a href="' + D.sources.register.url + '">' + esc(D.sources.register.name) +
+    '</a> · <a href="' + D.sources.profile.url + '">' + esc(D.sources.profile.name) + "</a>. Data built " + esc(D.generated.slice(0, 10)) + ".</p>";
+}
+
+function route(){
+  var code = new URLSearchParams(location.search).get("board");
+  code = code && code.toUpperCase();
+  $("board").value = D.boards[code] ? code : "";
+  if (D.boards[code]) renderBoard(code); else renderOverview();
+  window.scrollTo(0, 0);
+}
+
+fetch("planner.json").then(function(r){ return r.json(); }).then(function(data){
+  D = data;
+  var sel = $("board");
+  BOROS.forEach(function(boro){
+    var g = document.createElement("optgroup"); g.label = boro;
+    Object.keys(D.boards).filter(function(c){ return D.boards[c].borough === boro; })
+      .sort(function(a, b){ return D.boards[a].borocd - D.boards[b].borocd; })
+      .forEach(function(c){ var o = document.createElement("option"); o.value = c; o.textContent = shortName(c) + " · " + D.boards[c].neighborhoods.split(",")[0]; g.appendChild(o); });
+    sel.appendChild(g);
+  });
+  sel.addEventListener("change", function(){
+    history.pushState(null, "", sel.value ? "?board=" + sel.value : location.pathname); route();
+  });
+  window.addEventListener("popstate", route);
+  footer(); route();
+}).catch(function(e){ $("main").innerHTML = '<section><p>Could not load planner.json: ' + esc(e.message) + "</p></section>"; });
+})();
+</script>
+</body></html>
