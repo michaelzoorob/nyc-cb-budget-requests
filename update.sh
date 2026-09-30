@@ -48,4 +48,4 @@ echo "Deploying to Vercel..."
 cd "$PROJ"
 vercel --prod --yes
 echo
-echo "Done -> https://cb2-budget-requests-fy2027.vercel.app"
+echo "Done -> https://nyc-cb-budget-requests.vercel.app"
