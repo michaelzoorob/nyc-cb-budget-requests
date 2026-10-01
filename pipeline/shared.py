@@ -227,6 +227,20 @@ def request_text(title, expl):
     return f"{title} || {expl}"
 
 
+FACTS_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), "letter_facts.csv")
+
+
+def load_letter_facts():
+    """{Label ID: [{"k": kind, "t": text, "s": source, "u": url}, ...]} from letter_facts.py."""
+    import pandas as pd
+    out = {}
+    if os.path.exists(FACTS_CSV):
+        d = pd.read_csv(FACTS_CSV, dtype=str).fillna("")
+        for i, k, t, s, u in zip(d["label_id"], d["kind"], d["text"], d["source"], d["url"]):
+            out.setdefault(i, []).append({"k": k, "t": t.replace("'", "’"), "s": s, "u": u})
+    return out
+
+
 def load_letter_descriptions():
     """{kind: {key: description}} for kinds 'request', 'response' and 'omb'."""
     import pandas as pd   # imported here, like the other loaders, so shared.py stays light

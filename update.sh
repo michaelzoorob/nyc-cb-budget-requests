@@ -32,6 +32,9 @@ done
 echo "Locating requests (parks and street intersections)..."
 python3 "$PIPELINE/locate_requests.py" "$DATA"
 python3 "$PIPELINE/enrich_years.py" "$DATA"
+# The letters' local data reads the located sites and plan/planner.json's 311 counts.
+echo "Writing the letters' local data from NYC Open Data..."
+python3 "$PIPELINE/letter_facts.py" "$DATA"
 for fy in $YEARS; do
   if [ "$fy" = "$LATEST" ]; then mkdir -p "$PROJ/dashboard"; out="$PROJ/dashboard/index.html"; else mkdir -p "$PROJ/fy$fy"; out="$PROJ/fy$fy/index.html"; fi
   python3 "$PIPELINE/generate_cb2_html.py" --fy "$fy" "CB FY$fy Requests (all boards, detailed, 2-stage).csv" "$out"

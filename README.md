@@ -101,6 +101,7 @@ not included.
 | `pipeline/followup_labels.csv` | The follow-up action for each pair of agency and OMB responses. |
 | `pipeline/locate_requests.py`, `pipeline/request_locations.csv` | The council district of each request whose site is known, from the park or street intersection it names. |
 | `pipeline/enrich_years.py` | Links each request to the same board's requests in other years, and adds the site's council district, to every year's CSV. |
+| `pipeline/letter_facts.py`, `pipeline/letter_facts.csv` | The letters' local data. A sentence or two from the City's open data about a request's site or need, with its source. Downloads are cached in the data directory. |
 | `pipeline/build_contacts.py`, `pipeline/contacts/` | The follow-up letters' recipients, with Council Members by district, Borough Presidents and agency offices. See its README. |
 | `label_followup/` | The follow-up rubric, labeling scripts and validation. See its README. |
 | `label_committees/` | The committee definitions, labeling scripts and validation. See its README. |
@@ -196,6 +197,20 @@ The Draft letter button opens a panel of recipients. Depending on the step, it p
 The Draft one letter per official button writes one letter to each official for all the requests shown, with each request's own recipients. With the Contact elected officials filter on, for example, each Council Member gets a single letter listing that member's requests.
 
 The Council Member for a request is the member whose district holds the request's site, when the site is known. `pipeline/locate_requests.py` places a request that names a park with NYC Parks Properties, and a Statement explanation that begins with a street and its cross streets with the NYC Street Centerline. It keeps a site only if the site lies in one of the board's own council districts. It places 2,182 of the 16,872 distinct requests from FY2020 to FY2027 (identical requests in different years count once), 1,730 by park and 452 by street intersection. The letters for other requests go to the Council Members whose districts cover at least 10% of the board's land area.
+
+A letter can also cite local data, a sentence or two from the City's open data about the request's site or need. `pipeline/letter_facts.py` writes them to `pipeline/letter_facts.csv`. It adds a fact only where the fact clearly applies to the request and supports it, so most requests get none. Of the 16,872 distinct requests from FY2020 to FY2027, 2,504 get one. A fact's topic must appear in the request's title or the first two sentences of its explanation. A site comes from the request's location line or the park it names, and must lie in the board's own district.
+
+| Kind | For | What the letter says | Source |
+| --- | --- | --- | --- |
+| Park inspections | A Parks request about one named park | How often NYC Parks inspectors rated the park, or the feature the request is about, unacceptable in the last two years. At least two such ratings. Large parks inspected zone by zone are left out. | [Parks Inspection Program](https://data.cityofnewyork.us/d/yg3y-7juh) |
+| School | A school request that names one school | The school's enrollment, and its share of target capacity when that is over 100%. A request for more seats gets the fact only then. | [Enrollment, Capacity and Utilization](https://data.cityofnewyork.us/d/gkd7-3vk7) |
+| Crashes | A traffic safety request at a located intersection or street | Crashes, injuries and deaths within 150 feet of the intersection, or along the street, over the last three years | [Motor Vehicle Collisions](https://data.cityofnewyork.us/d/h9gi-nx95) |
+| 311 at the site | A request about flooding, sewer backups, street lights, a broken signal or speeding at a located site | 311 reports nearby over the last three years. 311 logs broken signals and takes no requests for new ones, so a new signal gets the crash count instead. | [311 Service Requests](https://data.cityofnewyork.us/d/erm2-nwe9) |
+| Park access | A request for a new park or open space | The share of the district's residents beyond walking distance of a park, when it is above the city's | [Walk to a Park](https://data.cityofnewyork.us/d/99ii-hwh9) and 2020 Census blocks |
+| Street trees | A tree planting request | Empty street tree beds in the district | [Forestry Planting Spaces](https://data.cityofnewyork.us/d/82zj-84is) |
+| District 311 | A request on a need that 311 measures | The district's 311 complaints in the last year, when its rate or count ranks in the top quarter of districts or the count rose by a quarter in two years | The planner's 311 counts |
+
+The panel lists a request's local data with its source. Each item has a checkbox, and a checked item goes in the letter after the request. Park access follows NYC Parks' method, weighting each Census block by the share of its area within walking distance. Citywide that gives 83.8% of New Yorkers within walking distance of a park. NYC Parks reported 83.9% for FY2023 with the same service area. A check of 14 facts against queries run on NYC Open Data itself found every number the same.
 
 `pipeline/enrich_years.py` links a request to the same board's requests in other years when their explanations begin with the same text. In FY2027, 2,549 of the 3,809 requests also appear in another year. The letter panel lists those years and the most recent earlier response.
 
