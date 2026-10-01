@@ -40,16 +40,19 @@ def main():
     work = sys.argv[1]
     strict = "--strict" in sys.argv
     partial = "--allow-missing" in sys.argv   # write what exists; the letters fall back for the rest
+    # Records are keyed by (kind, id): the same text can be both an agency response and
+    # OMB text, and each kind has its own description.
     inputs = {}
     for f in sorted(glob.glob(f"{work}/chunks/*.jsonl")):
         for line in open(f):
             r = json.loads(line)
-            inputs[r["id"]] = r
+            inputs[(r["kind"], r["id"])] = r
     out, problems, slips = {}, [], []
     # fix_*.json files come last and may replace a description written earlier.
     files = sorted(glob.glob(f"{work}/out/*.json"), key=lambda f: (os.path.basename(f).startswith("fix_"), f))
     for f in files:
         fix = os.path.basename(f).startswith("fix_")
+        kind = os.path.basename(f).removeprefix("fix_").split("_")[0]   # response_03_p01.json -> response
         try:
             batch = json.load(open(f))
         except ValueError:
@@ -58,20 +61,19 @@ def main():
             print(f"skipped {os.path.basename(f)} (not valid JSON yet)", file=sys.stderr)
             continue
         for x in batch:
-            i = x.get("id")
-            if i in out and not fix:
-                (slips if partial else problems).append(f"duplicate id {i} ({os.path.basename(f)})")
-            if i not in inputs:
-                problems.append(f"unknown id {i} ({os.path.basename(f)})")
+            k = (kind, x.get("id"))
+            if k in out and not fix:
+                (slips if partial else problems).append(f"duplicate {k} ({os.path.basename(f)})")
+            if k not in inputs:
+                problems.append(f"unknown {k} ({os.path.basename(f)})")
                 continue
-            out[i] = clean(x.get("text", ""))
+            out[k] = clean(x.get("text", ""))
     missing = set(inputs) - set(out)
     if missing and not partial:
         problems.append(f"{len(missing)} records have no description, e.g. {sorted(missing)[:3]}")
     elif missing:
         print(f"{len(missing)} records have no description yet (--allow-missing)", file=sys.stderr)
-    for i, t in out.items():
-        kind = inputs[i]["kind"]
+    for (kind, i), t in out.items():
         if not t:
             problems.append(f"{i}: empty")
         elif kind in ("response", "omb") and not t.startswith("said "):
@@ -88,7 +90,7 @@ def main():
     if problems or (strict and slips):
         print(f"NOT WRITTEN -- {len(problems)} problems:\n  " + "\n  ".join(problems[:60]), file=sys.stderr)
         sys.exit(1)
-    rows = [{"id": i, "kind": inputs[i]["kind"], "text": t, "labeler": "claude-sonnet"} for i, t in out.items()]
+    rows = [{"id": i, "kind": kind, "text": t, "labeler": "claude-sonnet"} for (kind, i), t in out.items()]
     if os.path.exists(HAND):
         rows += [{"id": h["id"], "kind": h["kind"], "text": clean(h["text"]), "labeler": "hand-written"}
                  for h in json.load(open(HAND))]
