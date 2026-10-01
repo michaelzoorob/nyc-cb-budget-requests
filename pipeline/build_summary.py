@@ -114,13 +114,30 @@ tr.sel td{background:#eff6ff}
 .stack span{display:block;height:100%}
 .n{color:var(--mut)}
 footer{color:var(--mut);font-size:12px;padding:0 24px 32px;max-width:900px;line-height:1.5}
+/* The board menu works like the dashboard's: search, All and None, and a checkbox per board. */
+.bsel{position:relative;display:flex;align-items:center;gap:5px}
+.pick{font:inherit;font-size:13px;padding:5px 8px;border:1px solid var(--bd);border-radius:8px;background:#fff;color:var(--ink);cursor:pointer;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+.boardpanel{position:absolute;top:calc(100% + 4px);left:0;z-index:60;background:#fff;border:1px solid #cbd5e1;border-radius:10px;box-shadow:0 10px 30px rgba(15,23,42,.18);padding:8px;width:240px;font-size:12px}
+.cm-search{width:100%;padding:5px 7px;border:1px solid #cbd5e1;border-radius:6px;margin-bottom:6px;font-size:12px;font-family:inherit}
+.cm-ctrl{display:flex;gap:6px;margin-bottom:4px}
+.cm-mini{flex:1;border:1px solid #e2e8f0;background:#fff;border-radius:6px;padding:3px;cursor:pointer;font-size:11px;color:#475569}
+.cm-mini:hover{background:#f1f5f9}
+.cm-list{max-height:260px;overflow:auto;border:1px solid #eef2f7;border-radius:6px;padding:2px}
+.cm-grp{font-weight:700;font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;padding:7px 4px 2px}
+.cm-opt{display:flex;align-items:center;gap:7px;padding:3px 5px;cursor:pointer;border-radius:4px}
+.cm-opt:hover{background:#f1f5f9}
+.cm-opt span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head><body>
 <header>
 <div class="links"><a href="/">&larr; Map</a><span>&middot;</span><a id="dashLink" href="/dashboard/?board=all">Requests dashboard</a><span>&middot;</span><a id="planLink" href="/plan/">Next-cycle planner</a></div>
 <h1>How the City answered community board budget requests</h1>
 <p class="sub">Each year, NYC's 59 community boards send the City their budget requests, and the agency that would carry each one out answers it. Click an agency or a board to see its requests.</p>
-<div class="bar-row"><label>Year <select id="year"></select></label><label>Board <select id="board"><option value="">All boards</option></select></label></div>
+<div class="bar-row"><label>Year <select id="year"></select></label>
+<div class="bsel"><span>Board</span><button type="button" id="boardBtn" class="pick" aria-haspopup="true" aria-expanded="false" title="Filter by community board">All boards &#9662;</button>
+<div id="boardPanel" class="boardpanel" hidden><input id="boardSearch" class="cm-search" type="search" placeholder="search boards…" aria-label="Search boards">
+<div class="cm-ctrl"><button type="button" class="cm-mini" data-act="all">All</button><button type="button" class="cm-mini" data-act="none">None</button></div>
+<div class="cm-list" id="boardList"></div></div></div></div>
 </header>
 <main>
 <div class="totals" id="totals"></div>
@@ -146,21 +163,31 @@ var $ = function(id){ return document.getElementById(id); };
 var esc = function(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
 var pct = function(c, k, n){ return n ? 100 * (c[k] || 0) / n : 0; };
 var fmt = function(x){ return Math.round(x) + "%"; };
-var S = {year: D.latest, boro: "", board: "", sort: {agencies: ["n", -1], boards: ["order", 1]}};
-// Every board that appears in any year, for the board menu (code -> name and borough).
+// Every board that appears in any year, for the board menu (code -> name and borough), in
+// the menu's order.
 var BOARDS = {};
 D.years.forEach(function(y){ (D.data[y] ? D.data[y].boards : []).forEach(function(b){ BOARDS[b[0]] = {name: b[1], boro: b[2]}; }); });
+var boroIdx = function(code){ for(var i = 1; i < BORO.length; i++) if(BORO[i][0] === BOARDS[code].boro) return i; return 9; };
+var CODES = Object.keys(BOARDS).sort(function(a, b){ return boroIdx(a) - boroIdx(b) || +a.replace(/\\D/g, "") - +b.replace(/\\D/g, ""); });
+// As on the dashboard, the page opens on every board, ?board= narrows it, and a menu with
+// no box checked also means every board.
+var S = {year: D.latest, boro: "", boards: new Set(CODES), sort: {agencies: ["n", -1], boards: ["order", 1]}};
+function allBoards(){ return !S.boards.size || S.boards.size === CODES.length; }
+function picked(){ return allBoards() ? [] : CODES.filter(function(k){ return S.boards.has(k); }); }
+function andList(xs){ return xs.length < 3 ? xs.join(" and ") : xs.slice(0, -1).join(", ") + " and " + xs[xs.length - 1]; }
+function addCounts(into, c){ Object.keys(c).forEach(function(k){ into[k] = (into[k] || 0) + c[k]; }); return into; }
 
 function readURL(){
   var p = new URLSearchParams(location.search);
   if(p.get("year") && D.data[p.get("year")]) S.year = p.get("year");
   if(BORO.some(function(b){ return b[0] === p.get("boro"); })) S.boro = p.get("boro") || "";
-  var bd = (p.get("board") || "").toUpperCase(); if(BOARDS[bd]) S.board = bd;
+  var bd = (p.get("board") || "").toUpperCase().split(",").map(function(x){ return x.trim(); }).filter(function(x){ return BOARDS[x]; });
+  if(bd.length) S.boards = new Set(bd);
 }
 function writeURL(){
   var p = new URLSearchParams();
   if(S.year !== D.latest) p.set("year", S.year);
-  if(S.board) p.set("board", S.board);
+  if(!allBoards()) p.set("board", picked().join(","));
   if(S.boro) p.set("boro", S.boro);
   var q = p.toString();
   try { history.replaceState(null, "", location.pathname + (q ? "?" + q : "")); } catch(e){}
@@ -189,18 +216,26 @@ function table(id, rows, nameOf, linkOf){
     var k = h.dataset.k; S.sort[id] = [k, S.sort[id][0] === k ? -S.sort[id][1] : (k === "name" || k === "order" ? 1 : -1)]; render(); }); });
 }
 function render(){
-  var Y = D.data[S.year], url = D.yearUrl[S.year], B = S.board, row = B ? Y.boards.filter(function(b){ return b[0] === B; })[0] : null;
-  var c = B ? (row ? row[4] : {}) : Y.total, n = B ? (row ? row[3] : 0) : Y.n, name = B ? BOARDS[B].name : "";
-  $("dashLink").href = url + "?board=" + (B || "all");
-  $("planLink").href = "/plan/" + (B ? "?board=" + encodeURIComponent(B) : "");
+  var Y = D.data[S.year], url = D.yearUrl[S.year], P = picked(), B = P.length > 0;
+  var rows = B ? Y.boards.filter(function(b){ return S.boards.has(b[0]); }) : [];
+  var c = B ? rows.reduce(function(o, b){ return addCounts(o, b[4]); }, {}) : Y.total;
+  var n = B ? rows.reduce(function(t, b){ return t + b[3]; }, 0) : Y.n;
+  var name = P.length > 3 ? P.length + " boards" : andList(P.map(function(k){ return BOARDS[k].name; }));
+  var bq = B ? P.join(",") : "all";
+  $("dashLink").href = url + "?board=" + bq;
+  $("planLink").href = "/plan/" + (P.length === 1 ? "?board=" + encodeURIComponent(P[0]) : "");
   $("agencyHead").textContent = B ? "By agency, for " + name : "By agency";
+  var agencies = Y.agencies;
+  if(B){ var m = {};
+    P.forEach(function(k){ (Y.byBoard[k] || []).forEach(function(a){ var x = m[a[0]] || (m[a[0]] = [a[0], 0, {}]); x[1] += a[1]; addCounts(x[2], a[2]); }); });
+    agencies = Object.keys(m).map(function(k){ return m[k]; }); }
   $("legend").innerHTML = cats().filter(function(k){ return c[k[0]]; }).map(function(k){ return '<span><i style="background:' + k[2] + '"></i>' + esc(k[1]) + "</span>"; }).join("");
   var parts = cats().filter(function(k){ return c[k[0]]; }).map(function(k){ return esc(k[1].toLowerCase()) + " " + fmt(pct(c, k[0], n)); });
-  $("totals").innerHTML = B && !n ? esc(name) + " has no published requests for FY" + S.year + "."
+  $("totals").innerHTML = B && !n ? esc(name) + (P.length > 1 ? " have" : " has") + " no published requests for FY" + S.year + "."
     : "In FY" + S.year + ", agencies answered <b>" + n.toLocaleString() + "</b> requests" + (B ? " from " + esc(name) : "") + ": " + parts.join(", ") + "." + stack(c, n);
-  table("agencies", (B ? (Y.byBoard[B] || []) : Y.agencies).map(function(a){ return {name: a[0], n: a[1], c: a[2]}; }),
-    function(r){ return r.name; }, function(r){ return url + "?board=" + (B || "all") + "&c_agency=" + encodeURIComponent(r.name); });
-  table("boards", Y.boards.filter(function(b){ return !S.boro || b[2] === S.boro; }).map(function(b, i){ return {code: b[0], name: b[1], order: i, n: b[3], c: b[4], sel: b[0] === B}; }),
+  table("agencies", agencies.map(function(a){ return {name: a[0], n: a[1], c: a[2]}; }),
+    function(r){ return r.name; }, function(r){ return url + "?board=" + bq + "&c_agency=" + encodeURIComponent(r.name); });
+  table("boards", Y.boards.filter(function(b){ return !S.boro || b[2] === S.boro; }).map(function(b, i){ return {code: b[0], name: b[1], order: i, n: b[3], c: b[4], sel: B && S.boards.has(b[0])}; }),
     function(r){ return r.name; }, function(r){ return url + "?board=" + encodeURIComponent(r.code); });
   $("boros").innerHTML = BORO.map(function(b){ return '<button type="button" class="f" data-b="' + b[0] + '" aria-pressed="' + (S.boro === b[0]) + '">' + b[1] + "</button>"; }).join("");
   [].forEach.call($("boros").querySelectorAll("button"), function(x){ x.addEventListener("click", function(){ S.boro = x.dataset.b; writeURL(); render(); }); });
@@ -210,13 +245,31 @@ function render(){
 }
 D.years.forEach(function(y){ if(D.data[y]){ var o = document.createElement("option"); o.value = y; o.textContent = "FY" + y; $("year").appendChild(o); } });
 BORO.slice(1).forEach(function(bo){
-  var g = document.createElement("optgroup"); g.label = bo[1];
-  Object.keys(BOARDS).filter(function(k){ return BOARDS[k].boro === bo[0]; })
-    .sort(function(a, b){ return +a.replace(/\\D/g, "") - +b.replace(/\\D/g, ""); })
-    .forEach(function(k){ var o = document.createElement("option"); o.value = k; o.textContent = BOARDS[k].name; g.appendChild(o); });
-  $("board").appendChild(g); });
-readURL(); $("year").value = S.year; $("board").value = S.board;
-$("board").addEventListener("change", function(){ S.board = $("board").value; writeURL(); render(); });
+  var codes = CODES.filter(function(k){ return BOARDS[k].boro === bo[0]; });
+  if(codes.length) $("boardList").insertAdjacentHTML("beforeend", '<div class="cm-grp">' + esc(bo[1]) + "</div>" + codes.map(function(k){
+    return '<label class="cm-opt" data-name="' + esc(BOARDS[k].name + " " + k) + '"><input type="checkbox" value="' + k + '"><span>' + esc(BOARDS[k].name) + "</span></label>"; }).join("")); });
+var boxes = [].slice.call($("boardList").querySelectorAll("input"));
+function updBoard(){
+  boxes.forEach(function(x){ x.checked = S.boards.has(x.value); });
+  var P = picked();
+  $("boardBtn").innerHTML = esc(P.length === 0 ? "All boards" : P.length === 1 ? BOARDS[P[0]].name : P.length + " boards") + " &#9662;";
+}
+function boardsChanged(){ updBoard(); writeURL(); render(); }
+boxes.forEach(function(x){ x.addEventListener("change", function(){ if(x.checked) S.boards.add(x.value); else S.boards.delete(x.value); boardsChanged(); }); });
+[].forEach.call($("boardPanel").querySelectorAll(".cm-mini"), function(b){ b.addEventListener("click", function(){
+  S.boards = b.dataset.act === "all" ? new Set(CODES) : new Set(); boardsChanged(); }); });
+// Search hides the boards that don't match, and a borough heading with none left.
+$("boardSearch").addEventListener("input", function(){ var t = this.value.toLowerCase(), grp = null, any = false;
+  [].forEach.call($("boardList").children, function(el){
+    if(el.classList.contains("cm-grp")){ if(grp) grp.hidden = !any; grp = el; any = false; return; }
+    el.hidden = (el.dataset.name || "").toLowerCase().indexOf(t) < 0; any = any || !el.hidden; });
+  if(grp) grp.hidden = !any; });
+function menu(open){ $("boardPanel").hidden = !open; $("boardBtn").setAttribute("aria-expanded", open); if(open) $("boardSearch").focus(); }
+$("boardBtn").addEventListener("click", function(e){ e.stopPropagation(); menu($("boardPanel").hidden); });
+$("boardPanel").addEventListener("click", function(e){ e.stopPropagation(); });
+document.addEventListener("click", function(){ menu(false); });
+document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !$("boardPanel").hidden){ menu(false); $("boardBtn").focus(); } });
+readURL(); $("year").value = S.year; updBoard();
 $("year").addEventListener("change", function(){ S.year = $("year").value; writeURL(); render(); });
 render();
 </script>
