@@ -446,6 +446,9 @@ body.fu-lock{overflow:hidden}
 .fu-subj{width:100%;box-sizing:border-box;margin-bottom:6px}
 .fu-body{width:100%;box-sizing:border-box;font:inherit;font-size:13px;line-height:1.45;border:1px solid #cbd5e1;border-radius:6px;padding:8px}
 .fu-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
+/* The panel's controls and notes can't be selected, so selecting across the panel to copy a
+   letter picks up no interface text. The letter, its subject and the contacts stay selectable. */
+#fuModeSec,.fu-sec details,.fu-to,.fu-acts,.fu-note{-webkit-user-select:none;user-select:none}
 .fu-act{border:1px solid #2563eb;background:#2563eb;color:#fff;border-radius:6px;padding:6px 10px;font-size:12.5px;cursor:pointer;text-decoration:none}
 .fu-act.fu-copy{background:#fff;color:#1d4ed8}
 .fu-copied{font-size:12px;color:#166534}
