@@ -20,7 +20,7 @@ import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from shared import (FOLLOWUP_COLS, LATEST, PDF_YEARS, PUBLICATIONS, YEARS,  # noqa: E402
-                    load_letter_descriptions, request_text, text_key)
+                    load_letter_descriptions, load_letter_facts, request_text, text_key)
 
 argv = sys.argv[1:]
 FY = LATEST
@@ -243,6 +243,11 @@ df["Letter Response"] = [LETTER["response"].get(text_key(_ws(a)), "") if _ws(a) 
 df["Letter OMB"] = [LETTER["omb"].get(text_key(_ws(o)), "") if _ws(o) else "" for o in df["OMB Executive Response"]]
 for _c in ("Letter Request", "Letter Response", "Letter OMB"):   # the letters' apostrophes are curly
     df[_c] = df[_c].str.replace("'", "’", regex=False)
+# Local data for the letters (letter_facts.py): a sentence or two from the City's open data
+# about the request's site or need, with its source.
+FACTS = load_letter_facts()
+df["Letter Facts"] = [json.dumps(FACTS[i], ensure_ascii=False, separators=(",", ":")) if i in FACTS else ""
+                      for i in df["Label ID"]]
 body = []
 # A row's type, board, agency, stance and follow-up are buttons (class "cf") that filter
 # the table to that value. The page script finds the column from the cell and sets
@@ -286,6 +291,8 @@ for idx, (_, r) in enumerate(df.iterrows()):
                         ("data-pr", "Prior Response"), ("data-cd", "Location Districts"),
                         ("data-cw", "Location Match"), ("data-rd", "Letter Request"),
                         ("data-ad", "Letter Response"), ("data-od", "Letter OMB")] if str(r[c]).strip())
+    if r["Letter Facts"]:
+        fu_attrs += f' data-lf="{html.escape(r["Letter Facts"], quote=True)}"'
     body.append(f'<tr class="{z}" data-search="{blob}" '
                 f'data-board="{html.escape(str(r["Board"]), quote=True)}" '
                 f'data-committees="{html.escape(str(r["Committees"]), quote=True)}"{fu_attrs}>' + "".join(tds) + "</tr>")
@@ -448,7 +455,9 @@ body.fu-lock{overflow:hidden}
 .fu-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
 /* The panel's controls and notes can't be selected, so selecting across the panel to copy a
    letter picks up no interface text. The letter, its subject and the contacts stay selectable. */
-#fuModeSec,.fu-sec details,.fu-to,.fu-acts,.fu-note{-webkit-user-select:none;user-select:none}
+#fuModeSec,#fuFactSec,.fu-sec details,.fu-to,.fu-acts,.fu-note{-webkit-user-select:none;user-select:none}
+.fu-fact{display:flex;gap:8px;align-items:flex-start;padding:4px 0;font-size:13px;cursor:pointer}
+.fu-fact a{white-space:nowrap;font-size:12px}
 .fu-act{border:1px solid #2563eb;background:#2563eb;color:#fff;border-radius:6px;padding:6px 10px;font-size:12.5px;cursor:pointer;text-decoration:none}
 .fu-act.fu-copy{background:#fff;color:#1d4ed8}
 .fu-copied{font-size:12px;color:#166534}
@@ -927,6 +936,9 @@ FU_MODAL = """<div id="fuModal" class="fu-ov" hidden>
 <div id="fuRecipSec" class="fu-sec"><div class="fu-h">Recipients</div><div id="fuRecips"></div></div>
 <div id="fuModeSec" class="fu-sec fu-row"><label><input type="radio" name="fuMode" value="each" checked> A separate letter for each recipient</label>
 <label><input type="radio" name="fuMode" value="joint"> One letter to all</label></div>
+<div id="fuFactSec" class="fu-sec" hidden><div class="fu-h">Local data</div>
+<div class="fu-small">From the City’s open data, about this request’s site or need. A checked item goes in the letter.</div>
+<div id="fuFacts"></div></div>
 <div class="fu-sec fu-row"><input id="fuName" class="fu-in" placeholder="Your name" autocomplete="name">
 <input id="fuRole" class="fu-in" placeholder="Your title (for example, Chair)"></div>
 <div id="fuLetters"></div>
@@ -951,6 +963,8 @@ FU_SCRIPT = r"""
   var MONTH=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var fuName=document.getElementById('fuName'), fuRole=document.getElementById('fuRole');
   var cur=null, list=[], mode='each', lastFocus=null, digest=null, edits={};
+  // Local data a user has left out of the letters, by request key and fact number.
+  var factOff={};
 
   // ---- saved in this browser ----
   function load(k,d){ try{ var v=JSON.parse(localStorage.getItem(k)||'null'); return v==null?d:v; }catch(e){ return d; } }
@@ -1018,8 +1032,12 @@ FU_SCRIPT = r"""
       cds:(tr.dataset.cd||'').split('|').filter(Boolean).map(Number), where:tr.dataset.cw||'',
       hist:(tr.dataset.hy||'').split('|').filter(function(y){ return y&&+y<=+FY; }), prior:tr.dataset.pr||'',
       // plain-language descriptions (label_letters/): what the board asked for, and what the agency and OMB said
-      rd:tr.dataset.rd||'', ad:tr.dataset.ad||'', od:tr.dataset.od||''};
+      rd:tr.dataset.rd||'', ad:tr.dataset.ad||'', od:tr.dataset.od||'',
+      // local data from the City's open data (letter_facts.py), each {k, t, s, u}
+      facts:factsOf(tr)};
   }
+  function factsOf(tr){ try{ return JSON.parse(tr.dataset.lf||'[]'); }catch(e){ return []; } }
+  function factText(r){ return (r.facts||[]).filter(function(f,i){ return !factOff[r.key+'|'+i]; }).map(function(f){ return f.t; }).join(' '); }
   function says311(r){ return /\b311\b/.test(r.ar+' '+r.omb+' '+r.why+' '+r.named); }
   // "Use 311 or another channel" needs no letter when the response gives a link or 311;
   // a named process ("Submit a space request") is a question for the agency.
@@ -1194,7 +1212,8 @@ FU_SCRIPT = r"""
     // A letter to the agency that responded calls it "your agency".
     var joint=ag.length>0&&el.length>0, own=!joint&&ag.length>0&&ag.every(function(x){ return x.ag===r.agency; });
     var p1=asked(r, own?'your agency':agencyPhrase(r.agency)), h=histSentence(r); if(h) p1+=' '+h;
-    var parts=['Dear '+andList(xs.map(salute))+',', p1];
+    var parts=['Dear '+andList(xs.map(salute))+',', p1], lf=factText(r);
+    if(lf) parts.push(lf);
     if(r.purpose!=='no_response'){
       var p2=said(r, own?'Your agency':'The agency', 360)||'We couldn’t find a published response from '+agencyPhrase(r.agency)+'.';
       var o=ombNote(r,el.length>0); if(o) p2+=' '+o;
@@ -1229,8 +1248,8 @@ FU_SCRIPT = r"""
     rs.forEach(function(r,i){
       var own=!elected&&r.agency===x.ag;
       var head=(i+1)+'. '+(r.rd?Cap(r.rd):'“'+titleOf(r)+'”')+' ('+[own?'':r.agency, r.type?r.type.toLowerCase():'', ids(r)].filter(Boolean).join(', ')+').';
-      var h=histSentence(r), resp=said(r, own?'Your agency':'The agency', 260)||'No response was published.';
-      var item=head+(h?' '+h:'')+' '+resp;
+      var h=histSentence(r), lf=factText(r), resp=said(r, own?'Your agency':'The agency', 260)||'No response was published.';
+      var item=head+(h?' '+h:'')+(lf?' '+lf:'')+' '+resp;
       if(!elected) item+=' '+agencyAsk(r,true,x.orig,true);
       lines.push(item);
     });
@@ -1347,6 +1366,10 @@ FU_SCRIPT = r"""
     var st=sent[cur.key]; if(st) meta+='<div class="fu-small fu-sentnote">Marked sent '+esc(niceDate(st.d))+(st.to&&st.to.length?' to '+esc(st.to.join('; ')):'')+'.</div>';
     document.getElementById('fuMeta').innerHTML=meta;
     document.getElementById('fuAsOf').textContent=C.asOf?'council contacts as of '+C.asOf:'as published';
+    document.getElementById('fuFactSec').hidden=!cur.facts.length;
+    document.getElementById('fuFacts').innerHTML=cur.facts.map(function(f,i){
+      return '<label class="fu-fact"><input type="checkbox" data-fi="'+i+'"'+(factOff[cur.key+'|'+i]?'':' checked')+'> <span>'+esc(f.t)+
+        ' <a href="'+esc(f.u)+'" target="_blank" rel="noopener">'+esc(f.s)+'</a></span></label>'; }).join('');
     renderRecips(); renderLetters(); show();
   }
   function openDigest(){
@@ -1362,6 +1385,7 @@ FU_SCRIPT = r"""
     edits={}; cur=null; lastFocus=document.activeElement;
     digest=order.map(function(k){ return groups[k]; });
     document.getElementById('fuRecipSec').hidden=true; document.getElementById('fuModeSec').hidden=true;
+    document.getElementById('fuFactSec').hidden=true;
     var boards={}; digest.forEach(function(g){ boards[g.board]=1; });
     document.getElementById('fuTitle').textContent='Letters for the '+rows.length+' requests shown';
     document.getElementById('fuMeta').innerHTML='<div class="fu-small">One letter per official, listing every request shown that the official can help with. '+
@@ -1426,6 +1450,16 @@ FU_SCRIPT = r"""
   document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('.fu-btn'); if(b) open(b.closest('tr')); });
   document.getElementById('fuRecips').addEventListener('change',function(e){ var i=e.target.getAttribute('data-i'); if(i===null) return; list[+i].on=e.target.checked; renderLetters(); });
   [].forEach.call(document.querySelectorAll('input[name=fuMode]'),function(r){ r.addEventListener('change',function(){ mode=r.value; renderLetters(); }); });
+  // A letter the user has edited keeps the edits: the fact is taken out of it, or put back
+  // after the request's paragraph, where a new letter has it.
+  function dropFact(s,t){ return s.indexOf(t)<0?s:s.replace(t,'').replace(/ {2,}/g,' ').replace(/ +\n/g,'\n').replace(/\n +/g,'\n').replace(/\n{3,}/g,'\n\n'); }
+  function addFact(s,t){ if(s.indexOf(t)>-1) return s; var p=s.split('\n\n'); p.splice(Math.min(2,p.length),0,t); return p.join('\n\n'); }
+  document.getElementById('fuFacts').addEventListener('change',function(e){
+    var i=e.target.getAttribute('data-fi'); if(i===null||!cur) return;
+    var k=cur.key+'|'+i, t=cur.facts[+i].t;
+    if(e.target.checked) delete factOff[k]; else factOff[k]=1;
+    Object.keys(edits).forEach(function(ek){ if(!/\|s$/.test(ek)&&edits[ek]!=null) edits[ek]=e.target.checked?addFact(edits[ek],t):dropFact(edits[ek],t); });
+    renderLetters(); });
   dlg.querySelector('.fu-x').addEventListener('click',close);
   dlg.addEventListener('click',function(e){ if(e.target===dlg) close(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!dlg.hidden) close(); });

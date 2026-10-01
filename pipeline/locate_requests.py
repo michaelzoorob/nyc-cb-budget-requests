@@ -27,6 +27,8 @@ import json
 import os
 import re
 import sys
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -56,11 +58,17 @@ NUMBER = {w: str(i) for i, w in enumerate(["FIRST", "SECOND", "THIRD", "FOURTH",
 ALIAS = {("1", "6 AVE"): "AVE OF THE AMERICAS"}
 
 
-def fetch(url, params=None):
+def fetch(url, params=None, tries=4):
     if params:
         url += "?" + urllib.parse.urlencode(params)
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (research)"})
-    return urllib.request.urlopen(req, timeout=120).read()
+    for i in range(tries):                # NYC Open Data answers 503 now and then
+        try:
+            return urllib.request.urlopen(req, timeout=120).read()
+        except (urllib.error.HTTPError, urllib.error.URLError) as e:
+            if i == tries - 1 or (isinstance(e, urllib.error.HTTPError) and e.code < 500):
+                raise
+            time.sleep(10 * (i + 1))
 
 
 def board_parts(board):
@@ -89,8 +97,9 @@ def street_variants(s, boro):
 
 
 class Streets:
-    def __init__(self):
-        self.cache = json.load(open(CACHE)) if os.path.exists(CACHE) else {}
+    def __init__(self, cache=None):
+        self.path = cache or CACHE
+        self.cache = json.load(open(self.path)) if os.path.exists(self.path) else {}
         self.names = {}
 
     def resolve(self, boro, text):
@@ -116,7 +125,7 @@ class Streets:
         return unary_union([shape(f) for f in feats]) if feats else None
 
     def save(self):
-        json.dump(self.cache, open(CACHE, "w"))
+        json.dump(self.cache, open(self.path, "w"))
 
 
 def main():
