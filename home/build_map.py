@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build home/index.html: a zoomable Leaflet map of NYC's 59 community districts
+"""Build the site's home page (index.html at the repo root): a zoomable Leaflet map of NYC's 59 community districts
 (plus the 12 non-board park/airport/cemetery areas DCP includes in the same
 shapefile) overlaid on OpenStreetMap tiles, in the style of boundaries.beta.nyc.
 
@@ -12,7 +12,7 @@ Leaflet from a CDN and OpenStreetMap tile images over the network at view time,
 since an offline basemap isn't practical to embed. The district boundaries
 themselves are still embedded inline (no backend, no data fetch for those).
 
-    python3 build_map.py [OUT]   # OUT defaults to index.html (this directory)
+    python3 build_map.py [OUT]   # OUT defaults to the repo root's index.html
 """
 import json
 import math
@@ -20,7 +20,7 @@ import os
 import sys
 import urllib.request
 
-OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html")
+OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "index.html")
 SRC_URL = "https://data.cityofnewyork.us/resource/5crt-au7u.geojson?$limit=100"
 SIMPLIFY_EPS = 0.00005          # degrees; ~97k input points -> ~17k after simplifying
 
@@ -136,6 +136,8 @@ def main():
 TEMPLATE = """<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>/* The dashboard used to live at "/". Its links (?board=, ?year=, ...) now go to /dashboard/. */
+(function(){var s=location.search;if(/[?&](board|xboard|year|q|committee|sort|fu|c_[a-z0-9]+)=/.test(s))location.replace("/dashboard/"+s+location.hash);})();</script>
 <title>NYC Community Board Budget Requests</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@__LEAFLET_VERSION__/dist/leaflet.css"
   integrity="__LEAFLET_CSS_SRI__" crossorigin=""/>
@@ -183,7 +185,9 @@ var DISTRICTS = __DATA__;
 var BOUNDS = __BOUNDS__;
 
 var map = L.map("map", {scrollWheelZoom: true});
-map.fitBounds(BOUNDS, {padding: [12, 12]});
+// Open one zoom level closer than the level that fits the whole city.
+var CITY = L.latLngBounds(BOUNDS);
+map.setView(CITY.getCenter(), map.getBoundsZoom(CITY, false, L.point(24, 24)) + 1);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
@@ -211,7 +215,7 @@ var layer = L.geoJSON(DISTRICTS, {
     lyr.on("mouseout", function(){ layer.resetStyle(lyr); });
     if(p.board){
       lyr.on("click", function(){
-        window.location.href = "../?board=" + encodeURIComponent(p.board);
+        window.location.href = "/dashboard/?board=" + encodeURIComponent(p.board);
       });
     }
   }

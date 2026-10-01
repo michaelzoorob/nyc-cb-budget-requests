@@ -113,7 +113,7 @@ function yearRange(ys){
 }
 function dashLink(code, expl){
   var q = String(expl || "").replace(/\s+/g, " ").trim().split(" ").slice(0, 6).join(" ");
-  return "/?board=" + encodeURIComponent(code) + (q ? "&q=" + encodeURIComponent(q) : "");
+  return "/dashboard/?board=" + encodeURIComponent(code) + (q ? "&q=" + encodeURIComponent(q) : "");
 }
 
 // ---- classification ------------------------------------------------------------
@@ -222,7 +222,7 @@ function renderBoard(code){
   $("title").textContent = boardName(b) + ": next-cycle planner";
   document.title = shortName(code) + " · Next-Cycle Planner";
   $("subtitle").textContent = b.neighborhoods + ". What the district’s data and the City’s past responses suggest for the FY" + (+D.latestFy + 1) + " budget requests.";
-  $("dash").href = "/?board=" + code;
+  $("dash").href = "/dashboard/?board=" + code;
   var card = function(k, v, s){ return '<div class="card"><div class="k">' + k + '</div><div class="v">' + v + "</div>" + (s ? '<div class="s">' + s + "</div>" : "") + "</div>"; };
   var needs = D.needs.map(function(n){ return {def: n, d: b.needs[n.id], c: classify(b.needs[n.id])}; });
   var count = function(k){ return needs.filter(function(n){ return n.c.k === k; }).length; };
