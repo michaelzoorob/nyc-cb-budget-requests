@@ -1436,7 +1436,8 @@ FU_SCRIPT = r"""
 
 parts = [HEAD, YEAR_REDIRECT, '<header>']
 parts.append('<a class="backlink" href="/">&larr; Back to map</a> <span class="linksep">&middot;</span> '
-             '<a class="backlink" id="planLink" href="/plan/">Next-cycle planner &rarr;</a>')
+             '<a class="backlink" id="planLink" href="/plan/">Next-cycle planner &rarr;</a> <span class="linksep">&middot;</span> '
+             '<a class="backlink" href="/summary/">Summary by agency and board</a>')
 parts.append(f'<h1><span id="h1board">NYC Community Boards</span>: FY{FY} Budget Requests &amp; Agency Responses</h1>')
 parts.append(f'<p class="sub">{SOURCE}{YEAR_NOTE.get(FY, "")}</p>')
 # Each summary card filters the column it counts. Requests clears the Type and Agency
