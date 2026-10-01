@@ -65,8 +65,10 @@ def year_data(fy):
         boro, num = board_parts(b)
         boards.append([b, f"{BORO.get(boro, boro)} CB{num}" if boro else b, boro, num, len(g), counts(g)])
     boards.sort(key=lambda r: (list(BORO).index(r[2]) if r[2] in BORO else 9, r[3]))
+    by_board = {b: sorted(([a, len(ga), counts(ga)] for a, ga in g.groupby("Agency") if a), key=lambda r: -r[1])
+                for b, g in d.groupby("Board")}
     return {"mode": "six" if six else "three", "n": len(d), "total": counts(d), "agencies": agencies,
-            "boards": [r[:3] + r[4:] for r in boards]}
+            "boards": [r[:3] + r[4:] for r in boards], "byBoard": by_board}
 
 
 DATA_JS = {"years": YEARS, "latest": LATEST, "yearUrl": YEAR_URL,
@@ -106,6 +108,8 @@ th[aria-sort="descending"]::after{content:" \\25BC";font-size:9px}
 td a{color:var(--ink);text-decoration:none;border-bottom:1px dotted #94a3b8}
 td a:hover{color:var(--acc);border-bottom-color:var(--acc)}
 td.bar{width:34%;min-width:160px}
+tr.sel td{background:#eff6ff}
+.empty{color:var(--mut);padding:10px}
 .stack{display:flex;height:12px;border-radius:3px;overflow:hidden;background:#f1f5f9}
 .stack span{display:block;height:100%}
 .n{color:var(--mut)}
@@ -113,15 +117,15 @@ footer{color:var(--mut);font-size:12px;padding:0 24px 32px;max-width:900px;line-
 </style>
 </head><body>
 <header>
-<div class="links"><a href="/">&larr; Map</a><span>&middot;</span><a id="dashLink" href="/dashboard/?board=all">Requests dashboard</a><span>&middot;</span><a href="/plan/">Next-cycle planner</a></div>
+<div class="links"><a href="/">&larr; Map</a><span>&middot;</span><a id="dashLink" href="/dashboard/?board=all">Requests dashboard</a><span>&middot;</span><a id="planLink" href="/plan/">Next-cycle planner</a></div>
 <h1>How the City answered community board budget requests</h1>
 <p class="sub">Each year, NYC's 59 community boards send the City their budget requests, and the agency that would carry each one out answers it. Click an agency or a board to see its requests.</p>
-<div class="bar-row"><label>Year <select id="year"></select></label></div>
+<div class="bar-row"><label>Year <select id="year"></select></label><label>Board <select id="board"><option value="">All boards</option></select></label></div>
 </header>
 <main>
 <div class="totals" id="totals"></div>
 <div class="legend" id="legend"></div>
-<h2>By agency</h2>
+<h2 id="agencyHead">By agency</h2>
 <div class="wrap"><table id="agencies"></table></div>
 <h2>By board</h2>
 <div class="bar-row" id="boros"></div>
@@ -142,16 +146,21 @@ var $ = function(id){ return document.getElementById(id); };
 var esc = function(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
 var pct = function(c, k, n){ return n ? 100 * (c[k] || 0) / n : 0; };
 var fmt = function(x){ return Math.round(x) + "%"; };
-var S = {year: D.latest, boro: "", sort: {agencies: ["n", -1], boards: ["order", 1]}};
+var S = {year: D.latest, boro: "", board: "", sort: {agencies: ["n", -1], boards: ["order", 1]}};
+// Every board that appears in any year, for the board menu (code -> name and borough).
+var BOARDS = {};
+D.years.forEach(function(y){ (D.data[y] ? D.data[y].boards : []).forEach(function(b){ BOARDS[b[0]] = {name: b[1], boro: b[2]}; }); });
 
 function readURL(){
   var p = new URLSearchParams(location.search);
   if(p.get("year") && D.data[p.get("year")]) S.year = p.get("year");
   if(BORO.some(function(b){ return b[0] === p.get("boro"); })) S.boro = p.get("boro") || "";
+  var bd = (p.get("board") || "").toUpperCase(); if(BOARDS[bd]) S.board = bd;
 }
 function writeURL(){
   var p = new URLSearchParams();
   if(S.year !== D.latest) p.set("year", S.year);
+  if(S.board) p.set("board", S.board);
   if(S.boro) p.set("boro", S.boro);
   var q = p.toString();
   try { history.replaceState(null, "", location.pathname + (q ? "?" + q : "")); } catch(e){}
@@ -173,20 +182,25 @@ function table(id, rows, nameOf, linkOf){
     return '<th scope="col" data-k="' + k + '" aria-sort="' + s + '">' + text + "</th>"; };
   $(id).innerHTML = "<thead><tr>" + th(id === "boards" ? "order" : "name", id === "boards" ? "Board" : "Agency") + th("n", "Requests") +
     '<th scope="col" class="bar" aria-sort="none">Answers</th>' + cols.map(function(k){ return th(k, esc(label[k])); }).join("") + "</tr></thead><tbody>" +
-    rows.map(function(r){ return '<tr><td><a href="' + esc(linkOf(r)) + '">' + esc(nameOf(r)) + "</a></td><td>" + r.n + '</td><td class="bar">' + stack(r.c, r.n) + "</td>" +
+    (rows.length ? "" : '<tr><td class="empty" colspan="' + (3 + cols.length) + '">No requests.</td></tr>') +
+    rows.map(function(r){ return '<tr' + (r.sel ? ' class="sel"' : '') + '><td><a href="' + esc(linkOf(r)) + '">' + esc(nameOf(r)) + "</a></td><td>" + r.n + '</td><td class="bar">' + stack(r.c, r.n) + "</td>" +
       cols.map(function(k){ return "<td>" + fmt(pct(r.c, k, r.n)) + ' <span class="n">(' + (r.c[k] || 0) + ")</span></td>"; }).join("") + "</tr>"; }).join("") + "</tbody>";
   [].forEach.call($(id).querySelectorAll("th[data-k]"), function(h){ h.addEventListener("click", function(){
     var k = h.dataset.k; S.sort[id] = [k, S.sort[id][0] === k ? -S.sort[id][1] : (k === "name" || k === "order" ? 1 : -1)]; render(); }); });
 }
 function render(){
-  var Y = D.data[S.year], url = D.yearUrl[S.year], c = Y.total;
-  $("dashLink").href = url + "?board=all";
+  var Y = D.data[S.year], url = D.yearUrl[S.year], B = S.board, row = B ? Y.boards.filter(function(b){ return b[0] === B; })[0] : null;
+  var c = B ? (row ? row[4] : {}) : Y.total, n = B ? (row ? row[3] : 0) : Y.n, name = B ? BOARDS[B].name : "";
+  $("dashLink").href = url + "?board=" + (B || "all");
+  $("planLink").href = "/plan/" + (B ? "?board=" + encodeURIComponent(B) : "");
+  $("agencyHead").textContent = B ? "By agency, for " + name : "By agency";
   $("legend").innerHTML = cats().filter(function(k){ return c[k[0]]; }).map(function(k){ return '<span><i style="background:' + k[2] + '"></i>' + esc(k[1]) + "</span>"; }).join("");
-  var parts = cats().filter(function(k){ return c[k[0]]; }).map(function(k){ return esc(k[1].toLowerCase()) + " " + fmt(pct(c, k[0], Y.n)); });
-  $("totals").innerHTML = "In FY" + S.year + ", agencies answered <b>" + Y.n.toLocaleString() + "</b> requests: " + parts.join(", ") + "." + stack(c, Y.n);
-  table("agencies", Y.agencies.map(function(a){ return {name: a[0], n: a[1], c: a[2]}; }),
-    function(r){ return r.name; }, function(r){ return url + "?board=all&c_agency=" + encodeURIComponent(r.name); });
-  table("boards", Y.boards.filter(function(b){ return !S.boro || b[2] === S.boro; }).map(function(b, i){ return {code: b[0], name: b[1], order: i, n: b[3], c: b[4]}; }),
+  var parts = cats().filter(function(k){ return c[k[0]]; }).map(function(k){ return esc(k[1].toLowerCase()) + " " + fmt(pct(c, k[0], n)); });
+  $("totals").innerHTML = B && !n ? esc(name) + " has no published requests for FY" + S.year + "."
+    : "In FY" + S.year + ", agencies answered <b>" + n.toLocaleString() + "</b> requests" + (B ? " from " + esc(name) : "") + ": " + parts.join(", ") + "." + stack(c, n);
+  table("agencies", (B ? (Y.byBoard[B] || []) : Y.agencies).map(function(a){ return {name: a[0], n: a[1], c: a[2]}; }),
+    function(r){ return r.name; }, function(r){ return url + "?board=" + (B || "all") + "&c_agency=" + encodeURIComponent(r.name); });
+  table("boards", Y.boards.filter(function(b){ return !S.boro || b[2] === S.boro; }).map(function(b, i){ return {code: b[0], name: b[1], order: i, n: b[3], c: b[4], sel: b[0] === B}; }),
     function(r){ return r.name; }, function(r){ return url + "?board=" + encodeURIComponent(r.code); });
   $("boros").innerHTML = BORO.map(function(b){ return '<button type="button" class="f" data-b="' + b[0] + '" aria-pressed="' + (S.boro === b[0]) + '">' + b[1] + "</button>"; }).join("");
   [].forEach.call($("boros").querySelectorAll("button"), function(x){ x.addEventListener("click", function(){ S.boro = x.dataset.b; writeURL(); render(); }); });
@@ -195,7 +209,14 @@ function render(){
     : "Before FY2026 agencies did not choose from standard replies, so these answers come from the dashboard\\u2019s Agency Stance column, which reads the first sentence of each response. \\u201cNeutral or unclear\\u201d includes replies such as \\u201cfurther study is needed\\u201d and \\u201calready completed.\\u201d";
 }
 D.years.forEach(function(y){ if(D.data[y]){ var o = document.createElement("option"); o.value = y; o.textContent = "FY" + y; $("year").appendChild(o); } });
-readURL(); $("year").value = S.year;
+BORO.slice(1).forEach(function(bo){
+  var g = document.createElement("optgroup"); g.label = bo[1];
+  Object.keys(BOARDS).filter(function(k){ return BOARDS[k].boro === bo[0]; })
+    .sort(function(a, b){ return +a.replace(/\\D/g, "") - +b.replace(/\\D/g, ""); })
+    .forEach(function(k){ var o = document.createElement("option"); o.value = k; o.textContent = BOARDS[k].name; g.appendChild(o); });
+  $("board").appendChild(g); });
+readURL(); $("year").value = S.year; $("board").value = S.board;
+$("board").addEventListener("change", function(){ S.board = $("board").value; writeURL(); render(); });
 $("year").addEventListener("change", function(){ S.year = $("year").value; writeURL(); render(); });
 render();
 </script>
