@@ -7,10 +7,12 @@ OMB's Executive Budget response.
 
 **Live:** https://nyc-cb-budget-requests.vercel.app
 
-The site root shows the latest year for all boards. Earlier years are at `/fy2026/`, `/fy2025/` and so
-on. The Year menu switches between them and keeps the board, committee, search and
-column filters. A link such as `?board=QCB2` narrows it to one board, and
-`?year=2024&board=QCB2` also works.
+The site root is a map of the 59 community districts. Clicking a district opens its
+requests on the dashboard, which shows the latest year at `/dashboard/`. Earlier years are at
+`/fy2026/`, `/fy2025/` and so on. The Year menu switches between them and keeps the board,
+committee, search and column filters. A link such as `/dashboard/?board=QCB2` opens one board,
+and `?year=2024&board=QCB2` also works. Older links to `/?board=...` and `/home/` forward to the
+right page.
 
 Each year is one self-contained HTML page of 7 to 10 MB, with the data embedded inline
 and no backend or external JS. The pages are deployed as a Vercel static site.
@@ -83,7 +85,8 @@ not included.
 
 | Path | What it is |
 | --- | --- |
-| `index.html`, `fy<YEAR>/index.html` | The built pages, with the latest year at the root. Generated, but committed. |
+| `index.html` | The home page, a map of the community districts built by `home/build_map.py`. |
+| `dashboard/index.html`, `fy<YEAR>/index.html` | The dashboard pages, with the latest year at `/dashboard/`. Generated, but committed. |
 | `pipeline/shared.py` | The fiscal years, each year's Register publications, agency names, request ids, the stance rule and the committee fallback. Every builder imports it. |
 | `pipeline/build_all_boards.py` | Builds one year (`--fy YEAR`). For a PDF year it fetches and parses all 59 Statement PDFs in parallel, builds each board, and falls back to the Register for a board whose PDF lacks per-request responses or holds another board's requests. Other years come from the Register, plus the Statement's request table for a board the Register lacks. |
 | `pipeline/parse_statement_pdf.py` | One Statement PDF (as `pdftotext -layout` text) into structured rows. |

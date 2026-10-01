@@ -31,7 +31,7 @@ if "--fy" in argv:
 CSV = argv[0] if len(argv) > 0 else f"CB FY{FY} Requests (all boards, detailed, 2-stage).csv"
 OUT = argv[1] if len(argv) > 1 else f"CB2 FY{FY} Requests and Agency Responses.html"
 FROM_PDF = FY in PDF_YEARS
-YEAR_URL = {y: ("/" if y == LATEST else f"/fy{y}/") for y in YEARS}
+YEAR_URL = {y: ("/dashboard/" if y == LATEST else f"/fy{y}/") for y in YEARS}
 MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August",
           "September", "October", "November", "December"]
 
@@ -326,6 +326,7 @@ header{padding:20px 24px 12px;background:#fff;border-bottom:1px solid var(--bd)}
 h1{margin:0 0 4px;font-size:19px}
 .backlink{display:inline-block;margin:0 0 6px;font-size:12px;color:#2563eb;text-decoration:none}
 .backlink:hover{text-decoration:underline}
+.linksep{color:#94a3b8;font-size:12px;margin:0 4px}
 .sub{color:var(--mut);margin:0 0 14px;font-size:13px;max-width:1100px}
 .sub a{color:#2563eb;text-decoration:underline}
 .cards{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:6px}
@@ -760,6 +761,8 @@ SCRIPT = r"""
     if(lk){ var one=(boardPick.size===1)?Array.from(boardPick)[0]:null;
       lk.href=(one&&has(boardPdf,one))?boardPdf[one]:repoUrl;
       lk.textContent='FY'+FY+(one?' Statement PDF':' Statement PDFs'); }
+    // The planner opens on the one board selected, or on its own home page.
+    var pl=document.getElementById('planLink'); if(pl) pl.href='/plan/'+(only?'?board='+encodeURIComponent(only):'');
     var h1b=document.getElementById('h1board');
     if(h1b) h1b.textContent=only?(has(boardFull,only)?boardFull[only]:'Community Board'):((boardPick.size===0||boardPick.size===bTotal)?'NYC Community Boards':(boardPick.size+' Community Boards'));
     apply();
@@ -919,7 +922,7 @@ FU_MODAL = """<div id="fuModal" class="fu-ov" hidden>
 <div class="fu-sec fu-row"><input id="fuName" class="fu-in" placeholder="Your name" autocomplete="name">
 <input id="fuRole" class="fu-in" placeholder="Your title (for example, Chair)"></div>
 <div id="fuLetters"></div>
-<p class="fu-note">Each draft quotes the request and the city's responses. Review and edit it before sending.
+<p class="fu-note">Each draft describes the request and the city's responses. Review and edit it before sending.
 Your name, your saved contacts and the letters you mark as sent stay in this browser.
 Contacts come from official city websites (<span id="fuAsOf"></span>); check them before relying on them.</p>
 </div></div>"""
@@ -1098,7 +1101,9 @@ FU_SCRIPT = r"""
   // Elected officials can advocate for a request in the City's budget. For a capital
   // project they can also allocate Reso A funds, which the letter offers as a second ask.
   function electedAsk(r,els,joint){
-    var who=andList(els.map(function(x){ return x.kind==='council'?cmName(x.o):isBP(x.o)?bpName(x.o):'the Borough President'; })), you=youFor(els);
+    // Several of the Borough President's staff all read as "the Borough President", once.
+    var who=andList(els.map(function(x){ return x.kind==='council'?cmName(x.o):isBP(x.o)?bpName(x.o):'the Borough President'; })
+      .filter(function(v,i,a){ return a.indexOf(v)===i; })), you=youFor(els);
     var ask=function(verb){ return joint?'We ask '+who+' to '+verb+'.':'We ask that '+you+' '+verb+'.'; };
     var yours=joint?'':you==='you'?'your ':'the Borough President’s ';
     if(r.purpose==='advocacy') return 'The agency’s response suggests this request needs a decision beyond the agency. '+
@@ -1427,7 +1432,8 @@ FU_SCRIPT = r"""
 
 
 parts = [HEAD, YEAR_REDIRECT, '<header>']
-parts.append('<a class="backlink" href="/home/">&larr; Back to map</a>')
+parts.append('<a class="backlink" href="/">&larr; Back to map</a> <span class="linksep">&middot;</span> '
+             '<a class="backlink" id="planLink" href="/plan/">Next-cycle planner &rarr;</a>')
 parts.append(f'<h1><span id="h1board">NYC Community Boards</span>: FY{FY} Budget Requests &amp; Agency Responses</h1>')
 parts.append(f'<p class="sub">{SOURCE}{YEAR_NOTE.get(FY, "")}</p>')
 # Each summary card filters the column it counts. Requests clears the Type and Agency

@@ -10,7 +10,7 @@
 #   DATA=/some/dir ./update.sh
 #
 # Code runs from pipeline/. Downloads and intermediate CSVs go to the data directory
-# (default ~/Downloads). The latest year is the site root (index.html); earlier years
+# (default ~/Downloads). The latest year is /dashboard/ (dashboard/index.html); earlier years
 # go to fy<YEAR>/index.html. The years themselves are listed in pipeline/shared.py.
 set -e
 PROJ="$(cd "$(dirname "$0")" && pwd)"
@@ -33,16 +33,16 @@ echo "Locating requests (parks and street intersections)..."
 python3 "$PIPELINE/locate_requests.py" "$DATA"
 python3 "$PIPELINE/enrich_years.py" "$DATA"
 for fy in $YEARS; do
-  if [ "$fy" = "$LATEST" ]; then out="$PROJ/index.html"; else mkdir -p "$PROJ/fy$fy"; out="$PROJ/fy$fy/index.html"; fi
+  if [ "$fy" = "$LATEST" ]; then mkdir -p "$PROJ/dashboard"; out="$PROJ/dashboard/index.html"; else mkdir -p "$PROJ/fy$fy"; out="$PROJ/fy$fy/index.html"; fi
   python3 "$PIPELINE/generate_cb2_html.py" --fy "$fy" "CB FY$fy Requests (all boards, detailed, 2-stage).csv" "$out"
 done
-# /fy<LATEST>/ forwards to the root, so a link naming the latest year explicitly keeps
+# /fy<LATEST>/ forwards to /dashboard/, so a link naming the latest year explicitly keeps
 # working. When a newer year is added, the loop above overwrites it with a real page.
 mkdir -p "$PROJ/fy$LATEST"
 cat > "$PROJ/fy$LATEST/index.html" <<EOF
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="data:,"><title>FY$LATEST Community Board Budget Requests</title>
-<script>location.replace("/"+location.search+location.hash)</script></head>
-<body><a href="/">FY$LATEST is the latest year. Continue to the dashboard.</a></body></html>
+<script>location.replace("/dashboard/"+location.search+location.hash)</script></head>
+<body><a href="/dashboard/">FY$LATEST is the latest year. Continue to the dashboard.</a></body></html>
 EOF
 
 echo
