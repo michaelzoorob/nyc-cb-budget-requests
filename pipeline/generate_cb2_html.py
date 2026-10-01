@@ -766,6 +766,11 @@ SCRIPT = r"""
       lk.textContent='FY'+FY+(one?' Statement PDF':' Statement PDFs'); }
     // The planner opens on the one board selected, or on its own home page.
     var pl=document.getElementById('planLink'); if(pl) pl.href='/plan/'+(only?'?board='+encodeURIComponent(only):'');
+    // The summary opens on the same board, and on this page's year when it is not the latest.
+    var sl=document.getElementById('sumLink'), yu=window.yearUrl||{}, sq=[];
+    if(only) sq.push('board='+encodeURIComponent(only));
+    if(window.pageYear&&yu[window.pageYear]!=='/dashboard/') sq.push('year='+window.pageYear);
+    if(sl) sl.href='/summary/'+(sq.length?'?'+sq.join('&'):'');
     var h1b=document.getElementById('h1board');
     if(h1b) h1b.textContent=only?(has(boardFull,only)?boardFull[only]:'Community Board'):((boardPick.size===0||boardPick.size===bTotal)?'NYC Community Boards':(boardPick.size+' Community Boards'));
     apply();
@@ -1437,7 +1442,7 @@ FU_SCRIPT = r"""
 parts = [HEAD, YEAR_REDIRECT, '<header>']
 parts.append('<a class="backlink" href="/">&larr; Back to map</a> <span class="linksep">&middot;</span> '
              '<a class="backlink" id="planLink" href="/plan/">Next-cycle planner &rarr;</a> <span class="linksep">&middot;</span> '
-             '<a class="backlink" href="/summary/">Summary by agency and board</a>')
+             '<a class="backlink" id="sumLink" href="/summary/">Summary by agency and board</a>')
 parts.append(f'<h1><span id="h1board">NYC Community Boards</span>: FY{FY} Budget Requests &amp; Agency Responses</h1>')
 parts.append(f'<p class="sub">{SOURCE}{YEAR_NOTE.get(FY, "")}</p>')
 # Each summary card filters the column it counts. Requests clears the Type and Agency
