@@ -10,6 +10,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Ar
 a{color:var(--acc)}
 header{padding:20px 24px 14px;background:#fff;border-bottom:1px solid var(--bd)}
 h1{margin:0 0 4px;font-size:19px}
+.backlink{display:inline-block;margin:0 0 6px;font-size:12px;color:#2563eb;text-decoration:none}
+.backlink:hover{text-decoration:underline}
 h2{font-size:15px;margin:0 0 4px}
 .sub{color:var(--mut);margin:0 0 12px;font-size:13px;max-width:900px}
 .bar-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
@@ -79,11 +81,12 @@ footer{color:var(--mut);font-size:12px;padding:8px 24px 32px;max-width:1280px}
 </head>
 <body>
 <header>
+  <a class="backlink" id="back" href="/dashboard/?board=all">&larr; Back to requests</a>
   <h1 id="title">Next-cycle planner</h1>
   <p class="sub" id="subtitle">What a community board's district data and the City's past responses suggest about next year's budget requests.</p>
   <div class="bar-row">
     <select id="board" aria-label="Community board"><option value="">Choose a community board…</option></select>
-    <a class="btn" id="dash" href="/">Budget requests dashboard →</a>
+    <a class="btn" id="dash" href="/dashboard/?board=all">Budget requests dashboard →</a>
   </div>
   <div class="cards" id="cards"></div>
 </header>
@@ -193,10 +196,16 @@ function whatWorks(cats, mine, pattern){
   }).join("");
 }
 
+// "Back to requests" returns to the dashboard view the visitor came from, filters and all.
+var FROM = (function(){ try { var u = new URL(document.referrer);
+  if(u.origin === location.origin && /^\/(dashboard|fy\d{4})\//.test(u.pathname)) return u.pathname + u.search + u.hash;
+} catch(e){} return ""; })();
+
 // ---- pages -----------------------------------------------------------------------
 function renderOverview(){
   $("title").textContent = "Next-cycle planner";
-  $("dash").href = "/";
+  $("dash").href = "/dashboard/?board=all";
+  $("back").href = FROM || "/dashboard/?board=all";
   document.title = "Next-Cycle Planner · NYC Community Board Budget Requests";
   $("cards").innerHTML = "";
   var html = '<section><h2>Choose a community board</h2><p class="lead">Each board page compares the district’s 311 complaints ' +
@@ -223,6 +232,7 @@ function renderBoard(code){
   document.title = shortName(code) + " · Next-Cycle Planner";
   $("subtitle").textContent = b.neighborhoods + ". What the district’s data and the City’s past responses suggest for the FY" + (+D.latestFy + 1) + " budget requests.";
   $("dash").href = "/dashboard/?board=" + code;
+  $("back").href = FROM || "/dashboard/?board=" + code;
   var card = function(k, v, s){ return '<div class="card"><div class="k">' + k + '</div><div class="v">' + v + "</div>" + (s ? '<div class="s">' + s + "</div>" : "") + "</div>"; };
   var needs = D.needs.map(function(n){ return {def: n, d: b.needs[n.id], c: classify(b.needs[n.id])}; });
   var count = function(k){ return needs.filter(function(n){ return n.c.k === k; }).length; };
