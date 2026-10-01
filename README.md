@@ -10,7 +10,8 @@ OMB's Executive Budget response.
 The site root is a map of the 59 community districts. Clicking a district opens its
 requests on the dashboard, which shows the latest year at `/dashboard/`. Earlier years are at
 `/fy2026/`, `/fy2025/` and so on. The Year menu switches between them and keeps the board,
-committee, search and column filters. A link such as `/dashboard/?board=QCB2` opens one board,
+committee, search and column filters. The address shows `?board=all` when every board is
+selected. A link such as `/dashboard/?board=QCB2` opens one board,
 and `?year=2024&board=QCB2` also works. Older links to `/?board=...` and `/home/` forward to the
 right page.
 

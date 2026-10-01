@@ -810,7 +810,7 @@ SCRIPT = r"""
     if(!urlReady) return;
     var p=new URLSearchParams();
     if(absentReq.length) p.set('board',Array.from(boardPick).concat(absentReq).join(','));
-    else if(boardPick.size===0||boardPick.size===bTotal){}   // every board is the default: no parameter
+    else if(boardPick.size===0||boardPick.size===bTotal) p.set('board','all');   // every board, said explicitly in the link
     else if(boardPick.size>bTotal/2){          // "all but a few" survives a switch to a year with other boards
       p.set('board','all');
       p.set('xboard',boxes.filter(function(c){return !boardPick.has(c.value);}).map(function(c){return c.value;}).join(','));
