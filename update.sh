@@ -38,6 +38,7 @@ for fy in $YEARS; do
 done
 # /fy<LATEST>/ forwards to /dashboard/, so a link naming the latest year explicitly keeps
 # working. When a newer year is added, the loop above overwrites it with a real page.
+python3 "$PIPELINE/build_summary.py" "$DATA" "$PROJ/summary/index.html"
 mkdir -p "$PROJ/fy$LATEST"
 cat > "$PROJ/fy$LATEST/index.html" <<EOF
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="data:,"><title>FY$LATEST Community Board Budget Requests</title>
