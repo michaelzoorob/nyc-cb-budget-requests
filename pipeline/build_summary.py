@@ -57,17 +57,27 @@ def year_data(fy):
     six = fy >= "2026"
     d["k"] = d["Agency Response"].map(answer) if six else d["Agency Stance (MZ added)"].map(lambda s: STANCE.get(s, "neutral"))
 
+    # How many budget years, through this one, the board made each request (as the
+    # dashboard's Years Requested column counts them), for the repeat-request line.
+    first = int(min(YEARS))
+    ys = d["History Years"].map(lambda h: sorted({int(y) for y in str(h).split("|") if y.strip().isdigit()
+                                                   and int(y) <= int(fy)} | {int(fy)}))
+    d["r3"] = ys.map(lambda y: len(y) >= 3)
+    d["ev"] = ys.map(lambda y: y == list(range(first, int(fy) + 1)))
+
     def counts(g):
         return {k: int(v) for k, v in g["k"].value_counts().items()}
     agencies = sorted(([a, len(g), counts(g)] for a, g in d.groupby("Agency") if a), key=lambda r: -r[1])
     boards = []
     for b, g in d.groupby("Board"):
         boro, num = board_parts(b)
-        boards.append([b, f"{BORO.get(boro, boro)} CB{num}" if boro else b, boro, num, len(g), counts(g)])
+        boards.append([b, f"{BORO.get(boro, boro)} CB{num}" if boro else b, boro, num, len(g), counts(g),
+                       int(g["r3"].sum()), int(g["ev"].sum())])
     boards.sort(key=lambda r: (list(BORO).index(r[2]) if r[2] in BORO else 9, r[3]))
     by_board = {b: sorted(([a, len(ga), counts(ga)] for a, ga in g.groupby("Agency") if a), key=lambda r: -r[1])
                 for b, g in d.groupby("Board")}
-    return {"mode": "six" if six else "three", "n": len(d), "total": counts(d), "agencies": agencies,
+    return {"mode": "six" if six else "three", "n": len(d), "total": counts(d), "rep": [int(d["r3"].sum()), int(d["ev"].sum())],
+            "agencies": agencies,
             "boards": [r[:3] + r[4:] for r in boards], "byBoard": by_board}
 
 
@@ -106,6 +116,7 @@ th{background:#f1f5f9;font-weight:600;cursor:pointer;user-select:none;position:s
 th[aria-sort="ascending"]::after{content:" \\25B2";font-size:9px}
 th[aria-sort="descending"]::after{content:" \\25BC";font-size:9px}
 td a{color:var(--ink);text-decoration:none;border-bottom:1px dotted #94a3b8}
+#repeats a{color:var(--acc)}
 td a:hover{color:var(--acc);border-bottom-color:var(--acc)}
 td.bar{width:34%;min-width:160px}
 tr.sel td{background:#eff6ff}
@@ -142,6 +153,7 @@ footer{color:var(--mut);font-size:12px;padding:0 24px 32px;max-width:900px;line-
 <main>
 <div class="totals" id="totals"></div>
 <div class="legend" id="legend"></div>
+<div class="totals" id="repeats"></div>
 <h2 id="agencyHead">By agency</h2>
 <div class="wrap"><table id="agencies"></table></div>
 <h2>By board</h2>
@@ -233,6 +245,20 @@ function render(){
   var parts = cats().filter(function(k){ return c[k[0]]; }).map(function(k){ return esc(k[1].toLowerCase()) + " " + fmt(pct(c, k[0], n)); });
   $("totals").innerHTML = B && !n ? esc(name) + (P.length > 1 ? " have" : " has") + " no published requests for FY" + S.year + "."
     : "In FY" + S.year + ", agencies answered <b>" + n.toLocaleString() + "</b> requests" + (B ? " from " + esc(name) : "") + ": " + parts.join(", ") + "." + stack(c, n);
+  // Requests the boards made in at least three budget years, with a link to them on the
+  // dashboard. FY2021 has only two years to count, and FY2022 three, so "every year since
+  // FY2020" starts with FY2023.
+  var rep = B ? rows.reduce(function(t, b){ return [t[0] + b[5], t[1] + b[6]]; }, [0, 0]) : Y.rep;
+  var first = +D.years[D.years.length - 1], span = +S.year - first + 1, line = "";
+  if(span >= 3 && n){
+    var qp = new URLSearchParams(); qp.set("board", bq);
+    for(var k = 3; k <= span; k++) qp.append("c_yearsrequested", k + " years");
+    qp.set("sort", "yearsrequested.desc");
+    line = "<b>" + rep[0].toLocaleString() + "</b> of these requests " + (rep[0] === 1 ? "was" : "were") + ' <a href="' + esc(url + "?" + qp.toString()) +
+      '">made in at least three budget years</a>.' + (span >= 4 ? " <b>" + rep[1].toLocaleString() + "</b> " + (rep[1] === 1 ? "was" : "were") +
+      " made every year since FY" + first + "." : "");
+  }
+  $("repeats").innerHTML = line;
   table("agencies", agencies.map(function(a){ return {name: a[0], n: a[1], c: a[2]}; }),
     function(r){ return r.name; }, function(r){ return url + "?board=" + bq + "&c_agency=" + encodeURIComponent(r.name); });
   table("boards", Y.boards.filter(function(b){ return !S.boro || b[2] === S.boro; }).map(function(b, i){ return {code: b[0], name: b[1], order: i, n: b[3], c: b[4], sel: B && S.boards.has(b[0])}; }),

@@ -133,12 +133,17 @@ for _b in boards:
                 f'<input type="checkbox" value="{html.escape(_b)}"{_ck}> {html.escape(board_name[_b])}</label>')
 board_checklist = "".join(_chk)
 
-DISPLAY = ["Priority", "Type", "Board", "Agency", "Title", "Explanation",
-           "Agency Response", "OMB Executive Response", "Agency Stance (MZ added)", "Follow-up"]
+# Years Requested counts the budget years, through this one, in which the board made the
+# request. FY2020 is the site's first year, so its page has nothing earlier to count.
+SHOW_YEARS = FY != min(YEARS)
+DISPLAY = (["Priority", "Type", "Board", "Agency", "Title", "Explanation"] + (["Years Requested"] if SHOW_YEARS else [])
+           + ["Agency Response", "OMB Executive Response", "Agency Stance (MZ added)", "Follow-up"])
 WIDE = {"Title", "Explanation", "Agency Response", "OMB Executive Response"}
 PCT = {"Priority": 6, "Type": 6, "Board": 5, "Agency": 8, "Title": 12,
        "Explanation": 13, "Agency Response": 16.5, "OMB Executive Response": 16.5,
        "Agency Stance (MZ added)": 7.5, "Follow-up": 9.5}
+if SHOW_YEARS:                      # room for Years Requested, from the three long texts
+    PCT.update({"Explanation": 12, "Agency Response": 13.5, "OMB Executive Response": 13.5, "Years Requested": 7})
 LABEL = {"Agency Stance (MZ added)": "Agency Stance"}
 # Each column's filter kind is fixed, so a filter means the same thing on every year's
 # page. (Choosing by the number of distinct values made Priority a checkbox list on
@@ -146,7 +151,7 @@ LABEL = {"Agency Stance (MZ added)": "Agency Stance"}
 # Agency was a "contains" text box until the Agency cells became clickable. readURL()
 # still reads an old link's text ("?c_agency=parks") as every agency that contains it.
 FILTER_KIND = {"Priority": "set", "Type": "set", "Board": "set", "Agency": "set", "Agency Stance": "set",
-               "Follow-up": "set"}
+               "Follow-up": "set", "Years Requested": "set"}
 FU_SLUG = {"Contact agency": "a", "Contact elected officials": "e", "Contact agency and elected officials": "ae",
            "Track with agency": "t", "Use 311 or another channel": "c", "No follow-up needed": "n"}
 
@@ -205,6 +210,10 @@ else:
         "Agency Response": f"The agency's response, from the Register's {pub_month(_ag)} round of agency responses.",
         "OMB Executive Response": f"OMB's Executive Budget response, from the Register's {pub_month(_omb)} round.",
     }
+TOOLTIP["Years Requested"] = (
+    f"How many budget years from FY{min(YEARS)} through FY{FY} the board made this request. A request counts as the "
+    "same one when its explanation begins with the same words, so a reworded request starts over. The site's data "
+    f"begin in FY{min(YEARS)}, so a request made every year may be older.")
 TOOLTIP["Agency Stance (MZ added)"] = (
     "Added by MZ. Support, Oppose or Neutral/Unclear, read from the first sentence of the agency response. "
     "It records whether the agency supports the request, regardless of whether it can fund it."
@@ -243,6 +252,16 @@ df["Letter Response"] = [LETTER["response"].get(text_key(_ws(a)), "") if _ws(a) 
 df["Letter OMB"] = [LETTER["omb"].get(text_key(_ws(o)), "") if _ws(o) else "" for o in df["OMB Executive Response"]]
 for _c in ("Letter Request", "Letter Response", "Letter OMB"):   # the letters' apostrophes are curly
     df[_c] = df[_c].str.replace("'", "’", regex=False)
+def years_requested(history):
+    """'8 years', 'every year since FY2020' and 'FY2020, FY2021, ...' from a row's History
+    Years, counting this year and the earlier ones only."""
+    ys = sorted({int(y) for y in str(history).split("|") if y.strip().isdigit() and int(y) <= int(FY)} | {int(FY)})
+    note = "" if len(ys) < 2 else (f"every year since FY{ys[0]}" if ys == list(range(ys[0], int(FY) + 1))
+                                   else f"since FY{ys[0]}")
+    return f"{len(ys)} year{'' if len(ys) == 1 else 's'}", note, ", ".join(f"FY{y}" for y in ys)
+
+
+df["Years Requested"], df["_yrs_note"], df["_yrs_list"] = zip(*df["History Years"].map(years_requested))
 # Local data for the letters (letter_facts.py): a sentence or two from the City's open data
 # about the request's site or need, with its source.
 FACTS = load_letter_facts()
@@ -255,7 +274,7 @@ body = []
 # add about 260 KB across the table.
 for idx, (_, r) in enumerate(df.iterrows()):
     z = "odd" if idx % 2 else "even"
-    blob = html.escape(" ".join(clean_text(r[c]) for c in DISPLAY).lower(), quote=True)
+    blob = html.escape(" ".join(clean_text(r[c]) for c in DISPLAY if c != "Years Requested").lower(), quote=True)
     tds = []
     for c in DISPLAY:
         val = html.escape(clean_text(r[c]))
@@ -275,6 +294,10 @@ for idx, (_, r) in enumerate(df.iterrows()):
                            + '<button type="button" class="fu-btn">Draft letter</button></div></td>')
             else:
                 tds.append('<td class="fu-td" data-v=""></td>')
+        elif c == "Years Requested":
+            note = f'<span class="yrs-note">{html.escape(r["_yrs_note"])}</span>' if r["_yrs_note"] else ""
+            tds.append(f'<td class="yrs" data-v="{val}" title="Requested in {html.escape(r["_yrs_list"], quote=True)}">'
+                       f'<button class="cf">{val}</button>{note}</td>')
         elif c == "Board":
             tds.append(f'<td class="board"><button class="cf">{val}</button></td>')
         elif c == "Agency":
@@ -392,6 +415,7 @@ td.agency{white-space:normal;font-size:12px}
 .cf{font:inherit;color:inherit;background:none;border:0;border-radius:0;padding:0;margin:0;text-align:inherit;
   cursor:pointer;-webkit-appearance:none;appearance:none}
 .cf:not(.pill):hover{text-decoration:underline;text-underline-offset:2px}
+.yrs-note{display:block;font-size:11px;color:var(--mut);margin-top:2px;line-height:1.3}
 .cf:not(.pill)[aria-pressed="true"]{background:#e0f2fe;color:#0c4a6e;border-radius:2px;box-shadow:0 0 0 2px #e0f2fe;
   text-decoration:underline;text-underline-offset:2px}
 .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap;
@@ -516,7 +540,7 @@ body.fu-lock{overflow:hidden}
   .fu-cell{flex-direction:row;align-items:center;flex-wrap:wrap}
   /* On a phone the follow-up comes right after the title, above the long texts. */
   tr:not(.hide){display:flex;flex-direction:column}
-  td{order:3} td:nth-child(-n+5){order:1} td.fu-td{order:2;border-bottom:1px solid #f1f5f9} td:nth-last-child(2){border-bottom:0}
+  td{order:3} td:nth-child(-n+5),td.yrs{order:1} td.fu-td{order:2;border-bottom:1px solid #f1f5f9} td:nth-last-child(2){border-bottom:0}
   #fuSel{flex:1 1 100%;max-width:none}
   .fu-digest{margin-left:0;flex:1 1 100%}
   .fu-card{flex:1 1 30%}
@@ -536,7 +560,7 @@ SCRIPT = r"""
   var ths=[].slice.call(table.querySelectorAll('thead th'));
   var rows=[].slice.call(tbody.children);
   var KIND=window.filterKind||{};
-  var numeric={}; ths.forEach(function(t,i){if((t.dataset.label||'').toLowerCase()==='priority') numeric[i]=true;});
+  var numeric={}; ths.forEach(function(t,i){if(/^(priority|years requested)$/i.test(t.dataset.label||'')) numeric[i]=true;});
   var countEl=document.getElementById('count');
   (function(){var L=ths.map(function(t){return t.dataset.label||'';});
     rows.forEach(function(tr){for(var i=0;i<tr.children.length&&i<L.length;i++) tr.children[i].setAttribute('data-th',L[i]);});})();
