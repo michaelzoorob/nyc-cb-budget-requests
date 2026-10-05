@@ -2,7 +2,10 @@
 
 Each record pairs two budget requests from the same community board in consecutive fiscal
 years: `then` (the earlier year) and `now` (the later year). Each side has the year, the
-agency, Capital or Expense, a title and an explanation. Decide whether `now` asks for
+agency, Capital or Expense, a title and an explanation. A request from FY2020 to FY2025 may
+also have a `location`: the street and cross streets the City's Register records for it.
+Read it as part of the request. It often names the place an explanation leaves out, and
+the same work at a different location is a different request. Decide whether `now` asks for
 substantively the same thing as `then`, so that a reader would say the board made this
 request in both years.
 
@@ -51,6 +54,21 @@ A request stays the same when only these change.
 - A district-wide or general request and a specific one ("plant street trees across the
   district" and "plant trees on Elm Street"), unless the text makes clear they are the same
   project.
+
+## The same text at two sites
+
+Some records have the same title and explanation in both years and differ only in where.
+The place is in the `location` field or in a "Location:" line that opens the explanation.
+Decide whether the two name the same site.
+
+- A board may send one text for several sites, such as one paragraph on speeding for each
+  of several streets, or one paragraph on a corridor for each of its intersections. Each
+  site is then its own request, in the same year and across years.
+- The Register may also record one site in different ways. It may give an address or only
+  the street, a borough name, a name cut short, or other cross streets for the same block,
+  corridor or park. Those are the same request.
+- When the explanation itself names the place, such as a park or a stretch of a street,
+  that place decides. When the explanation names no place, the location decides.
 
 ## When unsure
 

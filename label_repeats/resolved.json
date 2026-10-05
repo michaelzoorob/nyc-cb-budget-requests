@@ -185,11 +185,6 @@
   "why": "the same Arthur Kill Road widening, now as Phase III"
  },
  {
-  "id": "2024:d8d3b95feefa>2025:4cf980946aab",
-  "verdict": "same",
-  "why": "the Register puts both at 147th Avenue and Francis Lewis Boulevard"
- },
- {
   "id": "2022:611ba51c8cac>2023:63edf5402cf3",
   "verdict": "unsure",
   "why": "the earlier request names no park"
@@ -228,11 +223,6 @@
   "id": "2026:85feac6401c0>2027:f3d4113eba78",
   "verdict": "different",
   "why": "different technology at different schools"
- },
- {
-  "id": "2022:1f74938ba92c>2023:ebe3efce580c",
-  "verdict": "unsure",
-  "why": "a corridor-wide request versus two intersections"
  },
  {
   "id": "2020:37bfcd4a00af>2021:ee1fe41c0e94",
@@ -318,5 +308,190 @@
   "id": "2024:47f1b99eb696>2025:d9b74dcb9f31",
   "verdict": "unsure",
   "why": "more inspectors versus zoning education and enforcement"
+ },
+ {
+  "id": "2020:a417496b208b>2021:5050fc6d4a4e",
+  "verdict": "different",
+  "why": "the Register puts the earlier list at Atlantic and Nostrand; now Fulton and Tompkins"
+ },
+ {
+  "id": "2020:a417496b208b>2021:79427c7f5a4f",
+  "verdict": "different",
+  "why": "the Register puts the earlier list at Atlantic and Nostrand; now Fulton and Albany"
+ },
+ {
+  "id": "2024:00df0e34c096>2025:3a121d489b80",
+  "verdict": "different",
+  "why": "a corridor pest initiative versus a district rat mitigation zone"
+ },
+ {
+  "id": "2023:a9caa84b0861>2024:f7b5dc68e75d",
+  "verdict": "same",
+  "why": "the same Dyker Beach Park playground; the later year adds its location"
+ },
+ {
+  "id": "2020:fcbfd52cb85d>2021:c0c78c937fde",
+  "verdict": "same",
+  "why": "identical sewer work on 33rd and 34th Streets in both years"
+ },
+ {
+  "id": "2024:0a3272ee2182>2025:ef11b2cd7c57",
+  "verdict": "same",
+  "why": "the same Allen Street bike lanes, which run from Houston to Delancey"
+ },
+ {
+  "id": "2023:3ae4449bf368>2024:ccac8bec22a5",
+  "verdict": "same",
+  "why": "the same unfinished DeSalvio Playground; now its climbing wall"
+ },
+ {
+  "id": "2024:e426c0839ee5>2025:de07659c342a",
+  "verdict": "different",
+  "why": "a district-wide accessibility request versus one school"
+ },
+ {
+  "id": "2024:e426c0839ee5>2025:02a16f6cf96d",
+  "verdict": "different",
+  "why": "a district-wide accessibility request versus one school"
+ },
+ {
+  "id": "2024:e426c0839ee5>2025:ad6e70ad3ece",
+  "verdict": "different",
+  "why": "a district-wide accessibility request versus one school building"
+ },
+ {
+  "id": "2024:e426c0839ee5>2025:8c5e62b5927e",
+  "verdict": "different",
+  "why": "a district-wide accessibility request versus one school"
+ },
+ {
+  "id": "2023:8d1ab45a8f1d>2024:35d548dea600",
+  "verdict": "same",
+  "why": "the same Review Avenue greenway study; the park acquisition dropped"
+ },
+ {
+  "id": "2022:60aceb1ae845>2023:5d7d78b914de",
+  "verdict": "unsure",
+  "why": "general business-district streetscapes versus 116th Street"
+ },
+ {
+  "id": "2025:9b1097c2ed2f>2026:3ef9c1270daf",
+  "verdict": "same",
+  "why": "identical GreenThumb transfer with a corrected cross street"
+ },
+ {
+  "id": "2024:036acefee663>2025:6cd1682197ba",
+  "verdict": "different",
+  "why": "trash cans in a different park"
+ },
+ {
+  "id": "2024:90a65a4a8e8b>2025:938e79d77abb",
+  "verdict": "different",
+  "why": "a broad park upgrade versus entrance cameras split off to NYPD"
+ },
+ {
+  "id": "2024:767a3afd6c0d>2025:22c2feb5561d",
+  "verdict": "same",
+  "why": "the same Time Landscape site; rethinking the space stays"
+ },
+ {
+  "id": "2020:cff6204c80a4>2021:3e49ec0630e1",
+  "verdict": "same",
+  "why": "the same East 56th Street rebuild, narrowed to Avenue J to K"
+ },
+ {
+  "id": "2022:b8a554c178be>2023:73cdf3408009",
+  "verdict": "different",
+  "why": "one drainage site versus a district list of sites"
+ },
+ {
+  "id": "2022:5cfc8a0af894>2023:e9e24476d143",
+  "verdict": "different",
+  "why": "one sewer design versus a district list of sewer sites"
+ },
+ {
+  "id": "2024:3a4d3e3b52b6>2025:f648e670c6ab",
+  "verdict": "same",
+  "why": "the later request continues the decade-old Hancock Street trench repair"
+ },
+ {
+  "id": "2021:86169cc36192@9d15cc>2025:f5daa1801936@32b3dc",
+  "verdict": "different",
+  "why": "the West 140th Street playground through FY2022, the West 133rd Street one from FY2025"
+ },
+ {
+  "id": "2022:47895f6582c5@9d15cc>2025:f5daa1801936@32b3dc",
+  "verdict": "different",
+  "why": "the West 140th Street playground through FY2022, the West 133rd Street one from FY2025"
+ },
+ {
+  "id": "2023:885715e94f0f@97f53a>2024:a370323c6314@811728",
+  "verdict": "different",
+  "why": "the board lists District Wide and Commercial Districts as separate requests every year"
+ },
+ {
+  "id": "2023:885715e94f0f@97f53a>2025:a370323c6314@811728",
+  "verdict": "different",
+  "why": "the board lists District Wide and Commercial Districts as separate requests every year"
+ },
+ {
+  "id": "2025:83e3b8afe7a0@825288>2026:5ad740ee84e4",
+  "verdict": "different",
+  "why": "FY2025 lists Wortman and Cozine as separate requests, and only Cozine continues"
+ },
+ {
+  "id": "2025:83e3b8afe7a0@825288>2027:5ad740ee84e4",
+  "verdict": "different",
+  "why": "FY2025 lists Wortman and Cozine as separate requests, and only Cozine continues"
+ },
+ {
+  "id": "2023:ebe3efce580c@8d674e>2024:57efe30f7b28@8127b0",
+  "verdict": "different",
+  "why": "the Register puts this row at Willoughby and Hart, and Myrtle has its own FY2023 row"
+ },
+ {
+  "id": "2023:ebe3efce580c@8d674e>2025:57efe30f7b28@8127b0",
+  "verdict": "different",
+  "why": "the Register puts this row at Willoughby and Hart, and Myrtle has its own FY2023 row"
+ },
+ {
+  "id": "2023:ebe3efce580c@8d674e>2026:531ab7d6d407",
+  "verdict": "different",
+  "why": "the Register puts this row at Willoughby and Hart, and Myrtle has its own FY2023 row"
+ },
+ {
+  "id": "2023:ebe3efce580c@8d674e>2027:531ab7d6d407",
+  "verdict": "different",
+  "why": "the Register puts this row at Willoughby and Hart, and Myrtle has its own FY2023 row"
+ },
+ {
+  "id": "2022:29d86d611ebd@158090>2023:feca5bc6d6a6@91ae11",
+  "verdict": "same",
+  "why": "the same sinking catch basins on one strip of Commonwealth Boulevard, cross streets narrowed"
+ },
+ {
+  "id": "2021:afc6adfc52de>2022:71b33f44e3c1@ae5f7a",
+  "verdict": "different",
+  "why": "a general request versus a row the board listed for one site, Lefferts Avenue"
+ },
+ {
+  "id": "2021:afc6adfc52de>2022:71b33f44e3c1@4e3a2d",
+  "verdict": "different",
+  "why": "a general request versus a row the board listed for one site, Winthrop Street"
+ },
+ {
+  "id": "2022:ce5dfd2b7802>2023:71b33f44e3c1@434fa9",
+  "verdict": "different",
+  "why": "the study request continues as its own FY2023 row, and Lincoln Road is a new site"
+ },
+ {
+  "id": "2024:d8d3b95feefa@ed8291>2025:f441d8718b51",
+  "verdict": "same",
+  "why": "the same 134 Road repaving, and the FY2025 Register gives only the 217 Street end"
+ },
+ {
+  "id": "2022:f63143bde1d6@cf5b01>2023:e9ea65e9274e",
+  "verdict": "same",
+  "why": "FY2022's Classon Avenue row is the Lafayette Gardens request, which is on Classon Avenue"
  }
 ]

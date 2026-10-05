@@ -25,7 +25,7 @@ import pandas as pd
 
 import difflib
 
-from build_register_year import BOARD_ORDER, build as build_from_register, fetch_register
+from build_register_year import BOARD_ORDER, build as build_from_register, fetch_register, has_location_fields
 from parse_request_table import parse as parse_request_table, parse_five_column
 from shared import (AGENCY, BORO_ABBR, COLS, LATEST, PDF_YEARS, PUBLICATIONS, add_followup, infer_committees, load_labels,
                     norm, request_id, stance)
@@ -128,14 +128,16 @@ def rows_from_table(table, board):
                     "Title": t["title"], "Explanation": t["explanation"], "Agency Response": "",
                     "OMB Executive Response": "", "Agency Stance (MZ added)": stance(""),
                     "Committees": "|".join(labels.get(rid) or infer_committees(t["title"], t["explanation"], t["agency"])),
-                    "Label ID": rid, "Tracking Code": ""})
+                    "Label ID": rid, "Tracking Code": "",
+                    "Location": " ".join(t.get("location", "").split())})   # the five-column table's own
     df = pd.DataFrame(out, columns=COLS)
     df["_t"] = df["Type"].map({"Capital": 0, "Expense": 1})
     df["_p"] = pd.to_numeric(df["Priority"], errors="coerce")
     return df.sort_values(["_t", "_p"]).drop(columns=["_t", "_p"]).reset_index(drop=True)
 
 
-if not os.path.exists(REGISTER):
+# An extract saved before the Register's site fields were fetched is downloaded again.
+if not os.path.exists(REGISTER) or not has_location_fields(REGISTER):
     sys.stderr.write(f"Downloading the FY{FY} Register ({' + '.join(PUBLICATIONS[FY])})...\n")
     fetch_register(FY, REGISTER)
 

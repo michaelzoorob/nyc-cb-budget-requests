@@ -15,15 +15,25 @@ Output has the same columns as the PDF years.
 """
 import os
 import sys
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
 import pandas as pd
 
 from shared import (AGENCY, AGENCY_ABBR, COLS, PUBLICATIONS, add_followup, REG_BORO_ABBR, REGISTER_AGENCY_NAMES,
-                    infer_committees, load_labels, request_id, stance)
+                    format_location, infer_committees, load_labels, request_id, stance)
 
 BOARD_ORDER = ["M", "BX", "BK", "Q", "SI"]   # same board order as the PDF years
+
+
+LOCATION_FIELDS = ["site_street", "street", "cross_street_1", "cross_street_2"]
+
+
+def has_location_fields(path):
+    """Whether a saved Register extract has the site fields (older ones do not)."""
+    return all(c in open(path, encoding="utf-8").readline() for c in LOCATION_FIELDS)
 
 
 def fetch_register(fy, path):
@@ -31,10 +41,20 @@ def fetch_register(fy, path):
     where = " OR ".join(f"publication='{p}'" for p in PUBLICATIONS[fy])
     url = "https://data.cityofnewyork.us/resource/vn4m-mk4t.csv?" + urllib.parse.urlencode({
         "$select": "publication,boro,board,priority,tracking_code,request,explanation,"
-                   "response,responded_by,responsible_agency",
+                   "response,responded_by,responsible_agency,site_street,street,cross_street_1,cross_street_2",
         "$where": where, "$limit": "20000"})
     req = urllib.request.Request(url, headers={"User-Agent": "research"})
-    open(path, "wb").write(urllib.request.urlopen(req, timeout=180).read())
+    for i in range(4):                       # NYC Open Data drops connections now and then
+        try:
+            data = urllib.request.urlopen(req, timeout=180).read()
+            break
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
+            if i == 3:
+                raise
+            time.sleep(15 * (i + 1))
+    with open(path + ".part", "wb") as f:   # a failed download leaves the old extract in place
+        f.write(data)
+    os.replace(path + ".part", path)
 
 
 def board_label(boro, board):
@@ -45,6 +65,9 @@ def build(fy, register_csv, boards=None):
     """Rows for fiscal year fy; boards (e.g. {"BXCB1"}) restricts to those boards."""
     agency_round, omb_round = PUBLICATIONS[fy]
     d = pd.read_csv(register_csv, dtype=str).fillna("")
+    for c in LOCATION_FIELDS:                # an extract saved before the site fields were fetched
+        if c not in d:
+            d[c] = ""
     d["Board"] = [board_label(b, c) for b, c in zip(d["boro"], d["board"])]
     if boards is not None:
         d = d[d["Board"].isin(boards)]
@@ -66,6 +89,8 @@ def build(fy, register_csv, boards=None):
         a_resp = ag.at[tc, "response"] if tc in ag.index else ""
         o_resp = om.at[tc, "response"] if tc in om.index else ""
         rid = request_id(r["Board"], title, expl)
+        # The site fields: the street is in site_street from FY2024 and in street before.
+        site = format_location(r["site_street"] or r["street"], r["cross_street_1"], r["cross_street_2"])
         rows.append({
             "Priority": str(int(pr)) if pr.isdigit() else pr,
             "Type": "Expense" if tc.strip().endswith("E") else "Capital",
@@ -75,6 +100,7 @@ def build(fy, register_csv, boards=None):
             "Committees": "|".join(labels.get(rid) or infer_committees(title, expl, AGENCY_ABBR.get(agency))),
             "Label ID": rid,
             "Tracking Code": tc.strip(),
+            "Location": site,
         })
     out = pd.DataFrame(rows, columns=COLS)
     if unmapped:

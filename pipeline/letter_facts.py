@@ -24,8 +24,9 @@ and supports it, so most requests get none. Seven kinds:
   district_311     a request on a need that 311 measures, where the district ranks in the
                    top quarter or complaints rose: the planner's counts (plan/planner.json)
 
-A site comes from the request's "Location:" line (FY2026 and later statements) or from
-its park match in request_locations.csv. A request gets at most two facts. Downloads are
+A site comes from the request's "Location:" line (FY2026 and later statements), from the
+Register's site fields in the Location column (FY2020 to FY2025), or from its park match
+in request_locations.csv. A request gets at most two facts. Downloads are
 cached in DATA_DIR/letter_facts/ (DATA_DIR defaults to ~/Downloads), by month for data
 that change, so a rebuild in a new month gets the latest; --refresh downloads them all
 again. Writes pipeline/letter_facts.csv.
@@ -48,7 +49,7 @@ from shapely.geometry import LineString, Point
 from shapely.ops import transform, unary_union
 
 import locate_requests as loc
-from shared import YEARS
+from shared import YEARS, site_key
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROJ = os.path.dirname(HERE)
@@ -196,7 +197,12 @@ def load_requests():
         p = os.path.join(DATA, f"CB FY{fy} Requests (all boards, detailed, 2-stage).csv")
         if os.path.exists(p):
             frames.append(pd.read_csv(p, dtype=str, keep_default_na=False).assign(FY=fy))
-    d = pd.concat(frames).drop_duplicates("Label ID").reset_index(drop=True)
+    d = pd.concat(frames).fillna("")
+    if "Location" not in d:
+        d["Location"] = ""
+    # Facts are keyed by site: the same text can name two sites (shared.site_key).
+    d["Label ID"] = [site_key(i, l) for i, l in zip(d["Label ID"], d["Location"])]
+    d = d.drop_duplicates("Label ID").reset_index(drop=True)
     d["text"] = (d["Title"] + " || " + d["Explanation"]).str.replace(r"\s+", " ", regex=True)
     # What the request is about: its title and the first two sentences of its explanation.
     # A fact's topic must appear here, not only further down.
@@ -268,7 +274,8 @@ class Sites:
         return None
 
     def locate(self, r):
-        p = parse_location(r["Explanation"])
+        site = str(r.get("Location", "")).strip()      # the Register's site fields, FY2020-FY2025
+        p = parse_location(f"Location: {site}" if site else r["Explanation"])
         if not p:
             return None
         a_text, b_choices, c_choices = p
@@ -707,7 +714,7 @@ def main():
     reqs = load_requests()
     print(f"{len(reqs)} requests")
     sites, finder = {}, Sites()
-    for r in reqs[reqs["Explanation"].str.match(r"\s*Location:")].to_dict("records"):
+    for r in reqs[reqs["Explanation"].str.match(r"\s*Location:") | (reqs["Location"].str.strip() != "")].to_dict("records"):
         s = finder.locate(r)
         if s:
             sites[r["Label ID"]] = (r, s)
