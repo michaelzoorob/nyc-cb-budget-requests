@@ -70,10 +70,11 @@ comes entirely from the Register. The build catches a mismatched file like that 
 checking that a PDF's requests match the board's own Register entries.
 
 Three boards are missing from the Register in some years. The Register has no FY2025
-requests from Brooklyn CB6, CB12 or CB16, and none from Brooklyn CB6 in FY2020. Brooklyn
-CB16's FY2025 Statement lists its requests in a five-column table, so they appear without
-responses. DCP published no Statement in the other cases, so those boards are absent from
-those years.
+requests from Brooklyn CB6, CB12 or CB16, and none from Brooklyn CB6 in FY2020. OMB's
+January and April 2024 Register files leave out the same three boards. Brooklyn CB16's
+FY2025 Statement lists its 70 requests, so the site shows them. No agency or OMB response
+to them was published. DCP published no Statement in the other cases, so those boards are
+absent from those years.
 
 Priority numbers mean different things in different years. In FY2027 a board ranks its
 requests to each agency separately, so several requests share each number. In earlier
