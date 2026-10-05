@@ -154,8 +154,8 @@ FU_SLUG = {"Contact agency": "a", "Contact elected officials": "e", "Contact age
 # from the Register. The page says which.
 YEAR_NOTE = {
     "2025": (" The Register has no FY2025 requests from Brooklyn CB6, CB12 or CB16. Brooklyn CB16's "
-             "Statement lists its requests, so they appear without responses. DCP published no FY2025 "
-             "Statement for Brooklyn CB6 or CB12, so those boards are absent."),
+             "Statement lists its requests, so they appear here. No agency or OMB response to them was "
+             "published. DCP published no FY2025 Statement for Brooklyn CB6 or CB12, so those boards are absent."),
     "2020": (" The Register has no FY2020 requests from Brooklyn CB6, and DCP published no FY2020 Statement "
              "for it, so the board is absent."),
     "2026": (" The FY2026 Bronx PDFs list each request without the agency's response, so the Bronx "
