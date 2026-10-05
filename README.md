@@ -102,6 +102,7 @@ not included.
 | `pipeline/followup_labels.csv` | The follow-up action for each pair of agency and OMB responses. |
 | `pipeline/locate_requests.py`, `pipeline/request_locations.csv` | The council district of each request whose site is known, from the park or street intersection it names. |
 | `pipeline/enrich_years.py` | Links each request to the same board's requests in other years, and adds the site's council district, to every year's CSV. |
+| `label_repeats/`, `pipeline/repeat_links.csv` | Reworded requests a model judged to be the same request in consecutive years, which `enrich_years.py` also links. See its README. |
 | `pipeline/letter_facts.py`, `pipeline/letter_facts.csv` | The letters' local data. A sentence or two from the City's open data about a request's site or need, with its source. Downloads are cached in the data directory. |
 | `pipeline/build_contacts.py`, `pipeline/contacts/` | The follow-up letters' recipients, with Council Members by district, Borough Presidents and agency offices. See its README. |
 | `label_followup/` | The follow-up rubric, labeling scripts and validation. See its README. |
@@ -213,9 +214,9 @@ A letter can also cite local data, a sentence or two from the City's open data a
 
 The panel lists a request's local data with its source. Each item has a checkbox, and a checked item goes in the letter after the request. Park access follows NYC Parks' method, weighting each Census block by the share of its area within walking distance. Citywide that gives 83.8% of New Yorkers within walking distance of a park. NYC Parks reported 83.9% for FY2023 with the same service area. A check of 14 facts against queries run on NYC Open Data itself found every number the same.
 
-`pipeline/enrich_years.py` links a request to the same board's requests in other years when their explanations begin with the same text. In FY2027, 2,549 of the 3,809 requests also appear in another year. The letter panel lists those years and the most recent earlier response.
+`pipeline/enrich_years.py` links a request to the same board's requests in other years when their explanations begin with the same text. It also links reworded requests that a model judged to be the same request (`label_repeats/`, see its README). In FY2027, 3,046 of the 3,809 requests also appear in another year. The letter panel lists those years and the most recent earlier response.
 
-The Years Requested column counts the budget years from FY2020 through the page's year in which the board made the request. Because the link rests on the explanation's opening words, a reworded request starts over. In FY2027, 1,997 of the 3,809 requests were made in at least three budget years, and 561 were made every year since FY2020. The column sorts and filters like the others. From FY2022 on, the summary page counts the requests made in at least three budget years and links to them. FY2020 is the first year on the site, so its page has no such column.
+The Years Requested column counts the budget years from FY2020 through the page's year in which the board made the request, counting reworded versions of it. In FY2027, 2,535 of the 3,809 requests were made in at least three budget years, and 1,188 were made every year since FY2020. The column sorts and filters like the others. From FY2022 on, the summary page counts the requests made in at least three budget years and links to them. FY2020 is the first year on the site, so its page has no such column.
 
 Mark as sent records the date and the recipients of a letter, and the Follow-up column then shows the date. A board can also add its own contact for an agency, which the panel offers first for that agency's requests. Both are saved only in the viewer's browser. The CSV download adds the tracking code, the agency a response points to, the reason for the step, the years of the request, and the sent date with its recipients.
 

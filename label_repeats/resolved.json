@@ -1,0 +1,147 @@
+[
+ {
+  "id": "2021:d7d58b50b443>2022:b79ecaa0d7fe",
+  "verdict": "different",
+  "why": "a youth center feasibility study versus a Beacon program at Truman High School"
+ },
+ {
+  "id": "2020:02cd3ddd70f0>2021:dd41863d1490",
+  "verdict": "unsure",
+  "why": "the later text keeps only the reason; the shelter's location is gone"
+ },
+ {
+  "id": "2022:2de0e10cdce0>2023:8ba2d7e20473",
+  "verdict": "same",
+  "why": "the same College Point Boulevard reconstruction, with 18th Avenue added"
+ },
+ {
+  "id": "2026:e50df252edba>2027:93f952da3dfc",
+  "verdict": "unsure",
+  "why": "Greene Playground phase 2 versus Fort Greene Park phases 4 to 6"
+ },
+ {
+  "id": "2025:5b32fc04af4f>2026:157529cf747c",
+  "verdict": "same",
+  "why": "the same Columbus Library capital project, now the HVAC balance"
+ },
+ {
+  "id": "2022:bfd58b06e2b1>2023:c09fd33562f2",
+  "verdict": "unsure",
+  "why": "the earlier request names no street"
+ },
+ {
+  "id": "2026:eb186fc19714>2027:870e1646d93a",
+  "verdict": "different",
+  "why": "different stretches of 23rd Avenue"
+ },
+ {
+  "id": "2020:f323aa24386c>2021:bab1ac1f59e6",
+  "verdict": "different",
+  "why": "different lists of streets with one location in common"
+ },
+ {
+  "id": "2022:c9ff12ce2029>2023:e493355ad0f4",
+  "verdict": "unsure",
+  "why": "a general tree guard request versus one corner"
+ },
+ {
+  "id": "2025:4f468627c687>2026:551175df59e7",
+  "verdict": "different",
+  "why": "park-wide walkways versus the park house and a pickleball court"
+ },
+ {
+  "id": "2026:b9680b25e656>2027:29ab1fe3d910",
+  "verdict": "different",
+  "why": "a granite bike lane versus repairing the Belgian blocks"
+ },
+ {
+  "id": "2021:61448ea36e8f>2022:35f9880c1eb3",
+  "verdict": "unsure",
+  "why": "the earlier explanation is too vague to match"
+ },
+ {
+  "id": "2026:664b3ec2db96>2027:0fff938417db",
+  "verdict": "unsure",
+  "why": "the same wording, but Mullaly Park became Foster Park"
+ },
+ {
+  "id": "2022:f69cb9feaedc>2023:b7f9c55c0154",
+  "verdict": "different",
+  "why": "a district-wide step street program versus Carroll Place"
+ },
+ {
+  "id": "2021:2969e125b7d9>2022:c4d1b73884bd",
+  "verdict": "same",
+  "why": "the same park maintenance funding, now as staff for trash pickup"
+ },
+ {
+  "id": "2022:8e20d76be637>2023:9cffa306b193",
+  "verdict": "different",
+  "why": "a new City grant versus disbursing federal funds faster"
+ },
+ {
+  "id": "2021:445df05c481c>2022:a0fe12ceb004",
+  "verdict": "unsure",
+  "why": "only a reason; the request and the place are missing"
+ },
+ {
+  "id": "2025:8fb183515c37>2026:bbfabb67e05c",
+  "verdict": "unsure",
+  "why": "hospital-to-home service versus a broader aging-in-place package"
+ },
+ {
+  "id": "2025:5bc133a58882>2026:d39e15310a0b",
+  "verdict": "different",
+  "why": "a grant program versus a loan program"
+ },
+ {
+  "id": "2021:a94eba3e3233>2022:984ed368616f",
+  "verdict": "same",
+  "why": "the same school elevator work, narrowed to 26 Broadway"
+ },
+ {
+  "id": "2021:cff1b8f73066>2022:a271762a8c39",
+  "verdict": "unsure",
+  "why": "only a reason; the request and the place are missing"
+ },
+ {
+  "id": "2025:f441d8718b51>2026:e4b60f730019",
+  "verdict": "unsure",
+  "why": "the earlier request names no street"
+ },
+ {
+  "id": "2022:b07186026ade>2023:aae78b69e48b",
+  "verdict": "unsure",
+  "why": "too little text to match"
+ },
+ {
+  "id": "2024:e495f6114d17>2025:bc73ca6614a6",
+  "verdict": "unsure",
+  "why": "bridge lighting versus bridge reconstruction"
+ },
+ {
+  "id": "2022:ad98aaaa57eb>2023:77642f434a3a",
+  "verdict": "unsure",
+  "why": "one lot became part of a larger acquisition"
+ },
+ {
+  "id": "2024:396b36e0b7ae>2025:e0b66a86a317",
+  "verdict": "same",
+  "why": "the same Morris-Jumel Mansion work, narrowed to water mitigation"
+ },
+ {
+  "id": "2022:1f74938ba92c>2023:6cb9eab0c475",
+  "verdict": "unsure",
+  "why": "a corridor-wide request versus two intersections"
+ },
+ {
+  "id": "2023:e134433e1d38>2024:a0c5787d3f84",
+  "verdict": "different",
+  "why": "installing solar panels versus a feasibility study"
+ },
+ {
+  "id": "2022:f69cb9feaedc>2023:c7e7a435b6aa",
+  "verdict": "different",
+  "why": "a district-wide step street program versus the 168th Street step street"
+ }
+]
