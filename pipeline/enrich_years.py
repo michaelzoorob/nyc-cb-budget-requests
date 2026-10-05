@@ -8,7 +8,8 @@ Run it after every year's CSV is built, and after locate_requests.py.
 History. Two requests from one board count as the same
 request when the first 150 characters of one's normalized explanation appear in the
 other's. (The FY2026+ Statements put a location before the text, so an exact match
-misses those.) Two columns follow from that:
+misses those.) They also count as the same when a model judged them the same request
+reworded (pipeline/repeat_links.csv, written by label_repeats/). Two columns follow:
 - History Years: every fiscal year in which the board made the request, "|"-separated
 - Prior Response: "<YEAR>: <text>", the agency response from the most recent earlier year
 
@@ -25,6 +26,7 @@ import pandas as pd
 
 DATA = sys.argv[1] if len(sys.argv) > 1 else "."
 LOCATIONS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "request_locations.csv")
+LINKS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "repeat_links.csv")
 KEY_LEN, MIN_LEN = 150, 40
 
 
@@ -85,6 +87,21 @@ def main():
                 tb = items[b][3]
                 if ta[:KEY_LEN] in tb or tb[:KEY_LEN] in ta:
                     parent[find(a)] = find(b)
+    # Reworded requests a model judged the same request, by fiscal year and Label ID.
+    at = {}
+    for k, (_, fy, i, _) in enumerate(items):
+        at.setdefault((fy, frames[fy].at[i, "Label ID"]), []).append(k)
+    n_links = 0
+    if os.path.exists(LINKS):
+        for r in pd.read_csv(LINKS, dtype=str).fillna("").to_dict("records"):
+            then, now = at.get((r["then_fy"], r["then_label"]), []), at.get((r["now_fy"], r["now_label"]), [])
+            if r["verdict"] != "same" or not (then and now):
+                continue
+            for a in then:
+                for b in now:
+                    parent[find(a)] = find(b)
+            n_links += 1
+    print(f"{n_links} reworded requests linked from {os.path.basename(LINKS)}")
     groups = {}
     for k in range(len(items)):
         groups.setdefault(find(k), []).append(k)
