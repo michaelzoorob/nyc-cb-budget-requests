@@ -26,8 +26,8 @@
  },
  {
   "id": "2022:bfd58b06e2b1>2023:c09fd33562f2",
-  "verdict": "unsure",
-  "why": "the earlier request names no street"
+  "verdict": "different",
+  "why": "different blocks, Stuyvesant Avenue versus Hancock Street"
  },
  {
   "id": "2026:eb186fc19714>2027:870e1646d93a",
@@ -41,8 +41,8 @@
  },
  {
   "id": "2022:c9ff12ce2029>2023:e493355ad0f4",
-  "verdict": "unsure",
-  "why": "a general tree guard request versus one corner"
+  "verdict": "different",
+  "why": "the Register puts them at different corners"
  },
  {
   "id": "2025:4f468627c687>2026:551175df59e7",
@@ -106,8 +106,8 @@
  },
  {
   "id": "2025:f441d8718b51>2026:e4b60f730019",
-  "verdict": "unsure",
-  "why": "the earlier request names no street"
+  "verdict": "same",
+  "why": "the Register puts both at 134th Road and 217th Street"
  },
  {
   "id": "2022:b07186026ade>2023:aae78b69e48b",
@@ -143,5 +143,180 @@
   "id": "2022:f69cb9feaedc>2023:c7e7a435b6aa",
   "verdict": "different",
   "why": "a district-wide step street program versus the 168th Street step street"
+ },
+ {
+  "id": "2026:0ee7956ae1ce>2027:036269235e87",
+  "verdict": "different",
+  "why": "traffic agents and crossing guards versus bike and scooter officers alone"
+ },
+ {
+  "id": "2021:bcfb2e580b95>2022:cda6e41c9af3",
+  "verdict": "same",
+  "why": "the Remsen Senior Center is at 3304 Clarendon Road"
+ },
+ {
+  "id": "2025:83e4c6880de2>2026:ae54e051ad47",
+  "verdict": "same",
+  "why": "the Register puts both at 121st Avenue and Laurelton Parkway"
+ },
+ {
+  "id": "2023:3d48047885ba>2024:fce057ac4086",
+  "verdict": "unsure",
+  "why": "a general housing line versus senior housing"
+ },
+ {
+  "id": "2023:41e55f51141e>2024:6cabb783d935",
+  "verdict": "same",
+  "why": "the same Frederick Douglass Playground renovation; the second playground changed"
+ },
+ {
+  "id": "2023:4fbf1795af16>2024:cf336fbf9b04",
+  "verdict": "unsure",
+  "why": "litter basket service versus more trash cans"
+ },
+ {
+  "id": "2021:e5f9605dc844>2022:847595f128ac",
+  "verdict": "unsure",
+  "why": "only a reason; the request and the place are missing"
+ },
+ {
+  "id": "2022:5478840df528>2023:6b118c9428c3",
+  "verdict": "same",
+  "why": "the same Arthur Kill Road widening, now as Phase III"
+ },
+ {
+  "id": "2024:d8d3b95feefa>2025:4cf980946aab",
+  "verdict": "same",
+  "why": "the Register puts both at 147th Avenue and Francis Lewis Boulevard"
+ },
+ {
+  "id": "2022:611ba51c8cac>2023:63edf5402cf3",
+  "verdict": "unsure",
+  "why": "the earlier request names no park"
+ },
+ {
+  "id": "2025:89bf199ec712>2026:33b6fb5da33c",
+  "verdict": "unsure",
+  "why": "the earlier request names no playground"
+ },
+ {
+  "id": "2021:c83357a34f48>2022:29057022065e",
+  "verdict": "unsure",
+  "why": "only a reason; the request and the place are missing"
+ },
+ {
+  "id": "2023:adfb4742f8f8>2024:dca3b59227dc",
+  "verdict": "different",
+  "why": "a different building, 611 West 112th versus 610 West 111th Street"
+ },
+ {
+  "id": "2021:fe7e17703967>2022:be95fe6a4e63",
+  "verdict": "same",
+  "why": "the same rental assistance expansion"
+ },
+ {
+  "id": "2022:ccebd6623f3a>2023:a637fd8d6f50",
+  "verdict": "unsure",
+  "why": "the earlier request names no street"
+ },
+ {
+  "id": "2023:cd00b02182ee>2024:60b9bb7d00d7",
+  "verdict": "same",
+  "why": "the same request for more affordable housing"
+ },
+ {
+  "id": "2026:85feac6401c0>2027:f3d4113eba78",
+  "verdict": "different",
+  "why": "different technology at different schools"
+ },
+ {
+  "id": "2022:1f74938ba92c>2023:ebe3efce580c",
+  "verdict": "unsure",
+  "why": "a corridor-wide request versus two intersections"
+ },
+ {
+  "id": "2020:37bfcd4a00af>2021:ee1fe41c0e94",
+  "verdict": "different",
+  "why": "bike path lighting versus speed bumps and bollards"
+ },
+ {
+  "id": "2022:1f74938ba92c>2023:c81cdc559f9d",
+  "verdict": "unsure",
+  "why": "a corridor-wide request versus one intersection"
+ },
+ {
+  "id": "2020:a6a07210f1c0>2021:1412df74b13b",
+  "verdict": "unsure",
+  "why": "installing catch basins versus a reason only"
+ },
+ {
+  "id": "2024:f7659dca2149>2025:12c0565d22dd",
+  "verdict": "unsure",
+  "why": "business recovery aid versus retail attraction"
+ },
+ {
+  "id": "2021:79ea9d984708>2022:1fe7959c5533",
+  "verdict": "unsure",
+  "why": "stormwater bioswales versus completing the greenstreet"
+ },
+ {
+  "id": "2023:83ca59a6d06b>2024:360dcde952ee",
+  "verdict": "unsure",
+  "why": "the Dyer Avenue entrance moves to different streets"
+ },
+ {
+  "id": "2024:f0235c0e8715>2025:ee87f7b0cd95",
+  "verdict": "same",
+  "why": "the same funding for tenant legal representation"
+ },
+ {
+  "id": "2021:9ea52934d0d0>2022:9b57a2551931",
+  "verdict": "unsure",
+  "why": "a walking and cycling track versus rebuilding the sidewalk"
+ },
+ {
+  "id": "2022:ee9f451e79a6>2023:083fef7d3dca",
+  "verdict": "same",
+  "why": "the same catch basins and flooding at Bainbridge and Van Cortlandt Avenue East"
+ },
+ {
+  "id": "2024:e9398f78e5b4>2025:af823e650d9f",
+  "verdict": "same",
+  "why": "the same Coney Island ferry, now at Steeplechase Pier"
+ },
+ {
+  "id": "2023:bab3979e3f0a>2024:85c85eb7aa0d",
+  "verdict": "unsure",
+  "why": "annexes at two schools versus a new school"
+ },
+ {
+  "id": "2024:8f47b4a91aec>2025:d59d22f8b6c4",
+  "verdict": "unsure",
+  "why": "COVID-19 funds versus all infectious diseases"
+ },
+ {
+  "id": "2024:9b8d8c0c3493>2025:507d94a6e54b",
+  "verdict": "different",
+  "why": "a different park, Old Fort Four versus Fort Independence"
+ },
+ {
+  "id": "2024:902479629383>2025:6dcd15353c43",
+  "verdict": "unsure",
+  "why": "remedial work versus a drainage study at the same places"
+ },
+ {
+  "id": "2022:1f74938ba92c>2023:8e479b0037bc",
+  "verdict": "unsure",
+  "why": "a corridor-wide request versus one intersection"
+ },
+ {
+  "id": "2023:17f587dd88eb>2024:c9e7d96958e9",
+  "verdict": "unsure",
+  "why": "outdoor dining subsidies versus a city initiative"
+ },
+ {
+  "id": "2024:47f1b99eb696>2025:d9b74dcb9f31",
+  "verdict": "unsure",
+  "why": "more inspectors versus zoning education and enforcement"
  }
 ]
