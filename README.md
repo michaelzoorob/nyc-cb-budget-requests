@@ -22,7 +22,7 @@ and no backend or external JS. The pages are deployed as a Vercel static site.
 
 The summary cards above the table are filters. Expense and Capital filter the Type
 column, and Support, Oppose and Neutral/Unclear filter the Agency Stance column.
-Requests clears both. In a row, clicking the type, agency, stance or follow-up shows
+Requests clears both. In a row, clicking the type, agency, years requested, stance or follow-up shows
 only the requests with that value. Clicking the board narrows the board menu to that
 board. Clicking the same value again removes the filter. The follow-up cards work the
 same way. Each column filter in use appears as a label above the table. Clicking the
@@ -38,7 +38,7 @@ Every filter is saved in the page's address, so a copied link opens the same vie
 | `board=all&xboard=` | Every board except those listed in `xboard`. A switch to a year with other boards keeps this form. |
 | `q` | The search box. |
 | `committee` | The committee menu. |
-| `c_<column>` | A column filter. The name is the column's name in lowercase without spaces or punctuation, such as `c_agency`, `c_type`, `c_agencystance` or `c_followup`. Priority, Type, Board, Agency, Agency Stance and Follow-up take checkbox filters, which repeat the parameter for each value kept (`c_agency=Fire Department&c_agency=Police Department`). The value `__none__` keeps none. The other columns take text, as in `c_title=school`. |
+| `c_<column>` | A column filter. The name is the column's name in lowercase without spaces or punctuation, such as `c_agency`, `c_type`, `c_yearsrequested`, `c_agencystance` or `c_followup`. Priority, Type, Board, Agency, Years Requested, Agency Stance and Follow-up take checkbox filters, which repeat the parameter for each value kept (`c_agency=Fire Department&c_agency=Police Department`). The value `__none__` keeps none. The other columns take text, as in `c_title=school`. |
 | `sort` | The sort column and direction, as in `sort=priority.desc`. |
 | `fu` | `fu=unsent` shows requests that need follow-up and have no letter marked sent. `fu=sent` shows requests with a letter marked sent. Both use the marks saved in the viewer's browser. |
 
@@ -88,7 +88,7 @@ not included.
 | Path | What it is |
 | --- | --- |
 | `index.html` | The home page, a map of the community districts built by `home/build_map.py`. |
-| `summary/index.html` | How agencies answered the requests, by agency and by board, for each year. Built by `pipeline/build_summary.py`. |
+| `summary/index.html` | How agencies answered the requests, by agency and by board, for each year, and how many requests the boards made in at least three budget years. Built by `pipeline/build_summary.py`. |
 | `dashboard/index.html`, `fy<YEAR>/index.html` | The dashboard pages, with the latest year at `/dashboard/`. Generated, but committed. |
 | `pipeline/shared.py` | The fiscal years, each year's Register publications, agency names, request ids, the stance rule and the committee fallback. Every builder imports it. |
 | `pipeline/build_all_boards.py` | Builds one year (`--fy YEAR`). For a PDF year it fetches and parses all 59 Statement PDFs in parallel, builds each board, and falls back to the Register for a board whose PDF lacks per-request responses or holds another board's requests. Other years come from the Register, plus the Statement's request table for a board the Register lacks. |
@@ -214,6 +214,8 @@ A letter can also cite local data, a sentence or two from the City's open data a
 The panel lists a request's local data with its source. Each item has a checkbox, and a checked item goes in the letter after the request. Park access follows NYC Parks' method, weighting each Census block by the share of its area within walking distance. Citywide that gives 83.8% of New Yorkers within walking distance of a park. NYC Parks reported 83.9% for FY2023 with the same service area. A check of 14 facts against queries run on NYC Open Data itself found every number the same.
 
 `pipeline/enrich_years.py` links a request to the same board's requests in other years when their explanations begin with the same text. In FY2027, 2,549 of the 3,809 requests also appear in another year. The letter panel lists those years and the most recent earlier response.
+
+The Years Requested column counts the budget years from FY2020 through the page's year in which the board made the request. Because the link rests on the explanation's opening words, a reworded request starts over. In FY2027, 1,997 of the 3,809 requests were made in at least three budget years, and 561 were made every year since FY2020. The column sorts and filters like the others, and the summary page links to each year's repeat requests. FY2020 is the first year on the site, so its page has no such column.
 
 Mark as sent records the date and the recipients of a letter, and the Follow-up column then shows the date. A board can also add its own contact for an agency, which the panel offers first for that agency's requests. Both are saved only in the viewer's browser. The CSV download adds the tracking code, the agency a response points to, the reason for the step, the years of the request, and the sent date with its recipients.
 
