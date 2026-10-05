@@ -6377,7 +6377,7 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
   window.cbUrlExtras=function(p){ if(window.cbRowFilter===unsent) p.set('fu','unsent'); else if(window.cbRowFilter===isSent) p.set('fu','sent'); };
   window.cbCsvExtras={cols:['Tracking Code','Follow-up Agency','Follow-up Why','Requested In','Letter Sent','Letter Sent To'],
     values:function(tr){ var s=sent[rowKey(tr)], pill=tr.querySelector('.fu-pill');
-      return [tr.dataset.tc||'', tr.dataset.fa||'', pill?pill.title:'', (tr.dataset.hy||'').split('|').filter(Boolean).map(function(y){return 'FY'+y;}).join(', '), s?s.d:'', s&&s.to?s.to.join('; '):'']; }};
+      return [tr.dataset.tc||'', tr.dataset.fa||'', pill?pill.title:'', (tr.dataset.hy||'').split('|').filter(function(y){ return y&&+y<=+FY; }).map(function(y){return 'FY'+y;}).join(', '), s?s.d:'', s&&s.to?s.to.join('; '):'']; }};
   document.addEventListener('cb:applied',function(){ renderCards(); syncSel(); });
 
   [fuName,fuRole].forEach(function(el){ el.addEventListener('input',updateSignatures); });

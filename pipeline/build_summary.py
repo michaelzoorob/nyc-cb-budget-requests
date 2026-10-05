@@ -60,6 +60,8 @@ def year_data(fy):
     # How many budget years, through this one, the board made each request (as the
     # dashboard's Years Requested column counts them), for the repeat-request line.
     first = int(min(YEARS))
+    if "History Years" not in d:            # a CSV that enrich_years.py has not seen
+        d["History Years"] = ""
     ys = d["History Years"].map(lambda h: sorted({int(y) for y in str(h).split("|") if y.strip().isdigit()
                                                    and int(y) <= int(fy)} | {int(fy)}))
     d["r3"] = ys.map(lambda y: len(y) >= 3)
@@ -249,13 +251,18 @@ function render(){
   // dashboard. FY2021 has only two years to count, and FY2022 three, so "every year since
   // FY2020" starts with FY2023.
   var rep = B ? rows.reduce(function(t, b){ return [t[0] + b[5], t[1] + b[6]]; }, [0, 0]) : Y.rep;
-  var first = +D.years[D.years.length - 1], span = +S.year - first + 1, line = "";
+  // The link lists every count up to the latest year's, so the dashboard's Year menu keeps
+  // the longest-running requests. A board missing from a year (Brooklyn CB6 in FY2020) can
+  // never show "every year", so that sentence is left out for it.
+  var first = +D.years[D.years.length - 1], span = +S.year - first + 1, most = +D.latest - first + 1, line = "";
+  var gap = P.some(function(k){ for(var y = first; y <= +S.year; y++){ var Yy = D.data[y];
+    if(!Yy || !Yy.boards.some(function(b){ return b[0] === k; })) return true; } return false; });
   if(span >= 3 && n){
     var qp = new URLSearchParams(); qp.set("board", bq);
-    for(var k = 3; k <= span; k++) qp.append("c_yearsrequested", k + " years");
+    for(var k = 3; k <= most; k++) qp.append("c_yearsrequested", k + " years");
     qp.set("sort", "yearsrequested.desc");
     line = "<b>" + rep[0].toLocaleString() + "</b> of these requests " + (rep[0] === 1 ? "was" : "were") + ' <a href="' + esc(url + "?" + qp.toString()) +
-      '">made in at least three budget years</a>.' + (span >= 4 ? " <b>" + rep[1].toLocaleString() + "</b> " + (rep[1] === 1 ? "was" : "were") +
+      '">made in at least three budget years</a>.' + (span >= 4 && !gap ? " <b>" + rep[1].toLocaleString() + "</b> " + (rep[1] === 1 ? "was" : "were") +
       " made every year since FY" + first + "." : "");
   }
   $("repeats").innerHTML = line;
