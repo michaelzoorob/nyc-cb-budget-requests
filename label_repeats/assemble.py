@@ -13,8 +13,9 @@ A request links to at most one request the year before. When two of its candidat
 judged the same, only the more similar one counts. (In the pilot, the less similar one was
 wrong both times: a board's separate street and sewer requests for the same blocks.)
 
-A pair in which either request has no explanation counts as "unsure": a DCP category title
-alone does not show what was asked. label_repeats/resolved.json holds verdicts settled by
+A pair in which neither request has an explanation counts as "unsure": a DCP category title
+alone in both years does not show what was asked. (When one year has an explanation, the
+other year's title usually carries the ask, often in the board's own words.) label_repeats/resolved.json holds verdicts settled by
 hand where a blind check disagreed with the first judge ({"id", "verdict", "why"}). They
 replace the first verdict.
 
@@ -62,8 +63,8 @@ def main():
                 else:
                     got.setdefault(i, x)
     for i, r in pairs.items():
-        if i in got and got[i]["verdict"] == "same" and not (r["then"]["explanation"].strip() and r["now"]["explanation"].strip()):
-            got[i] = {**got[i], "verdict": "unsure", "why": "no explanation on one side", "judge": "rule"}
+        if i in got and got[i]["verdict"] == "same" and not (r["then"]["explanation"].strip() or r["now"]["explanation"].strip()):
+            got[i] = {**got[i], "verdict": "unsure", "why": "no explanation in either year", "judge": "rule"}
     for x in json.load(open(RESOLVED)) if os.path.exists(RESOLVED) else []:
         if x["id"] not in pairs:
             problems.append(f"resolved.json names an unknown pair {x['id']}")

@@ -64,7 +64,7 @@ BKCB10,2021,dd3716fe1b21,2022,85c0ee805a35,0.897,same,"same tennis court refurbi
 BKCB10,2021,04cd5e834bad,2022,8d405cd8572f,0.654,same,"same JJ Carty Park refurbishment; playground then, whole park now",sonnet
 BKCB10,2021,6e67d0246358,2022,98927b3e9b89,0.942,same,"same home delivered meals capacity request, waiting list figures updated",sonnet
 BKCB10,2021,b8067b3e2e10,2022,99758920582c,0.988,same,same trench restoration at 96th Street and 87th Street,sonnet
-BKCB10,2021,9ea52934d0d0,2022,9b57a2551931,0.591,unsure,Dyker Beach perimeter walking/cycling track versus new widened perimeter sidewalk; unclear overlap,sonnet
+BKCB10,2021,9ea52934d0d0,2022,9b57a2551931,0.591,unsure,a walking and cycling track versus rebuilding the sidewalk,resolved
 BKCB10,2021,a2aa03bfc2ca,2022,ac0b85750055,0.883,same,same complete renovation of Shore Road Park at 3rd Avenue,sonnet
 BKCB10,2021,09dd14a33b0d,2022,ccdd342208f4,0.752,same,"same Shore Road Park hexblock restoration, same stretches, narrower wording",sonnet
 BKCB10,2021,dc9704dbd6fd,2022,d9ef7e4eefac,0.632,same,"same illegal dumping enforcement in CD10, after-hours staffing detail added",sonnet
@@ -110,7 +110,7 @@ BKCB10,2024,ddd76def24f8,2025,031f3b14ec4a,0.954,unsure,Owls Head oyster garden 
 BKCB10,2024,f3b7dfed07b7,2025,253820efc73d,0.831,same,"same Shore Road perimeter hexblock sidewalk restoration, accessibility added",sonnet
 BKCB10,2024,52688fd41506,2025,5c6a4d869cf5,0.721,same,same solar lighting for Shore Road bicycle path and Promenade,sonnet
 BKCB10,2024,eac90bbf5787,2025,667c6a8b1492,0.836,unsure,same five sewage backup sites; remedial action became drainage study,sonnet
-BKCB10,2024,902479629383,2025,6dcd15353c43,0.822,unsure,same Dyker Heights sewage backup sites; remedial action became drainage study,sonnet
+BKCB10,2024,902479629383,2025,6dcd15353c43,0.822,unsure,remedial work versus a drainage study at the same places,resolved
 BKCB10,2024,6f86f0aecefe,2025,766d1992371f,0.707,same,"same Belt Parkway drainage infrastructure study, flooding reason added",sonnet
 BKCB10,2024,12990e3f97fd,2025,7edf1d747b8d,0.511,different,Dyker Beach Park Playground versus Dan Ross Playground,sonnet
 BKCB10,2024,b0b6d2d72682,2025,833f60b7b1d8,0.336,same,same parks maintenance headcount to address rat infestation,sonnet
@@ -325,7 +325,7 @@ BKCB13,2024,0ae47f4533dd,2025,94502dacaa3d,0.969,same,same emergency housing for
 BKCB13,2024,38d232c3219b,2025,9adac4b65c3e,0.623,same,"same B train service at Stillwell terminal, now morning-start wording",sonnet
 BKCB13,2024,ef5448af3526,2025,a0c73caddb42,0.967,same,same new recreation center behind Mark Twain JHS,sonnet
 BKCB13,2024,ba548f489ce2,2025,a45ccd7ea4b3,0.966,same,"same summer parking and traffic flow problem, now framed as study",sonnet
-BKCB13,2024,e9398f78e5b4,2025,af823e650d9f,0.617,unsure,Steeplechase Pier ferry thread; EDC report became a flat ferry request,sonnet
+BKCB13,2024,e9398f78e5b4,2025,af823e650d9f,0.617,same,"the same Coney Island ferry, now at Steeplechase Pier",resolved
 BKCB13,2024,3628b61943ac,2025,bd2e7851438d,0.95,same,"same shoreline green streets and green playgrounds, porous pavement added",sonnet
 BKCB13,2024,bdd433ce9b56,2025,dbbee3f1d903,0.953,same,same shoreline protection for entire shorefront,sonnet
 BKCB13,2024,c917ad292a63,2025,fb28161a2b3f,0.962,same,same Sanitation garage relocation for CB13,sonnet
@@ -546,7 +546,7 @@ BKCB16,2026,8ece02d99b51,2027,c3b75eee3d87,0.958,same,same Rockaway Avenue light
 BKCB16,2026,0ac7ea900d46,2027,dac28447d010,0.759,same,same district-wide bike lane repair request,sonnet
 BKCB16,2026,d17ecc525d55,2027,f58556dc553b,0.478,same,same rain garden cleaning by DEP with more manpower,sonnet
 BKCB17,2020,47562b66cdcd,2021,0a6eaee5c250,0.878,same,same 67th Precinct bathroom renovation; later adds men's room,sonnet
-BKCB17,2020,a6a07210f1c0,2021,1412df74b13b,0.654,unsure,catch basin installation versus cleaning; later text only says prevents flooding,sonnet
+BKCB17,2020,a6a07210f1c0,2021,1412df74b13b,0.654,unsure,installing catch basins versus a reason only,resolved
 BKCB17,2020,64664a03eba3,2021,a2527b8b917a,0.631,same,same Meals on Wheels capacity for shut-ins,sonnet
 BKCB17,2020,1405e60a1b34,2021,c79506afd205,0.472,different,general trench restoration versus resurfacing one street under an overpass,sonnet
 BKCB17,2020,2adfef6b532a,2021,e029181da3d6,0.383,same,same 67th Precinct parking feasibility study; suggested site changed,sonnet
@@ -561,7 +561,7 @@ BKCB17,2021,07535ee19a37,2022,a7b905092822,0.381,different,trench restoration ve
 BKCB17,2021,e703af443ab7,2022,b0012acfe1d4,0.602,same,same Medicaid expansion for retired seniors; agency changed,sonnet
 BKCB17,2021,61f26d4f5ca4,2022,be68342041e6,0.676,same,"same mental health stigma programs, near-identical explanation",sonnet
 BKCB17,2021,c9ff12ce2029,2022,cac293d277f6,0.371,same,"same tree guards request, reworded",sonnet
-BKCB17,2021,bcfb2e580b95,2022,cda6e41c9af3,0.397,same,"same senior center kitchen; district's only center, given by address then name",sonnet
+BKCB17,2021,bcfb2e580b95,2022,cda6e41c9af3,0.397,same,the Remsen Senior Center is at 3304 Clarendon Road,resolved
 BKCB17,2021,07535ee19a37,2022,d2c0424a22f3,0.326,different,ponding capital reconstruction versus trench restoration at 3801 Farragut; different work,sonnet
 BKCB17,2021,bb0825f39520,2022,f32f0af538da,0.491,same,same home care for homebound seniors; later adds detail,sonnet
 BKCB17,2021,07535ee19a37,2022,f4190290cc43,0.699,different,"trench restoration on E 40th St, Farragut to Ave D, versus 3801 Farragut Road",sonnet
@@ -582,7 +582,7 @@ BKCB17,2022,8782c26d780d,2023,c9298288c7ca,0.83,same,same 67th Precinct tow truc
 BKCB17,2022,50ddc050c34a,2023,cccef91f5375,0.924,same,same park basketball court safety work; later names Ditmas and E 91st,sonnet
 BKCB17,2022,1412df74b13b,2023,cfd2ea8eddd2,0.626,unsure,earlier cleaning request names no place; later names one E 58th St block,sonnet
 BKCB17,2022,c79506afd205,2023,d9cc7a5dca2c,0.866,same,same resurfacing under the overpass; later names Glenwood Road and E 45th St,sonnet
-BKCB17,2022,c9ff12ce2029,2023,e493355ad0f4,0.564,unsure,a general tree guard request versus one corner,resolved
+BKCB17,2022,c9ff12ce2029,2023,e493355ad0f4,0.564,different,the Register puts them at different corners,resolved
 BKCB17,2022,d927a95b595b,2023,e78167efdff9,0.868,same,same signal sightline wording; later names E 40th St and Glenwood Road,sonnet
 BKCB17,2022,a7b905092822,2023,f2dd769a7e62,0.857,same,same speed hump text; later names 91st Street and Ditmas Avenue,sonnet
 BKCB17,2023,bd5f41f6c878,2024,05d46fb54bd0,0.843,same,same top ten flooding areas green infrastructure request; Capital to Expense,sonnet
@@ -682,7 +682,7 @@ BKCB2,2023,e811cffc4bd7,2024,b3ecdcc8ef9c,0.809,different,new Coop-Tech school s
 BKCB2,2023,9e5a82e96a6b,2024,e43da13eaf32,0.692,same,same Fort Greene tennis court timed lights; later adds possible dome,sonnet
 BKCB2,2023,26cf9450e7ff,2024,e84fc7126f44,0.798,same,"same University Place dog park, $1.1M estimate",sonnet
 BKCB2,2023,22627fbbacab,2024,f5a968379264,0.427,different,playground dog signage versus new dog park in Boerum Hill,sonnet
-BKCB2,2024,f7659dca2149,2025,12c0565d22dd,0.316,unsure,same vacant storefront concern; business recovery assistance versus retail attraction and retention support,sonnet
+BKCB2,2024,f7659dca2149,2025,12c0565d22dd,0.316,unsure,business recovery aid versus retail attraction,resolved
 BKCB2,2024,1d3191c96b96,2025,2bdafede576b,0.821,same,same PS 287 schoolyard surface and drainage repair,sonnet
 BKCB2,2024,4d12de6847dc,2025,768bfa474568,0.367,different,traffic enforcement agents versus automated enforcement technology,sonnet
 BKCB2,2024,14e5e5f8a7ee,2025,7b916c6b577c,0.471,same,same PS 46 schoolyard and playground renovation,sonnet
@@ -768,7 +768,7 @@ BKCB3,2022,bcc1476186ee,2023,6f32ea2aa54f,0.934,different,"different school play
 BKCB3,2022,384daded13fa,2023,7edb1ae33473,0.599,same,"same depression near Stuyvesant Avenue, same wording; street named now",sonnet
 BKCB3,2022,76c96af36e52,2023,81de0af8d031,0.815,same,"same NYPD youth violence prevention resources, cure violence and interrupters",sonnet
 BKCB3,2022,1f74938ba92c,2023,82e5198e7af6,0.403,unsure,corridor-wide Broadway request split; now covers only Lexington and Ralph intersections,sonnet
-BKCB3,2022,1f74938ba92c,2023,8e479b0037bc,0.395,unsure,corridor-wide Broadway request split; now covers only Quincy and Gates intersections,sonnet
+BKCB3,2022,1f74938ba92c,2023,8e479b0037bc,0.395,unsure,a corridor-wide request versus one intersection,resolved
 BKCB3,2022,f2473b812abc,2023,9b2465d63e03,0.344,different,temporary seasonal air dome expense versus permanent year-round Kosciuszko Pool conversion,sonnet
 BKCB3,2022,eb3052799ecb,2023,a2c80b426bf7,0.454,same,same DSNY enforcement staff for dumping and dirty areas; signage unit dropped,sonnet
 BKCB3,2022,51ef170fbec0,2023,ac06e1a47e7a,0.749,same,same EDC RFP for 13th Regiment Armory overhaul; interior specified,sonnet
@@ -779,16 +779,16 @@ BKCB3,2022,69e264cd7a01,2023,b746d778c4e8,0.901,same,same SBS paid job training;
 BKCB3,2022,bcc1476186ee,2023,bd522925b7d3,0.934,same,same MS 35 play area overhaul with lighting and cameras,sonnet
 BKCB3,2022,273c1ea6722b,2023,be4d3a7c7245,0.795,same,same Hancock Playground green space conversion,sonnet
 BKCB3,2022,57b5b6ce7017,2023,c04c9d1a2532,0.944,same,same El-Shabazz Playground equipment replacement,sonnet
-BKCB3,2022,bfd58b06e2b1,2023,c09fd33562f2,0.5,unsure,the earlier request names no street,resolved
+BKCB3,2022,bfd58b06e2b1,2023,c09fd33562f2,0.5,different,"different blocks, Stuyvesant Avenue versus Hancock Street",resolved
 BKCB3,2022,f63143bde1d6,2023,c15a7de7778c,0.565,different,"general NYCHA green infrastructure ask versus one named development, Sumner Houses",sonnet
 BKCB3,2022,0700ca9c35cc,2023,c7fdb7b4794e,0.667,same,same Macon Library retaining wall and HVAC repair,sonnet
-BKCB3,2022,1f74938ba92c,2023,c81cdc559f9d,0.442,unsure,corridor-wide Broadway request split; now covers only the Flushing Avenue intersection,sonnet
+BKCB3,2022,1f74938ba92c,2023,c81cdc559f9d,0.442,unsure,a corridor-wide request versus one intersection,resolved
 BKCB3,2022,3ad298fb3a07,2023,cc85bf21f96b,0.31,same,"same DOHMH rat reduction in Bed-Stuy, reworded",sonnet
 BKCB3,2022,f63143bde1d6,2023,cefd8b46590a,0.578,different,"general NYCHA green infrastructure ask versus one named development, Tompkins Houses",sonnet
 BKCB3,2022,1f74938ba92c,2023,d2222785c068,0.308,unsure,corridor-wide Broadway request split; now covers only Marcus Garvey and Ellery intersections,sonnet
 BKCB3,2022,1f74938ba92c,2023,df97aa792864,0.363,unsure,corridor-wide Broadway request split; now covers only Monroe and Howard intersections,sonnet
 BKCB3,2022,f63143bde1d6,2023,e9ea65e9274e,0.609,different,"general NYCHA green infrastructure ask versus one named development, Lafayette Gardens",sonnet
-BKCB3,2022,1f74938ba92c,2023,ebe3efce580c,0.334,unsure,corridor-wide Broadway request split; now covers only Myrtle and Stuyvesant intersections,sonnet
+BKCB3,2022,1f74938ba92c,2023,ebe3efce580c,0.334,unsure,a corridor-wide request versus two intersections,resolved
 BKCB3,2023,9b2465d63e03,2024,10f6faa01f34,1.0,same,"same Kosciuszko Pool seasonal air dome, text unchanged",sonnet
 BKCB3,2023,37e37ee943e5,2024,2302a311b9eb,0.92,same,same Macon Library African American Heritage Center programming,sonnet
 BKCB3,2023,c09fd33562f2,2024,3a4d3e3b52b6,0.911,same,"same Hancock Street full-block trench restoration, street name dropped",sonnet
@@ -957,7 +957,7 @@ BKCB8,2021,67b52babb1b5,2022,7131d687593f,0.741,same,same park enforcement perso
 BKCB8,2021,d4dfcc139199,2022,955422f4a3cc,0.654,same,same senior transportation increase,sonnet
 BKCB8,2021,f4d0e54c3590,2022,9786af5af6bf,0.917,same,same home care for homebound seniors,sonnet
 BKCB8,2021,a339ea17f0c6,2022,b1180c0a9a23,0.305,same,"same preventive domestic violence education, secondary asks differ",sonnet
-BKCB8,2021,fe7e17703967,2022,be95fe6a4e63,0.368,unsure,"rental assistance expansion both years, but voucher value versus eligibility asks",sonnet
+BKCB8,2021,fe7e17703967,2022,be95fe6a4e63,0.368,same,the same rental assistance expansion,resolved
 BKCB8,2021,16500d450147,2022,ce482dcc0b24,0.599,same,same nutrition education programs for District 8,sonnet
 BKCB8,2021,83085dc08c42,2022,d02af45a1185,0.989,same,same canine waste enforcement and signage unit,sonnet
 BKCB8,2021,f68c681f0a1e,2022,ff46349b4077,0.437,same,same more litter basket collection on commercial corridors,sonnet
@@ -1055,7 +1055,7 @@ BKCB9,2022,ccebd6623f3a,2023,8c1f53c23e39,0.376,different,enforcement cameras ve
 BKCB9,2022,2981d0644a1b,2023,92010b4098ed,0.449,same,same catch basin cleaning,sonnet
 BKCB9,2022,96021e142beb,2023,994b5af931ca,0.407,same,same illegal dumping enforcement,sonnet
 BKCB9,2022,60e2cc724a06,2023,9da4410936bc,0.499,different,PS 161 Beacon program versus Kiddie Science Lab funding,sonnet
-BKCB9,2022,ccebd6623f3a,2023,a637fd8d6f50,0.521,unsure,2022 location Parkside to Flatbush may be Ocean Avenue; unclear,sonnet
+BKCB9,2022,ccebd6623f3a,2023,a637fd8d6f50,0.521,unsure,the earlier request names no street,resolved
 BKCB9,2022,ccebd6623f3a,2023,b4290e8209ea,0.503,different,districtwide cameras versus Rogers Avenue speeding measures,sonnet
 BKCB9,2022,391f3a70b769,2023,c5b9eb6524e9,0.922,same,same MS 61 renovation,sonnet
 BKCB9,2022,ce5dfd2b7802,2023,d70d8d71ae5a,0.973,same,same district-wide traffic calming study,sonnet
@@ -1085,7 +1085,7 @@ BKCB9,2024,228fd2cd20c3,2025,99191399f652,0.474,same,"Same dirty sidewalk enforc
 BKCB9,2024,9bab5c234133,2025,9bab5c234133,0.913,same,Identical illegal dumping enforcement request,sonnet
 BKCB9,2024,e11e95e9834b,2025,d131fddd3aee,0.339,same,Traffic safety plus commercial loading zones asked in both years,sonnet
 BKCB9,2024,d7d853dc520e,2025,d7d853dc520e,0.794,same,"Same Rogers Avenue speeding enforcement request, identical text",sonnet
-BKCB9,2024,47f1b99eb696,2025,d9b74dcb9f31,0.318,unsure,"Both target illegal construction enforcement; THEN more inspectors, NOW education and zoning compliance",sonnet
+BKCB9,2024,47f1b99eb696,2025,d9b74dcb9f31,0.318,unsure,more inspectors versus zoning education and enforcement,resolved
 BKCB9,2024,00df0e34c096,2025,e694a067482f,0.85,same,"Same pest control initiative along business corridors; agency changed, rat zone added",sonnet
 BKCB9,2024,e11e95e9834b,2025,ea3be9d7c145,0.519,different,THEN protected lanes and traffic safety on Empire; NOW new lanes linking from CB8,sonnet
 BKCB9,2024,5ac9340e7d20,2025,f340390298da,0.347,different,THEN tow trucks for abandoned cars; NOW community relations and presence at 71st Precinct,sonnet
@@ -1096,19 +1096,19 @@ BKCB9,2025,81702a635af5,2026,36e2a06423c7,0.878,same,"Same park enforcement and 
 BKCB9,2025,fb40f5098f3e,2026,3e08090050d7,0.923,same,"Same micro-mobility lanes request, identical text",sonnet
 BKCB9,2025,d131fddd3aee,2026,68cd03bbbdf8,0.918,same,Same traffic safety and commercial loading zone text,sonnet
 BKCB9,2025,7f21302ae0cb,2026,85beb715b946,0.93,same,Same traffic safety text; NOW adds a Kingston Avenue-Empire location label,sonnet
-BKCB9,2025,ba49a4735d6e,2026,ba49a4735d6e,1.0,unsure,no explanation on one side,rule
+BKCB9,2025,ba49a4735d6e,2026,ba49a4735d6e,1.0,unsure,no explanation in either year,rule
 BKCB9,2025,7f21302ae0cb,2026,bb4c4003ef96,0.972,same,"Identical traffic safety, loading zones and protected bike lanes request",sonnet
 BKCB9,2025,d7d853dc520e,2026,be57d88f8bd8,0.767,same,Same Rogers Avenue speeding measures; NOW only adds location label,sonnet
 BKCB9,2025,86e59b4a208d,2026,eda286143041,0.824,different,Different street: Ocean Avenue versus Brooklyn Avenue,sonnet
 BKCB9,2025,7cfedb4ac62d,2026,ffd6766a8363,0.412,same,Same signals or traffic calming on the same five streets,sonnet
 BKCB9,2026,1558a807647e,2027,047e3cd77183,0.604,same,Same board member trainings request; NOW lists more topics,sonnet
 BKCB9,2026,07bf47f6701d,2027,77e5824fe8df,0.318,different,THEN illegal dumping enforcement; NOW subway elevator at Winthrop station,sonnet
-BKCB9,2026,ba49a4735d6e,2027,ba49a4735d6e,1.0,unsure,no explanation on one side,rule
+BKCB9,2026,ba49a4735d6e,2027,ba49a4735d6e,1.0,unsure,no explanation in either year,rule
 BKCB9,2026,bd10df314e18,2027,c410378dc96e,0.609,same,Both ask DCP to inform residents about upcoming developments; mechanism reworded,sonnet
 BXCB1,2022,96d50a61b42b,2023,782ab95b34a9,0.774,same,Same Commercial Revitalization Program funding for CD1 commercial strips,sonnet
 BXCB1,2023,afb92a6f26ce,2024,0ca091fe5cac,1.0,same,Same elementary school library/media room and security ask; NOW names PS 5,sonnet
 BXCB1,2023,c7d647cc1a75,2024,98d9203d3a66,0.957,same,Same Syringe Removal Program funding and supplies request,sonnet
-BXCB1,2023,4fbf1795af16,2024,cf336fbf9b04,0.703,same,Same request for more litter baskets and trash cans,sonnet
+BXCB1,2023,4fbf1795af16,2024,cf336fbf9b04,0.703,unsure,litter basket service versus more trash cans,resolved
 BXCB1,2023,733c574ba39a,2024,d5b731c6c0bf,0.317,different,THEN sanitation services and dumping enforcement; NOW tree pit pruning and mulching,sonnet
 BXCB10,2020,e046ca10f563,2021,5376b6aeaac3,0.63,same,Same Westchester Creek dredging; NOW asks City to review the need,sonnet
 BXCB10,2020,dde6eb60caa3,2021,64fd5cdc66f7,0.474,same,Same Throggs Neck ferry service project; study phase then hoped-for implementation,sonnet
@@ -1163,7 +1163,7 @@ BXCB10,2026,6eeff87cfa25,2027,77500e74b451,0.349,different,THEN more PEP officer
 BXCB11,2020,22c50de7461c,2021,1a712406ee6d,0.921,same,Same Mazzei Playground play area and restroom upgrade,sonnet
 BXCB11,2020,2775b85aabaa,2021,33b86473cbf2,0.456,same,Same Eastchester Playground renovation; NOW broadens from courts to full renovation,sonnet
 BXCB11,2020,ab932521a2bd,2021,3a8f3b22cfe4,0.54,same,"Same request to raise community board budgets to $350,000",sonnet
-BXCB11,2020,d3b5e3dce442,2021,498297167dd2,0.47,unsure,no explanation on one side,rule
+BXCB11,2020,d3b5e3dce442,2021,498297167dd2,0.47,same,Same general illegal dumping enforcement request; no site in either,sonnet
 BXCB11,2020,122c975e6402,2021,8b74c4aefaa3,0.935,same,Same Bassett Avenue McDonald-to-Pelham Parkway opening; study phase to construction,sonnet
 BXCB11,2020,6851ee9bc3b8,2021,a3ac03182dbd,0.362,different,THEN traffic agents at five intersections; NOW Bronx Park fencing replacement,sonnet
 BXCB11,2020,b5d43bfac177,2021,a8cfff44f2b5,0.696,same,Same Bronx Park cobblestone and benches between Brady and Lydig,sonnet
@@ -1202,7 +1202,7 @@ BXCB2,2021,712caef06e14,2022,712caef06e14,1.0,same,Identical Printers Park Phase
 BXCB2,2021,d551b2dd99d5,2022,84291d4caad2,0.942,same,Identical senior services and Meals on Wheels request,sonnet
 BXCB2,2022,7e58ff2c2fd5,2023,527efaeffa76,0.308,different,THEN traffic enforcement; NOW sidewalk conditions,sonnet
 BXCB2,2022,712caef06e14,2023,712caef06e14,1.0,same,Identical Printers Park Phase III completion request,sonnet
-BXCB2,2023,cd00b02182ee,2024,60b9bb7d00d7,0.792,unsure,General affordable housing versus housing for single low and middle income individuals; target differs,sonnet
+BXCB2,2023,cd00b02182ee,2024,60b9bb7d00d7,0.792,same,the same request for more affordable housing,resolved
 BXCB2,2023,9d69dd3a73c1,2024,b831d450aa03,0.54,different,THEN more sanitation enforcement officers; NOW cameras in the Industrial Business Zone,sonnet
 BXCB2,2023,e035ce17005c,2024,f2767e4e1a63,0.605,same,Same catch basin cleaning request to reduce flooding and improve drainage,sonnet
 BXCB2,2024,fe0b2f1915f5,2025,6a0a8999912b,0.568,same,Same water ferry station request; NOW names former DOC barge site,sonnet
@@ -1325,21 +1325,21 @@ BXCB5,2025,e12cba404204,2026,ad418ea833ee,0.859,same,same emergency food assista
 BXCB5,2025,6a4fea392893,2026,cc6c1eea9778,0.956,same,same victim support services program,sonnet
 BXCB5,2025,90c2bc7e98f3,2026,f5d014b340f9,1.0,same,same independent living skills program for single mothers,sonnet
 BXCB5,2025,08cdac394221,2026,fa10ac1dc2f8,1.0,same,same immigrant services funding,sonnet
-BXCB6,2020,c4a255fa1baf,2021,39634bb6e41f,0.879,unsure,no explanation on one side,rule
-BXCB6,2020,54c3a932b329,2021,3c67d81eec48,0.487,unsure,no explanation on one side,rule
+BXCB6,2020,c4a255fa1baf,2021,39634bb6e41f,0.879,same,"same vouchers for permanent housing, DHS to HRA",sonnet
+BXCB6,2020,54c3a932b329,2021,3c67d81eec48,0.487,same,same Summer Youth Employment slots; title carries the ask,sonnet
 BXCB6,2020,27c2cefc0369,2021,66f58812259b,0.394,different,"district-wide cans vs Southern Blvd, which then did not name",sonnet
 BXCB6,2020,7a4b27410bc2,2021,7598887253cf,0.474,unsure,no FY2020 text; Vyse Ave enforcement may differ,sonnet
-BXCB6,2020,f293448ffba6,2021,78484ee0f7b0,0.625,unsure,no explanation on one side,rule
+BXCB6,2020,f293448ffba6,2021,78484ee0f7b0,0.625,same,same out-of-school youth job training,sonnet
 BXCB6,2020,b8557932572f,2021,82b7e05feaf9,0.606,unsure,no FY2020 text; E 180th resurfacing may differ,sonnet
 BXCB6,2020,a2db6602c1e0,2021,89335d721efc,0.801,unsure,no FY2020 text; Murphy Cornerstone staffing may differ,sonnet
-BXCB6,2020,5cff86e383f3,2021,936f5e6dbf77,0.837,unsure,no explanation on one side,rule
+BXCB6,2020,5cff86e383f3,2021,936f5e6dbf77,0.837,same,same additional community affairs officers,sonnet
 BXCB6,2020,6870087b315f,2021,a1ab899c7962,0.697,unsure,no FY2020 text; Southern Blvd curbs may differ,sonnet
 BXCB6,2020,0e5540547712,2021,be633035d5f2,0.306,unsure,no FY2020 text; Southern Blvd lighting may differ,sonnet
-BXCB6,2020,b37a9b143a3f,2021,cbc0c8aedaba,0.823,unsure,no explanation on one side,rule
+BXCB6,2020,b37a9b143a3f,2021,cbc0c8aedaba,0.823,same,same preventive services for youth; title carries the ask,sonnet
 BXCB6,2020,10e89b289267,2021,dcddc62e14f7,0.434,unsure,no FY2020 text; Southern Blvd congestion may differ,sonnet
-BXCB6,2020,14f374bf6e43,2021,df9749002de4,0.795,unsure,no explanation on one side,rule
+BXCB6,2020,14f374bf6e43,2021,df9749002de4,0.795,same,same elementary after-school programs; title carries the ask,sonnet
 BXCB6,2020,dfb8843b4591,2021,ee9e1c184034,0.342,unsure,no FY2020 text; P-Tech school may differ,sonnet
-BXCB6,2020,926ba2f3bcf3,2021,ffbfbed88360,0.681,unsure,no explanation on one side,rule
+BXCB6,2020,926ba2f3bcf3,2021,ffbfbed88360,0.681,same,same skills training for at-risk high school students,sonnet
 BXCB6,2021,3d151b162a83,2022,0410bcb27df2,0.608,same,same low-income housing title; FY2022 text only 'Housing support',sonnet
 BXCB6,2021,994660ac24f3,2022,05312825fab7,0.47,same,same new elementary school for District 12,sonnet
 BXCB6,2021,f36ac0306273,2022,163d46564b0f,0.313,different,Fairmount Playground vs Bathgate Playground,sonnet
@@ -1360,12 +1360,12 @@ BXCB6,2022,2d9105a0ca69,2023,8640370dfcc8,0.822,same,"same graffiti-free removal
 BXCB6,2022,ddc9acf508aa,2023,ddc9acf508aa,1.0,same,identical rental subsidies request,sonnet
 BXCB6,2022,f5ad68a5ce4b,2023,f5ad68a5ce4b,0.934,same,identical mental health prevention request,sonnet
 BXCB6,2023,c1f00809f657,2024,32dbdf9a1fcc,0.677,different,"BID feasibility study vs merchant organizing, different work",sonnet
-BXCB6,2023,c1b1e4cdd446,2024,6722aa14e022,0.684,unsure,no explanation on one side,rule
-BXCB6,2023,46357ac7f149,2024,8c19c1b941a2,0.637,unsure,no explanation on one side,rule
+BXCB6,2023,c1b1e4cdd446,2024,6722aa14e022,0.684,same,same eviction prevention services; title carries the ask,sonnet
+BXCB6,2023,46357ac7f149,2024,8c19c1b941a2,0.637,same,same occupational skills training; Workforce1 detail added,sonnet
 BXCB6,2023,c864cb2e565a,2024,b40f814ad490,0.314,different,traffic calming vs study of Fordham bus redesign effects,sonnet
 BXCB6,2023,c864cb2e565a,2024,e88da6485caa,0.803,different,different intersection for traffic calming,sonnet
 BXCB6,2023,9df29393046a,2024,fcdc4d991939,0.56,unsure,"no FY2023 text; FY2024 text is DHS security, not veterans",sonnet
-BXCB6,2023,3d48047885ba,2024,fce057ac4086,0.817,same,same senior housing; title carries the ask,sonnet
+BXCB6,2023,3d48047885ba,2024,fce057ac4086,0.817,unsure,a general housing line versus senior housing,resolved
 BXCB6,2024,605cf762a8f7,2025,11d0337f22c6,0.739,same,same Mt. Carmel Senior Center capital and rent support,sonnet
 BXCB6,2024,20cadb2b2974,2025,158d11bb9433,0.676,same,same new elementary school for 558-seat need; Lambert Houses added,sonnet
 BXCB6,2024,6722aa14e022,2025,17253be27a05,0.587,same,"same eviction prevention services in CB6, reworded",sonnet
@@ -1427,7 +1427,7 @@ BXCB7,2021,049af85fa8f0,2022,b892c1985a5d,0.761,same,same basketball court renov
 BXCB7,2021,732882a588b1,2022,c242ce30bbaa,0.972,same,same canine waste enforcement; public education added,sonnet
 BXCB7,2021,5370a221207a,2022,d64123a01677,0.68,same,same elevator at Mosholu Parkway #4 station,sonnet
 BXCB7,2021,4489b8883b85,2022,df3db81fc3b6,0.749,same,same subway cleaning and rehabilitation; B line added,sonnet
-BXCB7,2022,ee9f451e79a6,2023,083fef7d3dca,0.515,unsure,"same intersections and flooding, but catch basin work versus vague flooding fix",sonnet
+BXCB7,2022,ee9f451e79a6,2023,083fef7d3dca,0.515,same,the same catch basins and flooding at Bainbridge and Van Cortlandt Avenue East,resolved
 BXCB7,2022,35ad538e0c13,2023,0c8401d506e8,0.854,same,same Fordham Road to LaGuardia bus line,sonnet
 BXCB7,2022,34b75b7476b3,2023,1013b3ab65f5,0.864,same,same Gifted and Talented program plus test prep in CD7,sonnet
 BXCB7,2022,2cc417b1d9df,2023,2a328811b405,0.95,same,same Williamsbridge Oval Holt Place pavement repair,sonnet
@@ -1587,7 +1587,7 @@ BXCB8,2024,96f34748d21e,2025,154c94ab5a37,0.614,same,same Bailey Playground reco
 BXCB8,2024,24faa0230768,2025,24faa0230768,1.0,same,identical Bx20 service restoration request,sonnet
 BXCB8,2024,aac2383bb61f,2025,2b8fb9975a11,0.344,same,"same SYEP funding request, now stated generally",sonnet
 BXCB8,2024,59917c0a3a86,2025,5066e91b521a,0.703,same,same W 235th Street sidewalk and sewer reconstruction,sonnet
-BXCB8,2024,9b8d8c0c3493,2025,507d94a6e54b,0.385,unsure,Old Fort Four Park reconstruction versus Fort Independence Playground equipment; same park unclear,sonnet
+BXCB8,2024,9b8d8c0c3493,2025,507d94a6e54b,0.385,different,"a different park, Old Fort Four versus Fort Independence",resolved
 BXCB8,2024,f2b35f278633,2025,51be3308aab9,0.426,same,same step street repair; listed sites mostly carried over,sonnet
 BXCB8,2024,ad95bc2d9664,2025,5e750e29f9e4,0.812,same,same Broadway Corridor parking study,sonnet
 BXCB8,2024,70697ba95776,2025,612edd533f6e,0.515,same,same older adult center transportation funding request,sonnet
@@ -1746,7 +1746,7 @@ BXCB9,2026,ced5af50b21d,2027,604279b86e8f,0.716,same,"same sinking south-end str
 BXCB9,2026,e67201c6babf,2027,6cb61f6be54d,0.833,unsure,now keeps only lights on Bruckner Overpass; cameras dropped,sonnet
 BXCB9,2026,14706c2b67d7,2027,8531e5e28c0d,0.689,same,"same remediation of Parks wasteland in CB9, reworded",sonnet
 BXCB9,2026,695471ee250d,2027,88c9683356ad,1.0,same,same additional Way Finders for Story Ave and White Plains Rd bus stops,sonnet
-BXCB9,2026,8f2d1af2d85b,2027,8f2d1af2d85b,1.0,unsure,no explanation on one side,rule
+BXCB9,2026,8f2d1af2d85b,2027,8f2d1af2d85b,1.0,unsure,no explanation in either year,rule
 BXCB9,2026,f45a62decb27,2027,90fc6ece142f,0.84,same,"same traffic officers request, CB9 named",sonnet
 BXCB9,2026,695c9aaa9d6e,2027,92588dbe5bf2,0.93,same,same Bronx River Ave and Rosedale street and sidewalk reconstruction,sonnet
 BXCB9,2026,c38b81b9a4f9,2027,c38b81b9a4f9,1.0,same,"same 43rd Precinct request for four more PAAs, text identical",sonnet
@@ -1772,7 +1772,7 @@ MCB1,2020,feeaf0650876,2021,feeaf0650876,1.0,same,"same completion of Peck Slip 
 MCB1,2021,a94eba3e3233,2022,018668bdc344,0.856,unsure,"now covers only 81 New Street, one of three buildings in earlier request",sonnet
 MCB1,2021,ec179aa86a9c,2022,018f9b8203c2,0.612,different,different street work: Theater Alley repair versus reopening Park Row,sonnet
 MCB1,2021,feeaf0650876,2022,1434bfa90974,0.316,different,Peck Slip Park construction versus hiring park staff,sonnet
-MCB1,2021,79ea9d984708,2022,1fe7959c5533,0.346,unsure,"same Barnett Newman Triangle; bioswales versus completing Greenstreet, unclear if same project",sonnet
+MCB1,2021,79ea9d984708,2022,1fe7959c5533,0.346,unsure,stormwater bioswales versus completing the greenstreet,resolved
 MCB1,2021,01c56724c964,2022,2af8826c5077,0.449,same,same Battery Park City affordable housing preservation program,sonnet
 MCB1,2021,02aa8b825b31,2022,2d99ddae400e,0.882,same,"same Route 9A intersection safety improvements, added coordination wording",sonnet
 MCB1,2021,8532e1760787,2022,308a5b20cb83,0.314,same,"same recreation space under Brooklyn Bridge, now named Dugout; staircase repair dropped",sonnet
@@ -2220,7 +2220,7 @@ MCB12,2023,5dd6916af350,2024,b8a77754f568,0.478,same,same Right to Counsel fundi
 MCB12,2023,c33a4c81f759,2024,c33a4c81f759,1.0,same,identical Inwood Hill ballfields 3 and 5 request,sonnet
 MCB12,2023,0c31befbf683,2024,c8f05fdcc542,0.82,same,"same solar park lighting funding, revised wording",sonnet
 MCB12,2023,4b35302e3e96,2024,c9a5270d8ec7,0.81,same,same Payson Playground renovation and park house accessibility,sonnet
-MCB12,2023,17f587dd88eb,2024,c9e7d96958e9,0.434,unsure,outdoor dining subsidies versus a new city initiative; mechanism unclear,sonnet
+MCB12,2023,17f587dd88eb,2024,c9e7d96958e9,0.434,unsure,outdoor dining subsidies versus a city initiative,resolved
 MCB12,2023,7bedea9e1a74,2024,cdfc4a6de57f,0.81,same,same full-time vaccination site in Washington Heights; monkeypox added,sonnet
 MCB12,2023,7ba0c77ff399,2024,da57aeaa893f,0.719,same,"same DEP noise, air and water staffing; technology and education added",sonnet
 MCB12,2023,b3f411e8fcc0,2024,dbd0ca783431,0.877,same,same pest control request; outdoor dining reason added,sonnet
@@ -2304,31 +2304,31 @@ MCB12,2026,c9a5270d8ec7,2027,fa7e1fb6e059,0.521,same,same Payson Playground and 
 MCB12,2026,df8ed7cf5d26,2027,fb4b3442ae74,0.822,same,same park pathway reconstruction; fire hydrants added,sonnet
 MCB2,2020,064ae1cc4462,2021,18376e92bc3c,0.645,same,same MOME film permit enforcement funding,sonnet
 MCB2,2020,0682db6251fc,2021,2062bf9f8a47,0.935,same,same Morton Street granite bike lane,sonnet
-MCB2,2020,6fe12231c3aa,2021,26db97513e47,0.507,unsure,no explanation on one side,rule
+MCB2,2020,6fe12231c3aa,2021,26db97513e47,0.507,same,"same Time Landscape fence replacement, rethink added",sonnet
 MCB2,2020,2abe51dc6f8e,2021,26dcec7d3318,0.677,same,same Spring Street speed humps; Jane and Perry Streets added,sonnet
 MCB2,2020,3aaec988e0f7,2021,56fcbe1b7547,0.348,different,Washington Square Park gates versus conservancy arts grant program,sonnet
 MCB2,2020,fe46801361af,2021,6584aa85eef1,0.422,different,DSNY street litter basket study versus parks trash removal,sonnet
 MCB2,2020,53df4477ce56,2021,6930921c7074,0.735,same,same Bleecker Street School funding,sonnet
 MCB2,2020,82c18fa3179c,2021,72a078b7bd64,0.948,same,"same Houston and West Streets sidewalk extension, median and signal changes",sonnet
-MCB2,2020,4d21023e292f,2021,750a18d183d9,0.756,unsure,no explanation on one side,rule
+MCB2,2020,4d21023e292f,2021,750a18d183d9,0.756,same,same outreach and treatment for people using drugs on streets,sonnet
 MCB2,2020,f8c18c90e8f0,2021,75e7fcac55e5,0.436,same,same DOB staffing to monitor approved construction projects,sonnet
 MCB2,2020,3aaec988e0f7,2021,83e4ca92fe2d,0.432,different,gates at Washington Square Park versus music festival funding,sonnet
-MCB2,2020,80e0be00dc07,2021,89e67cbe4cc0,0.49,unsure,no explanation on one side,rule
+MCB2,2020,80e0be00dc07,2021,89e67cbe4cc0,0.49,same,same Vesuvio Playground renovation,sonnet
 MCB2,2020,5281f0973e51,2021,a961e8397a02,0.488,same,same school technology funding; school list mostly overlaps,sonnet
 MCB2,2020,2cf3379c4ad7,2021,a9d1a29c8915,0.31,different,different streets and work: Greenwich/12th improvements versus Jane/13th study,sonnet
-MCB2,2020,3ac96c294928,2021,abaf2b18685f,0.669,unsure,no explanation on one side,rule
+MCB2,2020,3ac96c294928,2021,abaf2b18685f,0.669,same,same Jefferson Market Garden gate staffing and hours,sonnet
 MCB2,2020,3f41ad8b44a5,2021,abf999b0e9df,0.367,different,senior center renovations versus overhead reimbursements for Greenwich House,sonnet
 MCB2,2020,9dbbaf3ebf7e,2021,b2c866e247a4,0.387,different,different intersection: Christopher St versus W. 13th St at Greenwich Ave,sonnet
-MCB2,2020,baaa04e4942f,2021,b2db95621778,0.653,unsure,no explanation on one side,rule
+MCB2,2020,baaa04e4942f,2021,b2db95621778,0.653,same,same Learn to Swim program increase,sonnet
 MCB2,2020,8dcad6ee8c2f,2021,b5eb0f853138,0.986,same,same Cooper Square Plaza crossing safety improvements,sonnet
-MCB2,2020,fe46801361af,2021,c203d44fd0ef,0.966,unsure,no explanation on one side,rule
+MCB2,2020,fe46801361af,2021,c203d44fd0ef,0.966,same,same DSNY litter basket study and collection increase,sonnet
 MCB2,2020,089cf22a2d02,2021,cbc8b38d6731,0.314,same,same Landmarks enforcement staff for surveying landmark districts,sonnet
 MCB2,2020,0e55b563983d,2021,d28f7a41f3d6,0.589,same,same permanent preservation of Elizabeth Street Garden,sonnet
-MCB2,2020,d0d857b83da6,2021,de90858e4bbb,0.46,unsure,no explanation on one side,rule
+MCB2,2020,d0d857b83da6,2021,de90858e4bbb,0.46,same,same Belgian block repairs on the same streets,sonnet
 MCB2,2020,089cd22cbd0a,2021,e0d0aad5548d,0.483,same,"same park rat control, Washington Square Park included",sonnet
 MCB2,2020,d7269a101113,2021,e488acfb16de,0.315,different,"same playground, but comfort station ADA work versus irrigation",sonnet
 MCB2,2020,a08a9af63f7d,2021,e547827a05fd,0.982,same,same Judson Memorial Church elevator replacement,sonnet
-MCB2,2020,4f11aa5e8349,2021,fb002bdf6566,0.407,unsure,no explanation on one side,rule
+MCB2,2020,4f11aa5e8349,2021,fb002bdf6566,0.407,same,same Mercer Playground renovation,sonnet
 MCB2,2021,6883c8d48c1f,2022,1014f5bb1fbb,0.399,different,Greenwich Ave/W 12th St improvements versus E. 12th St congestion,sonnet
 MCB2,2021,885a2c67af05,2022,2a4fa101a335,0.406,same,same DOE arts education baseline funding,sonnet
 MCB2,2021,d4e958451bae,2022,3cd02f41c68d,0.353,same,same district-wide street tree planting,sonnet
@@ -2485,7 +2485,7 @@ MCB2,2026,0aed648a12bf,2027,dd387dd08fc2,0.882,same,"same 2 Howard St affordable
 MCB2,2026,9b96a48e10b0,2027,ddd9ee4d135e,0.634,same,"same Harvest Collegiate rooftop fence, technology added",sonnet
 MCB2,2026,32baa0096daa,2027,de9973e29991,0.695,same,"same benches at three Sixth Ave pocket parks, maintenance added",sonnet
 MCB2,2026,2641a0fc81ca,2027,e19434b8df94,0.823,same,same The Door food and nutrition services expansion,sonnet
-MCB2,2026,85feac6401c0,2027,f3d4113eba78,0.31,unsure,"school technology, only Harvey Milk overlaps with different equipment",sonnet
+MCB2,2026,85feac6401c0,2027,f3d4113eba78,0.31,different,different technology at different schools,resolved
 MCB2,2026,19386190b3da,2027,fdf91417023c,0.463,different,new dog park study versus Washington Square dog run resurfacing,sonnet
 MCB3,2020,cbda14441888,2021,06d7c0bfd717,0.324,same,same funding for support staff in schools with many homeless students,sonnet
 MCB3,2020,2473e1b41a29,2021,51cadfc44670,0.305,same,same more funding for over-utilized senior centers,sonnet
@@ -2515,7 +2515,7 @@ MCB3,2022,5ffa384ce73a,2023,349c73d5399f,0.952,same,"same elementary after-schoo
 MCB3,2022,8a14e17d1f6a,2023,5a9d416be434,0.909,same,"same Parks Enforcement Police request, near-identical text",sonnet
 MCB3,2022,e3fc25010830,2023,5f60de42707a,0.818,same,same full-size basketball court renovation; later names Baruch Playground,sonnet
 MCB3,2022,876f9b264255,2023,634ec6e415f5,0.827,same,"same Safe Haven beds request, adds single-person units",sonnet
-MCB3,2022,611ba51c8cac,2023,63edf5402cf3,0.532,same,same permanent fencing for safety; later text names Columbus Park,sonnet
+MCB3,2022,611ba51c8cac,2023,63edf5402cf3,0.532,unsure,the earlier request names no park,resolved
 MCB3,2022,70cd8b05bb42,2023,79c5434abb3f,0.936,same,"same Cornerstone programs in NYCHA centers, same wording",sonnet
 MCB3,2022,14da29e9f4f3,2023,8a8a31399c62,0.747,different,Jobs-Plus for NYCHA residents versus Jobs to Build On for non-NYCHA,sonnet
 MCB3,2022,36acb234d754,2023,8e97d2119493,0.76,same,same triangle redesign; later names Montgomery/East Broadway Triangle,sonnet
@@ -2560,7 +2560,7 @@ MCB3,2024,a443412e10dd,2025,c3ffc374b35b,0.915,same,same Safe Haven and stabiliz
 MCB3,2024,ae1526d910e4,2025,ca4318cb8e2c,0.938,same,same baselined funding for Green Thumb staff,sonnet
 MCB3,2024,f4aa8b6b7bff,2025,d7f6f63c777c,0.665,same,same Baruch Playground basketball court reconstruction,sonnet
 MCB3,2024,0a3272ee2182,2025,ef11b2cd7c57,0.314,same,same bike lane reconstruction; Houston to Delancey lies on Allen Street stretch,sonnet
-MCB3,2025,89bf199ec712,2026,33b6fb5da33c,0.414,same,same playground reconstruction; later names Capt. Jacob Joseph Playground,sonnet
+MCB3,2025,89bf199ec712,2026,33b6fb5da33c,0.414,unsure,the earlier request names no playground,resolved
 MCB3,2025,ca4318cb8e2c,2026,975006b1f7c3,0.455,different,Parks Green Thumb staff versus Sanitation composting baselining,sonnet
 MCB3,2025,a08498bff4d2,2026,c4e0414a544e,0.738,same,same Coleman Oval Playground renovation,sonnet
 MCB3,2026,76515c66d6e3,2027,2df127468f02,0.603,same,same street containerization funding for Manhattan and CD3,sonnet
@@ -2661,7 +2661,7 @@ MCB4,2023,feee9fed38a6,2024,18d4ebf9692f,0.733,same,same Affordable New York aft
 MCB4,2023,584c01beb7d5,2024,236157c132c6,0.793,same,same sidewalk capacity study on 9th Avenue; 8th Avenue dropped,sonnet
 MCB4,2023,8781df377fbd,2024,2802b7a2ed0f,0.476,different,curb extensions versus shared streets on Hudson Boulevard,sonnet
 MCB4,2023,cea8f6486db2,2024,2dc50f510988,0.456,same,same DSNY syringe pickup unit funding,sonnet
-MCB4,2023,83ca59a6d06b,2024,360dcde952ee,0.752,unsure,similar Dyer Avenue relocation but different streets; separate 2024 request matches 2023 closer,sonnet
+MCB4,2023,83ca59a6d06b,2024,360dcde952ee,0.752,unsure,the Dyer Avenue entrance moves to different streets,resolved
 MCB4,2023,61bf865edccd,2024,36a4345eb62e,0.407,same,same Open Streets upgrades for West 21st and 22nd Streets,sonnet
 MCB4,2023,96cfbf5aaeb0,2024,4ca5c770f430,0.91,same,same permanent concrete islands on 10th and 11th Avenues,sonnet
 MCB4,2023,4320441f7bc4,2024,5748c5d14598,0.645,different,protected bike lane study on 10th Avenue versus 11th Avenue,sonnet
@@ -2829,7 +2829,7 @@ MCB5,2024,73f6d6ad39c9,2025,c2306b850031,0.322,same,"same Garment District avenu
 MCB5,2024,11ce06e5663c,2025,c3a31ee18656,0.566,same,"same Flatiron plazas permanent reconstruction, new cost and phase",sonnet
 MCB5,2024,9952be1f8db6,2025,d51106921e97,0.782,same,same 28th Street corridor drainage,sonnet
 MCB5,2024,e426c0839ee5,2025,de07659c342a,0.696,unsure,every-school accessibility request versus Jacqueline Kennedy Onassis High School only,sonnet
-MCB5,2024,f0235c0e8715,2025,ee87f7b0cd95,0.423,unsure,eviction attorney staffing versus Local Law 53 and provider rate increase,sonnet
+MCB5,2024,f0235c0e8715,2025,ee87f7b0cd95,0.423,same,the same funding for tenant legal representation,resolved
 MCB5,2025,547dd623934a,2026,03522e46c52a,0.678,same,same Grand Central area vending enforcement,sonnet
 MCB5,2025,18cfabedec41,2026,2724456729c3,0.809,same,same three heavy duty copiers for PS 340,sonnet
 MCB5,2025,981321679db8,2026,282619661a75,0.878,same,same Fair Student Funding request,sonnet
@@ -2901,7 +2901,7 @@ MCB6,2020,182aabc92fe1,2021,5c5a87dc3339,0.326,same,same walkway counters in CD6
 MCB6,2020,a31d595804c8,2021,68f568d3398d,0.663,same,"same Queens Midtown Tunnel entrance traffic study, same boundaries",sonnet
 MCB6,2020,fe7157539d25,2021,bf2a2b81c7ba,0.515,same,same subway station elevators and accessible entrances,sonnet
 MCB6,2020,1614f2a5cb59,2021,c2081cdd78f7,0.401,same,"same supportive housing for formerly homeless, NOW adds provider funding",sonnet
-MCB6,2020,51bbe55a4adc,2021,c4b29759162d,0.535,unsure,no explanation on one side,rule
+MCB6,2020,51bbe55a4adc,2021,c4b29759162d,0.535,same,"same vaccination promotion; identical title, THEN has no text",sonnet
 MCB6,2020,5a728e6e0d97,2021,c5c5de25243f,0.948,same,same DFTA home care funding,sonnet
 MCB6,2020,61c4a7081013,2021,dd70b2eea083,0.734,same,same Peter Detmold Park water access; THEN also stairs,sonnet
 MCB6,2020,ec7205c6f2fe,2021,df1668ce021f,0.979,same,"same library electronic resources at Kips Bay, Epiphany, Grand Central",sonnet
@@ -3014,7 +3014,7 @@ MCB7,2022,d57135f346fb,2023,eefc29136593,0.836,same,same health clinic for abuse
 MCB7,2023,145d634e062e,2024,005ca6259cd7,0.795,same,same school safety staff request; NOW drops nurses,sonnet
 MCB7,2023,4bcda4c34817,2024,49c6dcbca905,0.948,same,same threatened SRO preservation; NOW names Project Find,sonnet
 MCB7,2023,e14d9c169e25,2024,6336f2855dcf,0.585,same,same child abuse trauma training for medical providers,sonnet
-MCB7,2023,41e55f51141e,2024,6cabb783d935,0.472,same,same Frederick Douglass Playground renovation; companion playground changed,sonnet
+MCB7,2023,41e55f51141e,2024,6cabb783d935,0.472,same,the same Frederick Douglass Playground renovation; the second playground changed,resolved
 MCB7,2023,46dbf6dc39cf,2024,7962f7b39aa7,0.967,same,same school accessibility goal in District 3; fewer schools requested,sonnet
 MCB7,2023,a056005601f1,2024,9f568d1c5264,0.778,same,same expansion of CSD3 language and dual language programs,sonnet
 MCB7,2023,d8c78b13a574,2024,c08fb6356501,0.961,same,"same NYPD overtime for 20th, 24th and Central Park precincts",sonnet
@@ -3128,7 +3128,7 @@ MCB8,2025,2492537819e6,2026,ca88d36f17e9,0.904,same,same Andrew Haswell Green Pa
 MCB8,2025,f24ca0a32c54,2026,df5e158be1c2,0.414,different,install catch basin at 72nd versus clean catch basins at 87th,sonnet
 MCB8,2025,78ec20d4c222,2026,edabcce847a3,0.717,same,same 19th Precinct renovation and air conditioning,sonnet
 MCB8,2025,fc4f3db2028b,2026,fc4f3db2028b,1.0,same,identical street tree planting request,sonnet
-MCB8,2026,0ee7956ae1ce,2027,036269235e87,0.533,same,"bike and scooter officers, one component of earlier bundle, now stands alone",sonnet
+MCB8,2026,0ee7956ae1ce,2027,036269235e87,0.533,different,traffic agents and crossing guards versus bike and scooter officers alone,resolved
 MCB8,2026,221dff2681fc,2027,0aad6befa425,0.451,same,same DSNY recycling and organics support; now continued support,sonnet
 MCB8,2026,09b3f27bd971,2027,113a8eb30a57,0.306,different,more police officers versus 19th Precinct cooling system,sonnet
 MCB8,2026,fb5d94b9da3a,2027,129b52ddbeca,0.726,same,same traffic agents near Queensboro Bridge; streets named,sonnet
@@ -3181,18 +3181,18 @@ MCB9,2020,89ec68cf7878,2021,884fbfd8c0f3,0.891,same,same six full-time park work
 MCB9,2020,37bfcd4a00af,2021,8a7ac0abb111,0.498,unsure,bike path lighting and other safety measures versus specific speed bumps and bollards,sonnet
 MCB9,2020,783515e99290,2021,92f6f7b49cf4,0.504,same,same Hamilton Grange Library energy efficient windows,sonnet
 MCB9,2020,f90483db092c,2021,948f71a1fbf1,0.422,unsure,specific comfort stations versus generic category text with no detail,sonnet
-MCB9,2020,045c25d68c46,2021,9bc27407b13d,0.915,unsure,no explanation on one side,rule
+MCB9,2020,045c25d68c46,2021,9bc27407b13d,0.915,same,same Tenant Interim Lease building repairs,sonnet
 MCB9,2020,0f2f3707fd64,2021,a7dfd79b9f54,0.59,same,same NYCHA security personnel hiring,sonnet
 MCB9,2020,4f302c950c46,2021,af4d7a49350a,0.475,same,same laptops for local libraries,sonnet
 MCB9,2020,649a6eec1f79,2021,af89a476ba9c,0.958,same,same DYCD youth outreach to connect families with resources,sonnet
 MCB9,2020,95ebbc7448e9,2021,b1a9917db535,0.347,different,LGBTQ immigrant outreach versus homeless street outreach,sonnet
 MCB9,2020,703f0481d8c0,2021,c5b14c30d2a3,0.701,same,same security cameras and front-door security at three NYCHA houses,sonnet
-MCB9,2020,0665d9e5a273,2021,d0f7d2292793,0.69,unsure,no explanation on one side,rule
+MCB9,2020,0665d9e5a273,2021,d0f7d2292793,0.69,same,same Jacob Schiff Playground renovation,sonnet
 MCB9,2020,6a9e6756ac43,2021,d21240bb2fcf,0.405,different,K-8 school construction versus senior housing,sonnet
 MCB9,2020,eb4becd00f95,2021,d5279ff816d4,0.815,same,same LGBTQ immigrant outreach; immigrant scope broadened,sonnet
 MCB9,2020,069844441edb,2021,dcab536dceab,0.853,same,same Artisan Market space acquisition,sonnet
 MCB9,2020,c7b6a14ae9cc,2021,edd2d0531c27,0.859,same,same Alexander Hamilton Playground renovation,sonnet
-MCB9,2020,37bfcd4a00af,2021,ee1fe41c0e94,0.357,unsure,bike path lighting and other safety measures versus specific speed bumps and bollards,sonnet
+MCB9,2020,37bfcd4a00af,2021,ee1fe41c0e94,0.357,different,bike path lighting versus speed bumps and bollards,resolved
 MCB9,2020,86de967b1ec5,2021,fc665897658f,0.634,different,"different NYCHA site, Manhattanville Houses versus Audubon Houses",sonnet
 MCB9,2021,433594dbb962,2022,08dff6a95ec7,0.582,same,same Section 202 senior housing restoration; NORC focus added,sonnet
 MCB9,2021,4f2ea181c8ae,2022,175d0ed314c8,0.831,same,same technical assistance for struggling HDFCs; homeowners added,sonnet
@@ -3219,14 +3219,14 @@ MCB9,2022,ab9a03f8de07,2023,effbac795cb3,0.358,different,26th and 30th Precinct 
 MCB9,2023,e879db9da1d8,2024,0517cab4a663,0.974,same,identical food distribution and anti-hunger efforts request,sonnet
 MCB9,2023,f5daa1801936,2024,1b0cf578bf61,0.305,different,St. Nicholas Playground renovation versus reopening the 134th Street staircase,sonnet
 MCB9,2023,8c5802491164,2024,cabf275a48a1,0.906,same,same new or expanded facility for Columbia Secondary School,sonnet
-MCB9,2023,adfb4742f8f8,2024,dca3b59227dc,0.498,same,same LGBTQ housing for homeless youth and seniors; suggested SRO site changed,sonnet
+MCB9,2023,adfb4742f8f8,2024,dca3b59227dc,0.498,different,"a different building, 611 West 112th versus 610 West 111th Street",resolved
 MCB9,2024,4dfc5c050b9d,2025,4dfc5c050b9d,0.921,same,identical Child's Memorial Tabernacle supportive housing request,sonnet
 MCB9,2024,0517cab4a663,2025,e879db9da1d8,0.974,same,"same food distribution request, DASNY typo for DSNY",sonnet
 MCB9,2025,4dfc5c050b9d,2026,075e54936b26,0.918,same,same Childs Memorial Tabernacle supportive housing site,sonnet
 MCB9,2025,819240d972f9,2026,5c212467d09f,0.951,same,"same youth outreach funding, enrichment wording added",sonnet
 MCB9,2025,806fbd6eb8a8,2026,964d6bc9327d,0.834,same,"same Jacob Schiff playground renovation, added cross street",sonnet
 MCB9,2025,6f7ccefd9679,2026,a80b8c9957fc,0.332,different,stairs and lighting versus rec area courts and picnic reconstruction,sonnet
-MCB9,2025,d193bc906d28,2026,d193bc906d28,1.0,unsure,no explanation on one side,rule
+MCB9,2025,d193bc906d28,2026,d193bc906d28,1.0,unsure,no explanation in either year,rule
 MCB9,2025,828047d70336,2026,d5d37b2aa78e,0.875,same,"same youth mental health funding, anti-bullying detail added",sonnet
 MCB9,2025,dd7373a91fd3,2026,deeb99b92434,0.859,same,"same senior WiFi and tablets, digital literacy added",sonnet
 MCB9,2026,c34b26cdf9cc,2027,295dfd28d398,0.888,same,same Hamilton Grange Senior Center flood repair,sonnet
@@ -3437,7 +3437,7 @@ QCB13,2023,82430e7e6db5,2024,9ed943f6e2ae,0.792,same,same Union Turnpike center 
 QCB13,2023,feca5bc6d6a6,2024,a978b8b99055,0.319,unsure,"later text is only a rationale, no ask or location",sonnet
 QCB13,2023,f71e7c4d5c97,2024,c05f400ddf98,0.541,unsure,later repair-median text names no street; Springfield Blvd link unconfirmed,sonnet
 QCB13,2023,feca5bc6d6a6,2024,d8d3b95feefa,0.388,unsure,later repave roadway names no street; cannot link to Commonwealth strip,sonnet
-QCB13,2024,d8d3b95feefa,2025,4cf980946aab,0.605,same,"identical repave roadway text, title category changed",sonnet
+QCB13,2024,d8d3b95feefa,2025,4cf980946aab,0.605,same,the Register puts both at 147th Avenue and Francis Lewis Boulevard,resolved
 QCB13,2024,6dca38b092fd,2025,6dca38b092fd,1.0,same,identical Reading Garden construction request,sonnet
 QCB13,2024,753b654ea480,2025,707bc7347fd3,0.99,same,"same Hillside Ave left turn lane expansion, near-identical text",sonnet
 QCB13,2024,d8d3b95feefa,2025,83e4c6880de2,0.363,different,repave versus repair and reconstruct work; no street named in either,sonnet
@@ -3447,8 +3447,8 @@ QCB13,2024,8218a44c8290,2025,cd26a9c64c57,0.946,same,identical repave bumpy road
 QCB13,2024,d8d3b95feefa,2025,f441d8718b51,0.924,same,identical repave roadway text and category,sonnet
 QCB13,2025,cd26a9c64c57,2026,5b8965600774,0.588,same,same repave bumpy roadway; Grand Central service road location added,sonnet
 QCB13,2025,989a09edc597,2026,9915e6378b65,0.5,same,same median curb upgrade; Union Turnpike location added,sonnet
-QCB13,2025,83e4c6880de2,2026,ae54e051ad47,0.416,same,same repair and reconstruct roadway; 121 Avenue location added,sonnet
-QCB13,2025,f441d8718b51,2026,e4b60f730019,0.568,unsure,the earlier request names no street,resolved
+QCB13,2025,83e4c6880de2,2026,ae54e051ad47,0.416,same,the Register puts both at 121st Avenue and Laurelton Parkway,resolved
+QCB13,2025,f441d8718b51,2026,e4b60f730019,0.568,same,the Register puts both at 134th Road and 217th Street,resolved
 QCB13,2026,049cd65e6d06,2027,72e3d1d2a7c7,0.58,different,different stretch: Brookville Blvd versus 147 Avenue,sonnet
 QCB13,2026,32e3a8594a67,2027,b31d10ca35b9,0.688,same,same Gunn Playground repaving and land purchase; status updated,sonnet
 QCB13,2026,a4a96aa53c2b,2027,f03d815a3517,0.546,different,disjoint equipment lists: dump truck and pickup versus Gator vehicles and scissor lift,sonnet
@@ -3505,7 +3505,7 @@ QCB14,2023,1a789a95dc48,2024,0661f3eb3903,1.0,same,identical Rockaway Point Blvd
 QCB14,2023,231b52a86560,2024,1e7ee7c3a798,0.923,same,identical Nest and Horizon programs funding,sonnet
 QCB14,2023,d774e3d08a05,2024,2d08cb6edb05,0.683,same,"same CB14 trauma center study, funding added",sonnet
 QCB14,2023,87b50b4192bb,2024,5ea4912502ca,1.0,same,same water safety program for school-age children,sonnet
-QCB14,2023,bab3979e3f0a,2024,85c85eb7aa0d,0.503,unsure,annex at two schools versus new school in zip codes; same overcrowding rationale,sonnet
+QCB14,2023,bab3979e3f0a,2024,85c85eb7aa0d,0.503,unsure,annexes at two schools versus a new school,resolved
 QCB14,2023,c8565207b8ec,2024,9d590f039900,0.927,same,"same east-west roadway improvement text, minor wording change",sonnet
 QCB14,2023,f7e1a41502e8,2024,d059a075a0c0,0.89,same,"same Shorefront Parkway reconstruction, HWQ-1682, location detail dropped",sonnet
 QCB14,2023,6548c2273aa1,2024,f6561b44c8cb,0.941,same,"same check valves and tide gates on storm outfalls, Jamaica Bay added",sonnet
@@ -4210,7 +4210,7 @@ QCB8,2024,db23e241745f,2025,4a2028ce2619,0.355,same,"Same dedicated DOB inspecto
 QCB8,2024,cc2394f4efae,2025,78de9ecdd2cd,0.843,same,"Same street reconstruction list, two streets dropped",sonnet
 QCB8,2024,4dbd50453640,2025,8ce7b87282d5,0.579,different,Pickleball courts versus ballfield drainage; separate requests in FY2025,sonnet
 QCB8,2024,5bc6e17d5db6,2025,ba9db412e583,0.775,same,"Same Hillcrest conference room smart boards, computers dropped",sonnet
-QCB8,2024,8f47b4a91aec,2025,d59d22f8b6c4,0.641,unsure,COVID-19 funds widened to all infectious diseases; unclear if same funding line,sonnet
+QCB8,2024,8f47b4a91aec,2025,d59d22f8b6c4,0.641,unsure,COVID-19 funds versus all infectious diseases,resolved
 QCB8,2024,7e26011dd1aa,2025,d885058efb17,0.887,same,Same Parks maintenance vehicles and equipment list,sonnet
 QCB8,2024,741c428da9f0,2025,f35d699d3aee,0.922,same,Same Briarwood Family Shelter air conditioning via electrical upgrade,sonnet
 QCB8,2024,dda0a4448c8b,2025,f614c3e03656,0.735,same,"Same P.S. 173Q electrical, library and science lab upgrade",sonnet
@@ -4288,9 +4288,9 @@ SICB1,2020,e0c3ee143ff2,2021,dd9880d741e4,0.393,same,Same exterior cameras on al
 SICB1,2020,4cace1ba5b0e,2021,e5f9605dc844,0.405,unsure,Theresa Place sewer versus unlocated flooding request; site cannot be matched,sonnet
 SICB1,2020,f6f7c575fbbb,2021,f6f7c575fbbb,1.0,same,Identical high school capacity request,sonnet
 SICB1,2020,f7d89769233c,2021,f7d89769233c,1.0,same,Identical Dixon and Lake Avenues reconstruction,sonnet
-SICB1,2021,c83357a34f48,2022,29057022065e,0.558,same,"Identical flooding damage text, same agency; title now generic",sonnet
+SICB1,2021,c83357a34f48,2022,29057022065e,0.558,unsure,only a reason; the request and the place are missing,resolved
 SICB1,2021,65531793c955,2022,65531793c955,1.0,same,Identical P.S. 21 schoolyard paving request,sonnet
-SICB1,2021,e5f9605dc844,2022,847595f128ac,0.433,same,"Identical flooding text, same agency; title now generic",sonnet
+SICB1,2021,e5f9605dc844,2022,847595f128ac,0.433,unsure,only a reason; the request and the place are missing,resolved
 SICB1,2021,445df05c481c,2022,a0fe12ceb004,0.539,unsure,only a reason; the request and the place are missing,resolved
 SICB1,2021,cff1b8f73066,2022,a271762a8c39,0.568,unsure,only a reason; the request and the place are missing,resolved
 SICB1,2021,dd41863d1490,2022,a86221c04067,0.853,same,Identical bus rider shelter text,sonnet
@@ -4386,7 +4386,7 @@ SICB3,2022,4fbb66a10bae,2023,2f00f0770fd6,0.634,same,same DCP process for turnin
 SICB3,2022,4f96eaf9b6c2,2023,491ac3749d4b,0.36,different,DDC curb component vs curbs on streets lacking them,sonnet
 SICB3,2022,5478840df528,2023,696883fff9a9,0.651,same,"Arthur Kill Road widening, now Phase II segment",sonnet
 SICB3,2022,b7d3637363a9,2023,69e5538b2b4a,0.544,same,"same dead-end curb flooding request, wording expanded",sonnet
-SICB3,2022,5478840df528,2023,6b118c9428c3,0.372,same,"Arthur Kill Road widening, now Phase III segment",sonnet
+SICB3,2022,5478840df528,2023,6b118c9428c3,0.372,same,"the same Arthur Kill Road widening, now as Phase III",resolved
 SICB3,2022,ce219614a7bf,2023,76f189124524,0.584,same,same south shore senior aging-in-place programs,sonnet
 SICB3,2022,01b2689c7507,2023,863f178b9565,0.929,same,same ARGUS camera request,sonnet
 SICB3,2022,8d3634b72c44,2023,90044dc340dd,0.532,same,"same Kreischer, Androvette, Winant sewers; map amendment and Arthur Kill added",sonnet
