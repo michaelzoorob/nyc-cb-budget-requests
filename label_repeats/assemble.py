@@ -19,8 +19,13 @@ other year's title usually carries the ask, often in the board's own words.) lab
 hand where a blind check disagreed with the first judge ({"id", "verdict", "why"}). They
 replace the first verdict.
 
+A pair from prepare.py --sites (the same text at two sites) has "kind": "site" and site keys
+in place of Label IDs. The one-match rule does not apply to it: enrich_years.py links every
+pair of years that share a text.
+
 Adds to pipeline/repeat_links.csv, one row per judged pair: board, then_fy, then_label,
-now_fy, now_label, similarity, verdict, why, judge ("sonnet", "rule" or "resolved"). Rows already
+now_fy, now_label, similarity, verdict, why, judge ("sonnet", "rule" or "resolved"), kind
+("reworded" or "site"). Rows already
 there are kept, and a pair judged again replaces its row. A pair dropped by the one-match rule keeps its
 verdict with "superseded" added to why. pipeline/enrich_years.py links the pairs whose
 verdict is "same".
@@ -65,13 +70,6 @@ def main():
     for i, r in pairs.items():
         if i in got and got[i]["verdict"] == "same" and not (r["then"]["explanation"].strip() or r["now"]["explanation"].strip()):
             got[i] = {**got[i], "verdict": "unsure", "why": "no explanation in either year", "judge": "rule"}
-    for x in json.load(open(RESOLVED)) if os.path.exists(RESOLVED) else []:
-        if x["id"] not in pairs:
-            problems.append(f"resolved.json names an unknown pair {x['id']}")
-        elif x["verdict"] not in VERDICTS:
-            problems.append(f"resolved.json: {x['id']} verdict {x['verdict']!r}")
-        else:
-            got[x["id"]] = {**x, "judge": "resolved"}
     missing = set(pairs) - set(got)
     if missing:
         problems.append(f"{len(missing)} pairs have no verdict, e.g. {sorted(missing)[:3]}")
@@ -82,15 +80,29 @@ def main():
         (then_fy, then_label), (now_fy, now_label) = (s.split(":") for s in i.split(">"))
         rows.append({"board": r["board"], "then_fy": int(then_fy), "then_label": then_label, "now_fy": int(now_fy),
                      "now_label": now_label, "similarity": r["similarity"], "verdict": got[i]["verdict"],
-                     "why": " ".join(str(got[i].get("why", "")).split()), "judge": got[i].get("judge", "sonnet")})
+                     "why": " ".join(str(got[i].get("why", "")).split()), "judge": got[i].get("judge", "sonnet"),
+                     "kind": r.get("kind", "reworded")})
     d = pd.DataFrame(rows)
-    if os.path.exists(DEST):                 # earlier years' verdicts stay
+    key = lambda x: x["then_fy"].astype(str) + ":" + x["then_label"] + ">" + x["now_fy"].astype(str) + ":" + x["now_label"]
+    if os.path.exists(DEST):                 # earlier verdicts stay unless judged again
         old = pd.read_csv(DEST)
-        key = lambda x: x["then_fy"].astype(str) + ":" + x["then_label"] + ">" + x["now_fy"].astype(str) + ":" + x["now_label"]
+        if "kind" not in old:
+            old["kind"] = "reworded"
         d = pd.concat([old[~key(old).isin(key(d))], d], ignore_index=True)
+    # The hand rulings come last and apply to any pair in the CSV, old or new.
+    at = {k: n for n, k in enumerate(key(d))}
+    for x in json.load(open(RESOLVED)) if os.path.exists(RESOLVED) else []:
+        if x["id"] not in at:
+            problems.append(f"resolved.json names an unknown pair {x['id']}")
+        elif x["verdict"] not in VERDICTS:
+            problems.append(f"resolved.json: {x['id']} verdict {x['verdict']!r}")
+        else:
+            d.loc[at[x["id"]], ["verdict", "why", "judge"]] = [x["verdict"], x["why"], "resolved"]
+    if problems:
+        sys.exit("NOT WRITTEN\n  " + "\n  ".join(problems[:40]))
     d = d.sort_values(["board", "now_fy", "now_label", "similarity"], ascending=[True, True, True, False]).reset_index(drop=True)
     # One match per request per year: the most similar "same" pair.
-    same = d["verdict"] == "same"
+    same = (d["verdict"] == "same") & (d["kind"] == "reworded")
     first = ~d[same].duplicated(["now_fy", "now_label", "then_fy"])
     drop = first[~first].index
     d.loc[drop, "verdict"] = "different"

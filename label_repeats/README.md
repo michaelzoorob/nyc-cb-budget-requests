@@ -8,6 +8,10 @@ reworded requests that a model judges to be the same request and writes them to
 Years Requested column, the summary page's repeat-request line and the letters' request
 history all follow.
 
+A board may also send one text for several sites, such as one paragraph on speeding for each
+of four streets. The same text in two years is then two requests when the sites differ. This
+folder judges those pairs too.
+
 ## Method
 
 1. `prepare.py` pairs each request that has no link to the year before with the same
@@ -17,12 +21,28 @@ history all follow.
 2. Claude Sonnet agents judged each pair with `rubric.md`, about 180 pairs per agent. The
    test is whether granting one request would grant the other. The wording, the reason, the
    amount, the title and a related agency may change. A different site, or different work
-   at the same site, makes a different request. A pair judged `unsure` is not linked.
+   at the same site, makes a different request. A pair judged `unsure` is not linked. A
+   request from FY2020 to FY2025 shows the judge the site that the City's Register records
+   for it (its Location column).
 3. `assemble.py` checks that every pair has a verdict, keeps at most one match per request
    per year, applies the rulings in `resolved.json`, and writes the CSV. A pair in which
    neither request has an explanation counts as unsure, since a DCP category title alone in
    both years does not show what was asked. The `judge` column says which verdicts came from
    Sonnet, from that rule, or from a ruling.
+4. `prepare.py --sites` pairs the same text in two years when both requests name a site and
+   the sites are not plainly one place (`shared.site_match`). Plainly one place means the
+   same main street with cross streets in common, or one corner named the other way round.
+   The judges decide the rest with the same rubric, since the Register may also name one
+   site in several ways. These pairs have `kind` set to `site`, and they name each request
+   by its site key (`shared.site_key`, the Label ID with a short hash of the site).
+   `enrich_years.py` links such a pair only when it was judged the same request.
+
+`enrich_years.py` never puts two requests judged different into one history through a third.
+The same holds for two identical requests a board listed in one year for sites that are not
+plainly one place. A request without a site does not link to the same text that the board
+sent for several sites in another year, since a general request and a specific one are
+different requests. When a board splits one request in two, its earlier years go to one side
+only. That happened once, to Queens CB13's Francis Lewis Boulevard median in FY2024.
 
 ## Checks
 
@@ -35,27 +55,47 @@ history all follow.
 - **Validation.** Four blind Opus reviews of 200 pairs each, with no pair in two of them.
   Three drew links at random (500 in all) and agreed with 488 of them. The fourth drew hard
   cases: 100 links with low similarity, 50 links with a very short explanation, and 50 pairs
-  judged unsure. Every disagreement was then ruled on by hand (`resolved.json`, 64 rulings).
-  Where the place mattered, the ruling checked the Register's street columns, which the
-  FY2020 to FY2025 explanations leave out. 6 of the 500 random links were wrong, so about
-  99% of the links are right. Most of the six rested on a line such as "To prevent flooding
-  and property damage." with no request or place. The hard cases held 6 wrong links among
-  150 and 12 missed links among the 50 unsure pairs, all now fixed.
-- **Final.** 3,439 pairs judged the same request, 742 different and 226 unsure.
+  judged unsure. Every disagreement was then ruled on by hand (`resolved.json`). 6 of the 500
+  random links were wrong, so about 99% of the links are right. Most of the six rested on a
+  line such as "To prevent flooding and property damage." with no request or place. The hard
+  cases held 6 wrong links among 150 and 12 missed links among the 50 unsure pairs, all now
+  fixed.
+- **Register sites.** Sonnet judged again the 1,155 pairs in which either request has a
+  Register site, this time with the site shown. 64 verdicts changed, and a blind Opus check
+  of those 64 led to 21 rulings by hand.
+- **The same text at two sites.** 1,011 pairs from FY2020 to FY2027. Sonnet judged 219 the
+  same request, 788 different and 4 unsure. Brooklyn CB9 and CB3 account for 749 of them,
+  since both send one text for many streets or intersections. A board that lists both sites
+  as separate requests in one year has made two requests, and 780 of the 788 different
+  verdicts were on such pairs. 5 same verdicts were too, and 4 of those were wrong. A blind
+  Opus review of 200 pairs agreed with 190. It held 120 same verdicts drawn at random, one of
+  them wrong (two playgrounds in St. Nicholas Park), and 71 different verdicts, one of them
+  wrong (one stretch of Commonwealth Boulevard). Every disagreement was ruled on by hand.
+- **Requests that lost a link.** Once the same text at two sites stopped linking, 43
+  requests were paired again with the year before. Every verdict was read by hand, 4 were
+  ruled on, and one missed pair was added (Brooklyn CB3's Lafayette Gardens request). 36
+  earlier verdicts named a text that a board sent for two sites in one year by its Label ID
+  alone. They were dropped, and those requests were judged again with their sites.
+- **Final.** 4,557 reworded pairs, of which 3,467 were judged the same request, 865
+  different and 225 unsure. 1,011 site pairs, of which 214 were judged the same request and
+  797 different. `resolved.json` holds 99 rulings.
 - **Left out.** Pairs below 0.30 similarity. In the pilot, about 2% of them were the same
   request.
 
 ## Effect
 
-In FY2027, requests made in at least three budget years went from 1,997 to 2,535 of 3,809.
-Requests made every year since FY2020 went from 561 to 1,191. Queens CB2's FY2026 requests
-made in at least three years went from 26 to 60.
+In FY2027, requests made in at least three budget years went from 1,997 to 2,538 of 3,809.
+Requests made every year since FY2020 went from 557 to 1,191. Queens CB2's FY2026 requests
+made in at least three years went from 26 to 61.
 
 ## A new fiscal year
 
-1. Build the year's CSV and run `pipeline/enrich_years.py`, as `update.sh` does.
-2. Run `prepare.py DATA_DIR WORK_DIR`. It leaves out the pairs already in
-   `pipeline/repeat_links.csv`, so only the new year's pairs remain, about 500 to 700.
-3. Judge each chunk with `rubric.md` and write `WORK_DIR/out/pairs_NN.json`.
-4. Run `assemble.py WORK_DIR`, which adds the new verdicts to the CSV, then run
+1. Build the year's CSV and run `pipeline/enrich_years.py`, as `update.sh` does. It prints
+   how many pairs of the same text at two sites await a judge.
+2. Run `prepare.py DATA_DIR WORK_DIR --sites`, judge each chunk with `rubric.md` (write
+   `WORK_DIR/out/pairs_NN.json`), run `assemble.py WORK_DIR`, and run `enrich_years.py`
+   again.
+3. Run `prepare.py DATA_DIR WORK_DIR` with a new work folder. It leaves out the pairs already
+   in `pipeline/repeat_links.csv`, so only the new year's pairs remain, about 500 to 700.
+4. Judge each chunk in the same way and run `assemble.py WORK_DIR`. Then run
    `enrich_years.py` again and rebuild the pages.

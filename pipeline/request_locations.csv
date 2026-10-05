@@ -1,6 +1,14 @@
 label_id,council_districts,method,matched
-17d7f6eaf083,1,park,Battery Park City
+17d7f6eaf083@6778b2,1,intersection,S END AVE & LIBERTY ST
+f4f4ed888ee9@7595fc,1,intersection,DUANE ST & GREENWICH ST
+6485efc04fec@e11e6f,1,intersection,GREENWICH ST & VESTRY ST
+a4db13f5a72d@e2fce7,1,intersection,STAPLE ST & DUANE ST
 681f598d8341,1,park,Bowling Green
+abf4600367a5@ebfa2d,1,intersection,N MOORE ST & HUDSON ST
+7245dc3630c9@7ed889,1,intersection,MOORE ST & WATER ST
+5ba17bf52fac@210b59,1,intersection,FRANKLIN ST & HUDSON ST
+2384985ce383@f7fceb,1,intersection,COLLISTER ST & LAIGHT ST
+63f7d5113152@0497e8,1,intersection,VESTRY ST & WEST ST
 261d93165ef5,1,park,Battery Park City
 66e0c201dd0c,1,park,The Battery
 a58783023445,1,park,The Battery
@@ -10,14 +18,29 @@ ce5d61ef6b99,1,park,Battery Park City
 f3225dd87d41,1,park,Battery Park City
 b8ca5208b1da,1,park,The Battery
 0e55b563983d,3,park,Jefferson Market Garden
-3816d77f7cb9,3,park,Tony Dapolito Recreation Center
+3816d77f7cb9@78a389,3,park,Tony Dapolito Recreation Center
 80e0be00dc07,1,park,Vesuvio Playground
 4f11aa5e8349,1,park,Mercer Playground
+14766e17c8c8@f92d52,3,intersection,CLARKSON ST & WASHINGTON ST
 3aaec988e0f7,2,park,Washington Square Park
+0682db6251fc@a94088,3,intersection,MORTON ST & WEST ST
+48c8ad9b0e9c@de1d81,2,intersection,BROADWAY & E 14 ST
+68865b5bb8ab@f96a5a,2,intersection,BEDFORD ST & AVE OF THE AMERICAS
+c2b1eb12d246@e303d3,3,intersection,BEDFORD ST & CARMINE ST
+2cf3379c4ad7@c1946d,3,intersection,GREENWICH AVE & BANK ST
 e425a4670bbb,3,park,Tony Dapolito Recreation Center
+0a029d5ed311@6ea632,2,intersection,AVE OF THE AMERICAS & W 8 ST
 3ac96c294928,3,park,Jefferson Market Garden
+15bec23d01e5@714672,2,intersection,W 4 ST & AVE OF THE AMERICAS
 089cd22cbd0a,2,park,Washington Square Park
+e19123349161@80dcae,3,intersection,WAVERLY PL & CHRISTOPHER ST
+be3a155fb484@dd34aa,2,intersection,W 3 ST & MERCER ST
 ef28ce95e7a2,1,park,Playground of the Americas
+9dbbaf3ebf7e@4c882d,3,intersection,CHRISTOPHER ST & GREENWICH AVE
+239acb897d8f@87bc1f,3,intersection,WASHINGTON ST & GANSEVOORT ST
+2abe51dc6f8e@427196,1,intersection,SPRING ST & MOTT ST
+5568e4a09ef8@d5ab81,3,intersection,PERRY ST & WEST ST
+05b2571c541e@fe7d68,2,intersection,BLEECKER ST & MERCER ST
 b91d5cb5eac8,1,park,Seward Park
 2198ed41f590,1,park,Seward Park
 4b9f5c6626bd,1,park,Pier 42
@@ -38,16 +61,35 @@ f148b9da31c1,2,park,Tompkins Square Park
 409922bf4932,1,park,Sara D. Roosevelt Park
 347b121c0c56,1,park,Columbus Park
 33152c43c736,3,park,Chelsea Park
+ac5b8e3ed1a0@e7d651,3,intersection,W 41 ST & 10 AVE
+9eac811274a6@954604,3,intersection,DYER AVE & W 35 ST
+ca79cd61a9ab@2f663d,6,intersection,9 AVE & W 55 ST
+dc82a111372a@8c4911,3,intersection,8 AVE & W 14 ST
+934573f48170@f2230f,3,intersection,10 AVE & W 48 ST
+be6b61ba6f6b@a22f87,3,intersection,11 AVE & W 42 ST
+236787962c2d@501a0e,3,intersection,11 AVE & W 20 ST
 8c20e3ca2378,3,park,Chelsea Park
+4320441f7bc4@835f1e,3,intersection,10 AVE & W 13 ST
+d1d635d3dbb3@e1c576,3,intersection,9 AVE & W 44 ST
+e610c2da3708@c1ddc8,3,intersection,10 AVE & W 48 ST
+c27ad8935215@2e9400,3,intersection,8 AVE & W 40 ST
+432380341675@3311fe,3,intersection,8 AVE & W 30 ST
+d1821d4e7a39@e8e6fe,3,intersection,W 42 ST & 10 AVE
+7e94867257a2@d07d91,2,intersection,5 AVE & E 14 ST
+f50f46899907@d9efaf,3,intersection,W 42 ST & 7 AVE
+e9013d138451@af2490,4,intersection,BROADWAY & W 34 ST
 6f606c499ad1,4,park,Bryant Park
 10a552b85612,3,park,Madison Square Park
+a7e60ba8c0be@d0259e,3,intersection,MORTON ST & WEST ST
+6b65d7b87431@39b579,2,intersection,AVE OF THE AMERICAS & W 14 ST
 9c7a43308308,4,park,Herald Square
 61c4a7081013,4,park,Peter Detmold Park
-accb5daf8437,2,park,Bellevue South Park
+accb5daf8437@5564ce,2,park,Bellevue South Park
 057956d06ea1,2,park,Stuyvesant Square
-4bef64db225c,4,park,Sutton Place Park
-811bebae835f,4,park,East River Esplanade
-eb6554572dc5,4,park,East River Esplanade
+4bef64db225c@cceac5,4,park,Sutton Place Park
+7dabfc4db282@99f087,4,intersection,1 AVE & E 23 ST
+811bebae835f@51865d,4,park,East River Esplanade
+eb6554572dc5@b6231e,4,park,East River Esplanade
 1053a86aa18d,4,park,Dag Hammarskjold Plaza
 70acb367bc67,2,park,Bellevue South Park
 5258e3c78a06,6|7,park,Riverside Park
@@ -67,10 +109,11 @@ db5d1d72d7c3,6|7,park,Riverside Park
 9f26c7bbd847,7,park,Frederick Douglass Playground
 0b869bdf51f3,6,park,Gertrude Ederle Recreation Center
 adb59bdc37f5,5,park,John Jay Park
-7d91597692fa,5,park,Queensboro Oval
-a11090172e03,5,park,Andrew Haswell Green Park
-6e9a05ff4063,7,park,Morningside Park
-c7b6a14ae9cc,7,park,Alexander Hamilton Playground
+7d91597692fa@2917d1,5,intersection,YORK AVE & E 59 ST
+a11090172e03@71885b,5,park,Andrew Haswell Green Park
+2d520b04af91@4db63d,8,intersection,2 AVE & E 96 ST
+6e9a05ff4063@03701c,7,park,Morningside Park
+c7b6a14ae9cc@62b47e,7,park,Alexander Hamilton Playground
 6ad0e88df74a,9,park,St. Nicholas Park
 a86bdcca1c2b,7,park,Morningside Park
 f90483db092c,7,park,West Harlem Piers
@@ -78,32 +121,42 @@ f90483db092c,7,park,West Harlem Piers
 01b42fb44824,9,park,St. Nicholas Park
 024baeb7c62a,7,park,Morningside Park
 37bfcd4a00af,7,park,Riverside Park
+bcaba9dcc410@02f241,7,intersection,RIVERSIDE DR & W 122 ST
 078e83bae2c1,7,park,Morningside Park
-357dfbd32a62,9,park,St. Nicholas Playground South
-fc7998ced4b9,9,park,Jackie Robinson Park
-b465c72af5fd,9,park,William McCray Playground
-78365e9933f0,9,park,Fred Samuel Playground
-0340f5fd9324,9,park,Frederick Johnson Playground
-2f14db685233,9,park,Hansborough Recreation Center
+199bf33d0df6@4141f1,7,intersection,12 AVE & W 125 ST
+357dfbd32a62@20eb92,9,park,St. Nicholas Playground South
+fc7998ced4b9@ef942e,9,park,Jackie Robinson Park
+b465c72af5fd@386b6c,9,park,William McCray Playground
+78365e9933f0@6ab6cd,9,park,Fred Samuel Playground
+0340f5fd9324@9547cf,9,park,Frederick Johnson Playground
+2f14db685233@b8541e,9,park,Hansborough Recreation Center
 53658a111fad,9,park,Hansborough Recreation Center
 85778482dcdf,9,park,Frederick Johnson Playground
+cce87dc13157@bcdd89,9,intersection,ADAM CLAYTON POWELL JR BLVD & W 152 ST
+7455b75cb266@816754,9,intersection,MANHATTAN AVE & W 122 ST
+1be026924932@7fdc3d,9,intersection,W 155 ST & HARLEM RIVER DR
+185b6ae7f03d@aa5202,9,intersection,W 145 ST & HARLEM RIVER DR
 27fccaa5f60d,9,park,Samuel Marx Triangle
 3edb5ce5d330,8,park,Thomas Jefferson Park
 28e8414873aa,9,park,Marcus Garvey Park
 3cbe0b323d0f,8,park,Harlem River Park
+e732fba6b371@dd90cc,9,intersection,E 125 ST & PARK AVE
 9ec94f6b46a5,8,park,Thomas Jefferson Park
 d3f9b19f8d76,9,park,Marcus Garvey Park
 a8f4e8a2e0cc,10,park,J. Hood Wright Park
+39145f36268e@3dffe3,10,intersection,W 157 ST & EDGECOMBE AVE
 e56ab6a5eb31,10,park,Audubon Playground
 3ece78935152,10,park,Inwood Hill Park
 7c49bd86a49c,10,park,Sherman Creek
+fb6119bb9c95@b485cc,8,intersection,BEEKMAN AVE & E 141 ST
 e525d3c4e494,8,park,St. Mary's Park
-53fa12e86de1,8,park,Pulaski Park
+53fa12e86de1@7aa733,8,park,Pulaski Park
 4e66fc0b8bff,8,park,St. Mary's Park
-e1de7626b231,8,park,St. Mary's Park
+e1de7626b231@96480a,8,park,St. Mary's Park
 712caef06e14,17,park,Printers Park
 6db0854be03c,15,park,Crotona Park
-b81f54f41423,16,park,Railroad Park
+b81f54f41423@3e68e1,16,intersection,E 161 ST & PARK AVE
+8aac6241265c@6447f6,17,intersection,SOUTHERN BLVD & E 174 ST
 f95f0ca7e3e2,15,park,Crotona Park
 276b68369a26,16,park,Drew Playground
 b64a11011b88,15,park,Crotona Park
@@ -113,46 +166,78 @@ dbaeed85b209,17,park,Charlton-Thompson Garden
 f222a6c72819,15,park,Crotona Park
 ede99cf61f22,15,park,Crotona Park
 e4e84391f9b4,15,park,Crotona Park
-aaa3b41567c4,15,park,Crotona Park
+aaa3b41567c4@85f48e,15,intersection,CLAREMONT PKWY & CROTONA AVE
 8fc359ba0267,15,park,Crotona Park
 be073e8acf43,16,park,Morgan Playground
 363e086411c3,17,park,Behagen Playground
 8064ef2d78fd,15,park,Crotona Park
-a33933ad86ba,15,park,Crotona Park
+a33933ad86ba@89cee6,17,intersection,HOE AVE & HOME ST
 f8377ceb18f3,15,park,Crotona Park
-315e89163bcb,15,park,Crotona Park
+315e89163bcb@a68199,15,park,Crotona Park
 8fb1c95a0fd8,15,park,Crotona Park
 a6eec610d308,17,park,Estella Diggs Park
+3bd92f18e26e@09dd77,17,intersection,SOUTHERN BLVD & E 174 ST
 c36d6e76e891,15,park,Crotona Park
 bf3c3ff6052d,15,park,Crotona Park
 89f5a3765422,15,park,Crotona Park
 3ff68ee7abb6,15,park,Crotona Park
 4e53903bba77,15,park,Crotona Park
 f2816785ec0b,16,park,Grant Park
+ffe2b493d677@62e282,16,intersection,E 161 ST & PARK AVE
+f56eca84cc66@e44dd5,16,intersection,JEROME AVE & E 161 ST
 98a32017bddc,8,park,Mill Pond Park
+d0a6964ef4b3@b1af6a,16,intersection,E 169 ST & JEROME AVE
 402a89c9f563,16,park,Claremont Park
 9ac757d47792,16,park,Macombs Dam Park
 7f872bc935bb,16,park,Merriam Playground
 34ef7c324211,16,park,Claremont Park
+967546577287@42fa7b,16,intersection,E 161 ST & PARK AVE
 887a7842eb8d,14,park,University Woods
 6a198533615f,14,park,Aqueduct Walk
+7d4749fedec6@5938f2,14,intersection,JEROME AVE & CROSS BRONX EXPY
+02929f1bed5f@bdeb58,14,intersection,UNIVERSITY AVE & W TREMONT AVE
+274f488989d8@782da3,14,intersection,UNIVERSITY AVE & W 174 ST
+1b2aa1e739ce@ae344c,14,intersection,DAVIDSON AVE & FEATHERBED LN
 1f069315455d,14,park,University Woods
 fe2ce63e5f3b,14,park,Galileo Playground
+80152eb2e69d@5aa7c1,14,intersection,W 181 ST & GRAND AVE
+39391f7c0124@03af76,16,intersection,SEDGWICK AVE & CEDAR AVE
+b347444619b9@ad11b9,15,intersection,MARION AVE & E 187 ST
+75e53f817a37@cf674c,14,intersection,KINGSLAND PL & W TREMONT AVE
+9b1097c2ed2f@5919be,14,intersection,TOWNSEND AVE & E 175 ST
+282b516122fb@38bb9c,15,intersection,WEBSTER AVE & E 182 ST
 f36ac0306273,15,park,Fairmount Playground
+856c1483a27b@4bdc0c,15,intersection,PARK AVE & E 182 ST
+b8557932572f@aa5407,15,intersection,E 180 ST & WEBSTER AVE
+6a78790f7061@9a207b,15,intersection,BATHGATE AVE & E TREMONT AVE
+47d77952ae55@4254a6,15,intersection,E 180 ST & SOUTHERN BLVD
+e9e1694f2208@87d3a9,15,intersection,E TREMONT AVE & SOUTHERN BLVD
+cd52a02d8fdc@fe28c9,15,intersection,E TREMONT AVE & SOUTHERN BLVD
+7a4b27410bc2@c3d5e3,15,intersection,MONTEREY AVE & E TREMONT AVE
+10e89b289267@48ef67,15,intersection,SOUTHERN BLVD & E FORDHAM RD
+918877f2b6dd@8f5061,15,intersection,E TREMONT AVE & BOSTON RD
+e087dca2c70b@f21513,15,intersection,BRONX PARK AVE & LEBANON ST
+7a694af813cd@9a42d3,15,intersection,E TREMONT AVE & WEBSTER AVE
 14c511393455,11,park,Williamsbridge Oval
 7e4fbe68d602,14,park,St. James Park
+a14b508ba4b4@6cecde,11,intersection,BAINBRIDGE AVE & JEROME AVE
 e803846d3366,11,park,Williamsbridge Oval
-3ee64e66acb1,11,park,Mosholu Parkway
+e83a2acc4837@e4cc05,14,intersection,EXTERIOR ST & W FORDHAM RD
+3ee64e66acb1@be2629,11,park,Mosholu Parkway
+21bee2aca769@b732d5,11,intersection,JEROME AVE & E 212 ST
 aecc0d08a345,14,park,Devoe Park
 f3773aca4d10,14,park,Devoe Park
 655527b4c12d,14,park,Devoe Park
 049af85fa8f0,14,park,Devoe Park
-5bfb21303940,11,park,Mosholu Parkway
+5bfb21303940@0e52e8,11,intersection,MOSHOLU PKWY & WEBSTER AVE
+3fd457e7de06@2c39f6,15,intersection,WEBSTER AVE & E FORDHAM RD
 1778eb723845,11,park,Mosholu Parkway
-46a909f12442,11,park,Mosholu Parkway
+46a909f12442@11b72e,11,park,Mosholu Parkway
 5ca90051249d,11,park,Williamsbridge Oval
+88a1a6054a4e@a0d6c8,11,intersection,WEBSTER AVE & E 233 ST
 40dc29346723,11,park,Mosholu Parkway
-2841b42f86e7,11,park,Van Cortlandt Park
+2841b42f86e7@8a2d50,11,intersection,BROADWAY & W 251 ST
+94c944ef6288@4bc576,14,intersection,SUMMIT PL & HEATH AVE
 68fceca0d8d2,11,park,Van Cortlandt Park
 374a41c4254e,11,park,Ewen Park
 10dfeb8b218d,11,park,Van Cortlandt Park
@@ -161,71 +246,124 @@ f3773aca4d10,14,park,Devoe Park
 745b365bffb5,11,park,Van Cortlandt Park
 a3928daf45e0,11,park,Van Cortlandt Park
 691bcb110a5e,14,park,Kingsbridge Heights Community Center
-880fa1d0eeb2,17|18,park,Bronx River Parkway
+c30d948a5ad2@b7acc8,18,intersection,CLOSE AVE & STORY AVE
+880fa1d0eeb2@fdbdc8,18,intersection,METCALF AVE & WATSON AVE
+67e42949a4bb@adfdeb,18,intersection,WHITE PLAINS RD & BRUCKNER BLVD
 7fc52d96c138,18,park,Soundview Park
 d76415b4982b,18,park,Pugsley Creek Park
 8beba90e5dd9,18,park,Pugsley Creek Park
-c67df7bdd004,18,park,Harding Park
+c67df7bdd004@ed9507,18,intersection,BOLTON AVE & GILDERSLEEVE AVE
+1b5565177b8a@d81433,18,intersection,NEWMAN AVE & SOUNDVIEW AVE
 953ea6c328ef,18,park,Soundview Park
 d975e88c1d4b,18,park,Pugsley Creek Park
+9b826900dd50@3a9649,18,intersection,WHITE PLAINS RD & LAFAYETTE AVE
 3d18017a0eaa,18,park,Harding Park
+a488f4d321b6@3f9df6,18,intersection,BRONX RIVER AVE & STORY AVE
+2f34389288d7@91d997,18,intersection,BRONX RIVER AVE & BRUCKNER BLVD
+8d4e985d704f@590ba0,18,intersection,STORY AVE & BRONX RIVER AVE
+273791c1c133@a625df,18,intersection,CASTLE HILL AVE & E TREMONT AVE
+87083a4f4dd2@b6a74f,18,intersection,WHITE PLAINS RD & LAFAYETTE AVE
+b571fc2524f4@989a1d,18,intersection,CASTLE HILL AVE & WESTCHESTER AVE
 74d3505d6ecb,13,park,Pelham Bay Park
 673cc590bd1e,13,park,Bufano Park
 29d0acca8956,13,park,Bruckner Playground
+0e45af6aee5a@373199,18,intersection,WESTCHESTER AVE & E TREMONT AVE
 15f32e1decf6,13,park,Ferry Point Park
 01748007eaed,13,park,Ferry Point Park
 8fc82fe683a8,13,park,Bufano Park
 67b726fe5223,13,park,Pelham Bay Park
-102c2c9ea016,13|15,park,Pelham Parkway
-5fac1a876056,12|13|15,park,Bronx River Parkway
-5983784a9b3c,13|15,park,Pelham Parkway
-122c975e6402,13|15,park,Pelham Parkway
-687d384898f8,13|15,park,Pelham Parkway
-d82e22972250,13,park,Matthews Muliner Playground
+102c2c9ea016@81d117,13,intersection,PELHAM PKWY & STILLWELL AVE
+5fac1a876056@81d117,13,intersection,PELHAM PKWY & STILLWELL AVE
+5983784a9b3c@694b14,13|15,park,Pelham Parkway
+122c975e6402@f6f1f7,13,intersection,BASSETT AVE & MCDONALD ST
+687d384898f8@53ea4a,13,intersection,PELHAM PKWY & STILLWELL AVE
+d82e22972250@d2a473,13,park,Matthews Muliner Playground
 22c50de7461c,13,park,Mazzei Playground
 ffc991aa7ed7,12,park,Parkside Playground
 b5d43bfac177,15,park,Bronx Park
-f0d1e278365d,15,park,Bronx Park
+f0d1e278365d@181b1b,15,park,Bronx Park
 2775b85aabaa,12,park,Eastchester Playground
 6851ee9bc3b8,13|15,park,Pelham Parkway
-60002f6a1940,13,park,Van Nest Park
+60002f6a1940@a80f1c,13,intersection,UNIONPORT RD & VAN NEST AVE
 9ea568566b80,13|15,park,Pelham Parkway
 3cc72d3ba0ff,12,park,Seton Falls Park
-d28905c680b3,33,park,Bushwick Inlet Park
+d28905c680b3@d2aefc,33,park,Bushwick Inlet Park
 dc2acb233168,33,park,McCarren Park
-40345b4862a0,33,park,WNYC Transmitter Park
+40345b4862a0@727334,33,park,WNYC Transmitter Park
+f5ef8886e9d9@ae9c26,34,intersection,WITHERS ST & HUMBOLDT ST
+a17c5c8d16ad@3fe083,33,intersection,GRAND ST & RIVER ST
+3f19ec54c1f5@cf279a,34,intersection,METROPOLITAN AVE & VARICK AVE
+6fc69567c14e@932063,34,intersection,MESEROLE ST & BUSHWICK AVE
+f4b134b93c05@92b361,33,intersection,DRIGGS AVE & LORIMER ST
+8a6cf3bfea5b@0e283e,34,intersection,SCHOLES ST & MORGAN AVE
+a8874e52605f@f45387,34,intersection,LORIMER ST & BROADWAY
+0fcf89a00e4f@f21aa2,34,intersection,FROST ST & DEBEVOISE AVE
+b986f7bbce99@a2b45e,34,intersection,MASPETH AVE & VANDERVOORT AVE
 a49360743c2b,34,park,Cooper Park
 5f6931ceceac,33,park,McCarren Park
 f0c7b968b0b2,33,park,WNYC Transmitter Park
 d5db7c33a90a,33,park,McCarren Park
+e9e2617732d8@848afa,34,intersection,CLYMER ST & DIVISION AVE
 9eb80b5164e8,34,park,Memorial Gore
 bfa15c9a49b3,35,park,Commodore Barry Park
 f04246e77896,35,park,Fort Greene Park
 9ba90bd49191,33,park,Cadman Plaza Park
+0e6213a555bf@11b5eb,35,intersection,FLATBUSH AVE & ATLANTIC AVE
+0f17e5b28495@88272d,35,intersection,ATLANTIC AVE & FLATBUSH AVE
+94a2617d2e94@9b85f1,33,intersection,ATLANTIC AVE & FURMAN ST
 e45bb4712c7c,35,park,Fort Greene Park
 db45f73cd1f6,35,park,Oracle Playground
+738e84699987@50c1ff,35,intersection,FLATBUSH AVE EXTENSION & WILLOUGHBY ST
 cfd832823740,35,park,Crispus Attucks Playground
+2eefab866fb0@7708c2,33,intersection,FLATBUSH AVE & FULTON ST
 362a0012b043,36,park,Charlie's Place
+bfd58b06e2b1@923c0e,36,intersection,JEFFERSON AVE & STUYVESANT AVE
 57b5b6ce7017,36,park,El Shabazz Playground
+32bb69947680@d6404c,36,intersection,HANCOCK ST & NOSTRAND AVE
+32bb69947680@61fe8b,36,intersection,JEFFERSON AVE & NOSTRAND AVE
+32bb69947680@baa743,36,intersection,MACON ST & NOSTRAND AVE
 0824050eca20,36,park,Kosciuszko Pool
+35569b94050b@82ba53,36,intersection,HANCOCK ST & TOMPKINS AVE
+df16732d7e01@a236e2,36,intersection,NOSTRAND AVE & PARK AVE
+79cfbc548fa0@4ea620,34,intersection,MYRTLE AVE & BROADWAY
+03d0ea87cfcc@299daf,34,intersection,BROADWAY & FLUSHING AVE
 fc5ffe73dad8,34,park,Maria Hernandez Park
+b82670a06cb5@c11869,34,intersection,WEIRFIELD ST & WYCKOFF AVE
+1a87791a36c9@f79700,34,intersection,WYCKOFF AVE & FLUSHING AVE
 aacd52803e7c,37,park,Irving Square Park
+d9048afbc632@299daf,34,intersection,BROADWAY & FLUSHING AVE
+807e486ba852@299daf,34,intersection,BROADWAY & FLUSHING AVE
 50a74739f22d,34,park,Maria Hernandez Park
-88b928cf6948,43,park,Rainbow Playground
-6bbc8b4ca33d,38,park,Sunset Park
+535f5189c386@cd61e3,42,intersection,FLATLANDS AVE & SCHENCK AVE
+1d8b8269fce8@6b843c,42,intersection,EGAN ST & ELTON ST
+84337703ddd6@f55c08,42,intersection,ELTON ST & VANDALIA AVE
+9cc8ef13f9ca@43f760,38,intersection,5 AVE & 34 ST
+dc18b75877fd@b92b28,38,intersection,1 AVE & 39 ST
+88b928cf6948@c3b922,43,park,Rainbow Playground
+0c553dd6625a@9cdbca,38,intersection,3 AVE & 15 ST
+a79ff06d1477@deb7bd,38,intersection,2 AVE & 29 ST
+6bbc8b4ca33d@76d40c,38,park,Sunset Park
+2d7823167d4e@3d87eb,39,intersection,17 ST & 5 AVE
 db08dcbabddc,38,park,D'Emic Playground
 470c661b7793,38,park,Martin Luther Playground
+1286b2d58fee@fbd26a,38,intersection,41 ST & 3 AVE
 8267d5608b34,38,park,Sunset Park
 70407109711d,39,park,Prospect Park
+fcbfd52cb85d@ab65ce,38,intersection,4 AVE & 33 ST
 3731861ad4cf,39,park,Bartel-Pritchard Square
+3801e45c7510@5d1f1b,38,intersection,39 ST & 2 AVE
+72df814e0698@e696d0,38,intersection,3 AVE & 17 ST
 cb0e07d34e6f,38,park,Sunset Park
+696ecf63ac70@dc5af5,39,intersection,E 4 ST & CATON AVE
 294c3189f678,38,park,Sunset Park
 7533bb7319e5,38,park,Sunset Park
 b8769232bf07,38,park,Sunset Park
 4e54721d2e61,36,park,Brower Park
 fc6b0fd29a1e,36,park,Brower Park
-d9ab2392bf23,40,park,Wingate Park
-9b9dd10f1b4a,35,park,Mount Prospect Park
+d9ab2392bf23@049443,40,intersection,BROOKLYN AVE & RUTLAND RD
+9b9dd10f1b4a@bd6bd1,35,park,Mount Prospect Park
+e8cc4272af73@86f26a,47,intersection,BELT PKWY & BAY RIDGE AVE
+4542e97d652a@b3117b,47,intersection,76 ST & COLONIAL RD
 e6b29f205948,38,park,McKinley Park
 88c9377fcb31,38,park,McKinley Park
 149e02b8f27b,50,park,Dyker Beach Park
@@ -235,83 +373,197 @@ dd3716fe1b21,38,park,Leif Ericson Park
 a9caa84b0861,50,park,Dyker Beach Park
 9ea52934d0d0,50,park,Dyker Beach Park
 fa848550fa39,38,park,Leif Ericson Park
-b477cfb0833f,47,park,Bensonhurst Park
+b477cfb0833f@4d6dfd,47,park,Bensonhurst Park
+ce6939d3465b@b33f57,38,intersection,NEW UTRECHT AVE & 86 ST
+5d2f90004deb@1a2170,47,intersection,SHORE PKWY & 21 AVE
+0f897307dd0d@5a25a4,43,intersection,BAY PKWY & BATH AVE
+80b07ec38d6f@a6c71f,43,intersection,BAY RIDGE AVE & 15 AVE
 cf9305dff3f0,47,park,Bensonhurst Park
 8e1c6531038c,47,park,Bath Beach Park
 517e49537dea,47,park,Bath Beach Park
+667f49798c8d@94eb5f,47,intersection,SHORE PKWY & BAY PKWY
 74054882d817,47,park,Bath Playground
+c05414b8d1f7@16c2d4,47,intersection,BELT PKWY & CROPSEY AVE
+280ea22dbbfd@e3a90c,47,intersection,SHORE PKWY & BAY PKWY
 e7a1ab2dae1f,44,park,Friends Field
+3074215a168b@d6e3e2,39,intersection,37 ST & 14 AVE
+afde35757596@40af53,44,intersection,50 ST & 13 AVE
+778b0f814dcd@898321,44,intersection,18 AVE & 45 ST
+8d4209dda6a7@e317af,44,intersection,AVE J & MCDONALD AVE
+a968e60e0069@88543f,44,intersection,AVE I & MCDONALD AVE
+cca9d46dde49@a52dbd,43,intersection,61 ST & 8 AVE
 28dad3f5f24e,39|40|43|44,park,Ocean Parkway Malls
 5cea94c8de59,47,park,Kaiser Park
+69706693f603@53fceb,48,intersection,W 6 ST & SHEEPSHEAD BAY RD
 3e2698775879,47,park,Kaiser Park
 ced98495ff00,47|48,park,Asser Levy Park
 fb29cc9b024e,47|48,park,Asser Levy Park
 ef118d853197,47|48,park,Asser Levy Park
+06b4c8ffdbef@bbdf21,48,intersection,BRIGHTON BEACH AVE & CORBIN PL
+16940ca68573@c6cecc,47,intersection,SHORE PKWY & BAY 52 ST
+861dc591ecc9@f98e94,48,intersection,NEPTUNE AVE & OCEAN PKWY
+4743623928ce@ddc428,40,intersection,BEVERLEY RD & MARLBOROUGH RD
 1a3b02f07f32,40,park,Umma Park
-fef0d512112c,48,park,Manhattan Beach Park
-f46cab6cfc59,48,park,Manhattan Beach Park
+0e88e9324db1@def475,48,intersection,EMMONS AVE & BRIGHAM ST
+f91746a0ca9f@9d29ba,44,intersection,KINGS HWY & MCDONALD AVE
+fef0d512112c@0e2d91,48,park,Manhattan Beach Park
+a37127c54274@4de309,48,intersection,CONEY ISLAND AVE & AVE P
+4ad7b8cfb037@85afee,48,intersection,CONEY ISLAND AVE & GUIDER AVE
+6742e519fc0d@4dbccd,48,intersection,AVE U & OCEAN PKWY
+ab93cb1bd6df@85ac71,48,intersection,E 16 ST & AVE U
+2432144233a0@c11234,48,intersection,SHEEPSHEAD BAY RD & E 14 ST
+19d8acaadd26@e8cf70,48,intersection,EMMONS AVE & SHEEPSHEAD BAY RD
+83e7b7a3d0e3@c11234,48,intersection,SHEEPSHEAD BAY RD & E 14 ST
+d1bd60552c7b@2e583d,48,intersection,HOMECREST AVE & SHORE PKWY
+c2037843d709@f0884c,48,intersection,CONEY ISLAND AVE & AVE P
+14182d2981fd@af2034,48,intersection,AVE U & CONEY ISLAND AVE
+f46cab6cfc59@2cdc20,48,park,Manhattan Beach Park
+62ce063be478@c11234,48,intersection,SHEEPSHEAD BAY RD & E 14 ST
 dd9db4eff6b5,37,park,Houston Playground
 019f25d3d1a7,42,park,Osborn Playground
 f0b003a205ac,41,park,Betsy Head Park
 d7c4e4df1090,41,park,Chester Playground
+ae63848d7797@e46599,41,intersection,PITKIN AVE & HOWARD AVE
+8a06aabe90e9@e46599,41,intersection,PITKIN AVE & HOWARD AVE
 1fd6a52cfd36,41,park,Nehemiah Park
 1d1728bf60af,42,park,Livonia Park
 38ef6e4438d7,41,park,Fish Playground
 c5803d0f0bc0,41,park,P.S. 125 Playground
 e75b25aef3e5,41,park,Betsy Head Park
-92f47048a57d,45,park,Paerdegat Park
-99108758f017,22,park,Socrates Sculpture Park
-ff97eb0fc5ef,22,park,Woodtree Playground
-8a7a8c4604ca,22,park,Whitey Ford Field
+43026b797c1c@e72027,42,intersection,LIVONIA AVE & JUNIUS ST
+6342980d0ac0@eac580,41,intersection,BELMONT AVE & ROCKAWAY AVE
+59478c142bf9@e46599,41,intersection,PITKIN AVE & HOWARD AVE
+ff27a6883e54@c31575,45,intersection,E 40 ST & FARRAGUT RD
+a6a07210f1c0@80795f,45,intersection,FARRAGUT RD & KINGS HWY
+1405e60a1b34@f6210a,45,intersection,E 40 ST & AVE D
+ad48a74f7b25@d6bb8c,45,intersection,FARRAGUT RD & E 40 ST
+13fa9d184b0e@838595,42,intersection,E 94 ST & AVE B
+92f47048a57d@4ff747,45,park,Paerdegat Park
+5a3493a3c80e@525874,41,intersection,UTICA AVE & CLARKSON AVE
+968f604e4d97@9c43b4,45,intersection,KINGS HWY & NOSTRAND AVE
+adba17cf609f@4931e3,46,intersection,AVE U & FLATBUSH AVE
+a77c5bdc7540@a904a7,46,intersection,FLATBUSH AVE & AVE U
+1ac9a4f40e1f@4846de,46,intersection,CHURCH LN & REMSEN AVE
+55c7d56c5eef@4846de,46,intersection,CHURCH LN & REMSEN AVE
+048569d0a027@f9aaed,46,intersection,E 99 ST & FLATLANDS AVE
+9aff6d7e66e5@715cb9,46,intersection,E 99 ST & FLATLANDS AVE
+1414d3023df1@931d86,46,intersection,FLATBUSH AVE & BELT PKWY
+e53737fdc9c5@a49544,46,intersection,ROCKAWAY PKWY & SEAVIEW AVE
+310c1bf214b3@a49544,46,intersection,ROCKAWAY PKWY & SEAVIEW AVE
+a2ece61ddb35@b596f8,46,intersection,AVE L & E 69 ST
+c6483060aefa@b596f8,46,intersection,AVE L & E 69 ST
+ac2f64e9e106@6b2907,46,intersection,E 72 ST & RALPH AVE
+d8e3d0c42a5b@be5477,46,intersection,E 72 ST & RALPH AVE
+6eea5b268b82@2819bc,46,intersection,AVE M & E 66 ST
+04ee4be251b3@23fa65,46,intersection,AVE M & E 66 ST
+9c43ac001198@f59dc9,45,intersection,E 38 ST & KINGS HWY
+54d9cc0a952d@f59dc9,45,intersection,E 38 ST & KINGS HWY
+1a3e8cd589c3@9274b1,45,intersection,FOSTER AVE & RALPH AVE
+e1493c9c132c@9274b1,45,intersection,FOSTER AVE & RALPH AVE
+fdb258aba2dc@6e52ac,45,intersection,E 45 ST & AVE H
+6070c7a4817f@f2d91a,45,intersection,E 45 ST & AVE H
+cff6204c80a4@ae257e,46,intersection,E 56 ST & AVE K
+45c72ff5e4ca@8330e0,46,intersection,E 56 ST & AVE J
+c8e4de10a862@705a48,46,intersection,FLATLANDS 7 ST & E 105 ST
+e7465382d7f2@705a48,46,intersection,FLATLANDS 7 ST & E 105 ST
+7a0ab3b40015@a725e6,46,intersection,AVE M & E 105 ST
+b5e146a5e213@a725e6,46,intersection,AVE M & E 105 ST
+07f7184e5047@337719,46,intersection,AVE K & BERGEN AVE
+ec1e06969564@b1549d,42,intersection,E 108 ST & FLATLANDS AVE
+fda81140d155@b1aadf,46,intersection,BERGEN AVE & ROYCE ST
+f65d1992a003@c97715,42,intersection,E 80 ST & FOSTER AVE
+99108758f017@30ec54,22,park,Socrates Sculpture Park
+ff97eb0fc5ef@40c512,22,park,Woodtree Playground
+8a7a8c4604ca@3c17b9,22,park,Whitey Ford Field
+10faee5cc343@6c9489,22,intersection,STEINWAY ST & 30 AVE
 0d7fa887d458,22,park,Ditmars Playground
-0613946ad9e2,22,park,Rainey Park
-16cb4452d318,22,park,Astoria Park
-f4c2b1a05655,26,park,Dutch Kills Playground
+0613946ad9e2@25762c,22,park,Rainey Park
+16cb4452d318@95874a,22,park,Astoria Park
+f4c2b1a05655@956e24,26,park,Dutch Kills Playground
 eb2b505d3cf6,22,park,Astoria Park
-4cfef8b80f3f,22,park,Whitey Ford Field
+4cfef8b80f3f@64611d,22,park,Whitey Ford Field
 45c55bcb3a97,26,park,Sixteen Oaks Grove
 5dfc6d83f996,22,park,Astoria Park
 cf54a89c668b,22,park,Astoria Park
 3e2dc4f10c6e,22,park,Astoria Park
-72487e7c8ecc,22,park,Sean's Place
+72487e7c8ecc@477dd7,22,park,Sean's Place
 8fc3853ae6e9,22,park,Astoria Park
 e65124ab6581,22,park,Astoria Park
 03351b0ac235,22,park,Astoria Park
+dea2b0553af9@cfa9b5,22,intersection,STEINWAY ST & 21 AVE
 19cba581544d,22,park,Astoria Heights Playground
-babcb1570c2d,22,park,Ditmars Playground
+babcb1570c2d@7b025c,22,park,Ditmars Playground
 6d64f6871efb,22,park,Whitey Ford Field
 6b5498ebf8d7,26,park,Queensbridge Park
 bbceff724cdd,22,park,Rainey Park
 b6ec3c3d46c8,22,park,Astoria Park
+bf2be4282e40@1ba064,22,intersection,ASTORIA BLVD & 31 ST
 b9355bc97dc7,26,park,Ravenswood Playground
 fb89019e69bd,22,park,Astoria Heights Playground
 7f9ffa9f6935,22,park,Astoria Heights Playground
 628c57991f2d,22,park,Astoria Park
 94df74594939,22,park,Hallets Cove Playground
+75a1b0407194@1169bc,22,intersection,31 ST & 23 RD
 83a3b2cb80f1,22,park,Astoria Park
 1206f92d9d32,22,park,Astoria Park
 ad679682d3fb,22,park,Astoria Park
+0e8d4bce42af@bad9b0,26,intersection,BRADLEY AVE & VAN DAM ST
+ddb177d01819@74714d,26,intersection,VERNON BLVD & 53 AVE
+2f1172ade8a7@7f5322,26,intersection,61 ST & 39 AVE
+5364bc7a4608@118815,26,intersection,QUEENS BLVD & 69 ST
+059cd0fc4d6a@b979a4,26,intersection,WOODSIDE AVE & 56 ST
+f70bf69abaea@6432c3,26,intersection,BARNETT AVE & 48 ST
+47a3a6a8be3a@e765f7,26,intersection,GREENPOINT AVE & STARR AVE
+f8c6b1fc03e7@c8f13b,26,intersection,48 AVE & 65 PL
+256743a491c6@c18445,26,intersection,69 PL & GARFIELD AVE
+b8e40f5378b5@5b6be1,26,intersection,HICKS DR & 63 ST
+6e1d04689e5a@198a4f,26,intersection,50 ST & 39 AVE
 99146ee53639,26,park,Court Square Park
 8ce21d4b8f6d,26,park,Rafferty Triangle
-b5e55638f2e9,21,park,Veterans Plaza
+49b3b178541b@a44035,22,intersection,86 ST & 25 AVE
+863527bb68e5@d3e5b2,21,intersection,GRAND CENTRAL PKWY & NORTHERN BLVD
+31ff1f7deaf2@b94b52,22,intersection,ASTORIA BLVD & 82 ST
+b5e55638f2e9@f7f65b,21,park,Veterans Plaza
+656cd9d11282@7fe496,22,intersection,ASTORIA BLVD & 84 ST
 21ce06975164,21,park,Flushing Meadows Corona Park
+d0fb102ed878@688699,21,intersection,CORONA AVE & 108 ST
+0f3ab611e3b5@ba434c,30,intersection,QUEENS BLVD & LONG ISLAND EXPY
 37e63fc3874f,21,park,Park Of The Americas
-2d8ffefd4e79,21,park,Triangle 90
+2d8ffefd4e79@98cac1,21,park,Triangle 90
 aae6fd90afc8,21,park,Flushing Meadows Corona Park
-b0de2e526cbc,25,park,Middleburgh Triangle
+375f3ba2145a@8e132e,21,intersection,114 ST & 43 AVE
+b0de2e526cbc@ec0047,25,park,Middleburgh Triangle
 5ff89b54d216,30,park,Hoffman Park
 ae210fde6729,21,park,Flushing Meadows Corona Park
 f38c7c6c2d12,21,park,Flushing Meadows Corona Park
+68f26be4710e@f63831,25,intersection,QUEENS BLVD & 90 ST
 ebdb4ef176a6,21,park,Corona Plaza
-d49916fa0517,21,park,William F Moore Park
+14220cc85046@e21bfe,30,intersection,85 ST & 55 RD
+e92a19aab5ba@f11a50,30,intersection,57 AVE & QUEENS BLVD
+719c29fb99d0@53aed0,25,intersection,BROADWAY & 76 ST
+d49916fa0517@bf5e4f,21,park,William F Moore Park
+c89cc6678fd3@ce2465,21,intersection,111 ST & 43 AVE
+c9883344d9e5@45ee0f,25,intersection,ROOSEVELT AVE & 72 ST
 8fa733784401,21,park,Corona Plaza
+23176fa1b6d6@8b8464,30,intersection,85 ST & 55 AVE
+9d6c902872a8@0db313,32,intersection,EDSALL AVE & 71 PL
+7b19329e4ece@50594c,34,intersection,MYRTLE AVE & FRESH POND RD
 1c04ed091740,32,park,Highland Park
+c1d75ef15ea8@25631c,30,intersection,GRAND AVE & 69 ST
 0ec2a982ae16,30,park,Juniper Valley Park
 2daf036ff20f,32,park,Jackie Robinson Parkway
+4fc5219c0a11@ca30c3,34,intersection,WYCKOFF AVE & COOPER AVE
+a438aba0a4f0@916db3,30,intersection,FRESH POND RD & ELIOT AVE
+8321988c87d6@345d39,32,intersection,METROPOLITAN AVE & AUBREY AVE
 0c939ec22f4b,30,park,Rosemary's Playground
-3d0b895a87e5,30,park,Evergreen Park
+9ef5ac50fdbc@742e65,30,intersection,80 ST & COOPER AVE
+4e9bebd77ec8@2668df,34,intersection,MYRTLE AVE & FRESH POND RD
+aefb984e5e7a@f2fc1a,34,intersection,PALMETTO ST & ST NICHOLAS AVE
+3d0b895a87e5@eb1ade,30,park,Evergreen Park
 02d3a78e70e1,30,park,Juniper Valley Park
 0e1ef6fe75a8,30,park,Juniper Valley Park
+d510dc801171@e316d3,32,intersection,UNION TPKE & WOODHAVEN BLVD
+827dc12d0027@a95b50,30,intersection,METROPOLITAN AVE & FRESH POND RD
 aa5e6cba6d0d,32,park,Forest Park
 4e20f12e97f2,20,park,Kissena Corridor Park
 f9944539b6ce,19,park,Frank Golden Park
@@ -321,14 +573,21 @@ f9944539b6ce,19,park,Frank Golden Park
 6d7188680543,20|21,park,Flushing Meadows Corona Park
 39b0d57d0ea7,19,park,Little Bay Park
 b0c0d0004f8a,24,park,Cedar Grove Playground
-a637254f7f4c,23,park,Cunningham Park
+4db4bf09a708@554779,24,intersection,183 ST & HORACE HARDING EXPY
+218105bcc23c@eb0dd2,24,intersection,GOETHALS AVE & 168 ST
+a637254f7f4c@f04556,23,park,Cunningham Park
+aad11af0c492@30f109,24,intersection,UTOPIA PKWY & 69 AVE
 734b4ecad284,20|24,park,Flushing Meadows Corona Park
+6f5a4109392a@a76737,24,intersection,GOETHALS AVE & 168 ST
+edd700e5a7e2@f647dd,23,intersection,69 AVE & 195 LN
 32432be9037a,24,park,Briarwood Playground
 faee475d37fd,24,park,Vleigh Playground
 ebebe5f7e4b4,24,park,Freedom Square Playground
 cc17e4f28e5a,24,park,Utopia Playground
 f5671dcb6539,23,park,Cunningham Park
-85a03a93cd87,29|32,park,Forest Park
+b65a35069566@fc96c1,23,intersection,HILLSIDE AVE & 179 ST
+a19b18835756@5245a0,32,intersection,WOODHAVEN BLVD & MYRTLE AVE
+85a03a93cd87@28882c,29|32,park,Forest Park
 adca019e7cd4,29|32,park,Forest Park
 34cafcb0670b,29|32,park,Forest Park
 47d68e023b05,29|32,park,Forest Park
@@ -338,50 +597,128 @@ ac06d8f89b8a,29|32,park,Forest Park
 8058095987b8,29|32,park,Forest Park
 73e11ed8599f,29|32,park,Forest Park
 7f7124d7fb48,29|32,park,Forest Park
-fd92ef1e1d29,28|31,park,Belt Parkway
-edd98e5c2339,28|31,park,Belt Parkway
+d2ab1281c461@45537a,32,intersection,104 ST & RUSSELL ST
+00a3262d409d@4eb8b9,28,intersection,128 ST & 116 AVE
+f2fe128da20f@bb67dc,32,intersection,102 ST & RUSSELL ST
+fd92ef1e1d29@ecc7fa,28,intersection,VAN WYCK EXPY & N CONDUIT AVE
+edd98e5c2339@d0a3e8,28|31,park,Belt Parkway
+2bacce8ad355@37a4d5,32,intersection,LINDEN BLVD & S CONDUIT AVE
 f495b91d5db5,32,park,Tudor Park
-8db09a760c24,19|23,park,Cross Island Parkway
+8db09a760c24@a0d952,23,intersection,NORTHERN BLVD & 223 ST
+0691f2ca60fe@2c7496,19,intersection,42 AVE & FRANCIS LEWIS BLVD
+a62ccb9eee81@b4ec53,19,intersection,233 ST & 38 DR
+d0801db620d4@935516,19,intersection,223 ST & 37 AVE
+c625d3aa4b96@935516,19,intersection,223 ST & 37 AVE
+45d2cb2a919a@c42344,23,intersection,MARATHON PKWY & COMMONWEALTH BLVD
+9d555fd0f756@4d7f6c,23,intersection,LONG ISLAND EXPY & SPRINGFIELD BLVD
 ad98aaaa57eb,23,park,Alley Park
 c354e9cbada4,19,park,Glenwood Landing
+1e4f55c5adc8@238ca3,19,intersection,LEITH RD & BROWVALE LN
 331a7525d609,19,park,John Golden Park
+a38ca5ef8e4b@192550,19,intersection,34 AVE & 211 ST
+3f32f96fb4cf@f3470d,23,intersection,COMMONWEALTH BLVD & GRAND CENTRAL PKWY
 57e1225b301d,23,park,Challenge Playground
+d06a7c011f3f@a4ebbf,23,intersection,UNION TPKE & HOLLIS HILLS TER
 39e040477a0c,23,park,Motor Parkway
+ac5d20c9d5d3@4ccbeb,19,intersection,BELL BLVD & NORTHERN BLVD
+8310e521feec@642c31,23,intersection,BELL BLVD & 48 AVE
 7295dfccdde3,23,park,Motor Parkway
 a37efb0c1f27,19|23,park,Cross Island Parkway
+6689e096f4ea@67d7f3,19,intersection,HORACE HARDING EXPY & 254 ST
+ca79094d5fce@0d3c77,28,intersection,150 ST & LIBERTY AVE
+869f60b34d60@0faecc,27,intersection,116 AVE & 196 ST
+611eb66e0c33@c31ec6,27,intersection,176 ST & MURDOCK AVE
+7e686fcd7d32@af3373,23,intersection,91 AVE & 197 ST
+308c1937b42a@d1324d,28,intersection,FOCH BLVD & MERRICK BLVD
+14a907f0b564@f0bc35,27,intersection,197 ST & 118 AVE
+f651d64a44da@f5ed35,28,intersection,FOCH BLVD & MERRICK BLVD
+6114617a261f@1af632,23,intersection,195 ST & 90 AVE
+7331537bb573@0a4afc,27,intersection,191 ST & WOODHULL AVE
+430cf62a0f4d@8c095a,28,intersection,FOCH BLVD & 171 ST
+b171ca1665bd@f1310a,27,intersection,108 AVE & 164 PL
+eaae50ad2d30@ba75d5,27,intersection,103 RD & 171 ST
+82aa3a47c262@2bb870,24,intersection,PARSONS BLVD & HILLSIDE AVE
+bcb1a0c3b237@9a053d,27,intersection,PARSONS BLVD & ARCHER AVE
+b6f71ba1bfd6@e226dd,27,intersection,199 ST & 120 AVE
 f0b5cd376c79,23|27,park,Cross Island Parkway
+848afeba2498@88f094,27,intersection,193 ST & WOODHULL AVE
+5f9c82ae2177@d76303,23,intersection,191 ST & HILLSIDE AVE
+71bc3c115610@d1324d,28,intersection,FOCH BLVD & MERRICK BLVD
+e19fe25d4d4a@4b99e6,28,intersection,111 RD & 153 ST
+b7ff6c822017@e3c976,28,intersection,115 AVE & 165 ST
+4fb055aa8d46@5e2d49,27,intersection,196 ST & 118 AVE
+f39490e32f5f@d5f955,27,intersection,HILLSIDE AVE & SUTPHIN BLVD
+df93d96bb110@ecf723,23,intersection,183 ST & HILLSIDE AVE
+8177295d9f1d@068c44,27,intersection,109 AVE & 171 ST
+17c34c43f7fe@2df53d,27,intersection,LINDEN BLVD & 195 ST
+6efd05610c5c@51363a,27,intersection,FARMERS BLVD & MERRICK BLVD
+935b3170cd50@307cb0,27,intersection,FARMERS BLVD & LINDEN BLVD
+72edecc992aa@4dbc59,27,intersection,116 RD & 194 ST
+35f966d995e5@96e060,27,intersection,197 ST & 118 AVE
+87585577aa55@51363a,27,intersection,FARMERS BLVD & MERRICK BLVD
 e5c5229f06c3,27,park,Haggerty Park
+424cef2f2e43@a8734c,31,intersection,FRANCIS LEWIS BLVD & 133 AVE
 3c3ce8542b42,23,park,Grand Central Parkway
-9215135c1947,27|31,park,Laurelton Parkway
+9215135c1947@241ee8,31,intersection,FRANCIS LEWIS BLVD & BROOKVILLE BLVD
 be748ebc67ae,31,park,Idlewild Park
-2f21d89f3df8,27|31,park,Laurelton Parkway
-fa26d9be7cfe,27|31,park,Laurelton Parkway
+2f21d89f3df8@b31f19,31,intersection,130 AVE & BROOKVILLE BLVD
+fa26d9be7cfe@fc5581,31,intersection,135 AVE & 229 ST
 129ed36377fa,31,park,Springfield Park
+1e868e179cf7@de2de8,23,intersection,JAMAICA AVE & 224 ST
 1cd2acb32634,31,park,Springfield Park
-50706a0ab357,32,park,Rockaway Beach
+be3823cbe419@a21790,31,intersection,GUY R BREWER BLVD & 145 AVE
+f834fefc08b4@b99606,31,intersection,SPRINGFIELD BLVD & 130 AVE
+da8b8751deda@0b4e87,31,intersection,249 ST & 147 AVE
+50706a0ab357@25de6e,32,park,Rockaway Beach
 c0a957e84a4f,31,park,Rockaway Community Park
 aa887173f69a,31,park,Bayswater Park
 7840c38e2036,32,park,Rockaway Beach
-8e062ecc83f9,32,park,Rockaway Beach
+626ca69d02d7@6ac214,31,intersection,NORTON DR & COLD SPRING RD
+8e062ecc83f9@857be1,32,park,Rockaway Beach
 eee3c847e311,32,park,Rockaway Beach
 611cb3f9c351,31|32,park,Rockaway Freeway
 064bfb8b8fff,49,park,Lyons Pool
-16c014c5a33d,50,park,Naples Playground
-b24226f0160e,50,park,Naples Playground
+d1e6c57bc3a2@129371,49,intersection,RICHMOND TER & BROADWAY
+87fa1eb973c5@4f5156,49,intersection,COLONIAL CT & BROADWAY
+4cace1ba5b0e@e03e41,49,intersection,THERESA PL & BERTHA PL
+935bdbda85e0@951392,49,intersection,CLOVE RD & HOWARD AVE
+6814b1b8e932@a866d9,49,intersection,VICTORY BLVD & MANOR RD
+54455d36681e@2c902a,49,intersection,FRONT ST & BAY ST
+249d42ab7702@b833a7,50,intersection,AUBURN AVE & WILLOWBROOK RD
+b7b4776cc554@3c16d0,49,intersection,VANDERBILT AVE & RICHMOND RD
+8f434b78c0a3@d462e1,50,intersection,NORTH AVE & LIVERMORE AVE
+77e16e18c216@a2b2d6,50,intersection,CHELSEA RD & SOUTH AVE
+16c014c5a33d@37e30a,50,park,Naples Playground
+b24226f0160e@37e30a,50,park,Naples Playground
 8bb2a9a42e04,50,park,Willowbrook Park
-dd3d0fa2774a,50,park,Willowbrook Park
+4c794bf4590a@5e568e,50,intersection,MANOR RD & BRIELLE AVE
+dd3d0fa2774a@af2559,50,park,Willowbrook Park
+347d77920faf@b2b8bb,50,intersection,RICHMOND RD & TODT HILL RD
+6324783e3588@0ee642,50,intersection,CHRISTOPHER LN & RICHMOND AVE
+f47b234c8a58@c9e5fd,50,intersection,CHRISTOPHER LN & VICTORY BLVD
+5478840df528@f76740,50,intersection,ARTHUR KILL RD & CLARKE AVE
+ec9bd2f80971@9a2706,51,intersection,WOODROW RD & BLOOMINGDALE RD
+2fb016492677@54e990,51,intersection,WOODROW RD & ROSSVILLE AVE
+9d3a08c334bb@8dd792,51,intersection,HUGUENOT AVE & RATHBUN AVE
 3ddac01d4dc7,51,park,Lemon Creek Park
+c047ccfe208b@a16605,51,intersection,BLOOMINGDALE RD & AMBOY RD
+a68372e0270d@777946,51,intersection,TENNYSON DR & WIMAN AVE
+6f5290f52d74@e659de,51,intersection,TENNYSON DR & ROBINSON AVE
+225bd816b1e3@a11f55,51,intersection,HYLAN BLVD & RICHARD AVE
 2b37ae4897f6,51,park,Seaside Wildlife Nature Park
+a27b85cca46b@0fcd4a,50,intersection,ROMA AVE & EBBITTS ST
 79a8aab20cfb,1,park,Battery Park City
 835bf76adfd1,1,park,City Hall Park
-f172d6ffa109,1,park,Battery Park City
-2e5afdecdc0e,1,park,Battery Park City
+f172d6ffa109@6778b2,1,intersection,S END AVE & LIBERTY ST
+2e5afdecdc0e@5c91db,1,intersection,RIVER TER & CHAMBERS ST
 01c56724c964,1,park,Battery Park City
 4dd8b03a8251,1,park,Battery Park City
 639c0178e3c0,1,park,Battery Park City
+acdb88129254@9f40e8,3,intersection,CLARKSON ST & GREENWICH ST
 fb002bdf6566,1,park,Mercer Playground
 89e67cbe4cc0,1,park,Vesuvio Playground
 efb28aaf99b2,3,park,Tony Dapolito Recreation Center
+2062bf9f8a47@a94088,3,intersection,MORTON ST & WEST ST
 6b545456a4fd,2,park,Minetta Playground
 e0d0aad5548d,2,park,Washington Square Park
 abaf2b18685f,3,park,Jefferson Market Garden
@@ -390,34 +727,41 @@ abaf2b18685f,3,park,Jefferson Market Garden
 387214dd3b03,2,park,Minetta Triangle
 64947c7859ec,1,park,Seward Park
 0a58c8e7f78a,3,park,Chelsea Park
-a010bea4f071,3,park,Hell's Kitchen Park
-8121f96fdff5,3,park,Chelsea Park
+a010bea4f071@56e49c,3,park,Hell's Kitchen Park
+8b2fa06effae@e7d651,3,intersection,W 41 ST & 10 AVE
+8121f96fdff5@766c0a,3,park,Chelsea Park
 e3a00cc5e7f8,3,park,Bella Abzug Park
+e8259ef6a745@f2230f,3,intersection,10 AVE & W 48 ST
+de5576b94c4e@501a0e,3,intersection,11 AVE & W 20 ST
 f5a863451ee0,3,park,Madison Square Park
-24102486ac95,4,park,Bryant Park
+24102486ac95@75575a,4,park,Bryant Park
 12b89e0f21e9,4,park,Herald Square
 4231598cbd65,6,park,Central Park
-310d7f624c92,6,park,Central Park
+310d7f624c92@9bc15e,6,park,Central Park
 e0d9a514e608,4,park,Bryant Park
 dd70b2eea083,4,park,Peter Detmold Park
-e9dd8f2af2b6,4,park,St. Vartan Park
-42e80357d626,2,park,Bellevue South Park
+e9dd8f2af2b6@ec61bf,4,park,St. Vartan Park
+42e80357d626@5564ce,2,park,Bellevue South Park
+65a565b1d002@99f087,4,intersection,1 AVE & E 23 ST
 07edf04bfdea,2,park,Bellevue South Park
 a5ea2c5882d3,6|7,park,Riverside Park
 edbc58378b04,6|7,park,Riverside Park
-edd2d0531c27,7,park,Alexander Hamilton Playground
-86169cc36192,9,park,St. Nicholas Park
-3ad4b6963a4f,7,park,Morningside Park
-abc3de40eee6,7,park,Riverside Park
-ee1fe41c0e94,7,park,Riverside Park
+edd2d0531c27@6ec908,7,park,Alexander Hamilton Playground
+86169cc36192@9d15cc,9,intersection,W 140 ST & ST NICHOLAS AVE
+6595a64c5918@e1c6cb,7,intersection,12 AVE & W 138 ST
+3ad4b6963a4f@fa192e,7,park,Morningside Park
+abc3de40eee6@ea6dd6,7,park,Riverside Park
+ee1fe41c0e94@3c8709,7,park,Riverside Park
 8a7ac0abb111,7,park,Riverside Park
 a8ab934a88e1,7,park,Riverside Park
 87eaedaa0a79,7,park,Morningside Park
+929a656e15ba@82641a,8,intersection,E 125 ST & LEXINGTON AVE
 e5bae8563f36,8,park,Thomas Jefferson Park
 e64316338dae,9,park,Marcus Garvey Park
 381b574a0ca4,9,park,Marcus Garvey Park
 31a6e2980ba9,10,park,Isham Park
 f2c3bda7c22d,10,park,Inwood Hill Park
+42973c503dc3@3dffe3,10,intersection,W 157 ST & EDGECOMBE AVE
 ab347f889ba9,15,park,Crotona Park
 e89efbbb641a,15,park,Crotona Park
 61a2658290c5,16,park,Drew Playground
@@ -426,204 +770,432 @@ e89efbbb641a,15,park,Crotona Park
 66094fa1d20f,15,park,Crotona Park
 d42d1b61b195,15,park,Crotona Park
 c375bc9b5744,15,park,Crotona Park
-78f1fd20ee8f,15,park,Crotona Park
-23ae9df901bd,11,park,Williamsbridge Oval
-70f430cbc78d,11,park,Williamsbridge Oval
+78f1fd20ee8f@85f48e,15,intersection,CLAREMONT PKWY & CROTONA AVE
+a996aa8999f0@09dd77,17,intersection,SOUTHERN BLVD & E 174 ST
+1f614242eca6@782da3,14,intersection,UNIVERSITY AVE & W 174 ST
+be633035d5f2@fdf3bd,15,intersection,SOUTHERN BLVD & E 183 ST
+a1ab899c7962@fdf3bd,15,intersection,SOUTHERN BLVD & E 183 ST
+82b7e05feaf9@aa5407,15,intersection,E 180 ST & WEBSTER AVE
+27c2cefc0369@2857bc,15,intersection,BATHGATE AVE & E 178 ST
+dcddc62e14f7@48ef67,15,intersection,SOUTHERN BLVD & E FORDHAM RD
+7d26c1fe0988@8f5061,15,intersection,E TREMONT AVE & BOSTON RD
+66f58812259b@87af08,15,intersection,SOUTHERN BLVD & E 183 ST
+7598887253cf@d9eac8,15,intersection,VYSE AVE & E 179 ST
+e68866637fea@cec889,11,intersection,JEROME AVE & E GUN HILL RD
+23ae9df901bd@e2b010,11,park,Williamsbridge Oval
+70f430cbc78d@e2b010,11,park,Williamsbridge Oval
 1b10e5c0b06d,11,park,Williamsbridge Oval
+feb10bfe13b4@e4cc05,14,intersection,EXTERIOR ST & W FORDHAM RD
+c3256f67df1d@2c39f6,15,intersection,WEBSTER AVE & E FORDHAM RD
 b6e6d907be59,11,park,Mosholu Parkway
-ed4bc50e7f58,14,park,Devoe Park
+cc1a5262041a@ebd182,15,intersection,E KINGSBRIDGE RD & VALENTINE AVE
+ed4bc50e7f58@7dc132,14,park,Devoe Park
 f4340901511f,11,park,Mosholu Parkway
-5c9501e8d521,11,park,Mosholu Parkway
+5c9501e8d521@016290,11,park,Mosholu Parkway
 6c66d75e1ff9,11,park,Mosholu Parkway
+a2dbc849f821@a0d6c8,11,intersection,WEBSTER AVE & E 233 ST
 18877fe1fed2,11,park,Van Cortlandt Park
 fb0eeecbdda9,11,park,Van Cortlandt Park
 7fe2c29c09bf,11,park,Jerome Park
+2fb01bfa0504@adfdeb,18,intersection,WHITE PLAINS RD & BRUCKNER BLVD
+c6d0c99ae89d@3a9649,18,intersection,WHITE PLAINS RD & LAFAYETTE AVE
+26c29a761da5@a625df,18,intersection,CASTLE HILL AVE & E TREMONT AVE
+83c7ac0dd522@989a1d,18,intersection,CASTLE HILL AVE & WESTCHESTER AVE
+c29cb5b4ec91@123546,13,intersection,SAMPSON AVE & CALHOUN AVE
+710c41dd9920@eb76ae,13,intersection,PENNYFIELD AVE & HARDING AVE
 ddf4cbf5248f,13,park,Ferry Point Park
-dddbf235f47a,13|15,park,Pelham Parkway
+5fac1a876056@a32dcf,12|13|15,park,Bronx River Parkway
+dddbf235f47a@694b14,13|15,park,Pelham Parkway
 8b74c4aefaa3,13|15,park,Pelham Parkway
-33b86473cbf2,12,park,Eastchester Playground
+33b86473cbf2@4b9d9b,12,park,Eastchester Playground
 1a712406ee6d,13,park,Mazzei Playground
 a8cfff44f2b5,15,park,Bronx Park
-c18731714aa1,13|15,park,Pelham Parkway
+c18731714aa1@7a4d29,13|15,park,Pelham Parkway
 a3ac03182dbd,12|13|15,park,Bronx River Parkway
 8a0f1eee81b8,13|15,park,Pelham Parkway
-9407fbf2dce2,33,park,Bushwick Inlet Park
+9407fbf2dce2@d2aefc,33,park,Bushwick Inlet Park
 5b68e61ef300,33,park,McCarren Park
 029c528820e8,33,park,Mt. Carmel Triangle
 b093cb86b803,33,park,McCarren Park
+8cdb6ce53b3b@50c1ff,35,intersection,FLATBUSH AVE EXTENSION & WILLOUGHBY ST
 f94c09c1775a,36,park,Kosciuszko Pool
-107d3e25accf,36,park,Charlie's Place
+107d3e25accf@63a03c,36,park,Charlie's Place
 febdf019840d,37,park,Irving Square Park
+20dad2b12ad3@299daf,34,intersection,BROADWAY & FLUSHING AVE
 e11838425bb1,42,park,Grace Playground
-f1637a018f28,42,park,Pink Playground
-09f7e73d93ce,42,park,Success Garden
+f1637a018f28@6bedea,42,park,Pink Playground
+09f7e73d93ce@1bfbee,42,park,Success Garden
+ec9ab881b3b3@2e1589,42,intersection,GLENMORE AVE & SCHENCK AVE
+9ee92dd5f7b1@b729c8,42,intersection,ERSKINE ST & SEAVIEW AVE
+19564a598937@9b6b35,42,intersection,RIVERDALE AVE & MILLER AVE
+81b5db59d986@f55c08,42,intersection,ELTON ST & VANDALIA AVE
+19fc5eb8f3a9@461c8a,42,intersection,LIVONIA AVE & WILLIAMS AVE
+6acadedf7b06@4bcdb0,42,intersection,NEW LOTS AVE & VAN SICLEN AVE
+1bb8e3a73bcb@f491dc,42,intersection,PITKIN AVE & HENDRIX ST
 12af2a709ab6,39,park,Grand Army Plaza
 78a2d54bce14,39,park,Grand Army Plaza
 b1f80bb3ff61,39,park,Prospect Park
+5db361b208e2@43f760,38,intersection,5 AVE & 34 ST
+b5430a2c9e42@7469c2,38,intersection,1 AVE & 39 ST
 4bed616534fa,39,park,Prospect Park
+19f629915d7f@dc5af5,39,intersection,E 4 ST & CATON AVE
 c30742990959,36,park,Brower Park
 8eab7e5389b7,38,park,McKinley Park
+bbfcb7fa308b@b3117b,47,intersection,76 ST & COLONIAL RD
 b7fddd28857c,38,park,Leif Ericson Park
 55e92b0f0b7a,38,park,Leif Ericson Park
+7147f31ba03c@1a2170,47,intersection,SHORE PKWY & 21 AVE
+c752e523b237@5a25a4,43,intersection,BAY PKWY & BATH AVE
+82a416a97333@a6c71f,43,intersection,BAY RIDGE AVE & 15 AVE
 cdb48dcf39e3,47,park,Bensonhurst Park
+b1bb4e2b3e68@8e4829,47,intersection,BAY PKWY & SHORE PKWY
 6915e6c381b9,47,park,Bensonhurst Park
-5020d5513dd6,43,park,Rappaport Playground
+d3ced2227629@d6e3e2,39,intersection,37 ST & 14 AVE
+da1a316663c5@13f9d2,44,intersection,OCEAN PKWY & AVE K
+5020d5513dd6@4b21c2,43,park,Rappaport Playground
+24fe208f4127@898321,44,intersection,18 AVE & 45 ST
+6b4d03587f41@e317af,44,intersection,AVE J & MCDONALD AVE
+f7b5f73366ab@88543f,44,intersection,AVE I & MCDONALD AVE
 f0a555207d7d,47,park,Kaiser Park
 71565d8e1be6,47|48,park,Asser Levy Park
 723ee9a85f1d,40,park,Umma Park
+1247a6316af9@d52d24,48,intersection,EMMONS AVE & OCEAN AVE
 4d9f4df68d5e,41,park,South Pacific Playground
 b8523d93f5ee,41,park,Van Dyke Playground
+e75b25aef3e5@f49394,41,park,Betsy Head Park
+45354b86705f@eaf900,41,intersection,BELMONT AVE & ROCKAWAY AVE
+103d7d9d0051@722eb7,45,intersection,KINGS HWY & CLARENDON RD
+4cb9f6c82132@85923c,45,intersection,SNYDER AVE & BROOKLYN AVE
+4d7b90b6fbc6@7a0905,45,intersection,E 53 ST & KINGS HWY
+96a14ce83dc0@978243,45,intersection,FARRAGUT RD & UTICA AVE
+1b2491522b2e@4c4a8d,45,intersection,CHURCH AVE & E 52 ST
+e987f2090a8b@f20407,45,intersection,NOSTRAND AVE & NEWKIRK AVE
+46dfd8a6204a@bfe079,40,intersection,CHURCH AVE & BEDFORD AVE
+fa84bafe6366@b94983,41,intersection,RUTLAND RD & UTICA AVE
+61c6b0fd378b@21f288,40,intersection,CHURCH AVE & BEDFORD AVE
+f60f8376f9ab@7cbe39,40,intersection,CHURCH AVE & NOSTRAND AVE
+d927a95b595b@e9255e,45,intersection,E 40 ST & GLENWOOD RD
+849882880552@463118,45,intersection,E 38 ST & GLENWOOD RD
+1590be9585f5@35ef0b,40,intersection,CHURCH AVE & NOSTRAND AVE
+11e720bf53f3@d77af0,40,intersection,E 43 ST & CHURCH AVE
+c9ff12ce2029@10a7b0,45,intersection,SNYDER AVE & BROOKLYN AVE
+f4289514b064@d4704c,45,intersection,UTICA AVE & CHURCH AVE
+a5b8ec16464f@367390,45,intersection,E 39 ST & FARRAGUT RD
+2b748d1320d2@5af56c,45,intersection,E 35 ST & FARRAGUT RD
 0764c8506972,46,park,Marine Park
+693b687cd973@b01fac,22,intersection,32 ST & DITMARS BLVD
+8a7a8c4604ca@c1bf5a,22,park,Whitey Ford Field
+4211444f325a@6c9489,22,intersection,STEINWAY ST & 30 AVE
 04af9df93bfe,22,park,Astoria Park
-2e516a3c6d6a,22,park,Whitey Ford Field
+2e516a3c6d6a@64611d,22,park,Whitey Ford Field
 de2fafb7a538,22,park,Astoria Park
 1622c510fdc0,22,park,Astoria Park
 57a9d796ab4b,22,park,Steinway Playground
 41c104917e4b,22,park,Astoria Park
-8cb9fde13b44,22,park,Sean's Place
+8cb9fde13b44@477dd7,22,park,Sean's Place
+a3d52281ff6d@774d16,22,intersection,VERNON BLVD & 36 AVE
 f4a43f05fccc,22,park,Astoria Park
-8084c187dea1,21,park,Veterans Plaza
+afb409b9061e@b67746,26,intersection,61 ST & 39 AVE
+d0489510c332@693f0d,26,intersection,WOODSIDE AVE & 56 ST
+14b21821f146@4e0780,21,intersection,114 ST & ASTORIA BLVD
+31ff1f7deaf2@da7fab,22,intersection,ASTORIA BLVD & 82 ST
+8084c187dea1@f7f65b,21,park,Veterans Plaza
 74c4a5c3e817,25,park,Northern Playground
+2fefdd802d56@a44035,22,intersection,86 ST & 25 AVE
+191ea42ec5db@688699,21,intersection,CORONA AVE & 108 ST
 c69b9c1527bd,30,park,Hoffman Park
 2732b12401fb,21,park,Park Of The Americas
-9eee3dab1545,21,park,Triangle 90
-b526b308fb06,25,park,Middleburgh Triangle
+9eee3dab1545@98cac1,21,park,Triangle 90
+559eff7a875a@f9269f,21,intersection,JUNCTION BLVD & ROOSEVELT AVE
+b526b308fb06@16f99e,25,park,Middleburgh Triangle
 7889afc87fbb,21,park,Corona Plaza
 0a3a7855d2f4,21,park,Corona Plaza
 4c9efa5f344a,25,park,Nine Heroes Plaza
 b0f4d0bf58b3,21,park,Corona Plaza
-3ea29db2eca0,21,park,William F Moore Park
+3ea29db2eca0@bf5e4f,21,park,William F Moore Park
 71bbb1acfcd6,25,park,Newtown Playground
+e92a19aab5ba@dd1c41,30,intersection,57 AVE & GRAND AVE
+7a6852d3e9ca@ce2465,21,intersection,111 ST & 43 AVE
 dce0cb47f8cc,21,park,William F Moore Park
+2acd2c1b368f@45ee0f,25,intersection,ROOSEVELT AVE & 72 ST
 41008900edf6,21,park,Corona Plaza
+42dbe300984e@25631c,30,intersection,GRAND AVE & 69 ST
 86ed6e5c1c05,30,park,Rosemary's Playground
+5b176ae4e665@345d39,32,intersection,METROPOLITAN AVE & AUBREY AVE
+180c1659757d@916db3,30,intersection,FRESH POND RD & ELIOT AVE
 29c9ae05d839,29|32,park,Forest Park
 6d9b794f263c,20,park,Kissena Corridor Park
 39e5f33dbe18,19,park,Frank Golden Park
 411258d0a46f,20|21,park,Flushing Meadows Corona Park
 efdaf9746111,19,park,Harvey Park
-0b43f115a75e,24,park,Captain Tilly Park
+0b43f115a75e@44b565,24,intersection,165 ST & HIGHLAND AVE
+dfa7ef8b798c@30f109,24,intersection,UTOPIA PKWY & 69 AVE
 3ac97663d6ed,20|24,park,Flushing Meadows Corona Park
+77bf2ea92d97@cdd61a,24,intersection,186 ST & 73 AVE
 86ace59f6b31,29|32,park,Forest Park
-0c9df07bf74a,29|32,park,Forest Park
+0c9df07bf74a@8ed663,29|32,park,Forest Park
+8c2c2d63ea00@2c7496,19,intersection,42 AVE & FRANCIS LEWIS BLVD
+e456b16b7f0f@4d7f6c,23,intersection,LONG ISLAND EXPY & SPRINGFIELD BLVD
+7916b886cf45@238ca3,19,intersection,LEITH RD & BROWVALE LN
+8328d870d70e@2ac223,19,intersection,WEST DR & PARK LN
+5223c01b86a3@036c17,19,intersection,RICHMOND RD & SHORE RD
+630f158fcd17@9810df,19,intersection,46 AVE & 193 ST
 8cfe070caf1e,19|23,park,Cross Island Parkway
-39adbacb842f,31,park,Idlewild Park
+45d2cb2a919a@366d0d,23,intersection,MARATHON PKWY & COMMONWEALTH BLVD
+fca419c4d58e@0d3c77,28,intersection,150 ST & LIBERTY AVE
+b0969882104c@f1310a,27,intersection,108 AVE & 164 PL
+fffa1ebd4d41@2bb870,24,intersection,PARSONS BLVD & HILLSIDE AVE
+12a0c8f8b651@9a053d,27,intersection,PARSONS BLVD & ARCHER AVE
+b5f7bfb5f43d@2df53d,27,intersection,LINDEN BLVD & 195 ST
+73b8bc4e4c47@4dbc59,27,intersection,116 RD & 194 ST
+182b05f091da@96e060,27,intersection,197 ST & 118 AVE
+413e048867fa@198ab2,31,intersection,147 AVE & BROOKVILLE BLVD
+5a5d765efc30@430fc8,23,intersection,HILLSIDE AVE & 215 PL
+209a48c6e3f0@f46f30,31,intersection,GUY R BREWER BLVD & 145 AVE
+53eaa8a5d7af@5448d0,31,intersection,SPRINGFIELD BLVD & 145 RD
+7b3214436afd@4b2ae8,23,intersection,220 ST & JAMAICA AVE
+39adbacb842f@df6ca7,31,intersection,149 AVE & SPRINGFIELD LN
 930aa3fc73d2,31,park,Springfield Park
-a4bb7d2ae575,32,park,Rockaway Beach
+3c352affdb11@c3bded,23,intersection,HILLSIDE AVE & CROSS ISLAND PKWY
+a4bb7d2ae575@857be1,32,park,Rockaway Beach
 3a80d5791e91,49,park,Lyons Pool
 f8678c0f4889,1,park,City Hall Park
+5ba17bf52fac@badede,1,intersection,FRANKLIN ST & HUDSON ST
+7245dc3630c9@dcb2d0,1,intersection,MOORE ST & WATER ST
+63f7d5113152@3a19c5,1,intersection,VESTRY ST & WEST ST
+a4db13f5a72d@067373,1,intersection,STAPLE ST & DUANE ST
+abf4600367a5@267419,1,intersection,N MOORE ST & HUDSON ST
+6485efc04fec@e38e62,1,intersection,GREENWICH ST & VESTRY ST
+f4f4ed888ee9@5753ed,1,intersection,DUANE ST & GREENWICH ST
+2384985ce383@636480,1,intersection,COLLISTER ST & LAIGHT ST
+17d7f6eaf083@006630,1,intersection,S END AVE & LIBERTY ST
 0cec06084da7,1,park,City Hall Park
 175bbe50f8a4,1,park,Battery Park City
-1d08e4cfd467,1,park,Battery Park City
+1d08e4cfd467@2efcd4,1,intersection,RIVER TER & CHAMBERS ST
 2af8826c5077,1,park,Battery Park City
 824ab32d529f,1,park,Battery Park City
+1d08e4cfd467,1,park,Battery Park City
 7983989581e1,1,park,Vesuvio Playground
 b0fd4a52574d,3,park,Tony Dapolito Recreation Center
+52b85ff9996c@c90593,3,intersection,HORATIO ST & 8 AVE
 53c8d082bb04,2,park,Minetta Playground
+b63bb0301587@4ad985,3,intersection,CLARKSON ST & GREENWICH ST
+a554e02daf12@fe38da,3,intersection,MORTON ST & WEST ST
 c0163027f3f5,1,park,Mercer Playground
+8f9814d9e6fb@16e3a6,2,intersection,COOPER SQ & BOWERY
+1014f5bb1fbb@897576,2,intersection,E 12 ST & BROADWAY
+f4882dd2bb84@eeda09,3,intersection,W HOUSTON ST & WEST ST
+9adde7e11e7a@a4b8f6,3,intersection,WAVERLY PL & CHRISTOPHER ST
 c276481848ab,1,park,Playground of the Americas
+b4e30840c652@6c3e6c,2,intersection,E 14 ST & 4 AVE
 a3e1059fb72d,2,park,Minetta Triangle
-1c7594764f07,3,park,Chelsea Park
+8b2fa06effae@756d66,3,intersection,W 41 ST & 10 AVE
+1c7594764f07@766c0a,3,park,Chelsea Park
+ca79cd61a9ab@b94922,6,intersection,9 AVE & W 55 ST
+9eac811274a6@b094dd,3,intersection,DYER AVE & W 35 ST
+e8259ef6a745@f45bab,3,intersection,10 AVE & W 48 ST
+4320441f7bc4@ce787e,3,intersection,10 AVE & W 13 ST
+d1d635d3dbb3@b6679f,3,intersection,9 AVE & W 44 ST
+25662c4ebf63@6fc8aa,3,intersection,11 AVE & W 20 ST
 a6dc7434c451,6,park,Central Park
-150cf84cc7c0,6,park,Central Park
+150cf84cc7c0@733404,6,park,Central Park
 3e8359857260,4,park,Herald Square
-2c8f09aa0dc8,2,park,Bellevue South Park
+2c8f09aa0dc8@5564ce,2,park,Bellevue South Park
+c7a3b6b641a1@2dc36b,4,intersection,1 AVE & E 23 ST
+811bebae835f@b6231e,4,park,East River Esplanade
 f98f6c3adc66,2,park,Bellevue South Park
 2fae76e011c4,2,park,Bellevue South Park
 1ee4af54acce,6,park,Riverside Park South
 682618657155,7,park,Frederick Douglass Playground
-ecaa155c6011,6,park,Riverside Park South
-c2921c6aec2a,6|7,park,Riverside Park
+ecaa155c6011@823ce5,6,park,Riverside Park South
+c2921c6aec2a@823ce5,6|7,park,Riverside Park
 b03eeaca409e,6|7,park,Riverside Park
-2e2a869e0879,6,park,Verdi Square
+2e2a869e0879@a67600,6,park,Verdi Square
 36dd86e59cbc,6|7,park,Riverside Park
 ae4554109a4f,6|7,park,Riverside Park
-ed41e8976503,6,park,Central Park
-4b21bbdc8993,6|7,park,Riverside Park
-ae36bb5bf18e,6,park,Central Park
+ed41e8976503@733404,6,park,Central Park
+4b21bbdc8993@823ce5,6|7,park,Riverside Park
+ae36bb5bf18e@733404,6,park,Central Park
 c7c2995bd607,6,park,Riverside Park South
 eba7f011006a,6,park,Theodore Roosevelt Park
 6c977cfc37cf,7,park,Frederick Douglass Playground
-917191bfb74a,5,park,Andrew Haswell Green Park
+917191bfb74a@1e2897,5,park,Andrew Haswell Green Park
+7d91597692fa@d61242,5,intersection,YORK AVE & E 59 ST
 6af8877ece8c,5,park,Andrew Haswell Green Park
-9b631dcf0620,7,park,West Harlem Piers
-47895f6582c5,9,park,St. Nicholas Park
-b0764cbd4a85,7,park,Alexander Hamilton Playground
-421c20a94326,7,park,Annunciation Playground
+c28ba27af2e1@39c0de,8,intersection,2 AVE & E 96 ST
+34d1ecaff72e@4fa661,7,intersection,AMSTERDAM AVE & W 125 ST
+9b631dcf0620@d5d161,7,park,West Harlem Piers
+47895f6582c5@9d15cc,9,intersection,W 140 ST & ST NICHOLAS AVE
+6d9ec50fb8e8@800467,7,intersection,12 AVE & W 135 ST
+b0764cbd4a85@4ab2d5,7,park,Alexander Hamilton Playground
+421c20a94326@9212c8,9,intersection,W 135 ST & CONVENT AVE
 c3140a5faf1a,7,park,Morningside Park
-847e5ab7c3cd,7,park,Riverside Park
+847e5ab7c3cd@3c8709,7,park,Riverside Park
 1ac2ff50e2bb,7,park,Riverside Park
 d18455559606,7,park,Riverside Park
-97e5f8bd74bf,9,park,Renaissance Playground
-9386979786a6,9,park,Hansborough Recreation Center
-08f22f0ac485,9,park,St. Nicholas Playground South
-14ee9e34f7ec,9,park,William McCray Playground
-6e635be17738,9,park,Jackie Robinson Park
+bcaba9dcc410@a09f0e,7,intersection,RIVERSIDE DR & W 122 ST
+54dcf1db95d1@e241ff,7,intersection,BROADWAY & W 135 ST
+97e5f8bd74bf@4f1c35,9,park,Renaissance Playground
+9386979786a6@f1f621,9,park,Hansborough Recreation Center
+08f22f0ac485@e340b2,9,park,St. Nicholas Playground South
+14ee9e34f7ec@68bdd4,9,park,William McCray Playground
+6e635be17738@ef942e,9,park,Jackie Robinson Park
+929a656e15ba@a9a580,8,intersection,E 125 ST & LEXINGTON AVE
 742a7eff3b84,8,park,Thomas Jefferson Park
-42373bab014a,9,park,Marcus Garvey Park
+42373bab014a@6e40c4,9,park,Marcus Garvey Park
 53cf1a1518e1,9,park,Marcus Garvey Park
-cdbf2f28f8c5,8,park,Peter Minuit Playground
-0b6ad2deac5c,8,park,P.S. 155 Playground
-5b9f318dd8db,8,park,Harlem Art Park
-d5def886f385,8,park,Peter Minuit Playground
+cdbf2f28f8c5@4058ad,8,park,Peter Minuit Playground
+0b6ad2deac5c@2bf0cd,8,park,P.S. 155 Playground
+5b9f318dd8db@404f4b,8,park,Harlem Art Park
+d5def886f385@4058ad,8,park,Peter Minuit Playground
 71e97046e950,9,park,Marcus Garvey Park
+a9dbcaedc7c6@f111c6,9,intersection,E 125 ST & PARK AVE
+8a34e04f3384@860296,8,intersection,E 125 ST & 1 AVE
 e2299a1112cf,9,park,Marcus Garvey Park
 1f4216234918,10,park,Isham Park
-143f1ec4bef8,10,park,Highbridge Park
-24001610e31b,10,park,Highbridge Park
-c33a4c81f759,10,park,Inwood Hill Park
-739d882774ac,10,park,Inwood Hill Park
+143f1ec4bef8@56a37d,10,park,Highbridge Park
+24001610e31b@9c5a51,10,park,Highbridge Park
+c33a4c81f759@3c6e91,10,park,Inwood Hill Park
+739d882774ac@40c384,10,park,Inwood Hill Park
+de7ee516a482@51cdb9,10,intersection,10 AVE & W 212 ST
 1c60e7d7bbc8,8,park,St. Mary's Park
+b81f54f41423@11052a,16,intersection,E 161 ST & PARK AVE
+8aac6241265c@97d062,17,intersection,SOUTHERN BLVD & E 174 ST
 533a49ec7022,15,park,Crotona Park
+78f1fd20ee8f@953666,15,intersection,CLAREMONT PKWY & CROTONA AVE
+a33933ad86ba@3bd617,17,intersection,HOE AVE & HOME ST
+d78f88030b03@97d062,17,intersection,SOUTHERN BLVD & E 174 ST
 efa324aa070d,16,park,Claremont Park
 538a68b20df9,16,park,Macombs Dam Park
+f56eca84cc66@9d6034,16,intersection,JEROME AVE & E 161 ST
 9edf36a164f9,16,park,Franz Sigel Park
 d1e139f6af55,16,park,Franz Sigel Park
+7d4749fedec6@b90b3a,14,intersection,JEROME AVE & CROSS BRONX EXPY
+02929f1bed5f@1c9868,14,intersection,UNIVERSITY AVE & W TREMONT AVE
+2e5ecf4822c1@eb5bdd,14,intersection,UNIVERSITY AVE & W 174 ST
+1b2aa1e739ce@5c4da7,14,intersection,DAVIDSON AVE & FEATHERBED LN
+80152eb2e69d@b75f14,14,intersection,W 181 ST & GRAND AVE
+39391f7c0124@014368,16,intersection,SEDGWICK AVE & CEDAR AVE
+b347444619b9@32d761,15,intersection,MARION AVE & E 187 ST
+75e53f817a37@90bef8,14,intersection,KINGSLAND PL & W TREMONT AVE
+282b516122fb@b95379,15,intersection,WEBSTER AVE & E 182 ST
 163d46564b0f,15,park,Bathgate Playground
-14a0ce60ec3e,15,park,Quarry Ballfields
-b5c98051555e,15,park,Bronx Park
+14a0ce60ec3e@f4f45d,15,park,Quarry Ballfields
+b5c98051555e@a18b63,15,intersection,E TREMONT AVE & BRONX PARK AVE
+a1ab899c7962@2bfe6b,15,intersection,SOUTHERN BLVD & E 183 ST
 7e23c91b23a0,15,park,Ciccarone Park
+2faaa4d731d6@a74866,15,intersection,E 174 ST & WEBSTER AVE
+d0b1686ab450@3310d0,15,intersection,3 AVE & E TREMONT AVE
+897b45f4fd8c@ad49e0,15,intersection,W FARMS RD & E TREMONT AVE
+42ad9ee956da@0d3b50,15,intersection,ARTHUR AVE & E TREMONT AVE
+074164ea2568@375791,15,intersection,E 177 ST & E TREMONT AVE
 d64123a01677,11,park,Mosholu Parkway
-2cc417b1d9df,11,park,Williamsbridge Oval
-539be800b228,11,park,Williamsbridge Oval
+2cc417b1d9df@e2b010,11,park,Williamsbridge Oval
+539be800b228@e2b010,11,park,Williamsbridge Oval
 b693a10000bf,11,park,Williamsbridge Oval
 ec0eacd765fc,11,park,Williamsbridge Oval
 6248167e428b,11,park,Williamsbridge Oval
-482bbd41004a,11,park,Mosholu Parkway
+482bbd41004a@be2629,11,park,Mosholu Parkway
 6e28050430ca,14,park,Devoe Park
 7fa4c5f6ffbf,14,park,Devoe Park
 3a4f36a9045a,11,park,Mosholu Parkway
-e17e0c0c99e3,11,park,Mosholu Parkway
+e17e0c0c99e3@016290,11,park,Mosholu Parkway
 5ee2a3f42988,11,park,Mosholu Parkway
 3c7a2374402c,11,park,Ewen Park
 e96116f66ac8,11,park,Henry Hudson Parkway
 be13f14ec245,11,park,Van Cortlandt Park
-f301e253eabf,11,park,Van Cortlandt Park
+f301e253eabf@bdfece,11,park,Van Cortlandt Park
 56c1a970914a,11,park,Van Cortlandt Park
 7b1ef56b60fc,11,park,Van Cortlandt Park
 beb42b6b51b0,11,park,Jerome Park
+c30d948a5ad2@030efa,18,intersection,CLOSE AVE & STORY AVE
+880fa1d0eeb2@87edcd,18,intersection,METCALF AVE & WATSON AVE
+67e42949a4bb@2232f7,18,intersection,WHITE PLAINS RD & BRUCKNER BLVD
+c67df7bdd004@ca2223,18,intersection,BOLTON AVE & GILDERSLEEVE AVE
+1b5565177b8a@4108a4,18,intersection,NEWMAN AVE & SOUNDVIEW AVE
+98ca98eeb5f1@310c38,18,intersection,WHITE PLAINS RD & LAFAYETTE AVE
+a488f4d321b6@dd9939,18,intersection,BRONX RIVER AVE & STORY AVE
+2f34389288d7@816f91,18,intersection,BRONX RIVER AVE & BRUCKNER BLVD
+8d4e985d704f@b734e2,18,intersection,STORY AVE & BRONX RIVER AVE
+1eecb2ec21c1@1ce1b5,18,intersection,CASTLE HILL AVE & E TREMONT AVE
+775a91878a1c@589ccb,18,intersection,CASTLE HILL AVE & WESTCHESTER AVE
+c29cb5b4ec91@65a626,13,intersection,SAMPSON AVE & CALHOUN AVE
+710c41dd9920@26a740,13,intersection,PENNYFIELD AVE & HARDING AVE
 bb1749f824e2,13,park,Ferry Point Park
+0e45af6aee5a@8c7839,18,intersection,WESTCHESTER AVE & E TREMONT AVE
+5c114b3713b0@eda304,13,intersection,BRIDGE ST & MINNIEFORD AVE
 fb3e6f52618d,13,park,Hart Island
 67a4d6ef4196,13,park,Ferry Point Park
 11257438743d,13|15,park,Pelham Parkway
+c18731714aa1@2a5cab,13|15,park,Pelham Parkway
 c27fef5df1d9,12|13|15,park,Bronx River Parkway
-aacaa8336f92,13|15,park,Pelham Parkway
+aacaa8336f92@615d58,13|15,park,Pelham Parkway
+f5ef8886e9d9@7ce7cc,34,intersection,WITHERS ST & HUMBOLDT ST
+3f19ec54c1f5@f7aa75,34,intersection,METROPOLITAN AVE & VARICK AVE
+a17c5c8d16ad@f8e6cc,34,intersection,GRAND ST & METROPOLITAN AVE
+f4b134b93c05@701d24,33,intersection,DRIGGS AVE & LORIMER ST
+6fc69567c14e@75f216,34,intersection,MESEROLE ST & BUSHWICK AVE
+8a6cf3bfea5b@bb0cbd,34,intersection,SCHOLES ST & MORGAN AVE
+0fcf89a00e4f@985212,34,intersection,FROST ST & DEBEVOISE AVE
+a8874e52605f@944f06,34,intersection,LORIMER ST & BROADWAY
 f6c48cd63d52,33,park,McCarren Park
+b986f7bbce99@fac785,34,intersection,MASPETH AVE & VANDERVOORT AVE
 0b7e0fa7b143,33,park,Mt. Carmel Triangle
 105d4db967a1,33,park,McCarren Park
-2549b635d6e9,36,park,Raymond Bush Playground
-60c038aab569,41,park,Saratoga Park
-adaae67a853b,36,park,Potomac Playground
-f2473b812abc,36,park,Kosciuszko Pool
+6dcf10a1af0e@00dd36,34,intersection,CLYMER ST & DIVISION AVE
+0816cbe810d8@5e8fad,35,intersection,FLATBUSH AVE EXTENSION & WILLOUGHBY ST
+5b54be383484@56c377,35,intersection,FULTON ST & WASHINGTON AVE
+995fc9e6bf69@bf93e9,35,intersection,ATLANTIC AVE & FLATBUSH AVE
+6be2ce95766f@e34849,33,intersection,ATLANTIC AVE & FURMAN ST
+2549b635d6e9@4aa840,36,park,Raymond Bush Playground
+57b5b6ce7017@ec1922,36,park,El Shabazz Playground
+60c038aab569@717fdd,41,park,Saratoga Park
+adaae67a853b@9f181e,36,park,Potomac Playground
+f2473b812abc@570f22,36,park,Kosciuszko Pool
+35569b94050b@36b17a,36,intersection,HANCOCK ST & TOMPKINS AVE
+bfd58b06e2b1@19e52a,36,intersection,JEFFERSON AVE & STUYVESANT AVE
+362a0012b043@63a03c,36,park,Charlie's Place
+03d0ea87cfcc@ad0bb6,34,intersection,BROADWAY & FLUSHING AVE
+79cfbc548fa0@f4a3a4,34,intersection,MYRTLE AVE & BROADWAY
+1a87791a36c9@db0b4b,34,intersection,WYCKOFF AVE & FLUSHING AVE
+8735ad086b10@ad0bb6,34,intersection,BROADWAY & FLUSHING AVE
+b82670a06cb5@407ba9,34,intersection,WEIRFIELD ST & WYCKOFF AVE
 61dcc1fa521c,34,park,Maria Hernandez Park
-054b5dda2a92,42,park,Success Garden
+31195e25c882@ad0bb6,34,intersection,BROADWAY & FLUSHING AVE
+054b5dda2a92@1bfbee,42,park,Success Garden
+21d251304884@df3a45,42,intersection,ERSKINE ST & SEAVIEW AVE
 ad19710e1a5e,42,park,Grace Playground
-56f4b3ea1fe1,42,park,Pink Playground
+56f4b3ea1fe1@6bedea,42,park,Pink Playground
+19564a598937@0ce767,42,intersection,RIVERDALE AVE & MILLER AVE
+81b5db59d986@579141,42,intersection,ELTON ST & VANDALIA AVE
+ee74c9f6d941@0cc742,42,intersection,LIVONIA AVE & WILLIAMS AVE
+f7efdbd9772f@e63acd,42,intersection,NEW LOTS AVE & VAN SICLEN AVE
+1bb8e3a73bcb@722c48,42,intersection,PITKIN AVE & HENDRIX ST
 dd633b22dddf,39,park,Grand Army Plaza
 0e7a615e9a9e,39,park,Prospect Park
+72df814e0698@2b9515,38,intersection,3 AVE & 17 ST
+0c553dd6625a@0400a2,38,intersection,3 AVE & 15 ST
+c254f4372cc8@934796,38,intersection,5 AVE & 34 ST
+813452a39002@d57fa3,38,intersection,1 AVE & 39 ST
+a79ff06d1477@2b1a1e,38,intersection,2 AVE & 29 ST
+3801e45c7510@110e95,38,intersection,39 ST & 2 AVE
+b4dd3e101d60@cb8272,38,intersection,3 AVE & 15 ST
 bd0a0c591e02,36,park,Brower Park
 1180ebd1f82b,35|41,park,Eastern Parkway
-0d8af1146d27,35,park,Dodger Playground
+f1650cd2e54b@839d3e,41,intersection,MIDWOOD ST & UTICA AVE
+14c1d45c0241@fe3ecd,40,intersection,LINCOLN RD & BEDFORD AVE
+d52c81fe394b@9a6103,40,intersection,OCEAN AVE & FLATBUSH AVE
+71b33f44e3c1@ae5f7a,40,intersection,LEFFERTS AVE & BEDFORD AVE
+71b33f44e3c1@4e3a2d,40,intersection,WINTHROP ST & TROY AVE
+0f73f4c5df6f@f00dc5,40,intersection,LINCOLN RD & FLATBUSH AVE
+6c223945a975@70fdfc,35,intersection,WASHINGTON AVE & MONTGOMERY ST
+0aa449c8b97e@82bbde,40,intersection,ROGERS AVE & LEFFERTS AVE
+ccebd6623f3a@8f2b6a,40,intersection,PARKSIDE AVE & FLATBUSH AVE
+ab7eecc31180@282f49,35,intersection,MONTGOMERY ST & NOSTRAND AVE
+76bf970ac5f3@950b97,40,intersection,BROOKLYN AVE & EMPIRE BLVD
+e231bcb6081e@55f4d2,40,intersection,KINGSTON AVE & EMPIRE BLVD
+0d8af1146d27@f0d73a,35,park,Dodger Playground
+bbfcb7fa308b@75fe30,47,intersection,76 ST & COLONIAL RD
 d1750950eacc,38,park,McKinley Park
 31b67d8978f5,38,park,Leif Ericson Park
 85c0ee805a35,38,park,Leif Ericson Park
@@ -633,81 +1205,267 @@ d1750950eacc,38,park,McKinley Park
 1e0079199ea7,47,park,Russell Pedersen Playground
 f469f071a2c8,50,park,Dyker Beach Park
 7e4738080268,50,park,Dyker Beach Park
+ce6939d3465b@f06226,38,intersection,NEW UTRECHT AVE & 86 ST
+667f49798c8d@8f88bc,47,intersection,SHORE PKWY & BAY PKWY
+028ca716dcd9@497342,43,intersection,BAY PKWY & BATH AVE
 5dc6f3750c64,47,park,Bath Beach Park
+562f28006093@712921,47,intersection,BAY PKWY & SHORE PKWY
 3747dd323184,47,park,Bensonhurst Park
 2c5fca16c8d4,38,park,Benson Playground
-aa8ee77b62a3,48,park,Manhattan Beach Park
-d07faf302af6,48,park,Manhattan Beach Park
+c05414b8d1f7@e7bdab,47,intersection,BELT PKWY & CROPSEY AVE
+d3ced2227629@1d4d9c,39,intersection,37 ST & 14 AVE
+f055b5cac195@8e6e72,44,intersection,OCEAN PKWY & AVE K
+24fe208f4127@fbffda,44,intersection,18 AVE & 45 ST
+6b4d03587f41@8b525d,44,intersection,AVE J & MCDONALD AVE
+f7b5f73366ab@b3e555,44,intersection,AVE I & MCDONALD AVE
+861dc591ecc9@fc9f58,48,intersection,NEPTUNE AVE & OCEAN PKWY
+ce8795c12347@56d9ea,40,intersection,BEVERLEY RD & MARLBOROUGH RD
+aa8ee77b62a3@0e2d91,48,park,Manhattan Beach Park
+3a0e1d9e1b9a@c2b9b4,48,intersection,SHORE BLVD & PEMBROKE ST
+072a99f3d69c@fe8264,48,intersection,EMMONS AVE & OCEAN AVE
+d07faf302af6@2cdc20,48,park,Manhattan Beach Park
+4f5deab76e7d@2915eb,48,intersection,E 16 ST & AVE U
+87d53816953d@4382bb,48,intersection,HOMECREST AVE & SHORE PKWY
+974f69a27a88@7f8916,48,intersection,AVE U & CONEY ISLAND AVE
+07fc7312c045@d9e520,48,intersection,SHEEPSHEAD BAY RD & E 14 ST
 8dc480f4f9b8,41,park,Van Dyke Playground
 7e57e857ceef,41,park,South Pacific Playground
-e45b523faf76,45,park,Paerdegat Park
-a9213d35f069,46,park,Marine Park
-7ce5436954cc,22,park,Whitey Ford Field
-5db8c510c147,22,park,Astoria Park
-1c881a6fa7e1,22,park,Steinway Playground
+8a06aabe90e9@b3a62f,41,intersection,PITKIN AVE & HOWARD AVE
+45354b86705f@5fc66c,41,intersection,BELMONT AVE & ROCKAWAY AVE
+43026b797c1c@3207ae,42,intersection,LIVONIA AVE & JUNIUS ST
+7fbd882f5220@086c4b,41,intersection,BELMONT AVE & ROCKAWAY AVE
+bf4f6de442e4@b3a62f,41,intersection,PITKIN AVE & HOWARD AVE
+c02fad724fd7@46784c,45,intersection,KINGS HWY & CLARENDON RD
+4cb9f6c82132@170c20,45,intersection,SNYDER AVE & BROOKLYN AVE
+4d7b90b6fbc6@991583,45,intersection,E 53 ST & KINGS HWY
+96a14ce83dc0@85f2ff,45,intersection,FARRAGUT RD & UTICA AVE
+1b2491522b2e@b7fbda,45,intersection,CHURCH AVE & E 52 ST
+8dde2897ca73@15a9dd,45,intersection,NOSTRAND AVE & NEWKIRK AVE
+3115d3b5ace6@246e13,40,intersection,CHURCH AVE & BEDFORD AVE
+fa84bafe6366@c1ef25,41,intersection,RUTLAND RD & UTICA AVE
+11d65538c556@246e13,40,intersection,CHURCH AVE & BEDFORD AVE
+2bdb23268655@2e0351,40,intersection,CHURCH AVE & NOSTRAND AVE
+e45b523faf76@3b0a04,45,park,Paerdegat Park
+d927a95b595b@d0ce5b,45,intersection,E 40 ST & GLENWOOD RD
+849882880552@0db87b,45,intersection,E 38 ST & GLENWOOD RD
+0f9f746ba8bf@2e0351,40,intersection,CHURCH AVE & NOSTRAND AVE
+c9ff12ce2029@170c20,45,intersection,SNYDER AVE & BROOKLYN AVE
+f4289514b064@974bbf,45,intersection,UTICA AVE & CHURCH AVE
+a5b8ec16464f@677df8,45,intersection,E 39 ST & FARRAGUT RD
+2b748d1320d2@e5d4bc,45,intersection,E 35 ST & FARRAGUT RD
+2234e1ff27b7@c1ccbc,41,intersection,E 95 ST & RUTLAND RD
+7f5936bb23ff@cbc8a0,45,intersection,UTICA AVE & AVE D
+2d7ba76bb0d2@b136f8,46,intersection,AVE U & FLATBUSH AVE
+48dc8533b5bc@e19f63,46,intersection,FLATBUSH AVE & AVE U
+1ac9a4f40e1f@830691,46,intersection,CHURCH LN & REMSEN AVE
+4fbfecf48ae6@830691,46,intersection,CHURCH LN & REMSEN AVE
+92683ca0cdf1@685d97,46,intersection,E 99 ST & FLATLANDS AVE
+0bbadc39a6ec@52703e,46,intersection,E 99 ST & FLATLANDS AVE
+1414d3023df1@fea811,46,intersection,FLATBUSH AVE & BELT PKWY
+a2ece61ddb35@06605a,46,intersection,AVE L & E 69 ST
+f27696ce27ae@06605a,46,intersection,AVE L & E 69 ST
+a7fd1fdb1b04@9154e9,46,intersection,E 72 ST & RALPH AVE
+ecc179c9c654@f4c754,46,intersection,E 72 ST & RALPH AVE
+7fb5d954c7ee@34293e,46,intersection,AVE M & E 66 ST
+3b4b1310c7f0@609936,46,intersection,AVE M & E 66 ST
+9c43ac001198@740f6c,45,intersection,E 38 ST & KINGS HWY
+d93d19a06710@740f6c,45,intersection,E 38 ST & KINGS HWY
+3bcc622726f0@5dc415,45,intersection,FOSTER AVE & RALPH AVE
+c4258270d69b@5dc415,45,intersection,FOSTER AVE & RALPH AVE
+3e49ec0630e1@7d7a44,46,intersection,E 56 ST & AVE J
+a69e9f4661f0@7d7a44,46,intersection,E 56 ST & AVE J
+c8e4de10a862@a78242,46,intersection,FLATLANDS 7 ST & E 105 ST
+7506d17ac557@a78242,46,intersection,FLATLANDS 7 ST & E 105 ST
+078096a4823b@6b3bd2,46,intersection,AVE W & E 69 ST
+922c1e841c4c@786312,46,intersection,AVE X & E 69 ST
+e49aa23cf84f@443bb7,42,intersection,E 80 ST & FOSTER AVE
+89e11d81e12a@43cff2,42,intersection,E 80 ST & FOSTER AVE
+6c50cc225d38@0d7b64,46,intersection,AVE N & E 85 ST
+53765d6a6e8d@0d7b64,46,intersection,AVE N & E 85 ST
+a9213d35f069@ac1518,46,park,Marine Park
+b27a8b13c108@06b551,45,intersection,AVE H & E 55 ST
+57949ae14da9@06b551,45,intersection,AVE H & E 55 ST
+dc5a4078401f@61f3c7,46,intersection,AVE K & BERGEN AVE
+cb156a28e6b4@cf0430,46,intersection,BERGEN AVE & AVE K
+7ce5436954cc@c1bf5a,22,park,Whitey Ford Field
+b30d665a0191@fd6f80,22,intersection,STEINWAY ST & 30 AVE
+16cb4452d318@f86415,22,park,Astoria Park
+04af9df93bfe@2ef7c2,22,park,Astoria Park
+45c55bcb3a97@6110c1,26,park,Sixteen Oaks Grove
+5db8c510c147@3531c9,22,park,Astoria Park
+1622c510fdc0@2ef7c2,22,park,Astoria Park
+1c881a6fa7e1@4a8ec1,22,intersection,37 ST & 20 AVE
+41c104917e4b@0e1f2a,22,park,Astoria Park
+0d4083fc522b@774d16,22,intersection,VERNON BLVD & 36 AVE
 5578e5a2088f,22,park,Astoria Park
 b2de8e274d0e,26,park,Queensbridge Park
 e47bf9a49d47,22,park,Rainey Park
-f30ee7a1558b,22,park,Astoria Park
+f30ee7a1558b@0e1f2a,22,park,Astoria Park
 4941e4fd2770,22,park,Astoria Park
 09e322f98beb,22,park,Socrates Sculpture Park
-3f53cf77f328,21,park,Veterans Plaza
+8d1ab45a8f1d@30834c,26,intersection,BRADLEY AVE & VAN DAM ST
+c812e42e17ff@fdeaf6,26,intersection,VERNON BLVD & 53 AVE
+7690b3e0e6f4@adfd38,26,intersection,61 ST & 39 AVE
+65dffc2db9b8@3aa815,26,intersection,QUEENS BLVD & 69 ST
+f70bf69abaea@6403ff,26,intersection,BARNETT AVE & 48 ST
+47a3a6a8be3a@3465ea,26,intersection,GREENPOINT AVE & STARR AVE
+256743a491c6@476b2c,26,intersection,69 PL & GARFIELD AVE
+b8e40f5378b5@da421a,26,intersection,HICKS DR & 63 ST
+f8c6b1fc03e7@d0db46,26,intersection,48 AVE & 65 PL
+d904dfab75b0@4e0780,21,intersection,114 ST & ASTORIA BLVD
+31ff1f7deaf2@88faf4,22,intersection,ASTORIA BLVD & 82 ST
+3f53cf77f328@f7f65b,21,park,Veterans Plaza
 8fbd2f95a5ee,25,park,Northern Playground
+2fefdd802d56@8b54b2,22,intersection,86 ST & 25 AVE
 11465546d1ab,21,park,Flushing Meadows Corona Park
-9bc188003ac5,21,park,Flushing Meadows Corona Park
+93f37c41bbdf@15f7ea,21,intersection,DITMARS BLVD & 31 AVE
+191ea42ec5db@bac5e2,21,intersection,CORONA AVE & 108 ST
+9bc188003ac5@16a1e0,21,intersection,111 ST & 46 AVE
 12207b61e20e,21,park,Park Of The Americas
+62bbfa788b4f@f3592b,21,intersection,JUNCTION BLVD & ROOSEVELT AVE
+375f3ba2145a@6080ce,21,intersection,114 ST & ROOSEVELT AVE
 8ffb06347fbb,21,park,Corona Plaza
 4453b08a31d9,25,park,Nine Heroes Plaza
 5988344fc86f,21,park,Flushing Meadows Corona Park
+76dc96764e70@f4f636,30,intersection,57 AVE & GRAND AVE
+4114759e5968@a979e0,30,intersection,85 ST & 55 RD
 735e87da3355,21,park,William F Moore Park
-c8efa3045215,21,park,Corona Plaza
+66b81484f2cb@8a0a97,25,intersection,ROOSEVELT AVE & 72 ST
+c8efa3045215@154843,25,intersection,JUNCTION BLVD & CORONA AVE
+4883caff420c@ca30c3,34,intersection,WYCKOFF AVE & COOPER AVE
+c180b44b78cb@50594c,34,intersection,MYRTLE AVE & FRESH POND RD
 ad06eb62a774,32,park,Highland Park
-88b355ad2f28,30,park,Benninger Playground
+88b355ad2f28@a1f52f,30,park,Benninger Playground
 d501bb61060e,30,park,Rosemary's Playground
 b0f696631388,30,park,Juniper Valley Park
-a5fd9c6f67ed,32,park,Forest Park
-df9ff32053ed,30,park,Evergreen Park
+45cc697abc41@345d39,32,intersection,METROPOLITAN AVE & AUBREY AVE
+a5fd9c6f67ed@4c42b2,32,park,Forest Park
+df9ff32053ed@eb1ade,30,park,Evergreen Park
+f14804b33602@22c6b1,30,intersection,GRAND AVE & 69 ST
+9ab6aebb2afc@2668df,34,intersection,MYRTLE AVE & FRESH POND RD
+1423a7345ebe@1f4ab8,34,intersection,FRESH POND RD & MYRTLE AVE
+3dbbac0ad7e2@d1c5ca,34,intersection,PALMETTO ST & ST NICHOLAS AVE
+f7c086a4f35e@e316d3,32,intersection,UNION TPKE & WOODHAVEN BLVD
+ea22e15f9d46@742e65,30,intersection,80 ST & COOPER AVE
 cddfc32b6cb1,34,park,Starr Playground
 9b717e06e4d6,19,park,Harvey Park
 c9d94d3d8282,19,park,Little Bay Park
-6307c0b09068,24,park,Captain Tilly Park
+6307c0b09068@bb4d65,24,intersection,165 ST & HIGHLAND AVE
+0f145204adbe@f5654e,24,intersection,GOETHALS AVE & 168 ST
 459717ae6467,20|24,park,Flushing Meadows Corona Park
+6f5a4109392a@a6262b,24,intersection,GOETHALS AVE & 168 ST
+e76cffb6d82d@898810,23,intersection,SALERNO AVE & CLIO ST
+46f144ae7752@c3dc4e,24,intersection,186 ST & 73 AVE
 9165bc46ea52,24,park,Freedom Square Playground
+9217c3bcdd79@267ee2,24,intersection,MAIN ST & MANTON ST
+a19b18835756@b3365d,32,intersection,WOODHAVEN BLVD & MYRTLE AVE
 39f3cc0321d2,29|32,park,Forest Park
-b5d8594058d2,29|32,park,Forest Park
-59c6d6989ef4,23,park,Grand Central Parkway
+b5d8594058d2@8ed663,29|32,park,Forest Park
+d2ab1281c461@dc59ed,32,intersection,104 ST & RUSSELL ST
+fd92ef1e1d29@2a4a0e,28,intersection,VAN WYCK EXPY & N CONDUIT AVE
+edd98e5c2339@38cf15,28|31,park,Belt Parkway
+2bacce8ad355@be286c,32,intersection,LINDEN BLVD & S CONDUIT AVE
+8db09a760c24@bce853,23,intersection,NORTHERN BLVD & 223 ST
+8c2c2d63ea00@e4dfab,19,intersection,42 AVE & FRANCIS LEWIS BLVD
+f0bbecb93d20@9bf772,19,intersection,LEITH RD & BROWVALE LN
+59c6d6989ef4@8d5b33,23,intersection,COMMONWEALTH BLVD & GRAND CENTRAL PKWY
+6689e096f4ea@1d94ee,19,intersection,HORACE HARDING EXPY & 254 ST
+8328d870d70e@ac86b3,19,intersection,WEST DR & PARK LN
+5223c01b86a3@b9be7f,19,intersection,RICHMOND RD & SHORE RD
+b523e2017055@b7e467,19,intersection,46 AVE & 193 ST
+936062b03751@fa34d0,19,intersection,223 ST & 37 AVE
+b8a554c178be@b970e5,23,intersection,MARATHON PKWY & COMMONWEALTH BLVD
+a62ccb9eee81@c9fffd,19,intersection,233 ST & 38 DR
+c625d3aa4b96@b87c3f,19,intersection,223 ST & 37 AVE
+d06a7c011f3f@f9fe0d,23,intersection,UNION TPKE & HOLLIS HILLS TER
+ac5d20c9d5d3@dee588,19,intersection,BELL BLVD & NORTHERN BLVD
 ee783227926a,19|23,park,Cross Island Parkway
+98915222cde7@5b5a96,19,intersection,34 AVE & 211 ST
+9cd373467a17@245a7d,28,intersection,150 ST & LIBERTY AVE
+215e8cde5478@751b50,23,intersection,91 AVE & 197 ST
+eaae50ad2d30@778593,27,intersection,103 RD & 171 ST
+b1e81669487a@55d736,24,intersection,PARSONS BLVD & HILLSIDE AVE
+12a0c8f8b651@a100b3,27,intersection,PARSONS BLVD & ARCHER AVE
+848afeba2498@c9fe8f,27,intersection,193 ST & WOODHULL AVE
+b6f71ba1bfd6@79dfd9,27,intersection,199 ST & 120 AVE
+f39490e32f5f@f4d928,27,intersection,HILLSIDE AVE & SUTPHIN BLVD
+5f9c82ae2177@bb6e0a,23,intersection,191 ST & HILLSIDE AVE
+df93d96bb110@a0efa0,23,intersection,183 ST & HILLSIDE AVE
 887149dc3966,28,park,Baisley Pond Park
 5c4949d1d513,28,park,Baisley Pond Park
+935b3170cd50@9837b4,27,intersection,FARMERS BLVD & LINDEN BLVD
+bc7ad4edf1bd@db62a8,27,intersection,LINDEN BLVD & 195 ST
+6efd05610c5c@e3a3ec,27,intersection,FARMERS BLVD & MERRICK BLVD
+8177295d9f1d@133ab5,27,intersection,109 AVE & 171 ST
+46fee7d409b6@d1c59a,27,intersection,116 RD & 194 ST
+544052651a4f@87ccb2,28,intersection,FOCH BLVD & MERRICK BLVD
+0c614679cec7@cab86d,27,intersection,197 ST & 118 AVE
 e16ca54ab2c0,27,park,Haggerty Park
-ff97be8c6c0e,27,park,Haggerty Park
-4fc9249083e3,31,park,Idlewild Park
-986e50d22098,32,park,Rockaway Beach
-d39780631ff4,32,park,Rockaway Beach
+ff97be8c6c0e@8cf23c,27,park,Haggerty Park
+29d86d611ebd@158090,23,intersection,COMMONWEALTH BLVD & HILLSIDE AVE
+fec88e24745a@fc34fa,23,intersection,BRADDOCK AVE & 222 ST
+fa26d9be7cfe@27d7c7,31,intersection,135 AVE & 229 ST
+ac6a9ed98bb5@abd717,23,intersection,UNION TPKE & 249 ST
+9215135c1947@c371c0,31,intersection,FRANCIS LEWIS BLVD & BROOKVILLE BLVD
+2f21d89f3df8@ea5550,31,intersection,130 AVE & BROOKVILLE BLVD
+424cef2f2e43@56ca48,31,intersection,FRANCIS LEWIS BLVD & 133 AVE
+53eaa8a5d7af@dea8d6,31,intersection,SPRINGFIELD BLVD & 145 RD
+dd60d2f4c46e@b63a78,23,intersection,220 ST & JAMAICA AVE
+3c352affdb11@9b1c5b,23,intersection,HILLSIDE AVE & CROSS ISLAND PKWY
+4fc9249083e3@e7d34b,31,intersection,149 AVE & SPRINGFIELD LN
+1e868e179cf7@cda62e,23,intersection,JAMAICA AVE & 224 ST
+986e50d22098@7cbb3c,32,park,Rockaway Beach
+626ca69d02d7@37429a,31,intersection,NORTON DR & COLD SPRING RD
+d39780631ff4@c78725,32,park,Rockaway Beach
+87fa1eb973c5@f26fe6,49,intersection,COLONIAL CT & BROADWAY
+54455d36681e@416b2c,49,intersection,FRONT ST & BAY ST
+b7b4776cc554@066735,49,intersection,VANDERBILT AVE & RICHMOND RD
+a5befa0c0c47@29288d,50,intersection,S GANNON AVE & SHERADEN AVE
+39945d766faf@67a45d,50,intersection,FATHER CAPODANNO BLVD & MIDLAND AVE
+347d77920faf@22ff1e,50,intersection,RICHMOND RD & TODT HILL RD
+ec9bd2f80971@c1dbe4,51,intersection,WOODROW RD & BLOOMINGDALE RD
+9d3a08c334bb@2e2ea8,51,intersection,HUGUENOT AVE & RATHBUN AVE
+225bd816b1e3@5bd15d,51,intersection,HYLAN BLVD & RICHARD AVE
+c047ccfe208b@591127,51,intersection,BLOOMINGDALE RD & AMBOY RD
+2fb016492677@9cb284,51,intersection,WOODROW RD & ROSSVILLE AVE
+5478840df528@1796c7,50,intersection,ARTHUR KILL RD & CLARKE AVE
 f9fab80f52c3,1,park,City Hall Park
 7fbf0123070e,1,park,City Hall Park
 6cc6823656aa,1,park,Battery Park City
-45f23cc36789,1,park,Duane Park
+45f23cc36789@fd20c9,1,park,Duane Park
+785770069e37@a10dde,1,intersection,PEARL ST & FRANKFORT ST
+9677214b575c@6cf5c0,1,intersection,JOHN ST & WILLIAM ST
 a0784c769e61,1,park,Battery Park City
-3ae4449bf368,1,park,DeSalvio Playground
+0ed3a784290a@9b26bd,3,intersection,HUDSON ST & CLARKSON ST
+52b85ff9996c@4e3d79,3,intersection,HORATIO ST & 8 AVE
+3ae4449bf368@77ab79,1,park,DeSalvio Playground
+dc9faedb945c@4ad985,3,intersection,CLARKSON ST & GREENWICH ST
+a221361015b1@fe38da,3,intersection,MORTON ST & WEST ST
+bec39f13f2cb@a4b8f6,3,intersection,WAVERLY PL & CHRISTOPHER ST
+0df01b58afac@0a96a5,2,intersection,AVE OF THE AMERICAS & W 4 ST
+c5523c2063c2@cf51fe,2,intersection,UNIVERSITY PL & E 14 ST
+1014f5bb1fbb@6b49b4,2,intersection,E 12 ST & BROADWAY
+8f9814d9e6fb@d2a8c9,2,intersection,COOPER SQ & BOWERY
+98f662de2bf7@b159a8,3,intersection,W HOUSTON ST & WEST ST
+25f1eadd97fc@8d2e21,1,intersection,ALLEN ST & E HOUSTON ST
 63edf5402cf3,1,park,Columbus Park
 5f60de42707a,2,park,Baruch Playground
 f7b88e578bb2,1,park,Kimlau Square
 e2e199a1e734,1,park,ABC Playground
-33c57f6a711a,1,park,Corlears Hook Park
+33c57f6a711a@c8400d,1,park,Corlears Hook Park
 32a13e2a40c5,1,park,Seward Park
 b3ebb4eb597b,1,park,Seward Park
 dce94f51af09,3,park,Gutenberg Playground
-58221959a3d9,3,park,McCaffrey Playground
+58221959a3d9@1c1956,3,park,McCaffrey Playground
 0d532b2f6532,3,park,Bella Abzug Park
-122ebe1e59fb,3,park,Mathews-Palmer Playground
+122ebe1e59fb@f4b177,3,park,Mathews-Palmer Playground
 5b61413d146d,3,park,Worth Square
 316f6fc8aadc,4,park,Herald Square
-6cc9a5d30865,2,park,Bellevue South Park
-d0e6d29e3553,4,park,Constance Baker Motley Recreation Center
-a76d1245d808,2,park,Peter's Field
-2d1b126f2dda,4,park,Murphy Brothers Playground
-9e1c4ab2bafb,4,park,Murphy Brothers Playground
+6cc9a5d30865@9ee2c7,2,park,Bellevue South Park
+d0e6d29e3553@5e4292,4,park,Constance Baker Motley Recreation Center
+a76d1245d808@6e1178,2,park,Peter's Field
+2d1b126f2dda@ef526e,4,park,Murphy Brothers Playground
+9e1c4ab2bafb@ef526e,4,park,Murphy Brothers Playground
 41e55f51141e,7,park,Frederick Douglass Playground
 5e2082fd358a,6,park,Riverside Park South
 5b857fa8962f,6|7,park,Riverside Park
@@ -718,35 +1476,48 @@ a76d1245d808,2,park,Peter's Field
 e51d5ab560e8,6|7,park,Riverside Park
 d8c78b13a574,6,park,Central Park
 64fa61b9caa5,6|7,park,Riverside Park
-e4495ec0ea85,6,park,Central Park
+e4495ec0ea85@ee047b,6,intersection,W 72 ST & RIVERSIDE DR
 f5daa1801936,9,park,St. Nicholas Park
 581270149e3c,7,park,West Harlem Piers
+b0764cbd4a85,7,park,Alexander Hamilton Playground
 f566ac54fe98,7,park,Morningside Park
-cac3ba4575cb,9,park,A Philip Randolph Square
+847e5ab7c3cd,7,park,Riverside Park
+9b631dcf0620,7,park,West Harlem Piers
+421c20a94326,7,park,Annunciation Playground
+5d7d78b914de@cb901b,9,intersection,W 116 ST & FREDERICK DOUGLASS BLVD
+cac3ba4575cb@5a435d,9,park,A Philip Randolph Square
 d26cdf75b65c,9,park,A Philip Randolph Square
 ca15c0fce5e9,9,park,Jackie Robinson Park
 ac7676d3b793,9,park,William McCray Playground
 fe98260aa950,9,park,Renaissance Playground
-fcdd9a2bc51b,9,park,Hansborough Recreation Center
+fcdd9a2bc51b@b8541e,9,park,Hansborough Recreation Center
 0b677bbf6297,9,park,Jackie Robinson Park
 24585277bde5,9,park,St. Nicholas Playground South
 639c4a5be326,9,park,Fred Samuel Playground
-04d93bbd5d8c,9,park,Marcus Garvey Park
+e5e83daac78b@ce85e3,9,intersection,W 116 ST & FREDERICK DOUGLASS BLVD
+04d93bbd5d8c@6e40c4,9,park,Marcus Garvey Park
 1da72517a9df,9,park,Marcus Garvey Park
-3d85ae969404,8,park,Peter Minuit Playground
+3d85ae969404@4058ad,8,park,Peter Minuit Playground
 4b9ef58df75c,8,park,Harlem River Park
+51247a31f999@f111c6,9,intersection,E 125 ST & PARK AVE
+fc1a4960e44c@df9245,8,intersection,E 125 ST & 1 AVE
 13bdb9f94dde,8,park,St. Mary's Park
 e697ecfc2fd3,15,park,Crotona Park
 52e6c70ebb87,16,park,Drew Playground
-c4761d84b584,15,park,Crotona Park
+c4761d84b584@3bd617,17,intersection,HOE AVE & HOME ST
 7f6f5101881e,15,park,Crotona Park
-83fe86dd0803,16,park,Drew Playground
+83fe86dd0803@a776e7,16,park,Drew Playground
 75e36911bc9b,16,park,Claremont Park
-ca30e01d3490,16,park,Claremont Park
+ca30e01d3490@64a50c,16,park,Claremont Park
 a362bd5d4bd0,16,park,Claremont Park
+9779aa471025@9d6034,16,intersection,JEROME AVE & E 161 ST
 33b66bddeb15,14,park,University Woods
 060bd69ae8e8,14,park,Aqueduct Walk
-2a328811b405,11,park,Williamsbridge Oval
+f49738dca85c@b75f14,14,intersection,W 181 ST & GRAND AVE
+b5c98051555e@1cbce3,15,intersection,E TREMONT AVE & BRONX PARK AVE
+a1ab899c7962@6a17a7,15,intersection,SOUTHERN BLVD & E 183 ST
+2faaa4d731d6@0eafc5,15,intersection,E 174 ST & WEBSTER AVE
+2a328811b405@e2b010,11,park,Williamsbridge Oval
 c6409310bb9b,11,park,Williamsbridge Oval
 f15aec639b7a,14,park,Devoe Park
 b307cfb3c3a4,14,park,Devoe Park
@@ -764,135 +1535,304 @@ d283e1f9068b,11,park,Ewen Park
 a400933219e5,11,park,Van Cortlandt Park
 2f93d224fd48,11,park,Jerome Park
 0cc4da61d350,11,park,Jerome Park
+9e741c9da00e@87edcd,18,intersection,METCALF AVE & WATSON AVE
 c55926e87577,17,park,Concrete Plant Park
 dfaa1e0c8354,18,park,Harding Park
 bbc402ef33c9,18,park,Soundview Park
 f6c701b7d0ee,18,park,Soundview Park
 187880069859,18,park,Harding Park
 bc2affbb68c6,13,park,Hart Island
+a58d708c56b6@040926,13,intersection,BRIDGE ST & MINNIEFORD AVE
 0c56c15520e6,13,park,Hart Island
-6a18ba8bff7f,13|15,park,Pelham Parkway
-18b697449ea9,33,park,WNYC Transmitter Park
+6a18ba8bff7f@694b14,13|15,park,Pelham Parkway
+18b697449ea9@727334,33,park,WNYC Transmitter Park
+c50ccf2863fd@51c5ab,33,intersection,JORALEMON ST & BOERUM PL
 26cf9450e7ff,35,park,University Place
 65e527b76a9a,33,park,Walt Whitman Park
-b54475e18532,36,park,Herbert Von King Park
-c04c9d1a2532,36,park,El Shabazz Playground
-a24c1ca79cb1,36,park,Charlie's Place
-79a5e6b28f46,36,park,Lafayette Playground
-9b2465d63e03,36,park,Kosciuszko Pool
+b54475e18532@a7eb10,36,park,Herbert Von King Park
+3fc3657f729a@923c0e,36,intersection,JEFFERSON AVE & STUYVESANT AVE
+c04c9d1a2532@ec1922,36,park,El Shabazz Playground
+a24c1ca79cb1@5c00f8,36,park,Charlie's Place
+79a5e6b28f46@cadfd6,36,park,Lafayette Playground
+c09fd33562f2@d5bfeb,36,intersection,HANCOCK ST & MARCY AVE
+9b2465d63e03@dd8f20,36,park,Kosciuszko Pool
 fb1788c2cf14,37,park,Irving Square Park
-2cd520a0e2be,42,park,Lion's Pride Playground
+e25263d05e2b@bc9b46,42,intersection,NEW LOTS AVE & VAN SINDEREN AVE
+2cd520a0e2be@c38aaa,42,park,Lion's Pride Playground
+482d8aa3c786@df3a45,42,intersection,ERSKINE ST & SEAVIEW AVE
 4aa8810dd4a9,42,park,Woodruff Playground
 9e2428302193,42,park,Pink Playground
+bff17363d10c@579141,42,intersection,ELTON ST & VANDALIA AVE
+8a721ffff226@07df0c,37,intersection,DANFORTH ST & HEMLOCK ST
 7fa8ebadc951,38,park,Sunset Park
+b4dd3e101d60@8ae5c9,38,intersection,3 AVE & 15 ST
 5109665ba5ce,38,park,Sunset Park
 fc603e96172a,36,park,Brower Park
-c9451c34d455,35|41,park,Eastern Parkway
+f1650cd2e54b@b0f34b,41,intersection,MIDWOOD ST & UTICA AVE
+45149ad5e24e@a670c0,40,intersection,LINCOLN RD & BEDFORD AVE
+21f76d66ef3e@1e9709,40,intersection,ROGERS AVE & EMPIRE BLVD
+21f76d66ef3e@0c990e,40,intersection,BEDFORD AVE & EMPIRE BLVD
+8b9ece321fe8@af3b72,40,intersection,CLARKSON AVE & BEDFORD AVE
+02436327eee2@f7d3dc,40,intersection,OCEAN AVE & FLATBUSH AVE
+71b33f44e3c1@baf1ae,40,intersection,LEFFERTS AVE & BEDFORD AVE
+71b33f44e3c1@bb8310,40,intersection,WINTHROP ST & TROY AVE
+0f73f4c5df6f@43846e,40,intersection,LINCOLN RD & FLATBUSH AVE
+b2142ef1e73e@0268f8,35,intersection,WASHINGTON AVE & MONTGOMERY ST
+b2142ef1e73e@003325,40,intersection,ROGERS AVE & LEFFERTS AVE
+b2142ef1e73e@4bb209,40,intersection,PARKSIDE AVE & FLATBUSH AVE
+ab7eecc31180@1358fc,35,intersection,MONTGOMERY ST & NOSTRAND AVE
+21c993d6baf9@73a9dc,40,intersection,FENIMORE ST & BEDFORD AVE
+21c993d6baf9@0aaa47,40,intersection,STERLING ST & BEDFORD AVE
+21c993d6baf9@543d84,40,intersection,MIDWOOD ST & BEDFORD AVE
+0d76f407aad2@e1292d,35,intersection,WASHINGTON AVE & MONTGOMERY ST
+71b33f44e3c1@434fa9,40,intersection,LINCOLN RD & NOSTRAND AVE
+1c3d9285208d@283240,40,intersection,NEW YORK AVE & MAPLE ST
+7c8845b9642d@434fa9,40,intersection,LINCOLN RD & NOSTRAND AVE
+8e3f1223d6cd@c22d16,35,intersection,UNION ST & NOSTRAND AVE
+c9451c34d455@3cd994,35,intersection,EASTERN PKWY & NOSTRAND AVE
+22aa094865dc@c22d16,35,intersection,UNION ST & NOSTRAND AVE
+991a8feb8b45@dec624,40,intersection,HAWTHORNE ST & NOSTRAND AVE
+c80294742094@cd7ffa,35,intersection,DEARBORN CT & CROWN ST
+c170412a33c8@f00340,40,intersection,CLARKSON AVE & FLATBUSH AVE
+c1a123284ccb@1cd6a7,40,intersection,NOSTRAND AVE & EMPIRE BLVD
+4c31115ed32e@f00340,40,intersection,CLARKSON AVE & FLATBUSH AVE
+bb4c4003ef96@83ec2f,40,intersection,BROOKLYN AVE & EMPIRE BLVD
+bb4c4003ef96@bf0645,40,intersection,KINGSTON AVE & EMPIRE BLVD
+5b1c7ed748ab@cd7ffa,35,intersection,DEARBORN CT & CROWN ST
+ffca1f68a360@dacd1d,40,intersection,NOSTRAND AVE & STERLING ST
 df44af691d4c,35|41,park,Eastern Parkway
-3ba947b1fe06,47,park,John Paul Jones Park
+b5dab2d6c22a@2a468c,35,intersection,EASTERN PKWY & WASHINGTON AVE
+1239351ddfac@ae9df6,35,intersection,MONTGOMERY ST & NOSTRAND AVE
+994b5af931ca@ae9df6,35,intersection,MONTGOMERY ST & NOSTRAND AVE
+078463ade8a9@fb39d5,40,intersection,WINTHROP ST & FLATBUSH AVE
+34ef0cfcc43d@576349,40,intersection,WINTHROP ST & FLATBUSH AVE
+994b5af931ca@5731a6,40,intersection,BEDFORD AVE & WINTHROP ST
+ee3ff397fedc@8f2b6a,40,intersection,PARKSIDE AVE & FLATBUSH AVE
+ee3ff397fedc@0e64c6,40,intersection,WINTHROP ST & FLATBUSH AVE
+ee3ff397fedc@0f714f,40,intersection,OCEAN AVE & PARKSIDE AVE
+3ba947b1fe06@9cb7ec,47,park,John Paul Jones Park
 ffb16f63b41e,38,park,Leif Ericson Park
 bc8a0c19f155,50,park,Dyker Beach Park
 4015d20e6327,50,park,Dyker Beach Park
 5333b3712936,38,park,Leif Ericson Park
+32d72a54ff9e@631c01,38,intersection,BAY 16 ST & BATH AVE
+69b7bf1e68e6@497342,43,intersection,BAY PKWY & BATH AVE
 a70cd54d3f5a,47,park,Bensonhurst Park
 41ece28a47e5,47,park,Bath Beach Park
 52eedbd8276f,47,park,Bath Beach Park
 cfb3ef898d7b,47,park,Bensonhurst Park
 995eeb463d94,38,park,Benson Playground
+1c84435c6cca@8f88bc,47,intersection,SHORE PKWY & BAY PKWY
 d44b61581388,47,park,Bath Playground
+169188a9bf82@4729c2,50,intersection,SHORE PKWY & BAY 8 ST
 72e91a6ba414,44,park,Samuel Goldberg Triangle
 3149ddc94d0d,38,park,Garibaldi Playground
+52b6dd4f01e7@8e6e72,44,intersection,OCEAN PKWY & AVE K
 bc1c0d988a33,39|40|43|44,park,Ocean Parkway Malls
+7897a1061256@1d4d9c,39,intersection,37 ST & 14 AVE
+06b4c8ffdbef@e34a34,48,intersection,BRIGHTON BEACH AVE & BRIGHTON 15 ST
+0907374c887a@fc9f58,48,intersection,NEPTUNE AVE & OCEAN PKWY
 4d3c7bce6ef3,45,park,Hot Spot Tot Lot
-4b9e419b5d82,48,park,Manhattan Beach Park
-bfb8f93d9ede,48,park,Bill Brown Playground
-1376fc54a94f,48,park,Galapo Playground
-79362ea94bf6,48,park,Manhattan Beach Park
+4b9e419b5d82@63f48b,48,park,Manhattan Beach Park
+bfb8f93d9ede@1be5a0,48,park,Bill Brown Playground
+1376fc54a94f@35b1d5,48,park,Galapo Playground
+3a0e1d9e1b9a@b36eb8,48,intersection,SHORE BLVD & PEMBROKE ST
+3b965b160199@fe8264,48,intersection,EMMONS AVE & OCEAN AVE
+79362ea94bf6@2cdc20,48,park,Manhattan Beach Park
+685724469fc7@9dfb6b,46,intersection,AVE U & NOSTRAND AVE
 0b12c3f16a61,42,park,Livonia Park
+fd26c2991fc9@c997d0,42,intersection,VAN SINDEREN AVE & BLAKE AVE
+723503488f5f@619b58,37,intersection,BROADWAY & SARATOGA AVE
 dee2a448270f,41,park,Marion Hopkinson Playground
-abcc5893bff0,45,park,Paerdegat Park
-53c240264f82,45,park,Paerdegat Park
-f8ddbebcf3ad,45,park,Paerdegat Park
+43026b797c1c@8fd87b,42,intersection,LIVONIA AVE & JUNIUS ST
+5862e63ca433@991583,45,intersection,E 53 ST & KINGS HWY
+abf5fbb1e373@ba3f73,45,intersection,E 39 ST & GLENWOOD RD
+6eda22da8c9f@170c20,45,intersection,SNYDER AVE & BROOKLYN AVE
+acd453b3b528@275a49,45,intersection,AVE D & E 57 ST
+291f15db4a9e@34cce1,45,intersection,E 56 ST & CLARENDON RD
+4a6669762f25@aedb5e,45,intersection,AVE D & E 55 ST
+6fe989aff37d@46784c,45,intersection,KINGS HWY & CLARENDON RD
+98dc8c53cc9d@978243,45,intersection,FARRAGUT RD & UTICA AVE
+49df0a455ace@246e13,40,intersection,CHURCH AVE & BEDFORD AVE
+2fb4050cb7f9@246e13,40,intersection,CHURCH AVE & BEDFORD AVE
+abcc5893bff0@3b0a04,45,park,Paerdegat Park
+434830ecec2c@974bbf,45,intersection,UTICA AVE & CHURCH AVE
+cfd2ea8eddd2@233c66,45,intersection,E 58 ST & CLARENDON RD
+220648cdebd8@b96b14,45,intersection,E 42 ST & GLENWOOD RD
+53c240264f82@4ff747,45,park,Paerdegat Park
+e78167efdff9@d0ce5b,45,intersection,E 40 ST & GLENWOOD RD
+5ec097e79186@0db87b,45,intersection,E 38 ST & GLENWOOD RD
+509cf41fe008@2e0351,40,intersection,CHURCH AVE & NOSTRAND AVE
+e493355ad0f4@170c20,45,intersection,SNYDER AVE & BROOKLYN AVE
+ab6e8c45c601@677df8,45,intersection,E 39 ST & FARRAGUT RD
+843e4914df84@e5d4bc,45,intersection,E 35 ST & FARRAGUT RD
+f8ddbebcf3ad@97f53a,45,park,Paerdegat Park
+2234e1ff27b7@4b70c5,41,intersection,E 95 ST & RUTLAND RD
+10d1aac3719d@fea811,46,intersection,FLATBUSH AVE & BELT PKWY
+2c9061206055@443bb7,42,intersection,E 80 ST & FOSTER AVE
+07346c1d7fab@84322c,45,intersection,AVE H & E 55 ST
+57949ae14da9@84322c,45,intersection,AVE H & E 55 ST
 314ff053d619,46,park,Marine Park
 1dcf203888b6,46,park,Canarsie Park
 152294a7348e,46,park,Canarsie Park
+97f033dfef69@8bb16d,46,intersection,PAERDEGAT 9 ST & E 80 ST
+17d60c8e39ff@61f3c7,46,intersection,AVE K & BERGEN AVE
+ce01e23c7a1a@cf0430,46,intersection,BERGEN AVE & AVE K
 bd1cdd71d07a,22,park,Ditmars Playground
-79d099007a4b,22,park,Astoria Park
-1bdc6188ba5c,26,park,Dutch Kills Playground
-79071cc39f77,22,park,Astoria Park
+79d099007a4b@f86415,22,park,Astoria Park
+1bdc6188ba5c@956e24,26,park,Dutch Kills Playground
+45c55bcb3a97@e6550f,26,park,Sixteen Oaks Grove
+79071cc39f77@0e1f2a,22,park,Astoria Park
 b713c00224d2,22,park,Astoria Park
 c3d0f9b629a6,22,park,Socrates Sculpture Park
+006ff8cafc7f@fdeaf6,26,intersection,VERNON BLVD & 53 AVE
 1dabd8a52a0c,26,park,Rafferty Triangle
 407f28952cca,26,park,Crosson Green
+7868b1621c0a@4e0780,21,intersection,114 ST & ASTORIA BLVD
 f5d753c5f428,25,park,Northern Playground
 a38d8fbbd4de,21,park,Louis Armstrong Playground
+a80eb2219494@8b54b2,22,intersection,86 ST & 25 AVE
+93f37c41bbdf@4513ba,21,intersection,DITMARS BLVD & 27 AVE
 10736ce75bca,25,park,Travers Park
-f4b01812ae78,21,park,Flushing Meadows Corona Park
-85bc7954254a,25,park,Newtown Playground
+468e14f44240@bac5e2,21,intersection,CORONA AVE & 108 ST
+f4b01812ae78@60dc62,21,intersection,111 ST & 46 AVE
+85bc7954254a@701a06,25,park,Newtown Playground
+414ddf61a5de@e06a29,30,intersection,QUEENS BLVD & WOODHAVEN BLVD
+7b9281c573b1@aa95b2,21,intersection,ROOSEVELT AVE & 108 ST
+62bbfa788b4f@695aea,21,intersection,JUNCTION BLVD & ROOSEVELT AVE
 ef86a61e3fbe,21,park,Corona Plaza
+e6e1f8302624@c9b73f,21,intersection,114 ST & ROOSEVELT AVE
 bc4b2cd9ed7a,21,park,Corona Plaza
-7c0645be0911,21,park,Corona Golf Playground
+7c0645be0911@073390,21,park,Corona Golf Playground
 d4228ce90b86,21,park,William F Moore Park
-9ce75b775b22,30,park,Benninger Playground
+c8efa3045215@8ec6c2,25,intersection,JUNCTION BLVD & CORONA AVE
+1680876c12a2@352bb8,32,intersection,77 AVE & 76 ST
+c180b44b78cb@479be5,34,intersection,MYRTLE AVE & FRESH POND RD
+9ce75b775b22@a1f52f,30,park,Benninger Playground
 9c353c5d29d8,30,park,Mafera Park
 ad38de79a882,30,park,Juniper Valley Park
+f14804b33602@339e28,30,intersection,GRAND AVE & 69 ST
 ff00d80901fc,30,park,Rosemary's Playground
-3312458c5938,30,park,Evergreen Park
+3312458c5938@eb1ade,30,park,Evergreen Park
+9ab6aebb2afc@479be5,34,intersection,MYRTLE AVE & FRESH POND RD
+3d721ff7ea66@795aa2,32,intersection,METROPOLITAN AVE & AUBREY AVE
+5be7ed128416@36fb1f,34,intersection,FRESH POND RD & MYRTLE AVE
+3dbbac0ad7e2@540b37,34,intersection,PALMETTO ST & ST NICHOLAS AVE
+ea22e15f9d46@e4c24c,30,intersection,80 ST & COOPER AVE
+f7c086a4f35e@ad01bd,32,intersection,UNION TPKE & WOODHAVEN BLVD
 ff5d08cf7853,30,park,Benninger Playground
 0a8ae2039964,32,park,Forest Park
 964d4552b56f,29|32,park,Forest Park
 28b5658bc561,29|32,park,Jackie Robinson Parkway
+ebfa208257d0@e8529c,19,intersection,20 AVE & 127 ST
 50bbb233258b,20,park,Kissena Corridor Park
+a1fba47d8ce1@1c083d,20,intersection,UNION ST & WILLETS POINT BLVD
 65192ef1d406,20,park,Kissena Park
+7504b1dd1a66@95b912,20,intersection,38 AVE & MAIN ST
+8ba2d7e20473@6d6cb2,19,intersection,18 AVE & COLLEGE POINT BLVD
 26abc755cee6,20|21,park,Flushing Meadows Corona Park
 bfb73cb452d9,19,park,Harvey Park
 60cb4f49cb14,19,park,Little Bay Park
-a4ad328b3b88,19,park,Cross Island Parkway
-808e10e49a64,19,park,Cross Island Parkway
+a4ad328b3b88@50ba8b,19,park,Cross Island Parkway
+808e10e49a64@2da4e4,19,park,Cross Island Parkway
 a53da759860a,19,park,Little Bay Park
+cd2b16a9c827@8c264b,19,intersection,COLLEGE POINT BLVD & 14 AVE
+0f145204adbe@d2de02,24,intersection,GOETHALS AVE & 168 ST
+dfa7ef8b798c@8e9ef3,24,intersection,UTOPIA PKWY & 69 AVE
+4f1172ccd7c2@524949,23,intersection,SALERNO AVE & CLIO ST
 2b81aa6b3898,24,park,Utopia Playground
+9217c3bcdd79@beed93,24,intersection,MAIN ST & MANTON ST
+1d31ab10be3a@edaaa4,29,intersection,100 ST & 103 AVE
+34cafcb0670b@cb61d5,32,intersection,JAMAICA AVE & 86 ST
+7bde3a462a06@b63025,29,intersection,102 ST & 85 AVE
 3f57944a9ffc,29|32,park,Forest Park
-619d593ff0af,19|23,park,Cross Island Parkway
-77642f434a3a,23,park,Alley Park
+3377210b8d21@dc59ed,32,intersection,104 ST & RUSSELL ST
+619d593ff0af@bce853,23,intersection,NORTHERN BLVD & 223 ST
+77642f434a3a@f89011,23,park,Alley Park
 4a2e394c4feb,19,park,Crocheron Park
+319eab12b14d@1d94ee,19,intersection,HORACE HARDING EXPY & 254 ST
+73cdf3408009@6c3351,19,intersection,223 ST & 37 AVE
+6b600526de3c@f4d928,27,intersection,HILLSIDE AVE & SUTPHIN BLVD
+530bc42cfe59@a0efa0,23,intersection,183 ST & HILLSIDE AVE
 679dfd581ab5,28,park,Baisley Pond Park
+d1f3bfc1266e@87ccb2,28,intersection,FOCH BLVD & MERRICK BLVD
+30a9374d1e1a@d1c59a,27,intersection,116 RD & 194 ST
+feca5bc6d6a6@91ae11,23,intersection,COMMONWEALTH BLVD & 87 AVE
+169292ad653a@758009,27,intersection,SPRINGFIELD BLVD & 97 AVE
 21af78f60299,31,park,Brookville Park
 efa1d859c7f4,31,park,Springfield Park
-d0b6be7c6833,23|27,park,Cross Island Parkway
+aa10dd59e696@0cba05,23,intersection,260 ST & 74 AVE
+f71e7c4d5c97@224ebe,27,intersection,SPRINGFIELD BLVD & 112 AVE
+82430e7e6db5@6b02ca,23,intersection,UNION TPKE & 249 ST
+a693077f767b@582f50,31,intersection,FRANCIS LEWIS BLVD & 130 AVE
+f079da3f08c9@dea8d6,31,intersection,SPRINGFIELD BLVD & 145 RD
+2695283e9436@b63a78,23,intersection,220 ST & JAMAICA AVE
+e57632923c6d@7d78f4,23,intersection,JAMAICA AVE & FRANCIS LEWIS BLVD
+1687a5ad18cb@a90f0d,27,intersection,LINDEN BLVD & SPRINGFIELD BLVD
+d0b6be7c6833@7ed997,23,intersection,JERICHO TPKE & CROSS ISLAND PKWY
 843c73ccf6ed,32,park,Rockaway Beach
 bfbf95c813f1,32,park,Rockaway Beach
 4330d0596831,49,park,Lyons Pool
+1105ab732e0b@f26fe6,49,intersection,COLONIAL CT & BROADWAY
+83e43847ffe1@416b2c,49,intersection,FRONT ST & BAY ST
+abca158d70e9@7a60ab,49,intersection,GORDON ST & LAUREL AVE
+ec65065c2020@066735,49,intersection,VANDERBILT AVE & RICHMOND RD
+503cd8b1af15@9c7dc1,50,intersection,S GANNON AVE & SHERADEN AVE
 c724207f33ce,50,park,Midland Playground
 877ac37204dd,50,park,Old Town Playground
-41f096224fd4,1,park,Battery Park City
+dc34694db913@9a2706,51,intersection,WOODROW RD & BLOOMINGDALE RD
+6b118c9428c3@cb01fb,51,intersection,ARTHUR KILL RD & W SERVICE RD
+098c088efb60@61f861,51,intersection,ARTHUR KILL RD & RICHMOND AVE
+696883fff9a9@61f861,51,intersection,ARTHUR KILL RD & RICHMOND AVE
+ffc196cf624f@f76740,50,intersection,ARTHUR KILL RD & CLARKE AVE
+41f096224fd4@006630,1,intersection,S END AVE & LIBERTY ST
 9effa7b645d5,1,park,City Hall Park
 b0dd2768a27b,1,park,Battery Park City
-cf533f749d60,1,park,Duane Park
+cf533f749d60@fd20c9,1,park,Duane Park
 dad57ccd2e65,1,park,City Hall Park
 d58344c4f258,1,park,Bowling Green
+9677214b575c@84f8d4,1,intersection,JOHN ST & WILLIAM ST
 47297d2ee804,1,park,Battery Park City
 47990fc31ab9,1,park,Vesuvio Playground
-b286d4ad8347,3,park,Tony Dapolito Recreation Center
-ccac8bec22a5,1,park,DeSalvio Playground
+acdb88129254@4ad985,3,intersection,CLARKSON ST & GREENWICH ST
+2062bf9f8a47@fe38da,3,intersection,MORTON ST & WEST ST
+b286d4ad8347@78a389,3,park,Tony Dapolito Recreation Center
+65530e265e22@4e3d79,3,intersection,HORATIO ST & 8 AVE
+ccac8bec22a5@77ab79,1,park,DeSalvio Playground
 7c933424d1c4,2,park,Washington Square Park
-42a3a9a6f14a,1,park,Petrosino Square
-befc60261e13,3,park,Corporal John A. Seravalli Playground
+42a3a9a6f14a@034125,1,park,Petrosino Square
+21cc0778d2eb@b7f508,3,intersection,10 AVE & GANSEVOORT ST
+420f8d5dbbea@916c20,3,intersection,WAVERLY PL & CHRISTOPHER ST
+9bb31af757e6@6b49b4,2,intersection,E 12 ST & BROADWAY
+044ddbd76514@46b81d,2,intersection,UNIVERSITY PL & E 14 ST
+befc60261e13@ea3fa9,3,park,Corporal John A. Seravalli Playground
 bee3263dedf4,2,park,Minetta Triangle
+3acc54a9d8b1@0a96a5,2,intersection,AVE OF THE AMERICAS & W 4 ST
+57eb6be4393a@d168c1,3,intersection,JANE ST & GREENWICH AVE
 c95b9e7c758f,2,park,Tompkins Square Park
 1706dd1bdec7,1,park,Columbus Park
 f4aa8b6b7bff,2,park,Baruch Playground
+65ed415b89ad@802620,6,intersection,9 AVE & W 55 ST
 da4946fd1431,3,park,Chelsea Park
 dac22a03fa09,3,park,Gutenberg Playground
 01f6adf6ee64,3,park,Chelsea Park
+3983bff5c67e@e50213,3,intersection,W 14 ST & 8 AVE
+9952be1f8db6@ced3bb,2,intersection,E 28 ST & LEXINGTON AVE
+73f6d6ad39c9@7235dd,3,intersection,7 AVE & W 34 ST
 11ce06e5663c,3,park,Worth Square
-cab7359639b7,4,park,Dag Hammarskjold Plaza
-90a65a4a8e8b,2,park,Stuyvesant Square
+a299a39c4816@e2554e,4,intersection,W 42 ST & BROADWAY
+66e401936d37@e7e5a5,3,intersection,W 46 ST & 8 AVE
+2f85ff0f2c31@10a66e,2,intersection,PARK AVE & E 32 ST
+b988fa85cf4f@f68790,4,intersection,W 42 ST & AVE OF THE AMERICAS
+fce1fd1db725@5151df,3,intersection,8 AVE & W 34 ST
+cab7359639b7@44de65,4,park,Dag Hammarskjold Plaza
+90a65a4a8e8b@8e5d4c,2,park,Stuyvesant Square
 c86f734f8ccd,2,park,Bellevue South Park
-c82305c55ef0,4,park,Constance Baker Motley Recreation Center
+c82305c55ef0@5e4292,4,park,Constance Baker Motley Recreation Center
 293cd1891357,4,park,St. Vartan Park
 f5a4696569ce,4,park,Ralph Bunche Park
 0c8c14d63f69,2,park,Bellevue South Park
-20040141980a,4,park,Murphy Brothers Playground
+20040141980a@ef526e,4,park,Murphy Brothers Playground
 6cabb783d935,7,park,Frederick Douglass Playground
 094255e29a8b,6|7,park,Riverside Park
 3bbf08b4a3a1,6,park,Central Park
@@ -900,25 +1840,31 @@ f5a4696569ce,4,park,Ralph Bunche Park
 cd6865fa353f,6|7,park,Riverside Park
 c08fb6356501,6,park,Central Park
 698c3762ef9c,6|7,park,Riverside Park
-e4f81f953887,6,park,Central Park
+e4f81f953887@dc097e,6,park,Central Park
 3e6338890b41,4,park,East River Esplanade
 4f468627c687,5,park,John Jay Park
-2492537819e6,5,park,Andrew Haswell Green Park
+2492537819e6@1e2897,5,park,Andrew Haswell Green Park
 074c846d5f90,5,park,Samuel Seabury Playground
 ed21fc7ad89e,5,park,Ruppert Park
-8c83a194a485,7,park,Riverside Park
+c53b3c08b271@39c0de,8,intersection,2 AVE & E 96 ST
+13ac20439580@79305b,7,intersection,W 120 ST & RIVERSIDE DR
+8c83a194a485@0c087f,7,park,Riverside Park
+5d7d78b914de@482cf6,9,intersection,W 116 ST & FREDERICK DOUGLASS BLVD
+cac3ba4575cb@e89b5b,9,park,A Philip Randolph Square
 371bfeb6511b,9,park,A Philip Randolph Square
 b29f02d34bc9,9,park,Renaissance Playground
 a4844ca66119,9,park,Jackie Robinson Park
 563de8253fd0,9,park,Fred Samuel Playground
 962e4a471c40,9,park,Jackie Robinson Park
-d40ebcff521b,9,park,Marcus Garvey Park
+e5e83daac78b@3a5c34,9,intersection,W 116 ST & FREDERICK DOUGLASS BLVD
+d40ebcff521b@6e40c4,9,park,Marcus Garvey Park
 90c3b1189943,8,park,Peter Minuit Playground
-d857f5748a90,8,park,Peter Minuit Playground
+d857f5748a90@4058ad,8,park,Peter Minuit Playground
 35b5ab143307,10,park,McKenna Square
 1f358afb6aee,17,park,North Brother Island
 d0c2cba91a7d,17,park,Barretto Point Park
-d62b299b6880,16,park,Railroad Park
+d62b299b6880@2b05e1,16,intersection,E 161 ST & PARK AVE
+ad5198cda5e7@97d062,17,intersection,SOUTHERN BLVD & E 174 ST
 b275cd8448fd,16,park,Drew Playground
 7a4bb60c009a,15,park,Crotona Park
 5f4aeebba67f,15,park,Crotona Park
@@ -926,11 +1872,13 @@ b275cd8448fd,16,park,Drew Playground
 9fa7a7770049,15,park,Crotona Park
 f4a527ed52fe,15,park,Crotona Park
 db40f330e8cc,15,park,Bathgate Playground
+2ecc28af228a@6a17a7,15,intersection,SOUTHERN BLVD & E 183 ST
 ceea4a7680e5,11,park,Williamsbridge Oval
+33e64b43189e@45d912,14,intersection,EXTERIOR ST & W FORDHAM RD
 8cd478e78d2c,11,park,Williamsbridge Oval
 6fb625d9a11c,11,park,Williamsbridge Oval
 35d48869bae5,11,park,Williamsbridge Oval
-40477acdb443,11,park,Mosholu Parkway
+40477acdb443@d0a57b,11,park,Mosholu Parkway
 d4b71f0870b6,11,park,Mosholu Parkway
 da9b47b8848c,11,park,Mosholu Parkway
 96f34748d21e,11,park,Bailey Playground
@@ -956,37 +1904,78 @@ e24cd4105092,13,park,Bufano Park
 6eeff87cfa25,13,park,Ferry Point Park
 bc6ea7bdf174,13,park,Bufano Park
 f32a9354b53b,13|15,park,Pelham Parkway
-437e41e2f35e,13|15,park,Pelham Parkway
+2de2fda4aa23@35292a,13,intersection,MORRIS PARK AVE & UNIONPORT RD
+437e41e2f35e@2f7e5e,13|15,park,Pelham Parkway
 60d42a4d8e3d,13|15,park,Pelham Parkway
-7a02ddf441b2,13|15,park,Pelham Parkway
-5513db3475d4,13|15,park,Pelham Parkway
+7a02ddf441b2@7a7a80,13,intersection,PELHAM PKWY & STILLWELL AVE
+5513db3475d4@6663f7,13|15,park,Pelham Parkway
 e69cb5365af8,12|13|15,park,Bronx River Parkway
-bc8c170abc35,13|15,park,Pelham Parkway
+bc8c170abc35@615d58,13|15,park,Pelham Parkway
 036acefee663,13|15,park,Pelham Parkway
 f60626224fe7,12,park,Seton Falls Park
-d9cc6c093655,33,park,WNYC Transmitter Park
-755f1ee381c2,33,park,Bushwick Inlet Park
+d9cc6c093655@727334,33,park,WNYC Transmitter Park
+755f1ee381c2@d2aefc,33,park,Bushwick Inlet Park
+33d5080f8ba2@7ce7cc,34,intersection,WITHERS ST & HUMBOLDT ST
+2c663498051b@b64da6,34,intersection,METROPOLITAN AVE & METROPOLITAN AVE
+635762a33afa@6830bc,34,intersection,GRAND ST & GRAND ST
+aa659a87f9e8@7faf99,33,intersection,DRIGGS AVE & DRIGGS AVE
+39f9095a8caa@892e49,34,intersection,MESEROLE ST & MESEROLE ST
+c7383f92ace5@1c2363,34,intersection,MASPETH AVE & MASPETH AVE
+608a76bd8938@0ea4a4,34,intersection,LORIMER ST & LORIMER ST
+cb4922d5a5c7@1266d3,34,intersection,FROST ST & FROST ST
+e6501c45e046@f45387,34,intersection,LORIMER ST & BROADWAY
 c01cd3d8d396,33,park,McCarren Park
-3b5d8f4e2fd2,33,park,Mt. Carmel Triangle
+3b5d8f4e2fd2@ce515e,33,park,Mt. Carmel Triangle
 1e22f86c9286,34,park,Cooper Park
 5070dc4d8fac,33,park,McCarren Park
 96e3d61e7fec,33,park,WNYC Transmitter Park
 a4714b875448,33,park,McCarren Park
-9aedfd62c9f9,33|35,park,Bridge Park 3
-a2cf4940c774,35,park,South Oxford Park
+9aedfd62c9f9@8a0d38,33|35,park,Bridge Park 3
+a2cf4940c774@df16bc,35,park,South Oxford Park
 f901cb8ff33a,35,park,Underwood Park
-ab8cf340b279,33,park,Walt Whitman Park
-1f9a94c2b4a1,35,park,Commodore Barry Park
-d435c642b6cc,33,park,Hillside Dog Park
-e84fc7126f44,35,park,University Place
-38cb5ef8720d,35,park,Fort Greene Park
-52de6bcadaed,35,park,Fort Greene Park
-f3dcecebca5e,36,park,El Shabazz Playground
-000cf9b78427,36,park,Hattie Carthan Playground
-10f6faa01f34,36,park,Kosciuszko Pool
-4395e1ebfa5a,42,park,Lion's Pride Playground
+e380d62e3017@0b805c,35,intersection,FLUSHING AVE & NAVY ST
+ab8cf340b279@d0feb1,33,park,Walt Whitman Park
+1f9a94c2b4a1@c8dff9,35,park,Commodore Barry Park
+d435c642b6cc@27e188,33,park,Hillside Dog Park
+e84fc7126f44@b520f5,35,park,University Place
+38cb5ef8720d@6228a1,35,park,Fort Greene Park
+52de6bcadaed@29f345,35,park,Fort Greene Park
+2bf617dd8f39@dce9fc,35,intersection,PARK AVE & NAVY ST
+c5271b9cf106@b20c73,36,intersection,BEDFORD AVE & FULTON ST
+bc5db5721f0a@19e52a,36,intersection,JEFFERSON AVE & STUYVESANT AVE
+f3dcecebca5e@ec1922,36,park,El Shabazz Playground
+000cf9b78427@55966e,36,park,Hattie Carthan Playground
+3a4d3e3b52b6@5ea981,36,intersection,HANCOCK ST & MARCY AVE
+10f6faa01f34@dd8f20,36,park,Kosciuszko Pool
+92316c57d677@ab5c03,41,intersection,FULTON ST & RALPH AVE
+a703ec681814@7efce2,34,intersection,BROADWAY & FLUSHING AVE
+1a87791a36c9@20af7f,34,intersection,WYCKOFF AVE & FLUSHING AVE
+8735ad086b10@7efce2,34,intersection,BROADWAY & FLUSHING AVE
+4395e1ebfa5a@c38aaa,42,park,Lion's Pride Playground
+33737804f2c7@4843e3,37,intersection,ATLANTIC AVE & CRESCENT ST
 787f3d261fc5,37,park,Highland Park
+e68ff7c07967@47215d,37,intersection,VERMONT ST & HIGHLAND BLVD
+e68ff7c07967@92e869,37,intersection,BULWER PL & CROSBY AVE
+e68ff7c07967@b16ffb,37,intersection,SUNNYSIDE AVE & BARBEY ST
+00815e9a4ba7@04061b,42,intersection,WYONA ST & LIVONIA AVE
+0bf63b07d0b8@f77f8e,42,intersection,BRADFORD ST & LIVONIA AVE
+79263088c55f@35225d,42,intersection,VERMONT ST & PITKIN AVE
+31d770f6b996@758c45,42,intersection,LIVONIA AVE & VAN SINDEREN AVE
+31d770f6b996@04061b,42,intersection,WYONA ST & LIVONIA AVE
+31d770f6b996@99dee4,42,intersection,BRADFORD ST & NEW LOTS AVE
+31d770f6b996@53a690,42,intersection,BARBEY ST & NEW LOTS AVE
+31d770f6b996@15a9f8,42,intersection,SCHENCK AVE & NEW LOTS AVE
+31d770f6b996@5aca4b,42,intersection,HENDRIX ST & NEW LOTS AVE
+31d770f6b996@d37299,42,intersection,MILLER AVE & NEW LOTS AVE
+31d770f6b996@4d6501,42,intersection,VAN SICLEN AVE & NEW LOTS AVE
+6791281b6847@f032ce,42,intersection,PENNSYLVANIA AVE & FLATLANDS AVE
+6791281b6847@f2c78f,42,intersection,SUTTER AVE & VAN SINDEREN AVE
+6791281b6847@570c48,37,intersection,LIBERTY AVE & ELDERT LN
+f2e4bcf4288c@cf3109,37,intersection,DANFORTH ST & HEMLOCK ST
+bf0238ce974c@dab72a,42,intersection,EMERALD ST & LORING AVE
 aae1c7149268,38,park,Sunset Park
+88b928cf6948@16f8cc,43,park,Rainbow Playground
+6bbc8b4ca33d@20509d,38,park,Sunset Park
 78f882fe8b77,35|41,park,Eastern Parkway
 9e2a45661f26,36,park,Brower Park
 1c0fdd61bf2a,36,park,Brower Park
@@ -995,109 +1984,288 @@ e2bf5970ce6e,35,park,James Forten Playground
 706390c11350,36,park,Brower Park
 ff0b17930811,35|41,park,Eastern Parkway
 b038bf2a3d9c,35|41,park,Eastern Parkway
-64697229c232,47,park,John Paul Jones Park
+39f880d2fbe0@b0f34b,41,intersection,MIDWOOD ST & UTICA AVE
+9485203985ce@a670c0,40,intersection,LINCOLN RD & BEDFORD AVE
+21f76d66ef3e@c4e705,40,intersection,ROGERS AVE & EMPIRE BLVD
+21f76d66ef3e@1ea10f,40,intersection,BEDFORD AVE & EMPIRE BLVD
+50da3da5f125@f7d3dc,40,intersection,OCEAN AVE & FLATBUSH AVE
+813a402c301e@baf1ae,40,intersection,LEFFERTS AVE & BEDFORD AVE
+813a402c301e@bb8310,40,intersection,WINTHROP ST & TROY AVE
+b5c47050a28b@1358fc,35,intersection,MONTGOMERY ST & NOSTRAND AVE
+21c993d6baf9@65e203,40,intersection,FENIMORE ST & BEDFORD AVE
+21c993d6baf9@ce26bb,40,intersection,STERLING ST & BEDFORD AVE
+21c993d6baf9@e91f2f,40,intersection,MIDWOOD ST & BEDFORD AVE
+0d76f407aad2@0268f8,35,intersection,WASHINGTON AVE & MONTGOMERY ST
+813a402c301e@58c4c0,40,intersection,LINCOLN RD & NOSTRAND AVE
+1c3d9285208d@040557,40,intersection,NEW YORK AVE & MAPLE ST
+8e3f1223d6cd@8c844e,35,intersection,UNION ST & NOSTRAND AVE
+c9451c34d455@bb3ee1,35,intersection,EASTERN PKWY & NOSTRAND AVE
+22aa094865dc@8c844e,35,intersection,UNION ST & NOSTRAND AVE
+991a8feb8b45@aa2b8b,40,intersection,HAWTHORNE ST & NOSTRAND AVE
+c170412a33c8@68763a,40,intersection,CLARKSON AVE & FLATBUSH AVE
+c1a123284ccb@be085f,40,intersection,NOSTRAND AVE & EMPIRE BLVD
+4c31115ed32e@68763a,40,intersection,CLARKSON AVE & FLATBUSH AVE
+e11e95e9834b@83ec2f,40,intersection,BROOKLYN AVE & EMPIRE BLVD
+e11e95e9834b@bf0645,40,intersection,KINGSTON AVE & EMPIRE BLVD
+ffca1f68a360@ddbb98,40,intersection,NOSTRAND AVE & STERLING ST
+b5dab2d6c22a@cc14fd,35,intersection,EASTERN PKWY & WASHINGTON AVE
+1239351ddfac@1358fc,35,intersection,MONTGOMERY ST & NOSTRAND AVE
+994b5af931ca@1358fc,35,intersection,MONTGOMERY ST & NOSTRAND AVE
+078463ade8a9@adb601,40,intersection,WINTHROP ST & FLATBUSH AVE
+34ef0cfcc43d@adb601,40,intersection,WINTHROP ST & FLATBUSH AVE
+9bab5c234133@3138c8,40,intersection,BEDFORD AVE & WINTHROP ST
+ee3ff397fedc@4bb209,40,intersection,PARKSIDE AVE & FLATBUSH AVE
+ee3ff397fedc@adb601,40,intersection,WINTHROP ST & FLATBUSH AVE
+ee3ff397fedc@86487b,40,intersection,OCEAN AVE & PARKSIDE AVE
+1f246c4cb14e@e2b1ac,38,intersection,10 AVE & 77 ST
+64697229c232@9cb7ec,47,park,John Paul Jones Park
 1d78fe8642d6,38,park,Leif Ericson Park
+7deead528921@75fe30,47,intersection,76 ST & COLONIAL RD
 ab5887fd4b8e,38,park,Leif Ericson Park
 5c048b8ae3e4,38,park,McKinley Park
 4a942a2380fe,50,park,Dyker Beach Park
 74c4f0902e67,50,park,Dyker Beach Park
 22b2d7ba4d51,38,park,Leif Ericson Park
-ebfbc1a2c44f,47,park,John J Carty Park
-a9408733e911,38,park,Leif Ericson Park
-01475c95497d,50,park,Dyker Beach Park
-fc8b9d19015b,47,park,Russell Pedersen Playground
-f7b5dc68e75d,50,park,Dyker Beach Park
-12990e3f97fd,50,park,Dyker Beach Park
+ebfbc1a2c44f@4b21c2,47,park,John J Carty Park
+a9408733e911@6bb227,38,park,Leif Ericson Park
+01475c95497d@4ebb38,50,park,Dyker Beach Park
+fc8b9d19015b@f967e1,47,park,Russell Pedersen Playground
+5b05a5b63003@bc0e34,38,park,Leif Ericson Park
+f7b5dc68e75d@6caa10,50,park,Dyker Beach Park
+12990e3f97fd@263f18,50,park,Dyker Beach Park
 64fd96a4a21a,50,park,Dyker Beach Park
 b0b6d2d72682,50,park,Dyker Beach Park
 3b62d666ac41,47,park,American Veterans Memorial Pier
+487521a4c485@6ffe4a,38,intersection,BAY 16 ST & BATH AVE
+d351bdfdf6a3@f06226,38,intersection,NEW UTRECHT AVE & 86 ST
+b18112b9429a@497342,43,intersection,BAY PKWY & BATH AVE
 0f48c9dbbe67,47,park,Bensonhurst Park
 d987da93986e,38,park,Garibaldi Playground
 0ff8cb113148,47,park,Bensonhurst Park
+4b6c1dd4486c@8f88bc,47,intersection,SHORE PKWY & BAY PKWY
 fb54510071a2,47,park,Bath Playground
+169188a9bf82@e3e1cd,50,intersection,SHORE PKWY & BAY 8 ST
+5c3190f22f33@20c57b,47,intersection,BAY PKWY & SHORE PKWY
+cad8d5285e14@8e6e72,44,intersection,OCEAN PKWY & AVE K
 7e9821772fa1,39|40|43|44,park,Ocean Parkway Malls
-7f4ca72448ea,43,park,Rappaport Playground
+7f4ca72448ea@4b21c2,43,park,Rappaport Playground
+f88b25db16c0@fbffda,44,intersection,18 AVE & 45 ST
+fa0eacc48686@8b525d,44,intersection,AVE J & MCDONALD AVE
+a6b30a2495c2@b3e555,44,intersection,AVE I & MCDONALD AVE
 e9398f78e5b4,47,park,Kaiser Park
 c04f653b2b57,47,park,Kaiser Park
+c1168f1ec1fd@f98e94,48,intersection,NEPTUNE AVE & OCEAN PKWY
 39deb85be110,40,park,Flatbush African Burial Ground
 06b4f7f8732c,45,park,Hot Spot Tot Lot
-4f03ff530460,48,park,Bill Brown Playground
-7a19ddb0c20b,48,park,Galapo Playground
+4b9e419b5d82@0e2d91,48,park,Manhattan Beach Park
+4f03ff530460@1be5a0,48,park,Bill Brown Playground
+7a19ddb0c20b@35b1d5,48,park,Galapo Playground
+06ba7d551c44@b3426f,44,intersection,KINGS HWY & MCDONALD AVE
+2c456ae9ba12@1964f3,48,intersection,ORIENTAL BLVD & KENSINGTON ST
+3b965b160199@d52d24,48,intersection,EMMONS AVE & OCEAN AVE
 48574283f4e3,48,park,Corporal Wiltshire Square
 e9b9eba7efbd,41,park,Van Dyke Playground
 17d9cb0a38fe,41,park,South Pacific Playground
+f8d019012fdf@2d8193,37,intersection,BROADWAY & SARATOGA AVE
 c19c335afc0d,42,park,Livonia Park
+8e48cfd5f6ee@8fd87b,42,intersection,LIVONIA AVE & JUNIUS ST
+fd26c2991fc9@0ea1f8,42,intersection,VAN SINDEREN AVE & BLAKE AVE
+943dfbf27294@086c4b,41,intersection,BELMONT AVE & ROCKAWAY AVE
+3e8987c21c5d@f44ca6,45,intersection,AVE D & E 57 ST
+cb877dc51367@e0c4d4,41,intersection,E 58 ST & LINDEN BLVD
+68e5444b02c3@2ebeb5,45,intersection,CORTELYOU RD & SCHENECTADY AVE
+63044eeb5f90@dc947c,45,intersection,CLARENDON RD & ALBANY AVE
+4862181a9f5e@5d4869,45,intersection,E 39 ST & GLENWOOD RD
+53be2c3d5219@16b5b6,45,intersection,E 58 ST & CLARENDON RD
+c55add74373e@84e34f,45,intersection,ALBANY AVE & AVE D
+b4bb5019ff40@82b553,45,intersection,AVE D & ALBANY AVE
+1bf40beb3701@2abbb6,45,intersection,E 42 ST & GLENWOOD RD
+73d106d9a2c3@e19f63,46,intersection,FLATBUSH AVE & AVE U
+18b8f6247e13@830691,46,intersection,CHURCH LN & REMSEN AVE
+96b1cdcd3c87@830691,46,intersection,CHURCH LN & REMSEN AVE
+e0da277be5e9@685d97,46,intersection,E 99 ST & FLATLANDS AVE
+c1f0de06bfbe@52703e,46,intersection,E 99 ST & FLATLANDS AVE
+ab37cfc1befd@fea811,46,intersection,FLATBUSH AVE & BELT PKWY
+52506145d8b6@06605a,46,intersection,AVE L & E 69 ST
+8e62bba5af37@06605a,46,intersection,AVE L & E 69 ST
+2380c5a5248a@9154e9,46,intersection,E 72 ST & RALPH AVE
+c2e7a6d190f5@f4c754,46,intersection,E 72 ST & RALPH AVE
+07b56cf18ad0@34293e,46,intersection,AVE M & E 66 ST
+cd134fbce5e6@609936,46,intersection,AVE M & E 66 ST
+a6f78c4c2ad6@740f6c,45,intersection,E 38 ST & KINGS HWY
+c376918b2232@740f6c,45,intersection,E 38 ST & KINGS HWY
+4882be058fa6@5dc415,45,intersection,FOSTER AVE & RALPH AVE
+1f475dccb0e6@5dc415,45,intersection,FOSTER AVE & RALPH AVE
+64f4b4d1fc96@7d7a44,46,intersection,E 56 ST & AVE J
+9796c8991055@7d7a44,46,intersection,E 56 ST & AVE J
+12fba0961352@a78242,46,intersection,FLATLANDS 7 ST & E 105 ST
+de295303a114@a78242,46,intersection,FLATLANDS 7 ST & E 105 ST
+3acad7e9c098@786312,46,intersection,AVE X & E 69 ST
+66bc31051f07@443bb7,42,intersection,E 80 ST & FOSTER AVE
+bbea7472eeb3@43cff2,42,intersection,E 80 ST & FOSTER AVE
+867f7161db86@0d7b64,46,intersection,AVE N & E 85 ST
+32d31752058c@84322c,45,intersection,AVE H & E 55 ST
+97f033dfef69@86fbeb,46,intersection,PAERDEGAT 9 ST & E 80 ST
+f3fd0c2f8de2@8783e6,45,intersection,AVE H & UTICA AVE
+2ea4ba6030c5@9567cb,46,intersection,E 59 ST & AVE J
 8bc50bed3a98,46,park,Canarsie Park
-8300fb9aacba,22,park,Socrates Sculpture Park
-708c8571544e,22,park,Woodtree Playground
-f54ec3ab5d89,22,park,Whitey Ford Field
+5758a368fa24@61f3c7,46,intersection,AVE K & BERGEN AVE
+ac71ef1ce40b@cf0430,46,intersection,BERGEN AVE & AVE K
+1b0f533efbd7@91b91f,46,intersection,ROCKAWAY PKWY & GLENWOOD RD
+8300fb9aacba@1c0871,22,park,Socrates Sculpture Park
+708c8571544e@82349f,22,park,Woodtree Playground
+f54ec3ab5d89@e7ab95,22,park,Whitey Ford Field
 96fa1b21d9f7,22,park,Ditmars Playground
-5dbe63319175,22,park,Astoria Park
-b7ae8f0b34a9,22,park,Whitey Ford Field
-7757278acaa4,22,park,Astoria Park
-9d5f1e6bd93e,22,park,Sean's Place
+333df583d382@fd6f80,22,intersection,STEINWAY ST & 30 AVE
+5dbe63319175@6d288d,22,park,Astoria Park
+1bdc6188ba5c@8a0ab1,26,park,Dutch Kills Playground
+04af9df93bfe@405476,22,park,Astoria Park
+b7ae8f0b34a9@cf945f,22,park,Whitey Ford Field
+7757278acaa4@0e1f2a,22,park,Astoria Park
+9d5f1e6bd93e@d41885,22,park,Sean's Place
+6b8cf5eb7b08@cd5cf6,22,intersection,DITMARS BLVD & 31 ST
 e2236a07ea84,22,park,Whitey Ford Field
 ef71d03abac0,22,park,Astoria Park
 ba4b6350c9c3,22,park,Astoria Park
+35d548dea600@30834c,26,intersection,BRADLEY AVE & VAN DAM ST
+574291aeeccd@d51adb,26,intersection,BRADLEY AVE & VAN DAM ST
 aaacd21c53c7,26,park,Court Square Park
 83956811279f,26,park,Crosson Green
+40a3a5613419@4e0780,21,intersection,114 ST & ASTORIA BLVD
+31ff1f7deaf2@e8d51a,22,intersection,ASTORIA BLVD & 82 ST
+0fadff9b5a18@19333f,21,intersection,JUNCTION BLVD & 34 AVE
 16c59c61257e,25,park,Northern Playground
+66e8708ef5a0@4513ba,21,intersection,DITMARS BLVD & 27 AVE
 955738d19449,25,park,Travers Park
 f9641bf1d710,21,park,Corona Plaza
-6e60fae70559,21,park,Triangle 90
-53bb9f468bec,25,park,Middleburgh Triangle
+b8b2b97d8d79@60dc62,21,intersection,111 ST & 46 AVE
+414ddf61a5de@ccace3,30,intersection,QUEENS BLVD & WOODHAVEN BLVD
+6e60fae70559@98cac1,21,park,Triangle 90
+7b9281c573b1@84d0c3,21,intersection,ROOSEVELT AVE & 108 ST
+62bbfa788b4f@16baaf,21,intersection,JUNCTION BLVD & ROOSEVELT AVE
+53bb9f468bec@ce5515,25,park,Middleburgh Triangle
+490a1cee18dd@a7f607,25,intersection,BROADWAY & 74 ST
 1084af00f4f2,21,park,Corona Plaza
 d453cd889212,21,park,Flushing Meadows Corona Park
 684b5d7b81a9,25,park,Dunningham Triangle
 befe7b0b73e0,21,park,Corona Plaza
+eb08760539f3@8a0a97,25,intersection,ROOSEVELT AVE & 72 ST
+8994a262000b@33e0b1,21,intersection,111 ST & 44 AVE
+c32bc0db833b@352bb8,32,intersection,77 AVE & 76 ST
+425618e45b3c@985e89,30,intersection,GRAND AVE & 69 ST
+d1b7ad417f45@f2fc1a,34,intersection,PALMETTO ST & ST NICHOLAS AVE
+0a18421baa49@50594c,34,intersection,MYRTLE AVE & FRESH POND RD
+35f3e7ba637b@ca30c3,34,intersection,WYCKOFF AVE & COOPER AVE
 af9274197eb5,30,park,Mafera Park
 a9ada6c41ebb,32,park,Highland Park
-f1df65515a7c,30,park,Benninger Playground
-fd0a9c183717,32,park,Forest Park
+f1df65515a7c@a1f52f,30,park,Benninger Playground
+fd0a9c183717@4c42b2,32,park,Forest Park
 cafc87744ebe,30,park,Rosemary's Playground
 12a4bede2321,30,park,Juniper Valley Park
-820848b4abda,30,park,Evergreen Park
+820848b4abda@eb1ade,30,park,Evergreen Park
+554f0a7070d1@2668df,34,intersection,MYRTLE AVE & FRESH POND RD
+9bb52f11244d@305a0d,30,intersection,METROPOLITAN AVE & WOODHAVEN BLVD
+8fce0a90545f@1f4ab8,34,intersection,FRESH POND RD & MYRTLE AVE
+524c019d25d9@742e65,30,intersection,80 ST & COOPER AVE
 be53984cf891,30,park,Benninger Playground
+1109b4aa1b77@e316d3,32,intersection,UNION TPKE & WOODHAVEN BLVD
 a064f953e9de,30,park,Juniper Valley Park
 3009e5b4897d,30,park,Juniper Valley Park
 dec2277aef65,32,park,Forest Park
 3b91147a4dc5,29|32,park,Forest Park
-8792041614b7,24,park,Horace Harding Playground
+8792041614b7@0e93ae,24,park,Horace Harding Playground
+105bef1f5c1e@54726c,19,intersection,20 AVE & WHITESTONE EXPY
 8586f84451fd,20,park,Kissena Corridor Park
+ac383b94e6e2@f8b101,20,intersection,UNION ST & NORTHERN BLVD
 45962203b92c,20,park,Kissena Park
+b04a9b4588d5@542ee6,20,intersection,38 AVE & MAIN ST
 4fac3313fb95,20|21,park,Flushing Meadows Corona Park
+d9f829901960@57a076,19,intersection,18 AVE & 119 ST
 50da8c4a0609,19,park,College Point Fields
 914a01fd87e6,19,park,Harvey Park
 91949f161ecb,19,park,Little Bay Park
-93e5e983057f,19,park,Cross Island Parkway
-42ea44aa5a05,19,park,Cross Island Parkway
-0cec387ce6f4,24,park,Captain Tilly Park
+93e5e983057f@c607dd,19,park,Cross Island Parkway
+42ea44aa5a05@93abca,19,park,Cross Island Parkway
+85652a313281@612fbb,19,intersection,COLLEGE POINT BLVD & 14 AVE
+0cec387ce6f4@bb4d65,24,intersection,165 ST & HIGHLAND AVE
+b0cef25038e9@a6262b,24,intersection,GOETHALS AVE & 168 ST
 9ede00ed489e,24,park,Vleigh Playground
 b5e3d70e6aa3,24,park,Utopia Playground
 4dbd50453640,23,park,Cunningham Park
 606ab17e609a,32,park,London Planetree Playground
-ffae5ca52fe6,29|32,park,Forest Park
-faae3f2564b3,23,park,Alley Park
+445d9f27900d@f8fc81,29,intersection,BABBAGE ST & HILLSIDE AVE
+1d31ab10be3a@2bfb33,29,intersection,100 ST & 103 AVE
+ffae5ca52fe6@54ff9c,29,intersection,JAMAICA AVE & LEFFERTS BLVD
+2f0d1b884ac0@9e2bc1,29,intersection,UNION TPKE & QUEENS BLVD
+faae3f2564b3@f89011,23,park,Alley Park
+bd29e88d918e@c38ed1,19,intersection,NORTHERN BLVD & 189 ST
+c8a6f41bca7b@f4d928,27,intersection,HILLSIDE AVE & SUTPHIN BLVD
+7edbe8326a2b@d1c59a,27,intersection,116 RD & 194 ST
+c05f400ddf98@9ffea8,31,intersection,121 AVE & 235 ST
+104e48715fbc@1bea89,23,intersection,COMMONWEALTH BLVD & 87 AVE
+a978b8b99055@640356,27,intersection,SPRINGFIELD BLVD & HEMPSTEAD AVE
+d8d3b95feefa@ed8291,31,intersection,134 RD & 217 ST
+d8d3b95feefa@4aeffb,31,intersection,147 AVE & FRANCIS LEWIS BLVD
+c05f400ddf98@224ebe,27,intersection,SPRINGFIELD BLVD & 112 AVE
+82f828716232@0cba05,23,intersection,260 ST & 74 AVE
+9ed943f6e2ae@09bf9d,23,intersection,UNION TPKE & 249 ST
+424cef2f2e43@8b0ea9,31,intersection,FRANCIS LEWIS BLVD & 130 AVE
+212ce65d30e8@a8734c,31,intersection,FRANCIS LEWIS BLVD & 133 AVE
 71a1c89b59ee,31,park,Brookville Park
 73ef08512440,31,park,Rockaway Community Park
+71bdba7f6c2d@f26fe6,49,intersection,COLONIAL CT & BROADWAY
+abca158d70e9@249090,49,intersection,GORDON ST & LAUREL AVE
+dd3d0fa2774a@884771,50,park,Willowbrook Park
+ace959b78f5d@cb01fb,51,intersection,ARTHUR KILL RD & W SERVICE RD
+08aff1262364@2e2ea8,51,intersection,HUGUENOT AVE & RATHBUN AVE
+1708798c5cb3@1c0cc5,51,intersection,ARTHUR KILL RD & RICHMOND AVE
 843ab01316f5,51,park,Lemon Creek Park
 043e3156c938,51,park,Lemon Creek Park
+ea56f19c27cc@591127,51,intersection,BLOOMINGDALE RD & AMBOY RD
+d012ab0e43ae@9cb284,51,intersection,WOODROW RD & ROSSVILLE AVE
+2fd45a220236@1796c7,50,intersection,ARTHUR KILL RD & CLARKE AVE
+7c8b782d2a0f@1c0cc5,51,intersection,ARTHUR KILL RD & RICHMOND AVE
+af5def8b0f90@c1dbe4,51,intersection,WOODROW RD & BLOOMINGDALE RD
 b3fa8786ae06,51,park,Seaside Wildlife Nature Park
 277f636ad6bb,1,park,City Hall Park
 226005875a30,1,park,The Battery
+41f096224fd4@6778b2,1,intersection,S END AVE & LIBERTY ST
+e54a1919beab@3caa7b,1,intersection,ALBANY ST & WEST ST
+e707c70456e4@210b59,1,intersection,FRANKLIN ST & HUDSON ST
+a66b7b2571cc@7ed889,1,intersection,MOORE ST & WATER ST
+a57816edaa87@0497e8,1,intersection,VESTRY ST & WEST ST
+dc0ca261ca60@5a44cc,1,intersection,STAPLE ST & DUANE ST
+d59397360065@267419,1,intersection,N MOORE ST & HUDSON ST
+1d5a41025f30@e38e62,1,intersection,GREENWICH ST & VESTRY ST
+d54ee064b820@5753ed,1,intersection,DUANE ST & GREENWICH ST
+97dfd6399d88@f7fceb,1,intersection,COLLISTER ST & LAIGHT ST
 5a2c437c03a5,1,park,Bowling Green
 ce42ab2302d8,1,park,Peck Slip
 b7e7d51b30fc,1,park,Battery Park City
+d1137c2da900@f27799,1,intersection,FULTON ST & CLIFF ST
 40dcb1b01ce2,1,park,Battery Park City
 4f424a4df855,1,park,Battery Park City
-a4141c134059,1,park,Vesuvio Playground
+544a4456af1b@4e3d79,3,intersection,HORATIO ST & 8 AVE
+6f0280ddf9bf@4ad985,3,intersection,CLARKSON ST & GREENWICH ST
+904e25c38abb@fe38da,3,intersection,MORTON ST & WEST ST
+a4141c134059@ce50d8,1,park,Vesuvio Playground
 2bb1540e278a,2,park,Washington Square Park
 5485e60c3895,3,park,Tony Dapolito Recreation Center
-e7af3ec2195a,1,park,Petrosino Square
+e7af3ec2195a@bc5ca5,1,park,Petrosino Square
+7ab00b88dde3@c01063,1,intersection,AVE OF THE AMERICAS & CANAL ST
+cb3878c99955@d85b74,3,intersection,W 14 ST & 9 AVE
+9676d1c37cb5@4e284d,2,intersection,W HOUSTON ST & WOOSTER ST
 0ae2b512ed2d,2,park,Minetta Playground
+bf295feabacf@916c20,3,intersection,WAVERLY PL & CHRISTOPHER ST
+aaf7795fdbfe@68b6ae,2,intersection,E 12 ST & BROADWAY
+f02dc6fb289d@b159a8,3,intersection,W HOUSTON ST & WEST ST
+45ae7490e0af@46b81d,2,intersection,UNIVERSITY PL & E 14 ST
 b8625a19038c,2,park,Washington Square Park
+648affc87e9a@d22951,2,intersection,W 8 ST & GREENWICH AVE
+bad2a656011b@d168c1,3,intersection,JANE ST & GREENWICH AVE
 6a71a35ca059,2,park,Washington Square Park
-decc119048ec,1,park,Pier 42
+1a9813e2365d@93a97c,3,intersection,10 AVE & GANSEVOORT ST
+decc119048ec@98167d,1,park,Pier 42
 cb58eea096a2,1,park,ABC Playground
 2721d3bdd9dd,1,park,Corlears Hook Park
 14c6e70b89dd,1,park,Seward Park
@@ -1105,46 +2273,54 @@ cb58eea096a2,1,park,ABC Playground
 d7f6f63c777c,2,park,Baruch Playground
 c116c94d45bb,1,park,Kimlau Square
 d116192b3686,3,park,Penn South Playground
-3518476dcc7d,3,park,Penn South Playground
+3518476dcc7d@b91414,3,park,Penn South Playground
+b1eb1d78848b@ac85a9,6,intersection,9 AVE & W 55 ST
 831641bbb7cd,3,park,Chelsea Park
 1c482814de93,3,park,Chelsea Park
 524f0c2620d5,3,park,Mathews-Palmer Playground
-47622a538fcc,4,park,Dag Hammarskjold Plaza
-938e79d77abb,2,park,Stuyvesant Square
-35983bd80a3b,2,park,Stuyvesant Square
+11e02f86359a@098422,3,intersection,DYER AVE & W 34 ST
+456ac47d12ae@171bef,3,intersection,W 24 ST & 10 AVE
+8bb69d2ad0b9@cc7b89,3,intersection,W 31 ST & 8 AVE
+47622a538fcc@49d498,4,park,Dag Hammarskjold Plaza
+938e79d77abb@5383c4,2,park,Stuyvesant Square
+35983bd80a3b@8e5d4c,2,park,Stuyvesant Square
 9db9a60a713f,4,park,St. Vartan Park
-7baa096e612f,4,park,Murphy Brothers Playground
+7baa096e612f@ef526e,4,park,Murphy Brothers Playground
 101f7b024d47,6|7,park,Riverside Park
 3e63e7918aab,4,park,East River Esplanade
 75ffbe39e6d6,5,park,Carl Schurz Park
 8b978d39c498,8,park,Stanley Isaacs Playground
 0a4585a628e2,5,park,Ruppert Park
-b23c1cdc8f7c,7,park,Riverside Park
-36541d44f0a0,7,park,Montefiore Square
-2f4df0bf939d,9,park,Jackie Robinson Park
-06670e48b103,9,park,Jackie Robinson Park
-8292c522266b,9,park,Fred Samuel Playground
+f5daa1801936@32b3dc,9,park,St. Nicholas Park
+b23c1cdc8f7c@0c087f,7,park,Riverside Park
+36541d44f0a0@df1949,7,park,Montefiore Square
+2f4df0bf939d@54b920,9,park,Jackie Robinson Park
+06670e48b103@a7df9c,9,park,Jackie Robinson Park
+8292c522266b@30cfe0,9,park,Fred Samuel Playground
 d66f3dd41afa,8,park,Thomas Jefferson Park
-907244e0daa5,9,park,Marcus Garvey Park
+907244e0daa5@6e40c4,9,park,Marcus Garvey Park
 86df337e1f9d,8,park,Peter Minuit Playground
-2df819be106d,8,park,Mae Grant Playground
-be2e10bf2c28,8,park,Blake Hobbs Playground
-e1639b87ca35,8,park,Cherry Tree Park
-bb0bf6680421,8,park,Alice Kornegay Triangle
-d47aad3677a0,9,park,Eugene McCabe Field
-512112544f49,8,park,Wagner Playground
+2df819be106d@c317cb,8,park,Mae Grant Playground
+be2e10bf2c28@ad616b,8,park,Blake Hobbs Playground
+e1639b87ca35@33c1a8,8,park,Cherry Tree Park
+bb0bf6680421@84f13a,8,park,Alice Kornegay Triangle
+d47aad3677a0@e4dc99,9,park,Eugene McCabe Field
+512112544f49@539fa6,8,park,Wagner Playground
+5e9fc142fa03@b84163,7,intersection,W 158 ST & RIVERSIDE DR
 35f70ad750a5,10,park,Inwood Hill Park
 8ab1e743b418,10,park,Inwood Hill Park
 19763b03aa99,10,park,Bennett Park
-5e257c651c89,17,park,Printers Park
-8f218f253d9d,15,park,Crotona Park
+5e257c651c89@581439,17,park,Printers Park
+d62b299b6880@11052a,16,intersection,E 161 ST & PARK AVE
+8f218f253d9d@581128,15,park,Crotona Park
 e8a1e3d646e3,14,park,Devoe Park
 0ffdb8ae669e,11,park,Williamsbridge Oval
 cbe7221c4f19,11,park,Williamsbridge Oval
 78ad2bd71f5b,11,park,Williamsbridge Oval
 44c859825253,11,park,Mosholu Parkway
+57fc6f503aee@45d912,14,intersection,EXTERIOR ST & W FORDHAM RD
 b4532df9cc94,11,park,Williamsbridge Oval
-8ed0308e6892,11,park,Williamsbridge Oval
+8ed0308e6892@e2b010,11,park,Williamsbridge Oval
 757ce769a9ad,11,park,Mosholu Playground
 154c94ab5a37,11,park,Bailey Playground
 c0edcf4a5473,11,park,Van Cortlandt Park
@@ -1162,116 +2338,211 @@ d9040e54226b,11,park,Van Cortlandt Park
 0de525fce3b3,11,park,Van Cortlandt Park
 0db9202018f2,11,park,Van Cortlandt Park
 058737b8a07b,11,park,Henry Hudson Park
-563c931ab7bd,17|18,park,Bronx River Parkway
+563c931ab7bd@87edcd,18,intersection,METCALF AVE & WATSON AVE
+d070d9ba94cd@2232f7,18,intersection,WHITE PLAINS RD & BRUCKNER BLVD
 adc8a8caf5ed,18,park,Soundview Park
 3b041ec41ddd,13,park,Pelham Bay Park
 c330bd61b42c,13,park,Pelham Bay Park
 69ffe4fbcbad,13,park,Pelham Bay Park
-16abecd7a17a,12,park,Zimmerman Playground
-3d0d69128e37,12|13,park,Hutchinson River Parkway
+de318cc70905@fbb6af,13,intersection,LONGSTREET AVE & GLENNON PL
+1f7cf6d1e408@96cfba,13,intersection,LONGSTREET AVE & CHAFFEE AVE
+16abecd7a17a@c79f3c,12,park,Zimmerman Playground
+3d0d69128e37@0fc9e7,12|13,park,Hutchinson River Parkway
 a340fc4efade,13|15,park,Pelham Parkway
-eff56a31a937,13|15,park,Pelham Parkway
+eff56a31a937@2bd13b,13|15,park,Pelham Parkway
 68845ade3d39,13|15,park,Pelham Parkway
 ad4d736ce729,13|15,park,Pelham Parkway
 0a2442f8123e,15,park,Bronx Park
-462c66faaebe,13,park,Van Nest Park
-44f2a7ef57a1,13|15,park,Pelham Parkway
-fa14c8a2db45,13|15,park,Pelham Parkway
+462c66faaebe@e06a39,13,park,Van Nest Park
+44f2a7ef57a1@41158b,13|15,park,Pelham Parkway
+fa14c8a2db45@9a5a7c,13|15,park,Pelham Parkway
 1cb1b3ed2dc8,13|15,park,Pelham Parkway
-f604de8f9bfb,13|15,park,Pelham Parkway
-4742f09e5dc0,13|15,park,Pelham Parkway
-9a564267c3e4,13|15,park,Pelham Parkway
-749b7c5548c9,13|15,park,Pelham Parkway
-e010fdd97ec7,15,park,Bronx Park
+f604de8f9bfb@97c91e,13|15,park,Pelham Parkway
+4742f09e5dc0@2de5ee,13|15,park,Pelham Parkway
+9a564267c3e4@294520,13|15,park,Pelham Parkway
+749b7c5548c9@3d5fcb,13,intersection,BASSETT AVE & MCDONALD ST
+e010fdd97ec7@67d574,15,park,Bronx Park
+32873c778826@35e244,13,intersection,VAN NEST AVE & ADAMS ST
 a8ce65ec9a16,13|15,park,Pelham Parkway
 3fcf23e016b8,13|15,park,Pelham Parkway
-270882c652c9,15,park,Bronx Park
+270882c652c9@1e64fe,13,intersection,LYDIG AVE & BRONX PARK E
+4c95eeb5024f@25f560,13,intersection,ASTOR AVE & WALLACE AVE
 a7c070897a3c,15,park,Bronx Park
-37db4cf364ac,13,park,Van Nest Park
+c641f7c4325c@f8ed90,13,intersection,MORRIS PARK AVE & ADAMS ST
+37db4cf364ac@5ef1d6,13,park,Van Nest Park
 cc4e06f3287b,13|15,park,Pelham Parkway
-6cd1682197ba,15,park,Bronx Park
+6cd1682197ba@c70a8d,15,park,Bronx Park
 45eca664b1d1,12,park,Seton Falls Park
-1745d0220815,33,park,WNYC Transmitter Park
-5d67ad2c6400,33,park,McCarren Park
-9e57c422b8fd,34,park,Frost Playground
+1745d0220815@727334,33,park,WNYC Transmitter Park
+5d67ad2c6400@3794d4,33,park,McCarren Park
+9e57c422b8fd@416637,34,park,Frost Playground
+ab74333ad31a@ae9c26,34,intersection,WITHERS ST & HUMBOLDT ST
+fcd71b30c0bb@cf279a,34,intersection,METROPOLITAN AVE & VARICK AVE
+635762a33afa@f89b16,33,intersection,GRAND ST & RIVER ST
+e3f7733bf918@92b361,33,intersection,DRIGGS AVE & LORIMER ST
+c7383f92ace5@a2b45e,34,intersection,MASPETH AVE & VANDERVOORT AVE
+ddfc089b08c2@d64e22,34,intersection,LORIMER ST & BROADWAY
 964773a1ced5,33,park,McCarren Park
 e55261bf66d9,35,park,Fort Greene Park
 9ceb30875832,35,park,Fort Greene Park
 a567c99aede6,35,park,Fort Greene Park
 7b11d657853f,35,park,Washington Hall Park
-b1fc0a4e86d1,41,park,Saratoga Park
-8917d22432da,36,park,Kosciuszko Pool
-3b401de61b82,42,park,Lion's Pride Playground
+266e2a39e5c5@44ec12,36,intersection,JEFFERSON AVE & STUYVESANT AVE
+f648e670c6ab@e2d613,36,intersection,HANCOCK ST & BEDFORD AVE
+b1fc0a4e86d1@717fdd,41,park,Saratoga Park
+9173b88d848f@5ea981,36,intersection,HANCOCK ST & MARCY AVE
+8917d22432da@dd8f20,36,park,Kosciuszko Pool
+121e050c36ae@288722,37,intersection,WILSON AVE & MYRTLE AVE
+3b401de61b82@c38aaa,42,park,Lion's Pride Playground
+93d7e3f878bf@43a0c0,37,intersection,PENNSYLVANIA AVE & FULTON ST
+f0cadb40039d@cf3109,37,intersection,DANFORTH ST & HEMLOCK ST
+5ca99d83b6f2@1d0de5,42,intersection,FOUNTAIN AVE & SUTTER AVE
+4b30dfc64245@b87278,42,intersection,COZINE AVE & FOUNTAIN AVE
+83e3b8afe7a0@825288,42,intersection,WORTMAN AVE & FOUNTAIN AVE
 d1f1591bece6,36,park,Brower Park
 9b0c764d50f7,35|41,park,Eastern Parkway
 3e7ee9fc1135,36,park,Brower Park
+c186928cd766@b0f34b,41,intersection,MIDWOOD ST & UTICA AVE
+b07a01013c4b@a670c0,40,intersection,LINCOLN RD & BEDFORD AVE
+b1821921e29a@f7d3dc,40,intersection,OCEAN AVE & FLATBUSH AVE
+71b33f44e3c1@58c4c0,40,intersection,LINCOLN RD & NOSTRAND AVE
+c1c6e5aa2bda@040557,40,intersection,NEW YORK AVE & MAPLE ST
+7f21302ae0cb@83ec2f,40,intersection,BROOKLYN AVE & EMPIRE BLVD
+7f21302ae0cb@bf0645,40,intersection,KINGSTON AVE & EMPIRE BLVD
 ea3be9d7c145,35|41,park,Eastern Parkway
 d096de6b806f,38,park,Leif Ericson Park
 f4fb9d6a83d8,38,park,Leif Ericson Park
+b4fd3b1dd933@75fe30,47,intersection,76 ST & COLONIAL RD
 5cb7b1d63be6,38,park,Leif Ericson Park
 f3db111a788f,38,park,McKinley Park
 8b5ed4049e5f,50,park,Dyker Beach Park
 d5e31e498ae9,50,park,Dyker Beach Park
 6e21c34d74a2,38,park,Leif Ericson Park
-eb4fbdc531bf,50,park,Dyker Beach Park
-e1d8398aa7fe,50,park,Dyker Beach Park
-7edf1d747b8d,43,park,Dan Ross Playground
+eb4fbdc531bf@6caa10,50,park,Dyker Beach Park
+e1d8398aa7fe@263f18,50,park,Dyker Beach Park
+7edf1d747b8d@e76407,43,park,Dan Ross Playground
+61504417a6cc@5fb9bd,38,intersection,10 AVE & 77 ST
 833f60b7b1d8,50,park,Dyker Beach Park
 60c43f154be9,47,park,American Veterans Memorial Pier
+32d72a54ff9e@6ffe4a,38,intersection,BAY 16 ST & BATH AVE
+fb4606e4d246@94eb5f,47,intersection,SHORE PKWY & BAY PKWY
+86c3dd65198d@b833cc,47,intersection,CROPSEY AVE & BAY PKWY
 d99646c7fb2d,47,park,Bath Beach Park
+70537748dd90@712921,47,intersection,BAY PKWY & SHORE PKWY
 3724ddbf3b76,38,park,Milestone Park
+f2d7f751e9ca@bb8679,38,intersection,NEW UTRECHT AVE & 86 ST
+2d0ec746d506@66648d,47,intersection,NEPTUNE AVE & W 33 ST
 cc32c0871423,40,park,Flatbush African Burial Ground
 eda9fb1ea2f5,40,park,Parade Ground
 711aff6ca2fd,45,park,Hot Spot Tot Lot
-5fcdb65f2a74,48,park,Bill Brown Playground
-8cfcf79256b4,42,park,Railroad Playground
+5fcdb65f2a74@1be5a0,48,park,Bill Brown Playground
+6fefaa2aa7ae@748bf7,48,intersection,ORIENTAL BLVD & CORBIN PL
+2c456ae9ba12@a106e8,48,intersection,ORIENTAL BLVD & AMHERST ST
+b05986365ca4@f83a7b,48,intersection,SHEEPSHEAD BAY RD & EMMONS AVE
+60357a7254a3@83ef3f,48,intersection,E 16 ST & AVE R
+974f69a27a88@fb7d45,48,intersection,AVE U & OCEAN PKWY
+07fc7312c045@c11234,48,intersection,SHEEPSHEAD BAY RD & E 14 ST
+87d53816953d@2e583d,48,intersection,HOMECREST AVE & SHORE PKWY
+86a4db34bc36@ec442a,48,intersection,EMMONS AVE & SHORE BLVD
+cb877dc51367@f8af5f,41,intersection,E 58 ST & LINDEN BLVD
+2187efe732b2@ce51e1,45,intersection,CORTELYOU RD & SCHENECTADY AVE
+63044eeb5f90@4c7730,45,intersection,CLARENDON RD & ALBANY AVE
+c55add74373e@07ef0d,45,intersection,ALBANY AVE & AVE D
+f60d4d4c8ff7@e68ea1,45,intersection,E 52 ST & AVE D
+8cfcf79256b4@2a959a,42,park,Railroad Playground
+b4bb5019ff40@107b0b,45,intersection,AVE D & ALBANY AVE
 4197e754d587,46,park,Canarsie Park
-e1fb8d05225d,46,park,Marine Park
-e96be9a41421,22,park,Astoria Park
-77d55e65daa3,22,park,Whitey Ford Field
-5b68e691dbaa,22,park,Sean's Place
-1372c16a13a6,22,park,Astoria Park
+e1fb8d05225d@ac1518,46,park,Marine Park
+f3fd0c2f8de2@6acad4,45,intersection,AVE H & UTICA AVE
+99108758f017@1c0871,22,park,Socrates Sculpture Park
+ff97eb0fc5ef@82349f,22,park,Woodtree Playground
+8a7a8c4604ca@e7ab95,22,park,Whitey Ford Field
+e96be9a41421@6d288d,22,park,Astoria Park
+77d55e65daa3@cf945f,22,park,Whitey Ford Field
+5b68e691dbaa@d41885,22,park,Sean's Place
+6b8cf5eb7b08@e460c0,22,intersection,DITMARS BLVD & 31 ST
+1372c16a13a6@0e1f2a,22,park,Astoria Park
+5350cbfac83f@fdeaf6,26,intersection,VERNON BLVD & 53 AVE
+6c65d1630e69@da421a,26,intersection,HICKS DR & 63 ST
+bce70553d3b0@4e0780,21,intersection,114 ST & ASTORIA BLVD
 3f48cf03d2f5,25,park,Northern Playground
+1fb05d918ddb@bac5e2,21,intersection,CORONA AVE & 108 ST
 e4cae096d7b1,21,park,Corona Plaza
-e68d9a557f18,25,park,Newtown Playground
-fbb37df4028a,25,park,Middleburgh Triangle
+04992fbca3f3@60dc62,21,intersection,111 ST & 46 AVE
+e68d9a557f18@701a06,25,park,Newtown Playground
+fbb37df4028a@ce5515,25,park,Middleburgh Triangle
+490a1cee18dd@d84afc,25,intersection,BROADWAY & 74 ST
 17dda9d3e264,21,park,Corona Plaza
 d9c2e9a539b0,30,park,Elmhurst Park
-2610d1dd9ea8,21,park,Josephine Caminiti Playground
+2610d1dd9ea8@5ff1a7,21,park,Josephine Caminiti Playground
+8994a262000b@ce785b,21,intersection,111 ST & 44 AVE
+9dd69f778bbc@352bb8,32,intersection,77 AVE & 76 ST
+d7a526660475@339e28,30,intersection,GRAND AVE & 69 ST
+f3c620f4300b@d1c5ca,34,intersection,PALMETTO ST & ST NICHOLAS AVE
+7571c151cfd9@50594c,34,intersection,MYRTLE AVE & FRESH POND RD
+eeda04181de9@ca30c3,34,intersection,WYCKOFF AVE & COOPER AVE
 205d6290cc36,32,park,Highland Park
 f75a58251ee5,30,park,Mafera Park
 7d842ba86d94,30,park,Juniper Valley Park
-679d3e69f02a,30,park,Benninger Playground
-8e3060f43fc3,32,park,Forest Park
+679d3e69f02a@a1f52f,30,park,Benninger Playground
+8e3060f43fc3@4c42b2,32,park,Forest Park
 01dcd0215d06,30,park,Rosemary's Playground
-7d1b487c24a6,30,park,Evergreen Park
+7d1b487c24a6@eb1ade,30,park,Evergreen Park
+a5fb74f9f7ba@2668df,34,intersection,MYRTLE AVE & FRESH POND RD
+47e1a68c3f40@305a0d,30,intersection,METROPOLITAN AVE & WOODHAVEN BLVD
+2282a24542c5@1f4ab8,34,intersection,FRESH POND RD & MYRTLE AVE
 69b4f9d74cf3,30,park,Benninger Playground
+845c7902ca47@153cd1,30,intersection,80 ST & COOPER AVE
 98f2cf4f66af,30,park,Juniper Valley Park
-99b598b5493b,29|32,park,Forest Park
+99b598b5493b@2b7c0a,29|32,park,Forest Park
 2bbd9e91de52,29,park,Yellowstone Park
+8a4c7119ac6f@54726c,19,intersection,20 AVE & WHITESTONE EXPY
 c17192c7bde2,20,park,Kissena Corridor Park
+694700e68828@f8b101,20,intersection,UNION ST & NORTHERN BLVD
 1125c0359340,20,park,Kissena Park
+2153a58056c6@542ee6,20,intersection,38 AVE & MAIN ST
 d72b5926d466,19,park,College Point Fields
 02efc84a491e,19,park,Harvey Park
 1dd061586fa2,19,park,Cross Island Parkway
-639f8f6b287e,19,park,Cross Island Parkway
+639f8f6b287e@c359cf,19,park,Cross Island Parkway
 d8e36dca6d30,19,park,Bay Terrace Playground
 8ce7b87282d5,23,park,Cunningham Park
+e23328a4ae65@8e9ef3,24,intersection,UTOPIA PKWY & 69 AVE
 1705157ddc9a,20|24,park,Flushing Meadows Corona Park
-f789cb4ae92e,24,park,Captain Tilly Park
+f789cb4ae92e@bb4d65,24,intersection,165 ST & HIGHLAND AVE
+445d9f27900d@a7d78c,29,intersection,BABBAGE ST & HILLSIDE AVE
+9cfabf5b1465@3c8be9,29,intersection,JAMAICA AVE & LEFFERTS BLVD
+26b8d9a77fb9@0e8b23,29,intersection,QUEENS BLVD & UNION TPKE
+2f0d1b884ac0@806d62,29,intersection,UNION TPKE & QUEENS BLVD
+d4a2505b6296@dc59ed,32,intersection,104 ST & RUSSELL ST
 f455a591d23f,32,park,Rocket Playground
-70aeabe67082,19|23,park,Cross Island Parkway
+70aeabe67082@882905,23,intersection,NORTHERN BLVD & 223 ST
+a3d2816cbe4b@6c3351,19,intersection,223 ST & 37 AVE
 85dab07c07e7,19,park,Crocheron Park
+2041e9947203@8edddf,23,intersection,COMMONWEALTH BLVD & MARATHON PKWY
+bd29e88d918e@1a9072,19,intersection,NORTHERN BLVD & 189 ST
 dffeb74b2538,23,park,Telephone Playground
+1915e33bd43d@f9fe0d,23,intersection,UNION TPKE & HOLLIS HILLS TER
 aed0da6e2a0d,23,park,Motor Parkway
+361539c0b78f@e3a3ec,27,intersection,FARMERS BLVD & MERRICK BLVD
+583d8d88f198@460886,31,intersection,BROOKVILLE BLVD & 147 AVE
+7742a9b4a30e@777258,27,intersection,SPRINGFIELD BLVD & 119 AVE
+83e4c6880de2@7461f4,31,intersection,121 AVE & LAURELTON PKWY
+989a09edc597@d1aee8,23,intersection,UNION TPKE & CROSS ISLAND PKWY
+4cf980946aab@4aeffb,31,intersection,147 AVE & FRANCIS LEWIS BLVD
+f441d8718b51@561e5f,31,intersection,134 RD & 217 ST
+1b448f802a1d@a80b78,23,intersection,260 ST & 74 AVE
+da4bc4c8b700@8b0ea9,31,intersection,FRANCIS LEWIS BLVD & 130 AVE
 20b82118d963,32,park,Tribute Park
+b25b2b5f7288@f26fe6,49,intersection,COLONIAL CT & BROADWAY
 4905e8db6126,49,park,Tompkinsville Park
-fd501947ebb7,49,park,Clove Lakes Park
-23ef340251ab,50,park,Willowbrook Park
+fd501947ebb7@066735,49,intersection,VANDERBILT AVE & RICHMOND RD
+23ef340251ab@39ebaf,50,park,Willowbrook Park
 13dd0de36225,1,intersection,S END AVE & LIBERTY ST
 211d09441e29,1,park,City Hall Park
 21217b7db65b,1,intersection,STAPLE ST & DUANE ST
 3501791139f1,1,park,Albert Capsouto Park
+45f23cc36789,1,park,Duane Park
 96e1131ea15d,1,park,The Battery
 a37569671aa2,1,park,Battery Park City
 068f1480d457,1,park,The Battery
@@ -1306,6 +2577,7 @@ ac8bdfddd780,2,park,Tompkins Square Park
 fd6440c0136d,3,intersection,W 23 ST & AVE OF THE AMERICAS
 c423e53a4746,3,park,Penn South Playground
 a3b67ed3f120,3,intersection,8 AVE & W 38 ST
+3518476dcc7d,3,park,Penn South Playground
 a83bf8eb3922,3,intersection,W 41 ST & 10 AVE
 fcca0ce49656,3,park,Gutenberg Playground
 7dfbc8bda483,6,intersection,9 AVE & W 55 ST
@@ -1356,11 +2628,13 @@ ca4faddd8331,6,park,Central Park
 e90142860de3,4,park,East River Esplanade
 cfd23baa5f78,7,intersection,W 120 ST & RIVERSIDE DR
 95bbe7a09f66,9,park,St. Nicholas Park
+b23c1cdc8f7c,7,park,Riverside Park
 27e37e371478,7,park,Alexander Hamilton Playground
 a48cf972db69,9,intersection,AMSTERDAM AVE & W 135 ST
 edab0c912764,7,intersection,W 142 ST & RIVERSIDE DR
 a80b8c9957fc,9,intersection,W 129 ST & ST NICHOLAS AVE
 1bce55c69f2c,7,intersection,RIVERSIDE DR & W 122 ST
+36541d44f0a0,7,park,Montefiore Square
 94fe1e0d346b,9,intersection,W 131 ST & 5 AVE
 0bfd91c3382d,9,intersection,BRADHURST AVE & W 145 ST
 16bba675cdd1,9,intersection,CONVENT AVE & W 135 ST
@@ -1369,20 +2643,33 @@ a80b8c9957fc,9,intersection,W 129 ST & ST NICHOLAS AVE
 d8b01c2f7b29,9,park,Fred Samuel Playground
 b3c668c78e26,9,intersection,BRADHURST AVE & W 145 ST
 99c7324b1bb1,8,park,Diamante Garden
+512112544f49,8,park,Wagner Playground
+bb0bf6680421,8,park,Alice Kornegay Triangle
 45bf5f459161,7,intersection,W 158 ST & BROADWAY
+24001610e31b,10,park,Highbridge Park
+739d882774ac,10,park,Inwood Hill Park
+c33a4c81f759,10,park,Inwood Hill Park
+5e257c651c89,17,park,Printers Park
 0002851f8cd7,16,park,Railroad Park
+c4761d84b584,15,park,Crotona Park
+78f1fd20ee8f,15,park,Crotona Park
 e637550d253f,15,park,Crotona Park
 9662bfb5dec8,15,park,Crotona Park
 ec02a68684d2,15,park,Crotona Park
 16c142dd3188,15,park,Crotona Park
 ce2668c086c8,15,park,Crotona Park
+83fe86dd0803,16,park,Drew Playground
 c44c07b3b017,16,park,Claremont Park
+ca30e01d3490,16,park,Claremont Park
 12585ea2276d,16,park,Mott Playground
 f848916f36d4,16,park,Arcilla Playground
 bca462615dc3,16,park,Keltch Park
 53d62c02d61d,16,park,Grant Park
+40477acdb443,11,park,Mosholu Parkway
 b1ceb4e9c39c,11,park,Williamsbridge Oval
 1bf87cfa8349,11,park,Williamsbridge Oval
+2a328811b405,11,park,Williamsbridge Oval
+ed4bc50e7f58,14,park,Devoe Park
 9ac164fc8867,11,park,Bailey Playground
 c65a798f3d51,11,park,Henry Hudson Parkway
 61452ad19516,10|11,park,Marble Hill Playground
@@ -1400,7 +2687,9 @@ cf9bed775791,11,park,Van Cortlandt Park
 90478529e757,11,park,Van Cortlandt Park
 8a911afa41e5,11,park,Van Cortlandt Park
 58722a57feed,11,park,Henry Hudson Parkway
+563c931ab7bd,17|18,park,Bronx River Parkway
 b7fbb30a845c,18,park,Soundview Park
+c67df7bdd004,18,park,Harding Park
 02d6be522b79,18,park,Soundview Park
 76002c6551ba,18,park,Harding Park
 94d979532b3a,18,park,Soundview Park
@@ -1420,6 +2709,9 @@ d397b445eacc,15,park,Bronx Park
 19de7a09b638,13|15,park,Pelham Parkway
 2bfe8879bec2,13|15,park,Pelham Parkway
 ee84f23d6cd8,12,park,Seton Falls Park
+d9cc6c093655,33,park,WNYC Transmitter Park
+755f1ee381c2,33,park,Bushwick Inlet Park
+5d67ad2c6400,33,park,McCarren Park
 c463c3bc92e8,33,park,McCarren Park
 a42b462dbd33,34,park,Roebling Playground
 d25d6390e5bf,33,park,McCarren Park
@@ -1435,13 +2727,19 @@ e50df252edba,35,park,Greene Playground
 da5c68894c9a,33,park,Cadman Plaza Park
 9a57b302605f,33,park,Korean War Veterans Plaza
 3b3e3d9cad9e,36,intersection,JEFFERSON AVE & STUYVESANT AVE
+f3dcecebca5e,36,park,El Shabazz Playground
 0df140870014,36,intersection,HANCOCK ST & BEDFORD AVE
+b1fc0a4e86d1,41,park,Saratoga Park
 78ded88b9d30,36,park,Fulton Park
 e3ef9d92bcef,36,park,Raymond Bush Playground
 fff373d98aaf,36,park,Raymond Bush Playground
 ea88c42917c4,36,park,Raymond Bush Playground
+000cf9b78427,36,park,Hattie Carthan Playground
 abd036168127,36,intersection,NOSTRAND AVE & PARK AVE
 72d1e2c23cd0,36,intersection,HANCOCK ST & MARCY AVE
+adaae67a853b,36,park,Potomac Playground
+a24c1ca79cb1,36,park,Charlie's Place
+8917d22432da,36,park,Kosciuszko Pool
 c9fa6a2155c7,41,intersection,FULTON ST & RALPH AVE
 cb4b1e8922dc,36,intersection,BEDFORD AVE & DEKALB AVE
 afe40b8c5aca,36,intersection,NOSTRAND AVE & DEKALB AVE
@@ -1581,6 +2879,7 @@ bffdca50320c,47,park,Kaiser Park
 144eae032e42,48,intersection,SHEEPSHEAD BAY RD & EMMONS AVE
 9dcd068156d7,48,intersection,E 16 ST & AVE R
 2b2f7154c46f,48,intersection,AVE U & OCEAN PKWY
+79362ea94bf6,48,park,Manhattan Beach Park
 166343a20401,48,intersection,SHEEPSHEAD BAY RD & E 14 ST
 da4422d2d3e7,41,park,Van Dyke Playground
 0cfde111741c,37,intersection,BROADWAY & SARATOGA AVE
@@ -1635,11 +2934,22 @@ d660a009fe5e,46,intersection,BERGEN AVE & AVE K
 5d6026b29878,22,park,Socrates Sculpture Park
 d128169fe967,22,intersection,30 RD & 45 ST
 526f0beb60b2,22,intersection,STEINWAY ST & 30 AVE
+5dbe63319175,22,park,Astoria Park
+1bdc6188ba5c,26,park,Dutch Kills Playground
+b7ae8f0b34a9,22,park,Whitey Ford Field
+5db8c510c147,22,park,Astoria Park
+1c881a6fa7e1,22,park,Steinway Playground
+7757278acaa4,22,park,Astoria Park
+9d5f1e6bd93e,22,park,Sean's Place
 a8b0a36fcdba,22,intersection,DITMARS BLVD & 31 ST
 81309d89fbda,22,park,Astoria Park
 e2534e0762fe,22,park,Whitey Ford Field
+8300fb9aacba,22,park,Socrates Sculpture Park
 9e98efa15088,22,park,Astoria Park
+708c8571544e,22,park,Woodtree Playground
+f54ec3ab5d89,22,park,Whitey Ford Field
 1249d88596d2,22,intersection,21 RD & 21 ST
+79071cc39f77,22,park,Astoria Park
 f263127c29b2,22,park,Astoria Park
 5ca1f47cca28,26,intersection,QUEENS BLVD & 69 ST
 cbbcaba83586,26,intersection,VERNON BLVD & 53 AVE
@@ -1691,6 +3001,7 @@ ac8ec66769a7,34,intersection,MYRTLE AVE & FRESH POND RD
 04b56787bd00,30,park,Benninger Playground
 1c9d6990af5a,30,intersection,WOODHAVEN BLVD & ELIOT AVE
 266c243d08cd,30,park,Benninger Playground
+fd0a9c183717,32,park,Forest Park
 bc5a9f6285c8,30,park,Rosemary's Playground
 4de45af9abdc,30,park,Evergreen Park
 7d594100269a,34,intersection,FRESH POND RD & MYRTLE AVE

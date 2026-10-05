@@ -6,6 +6,7 @@ build_statement_sheet.py (PDF years) and build_register_year.py (Register-only
 years) both import from here, so a request gets the same id, stance rule and
 committee lookup whichever source it came from.
 """
+import difflib
 import hashlib
 import os
 import re
@@ -277,7 +278,118 @@ COLS = ["Priority", "Type", "Board", "Agency", "Title", "Explanation",
         "Label ID",
         # The Register's tracking code (blank for requests the Register lacks). Agencies
         # and OMB file requests under it, so follow-up letters cite it.
-        "Tracking Code"]
+        "Tracking Code",
+        # The request's site as the Register records it (FY2020-FY2025), written as the
+        # FY2026+ Statements write theirs: "Street - Cross street & Cross street". The
+        # Statements put it at the start of the explanation instead, so this is blank there.
+        "Location"]
+
+
+def site_key(label_id, location):
+    """A request's key for anything tied to its site: request_locations.csv, the letters'
+    local data and the judged pairs of one text at two sites (label_repeats/). The Label ID
+    hashes the request's text, and a board can send the same text for two sites (Queens
+    CB13's "Repave roadway." for several streets), so a request with a Register site adds
+    "@" and a short hash of it."""
+    loc = " ".join(str(location).split()).lower()
+    return f"{label_id}@{hashlib.md5(loc.encode()).hexdigest()[:6]}" if loc else label_id
+
+
+def format_location(street, cross1, cross2):
+    """The Register's site fields as one line: "A - B & C" (B and C may be the same street,
+    which marks the intersection of A and B), "A & B" with one cross street, "B & C" with no
+    street, or one name alone."""
+    # The Register cuts each field at 32 characters, which leaves "335 Central Avenue,
+    # Brooklyn, Ne"; a trailing borough or city is dropped.
+    tidy = lambda v: re.sub(r",\s*(?:manhattan|brooklyn|bronx|queens|staten island|new york|ny)\b.*$", "",
+                            " ".join(str(v).split()), flags=re.I).strip(" ,")
+    a, b, c = (tidy(v) for v in (street, cross1, cross2))
+    if a and b and c:
+        return f"{a} - {b} & {c}"
+    if a and (b or c):
+        return f"{a} & {b or c}"
+    if b and c:
+        return f"{b} & {c}" if b.lower() != c.lower() else b
+    return a or b or c
+
+
+# Street words spelled one way, so "East 49th Street" and "E 49 St" read alike.
+STREET_WORDS = {"street": "st", "avenue": "ave", "av": "ave", "boulevard": "blvd", "road": "rd", "place": "pl",
+                "parkway": "pkwy", "drive": "dr", "east": "e", "west": "w", "north": "n", "south": "s",
+                "lane": "ln", "court": "ct", "terrace": "ter", "expressway": "expy", "expwy": "expy",
+                "highway": "hwy", "square": "sq", "plaza": "plz", "turnpike": "tpke", "saint": "st"}
+STREET_TYPES = {"st", "ave", "rd", "pl", "dr", "ter", "ln", "ct", "blvd", "pkwy", "loop", "way", "walk"}
+
+
+def street_name(s):
+    s = re.sub(r"[^a-z0-9 ]", " ", str(s).lower())
+    s = re.sub(r"\b([nsew])(\d)", r"\1 \2", s)                 # e49th -> e 49th
+    s = re.sub(r"\b(\d+)(?:st|nd|rd|th)\b", r"\1", s)           # 49th -> 49
+    words = [STREET_WORDS.get(w, w) for w in s.split()]
+    while len(words) > 1 and words[0].isdigit() and words[1] not in STREET_TYPES:
+        words = words[1:]                                        # a house number: 2150 university ave
+    return " ".join(words)
+
+
+def parse_site(location, explanation=""):
+    """A request's site as (main street, cross streets, parsed), or None when it names none.
+
+    The site is the Register's Location (FY2020-FY2025) or the "Location: ..." line that
+    opens an FY2026+ Statement explanation. That line runs into the text, so when it has no
+    cross street to end on, parsed is False and the main street holds its opening words."""
+    loc = " ".join(str(location).split())
+    if loc:
+        main, rest = loc.split(" - ", 1) if " - " in loc else ("", loc)
+        parts = [p for p in rest.split(" & ") if p.strip()]
+        if not main:
+            main, parts = parts[0], parts[1:]
+        return street_name(main), [street_name(p) for p in parts], True
+    m = re.match(r"\s*Location:\s*(.+)", str(explanation), re.S)
+    if not m:
+        return None
+    raw = " ".join(m.group(1).split())
+    m1 = re.match(r"(.{1,60}?)\s+-\s+(.{1,60}?)\s+&\s+(\S+(?:\s+\S+){0,3})", raw)
+    m2 = None if m1 else re.match(r"(.{1,60}?)\s+&\s+(\S+(?:\s+\S+){0,3})", raw)
+    if m1:
+        return street_name(m1.group(1)), [street_name(m1.group(2)), street_name(m1.group(3))], True
+    if m2:
+        return street_name(m2.group(1)), [street_name(m2.group(2))], True
+    return street_name(raw[:80]), [], False
+
+
+def _same_street(a, b):
+    """Two street names that agree, allowing for a name the Register cut short."""
+    if not a or not b:
+        return False
+    if a == b:
+        return True
+    ta, tb = a.split(), b.split()
+    n = min(len(ta), len(tb))
+    if ta[:n] == tb[:n] and (n >= 2 or len(ta[0]) >= 5):
+        return True
+    return re.findall(r"\d+", a) == re.findall(r"\d+", b) and difflib.SequenceMatcher(None, a, b).ratio() >= 0.9
+
+
+def site_match(x, y):
+    """"same" when two sites (parse_site) are plainly one place, else "judge".
+
+    A request without a site matches any. Two sites match when their main streets agree and
+    their cross streets overlap, or one names none, or when they name one corner the other
+    way round. Anything else needs a reader: a board may send one text for several sites,
+    and the Register may name one site in several ways (label_repeats/README.md)."""
+    if x is None or y is None:
+        return "same"
+    (ma, ca, pa), (mb, cb, pb) = x, y
+    if not (pa and pb):                       # an FY2026+ line without a cross street: its opening words
+        raw, other = (ma, mb) if not pa else (mb, ma)
+        return "same" if raw.startswith(other) or _same_street(raw[:len(other)], other) else "judge"
+    near = lambda s, xs: any(_same_street(s, c) or c.startswith(s + " ") or s.startswith(c + " ") for c in xs)
+    if _same_street(ma, mb):
+        xa = [c for c in ca if c and not _same_street(c, ma)]
+        xb = [c for c in cb if c and not _same_street(c, mb)]
+        return "same" if not xa or not xb or any(near(c, xb) for c in xa) else "judge"
+    return "same" if near(ma, cb) and near(mb, ca) else "judge"
+
 
 # Added to every year's CSV by add_followup(), from followup_labels.csv (label_followup/).
 FOLLOWUP_COLS = ["Follow-up", "Follow-up Purpose", "Follow-up Why", "Follow-up Contact", "Follow-up URL",

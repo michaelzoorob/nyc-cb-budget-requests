@@ -10,15 +10,17 @@ Two official sources:
   the board's borough, and in the board's own district unless its name is specific
   (three words or more).
 - Streets. An FY2026+ Statement explanation that begins "Location: <street> - <cross>
-  & <cross>" is placed where the street meets the first cross street (NYC Street
-  Centerline, NYC Open Data inkn-q76z), and takes the council district containing that
-  point (DCP's council district boundaries).
+  & <cross>", or an FY2020-FY2025 request whose Register site fields fill the Location
+  column the same way, is placed where the street meets the first cross street (NYC
+  Street Centerline, NYC Open Data inkn-q76z), and takes the council district containing
+  that point (DCP's council district boundaries).
 
 A located site must fall in one of the board's own council districts
 (contacts/board_council_districts.csv); matches elsewhere are dropped.
 
 Writes OUT_CSV (default pipeline/request_locations.csv) with one row per located
-Label ID: label_id, council_districts (pipe-separated), method, matched. Street
+request: label_id (shared.site_key: the Label ID, plus "@" and a hash of the Register site
+when the request has one), council_districts (pipe-separated), method, matched. Street
 geometries are cached in DATA_DIR/streets_cache.json.
 """
 import glob
@@ -37,6 +39,8 @@ import pandas as pd
 from shapely import make_valid
 from shapely.geometry import shape
 from shapely.ops import nearest_points, unary_union
+
+from shared import site_key
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = sys.argv[1] if len(sys.argv) > 1 else "."
@@ -144,15 +148,19 @@ def main():
     rows, seen = [], set()
     for path in sorted(glob.glob(os.path.join(DATA, "CB FY20*Requests (all boards, detailed, 2-stage).csv"))):
         d = pd.read_csv(path, dtype=str).fillna("")
-        for lid, board, title, expl in zip(d["Label ID"], d["Board"], d["Title"], d["Explanation"]):
+        site = d["Location"] if "Location" in d else [""] * len(d)
+        for lid, board, title, expl, loc in zip(d["Label ID"], d["Board"], d["Title"], d["Explanation"], site):
+            # The Register's site is written as a Location line; the explanation stays for parks.
+            place = f"Location: {loc.strip()}" if loc.strip() else expl
+            lid = site_key(lid, loc)            # identical text at two sites is two requests
             if lid in seen:
                 continue
             seen.add(lid)
             pre, num = board_parts(board)
             hit = None
             boro = BORO_CODE[pre]
-            m = re.match(r"\s*Location:\s*(.+?)\s+-\s+(.+?)\s+&\s+(\S+(?:\s+\S+){0,3})", expl)
-            m2 = None if m else re.match(r"\s*Location:\s*(.+?)\s+&\s+(\S+(?:\s+\S+){0,3})", expl)
+            m = re.match(r"\s*Location:\s*(.+?)\s+-\s+(.+?)\s+&\s+(\S+(?:\s+\S+){0,3})", place)
+            m2 = None if m else re.match(r"\s*Location:\s*(.+?)\s+&\s+(\S+(?:\s+\S+){0,3})", place)
             # "A - B & C <text>": try B, then C (its first one to four words, since the
             # explanation follows it); "A & B <text>": B is the first one to four words.
             pairs = []
@@ -174,7 +182,9 @@ def main():
                             pt = x.representative_point()
                         else:                       # streets that come within ~100 m of each other
                             pa, pb = nearest_points(ga, gb)
-                            if pa.distance(pb) > 0.0012 or near:
+                            # Not for the Register's site fields, which are often free text
+                            # ("Van Nest - Morris Park"): a site there must be a real crossing.
+                            if pa.distance(pb) > 0.0012 or near or loc.strip():
                                 continue
                             pt = pa
                         cd = council[council.contains(pt)]["CounDist"].astype(int).tolist()

@@ -20,7 +20,7 @@ import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from shared import (FOLLOWUP_COLS, LATEST, PDF_YEARS, PUBLICATIONS, YEARS,  # noqa: E402
-                    load_letter_descriptions, load_letter_facts, request_text, text_key)
+                    load_letter_descriptions, load_letter_facts, request_text, site_key, text_key)
 
 argv = sys.argv[1:]
 FY = LATEST
@@ -79,7 +79,7 @@ def _bk(b):
 
 df = pd.read_csv(CSV, dtype=str).fillna("")
 for _c in FOLLOWUP_COLS + ["Tracking Code", "Label ID", "History Years", "Prior Response",
-                           "Location Districts", "Location Match"]:   # older CSVs lack some of these
+                           "Location Districts", "Location Match", "Location"]:   # older CSVs lack some of these
     if _c not in df:
         df[_c] = ""
 # The letters describe a request and its responses in plain words (label_letters/). A
@@ -265,8 +265,8 @@ df["Years Requested"], df["_yrs_note"], df["_yrs_list"] = zip(*df["History Years
 # Local data for the letters (letter_facts.py): a sentence or two from the City's open data
 # about the request's site or need, with its source.
 FACTS = load_letter_facts()
-df["Letter Facts"] = [json.dumps(FACTS[i], ensure_ascii=False, separators=(",", ":")) if i in FACTS else ""
-                      for i in df["Label ID"]]
+_keys = [site_key(i, l) for i, l in zip(df["Label ID"], df["Location"])]     # facts are keyed by site
+df["Letter Facts"] = [json.dumps(FACTS[k], ensure_ascii=False, separators=(",", ":")) if k in FACTS else "" for k in _keys]
 body = []
 # A row's type, board, agency, stance and follow-up are buttons (class "cf") that filter
 # the table to that value. The page script finds the column from the cell and sets
@@ -274,7 +274,8 @@ body = []
 # add about 260 KB across the table.
 for idx, (_, r) in enumerate(df.iterrows()):
     z = "odd" if idx % 2 else "even"
-    blob = html.escape(" ".join(clean_text(r[c]) for c in DISPLAY if c != "Years Requested").lower(), quote=True)
+    blob = html.escape(" ".join([clean_text(r[c]) for c in DISPLAY if c != "Years Requested"] + [clean_text(r["Location"])]).lower(),
+                       quote=True)
     tds = []
     for c in DISPLAY:
         val = html.escape(clean_text(r[c]))
@@ -302,6 +303,11 @@ for idx, (_, r) in enumerate(df.iterrows()):
             tds.append(f'<td class="board"><button class="cf">{val}</button></td>')
         elif c == "Agency":
             tds.append(f'<td class="agency"><button class="cf">{val}</button></td>')
+        elif c == "Explanation" and str(r["Location"]).strip():
+            # The Register's site for FY2020-FY2025 (the Statements put it in the text). data-v
+            # keeps the explanation alone for sorting, filters and the CSV.
+            tds.append(f'<td class="wide" data-v="{html.escape(clean_text(r[c]), quote=True)}">{val}'
+                       f'<span class="locline">Location: {html.escape(clean_text(r["Location"]))}</span></td>')
         elif c in WIDE:
             extra = " mtitle" if c == "Title" else ""
             tds.append(f'<td class="wide{extra}">{val}</td>')
@@ -416,6 +422,7 @@ td.agency{white-space:normal;font-size:12px}
   cursor:pointer;-webkit-appearance:none;appearance:none}
 .cf:not(.pill):hover{text-decoration:underline;text-underline-offset:2px}
 .yrs-note{display:block;font-size:11px;color:var(--mut);margin-top:2px;line-height:1.3}
+.locline{display:block;font-size:11.5px;color:var(--mut);margin-top:4px}
 .cf:not(.pill)[aria-pressed="true"]{background:#e0f2fe;color:#0c4a6e;border-radius:2px;box-shadow:0 0 0 2px #e0f2fe;
   text-decoration:underline;text-underline-offset:2px}
 .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap;
