@@ -568,5 +568,110 @@
   "id": "2023:9f98624a7dcb>2025:605b3d17258b",
   "verdict": "unsure",
   "why": "paver repair on the Promenade, then a request that leads with new lighting"
+ },
+ {
+  "id": "2020:28d69f834317>2021:4378471017b7",
+  "verdict": "different",
+  "why": "district-wide green streets text repeats in FY2021; this is the shoreline request"
+ },
+ {
+  "id": "2021:a2527b8b917a>2022:4f40504c2f92",
+  "verdict": "different",
+  "why": "Meals on Wheels text repeats in FY2022; COVID contract funding and screening is separate"
+ },
+ {
+  "id": "2024:a370323c6314>2025:722eafbfc955",
+  "verdict": "different",
+  "why": "Paris receptacle text repeats in FY2025; new request adds receptacles"
+ },
+ {
+  "id": "2023:18110b900e6e>2024:a8f9820ed7f0",
+  "verdict": "different",
+  "why": "expanded from two #6 stations to six"
+ },
+ {
+  "id": "2021:44c8c4b4e72f>2022:0c4e84a54e09",
+  "verdict": "unsure",
+  "why": "FY2022 notes only the #4 elevator; unclear if B/D ask dropped"
+ },
+ {
+  "id": "2022:efa324aa070d>2023:75e36911bc9b",
+  "verdict": "different",
+  "why": "FY2023 split sidewalks from separate wall and bench requests"
+ },
+ {
+  "id": "2022:327ebfcb2971>2023:b18a5c98994c",
+  "verdict": "different",
+  "why": "HPD subsidy text repeats in FY2023; HRA rental assistance is separate"
+ },
+ {
+  "id": "2023:083fef7d3dca>2024:da9b47b8848c",
+  "verdict": "different",
+  "why": "Mosholu Parkway catch basins versus district-wide catch basin servicing"
+ },
+ {
+  "id": "2023:c0a6af0ddb2c>2024:d8850580e39a",
+  "verdict": "different",
+  "why": "two-step-street text repeats in FY2024; this is a new five-street list"
+ },
+ {
+  "id": "2024:fb6caf40b77b>2025:b514776b6605",
+  "verdict": "different",
+  "why": "walkways split from the boiler and roof request in FY2025"
+ },
+ {
+  "id": "2022:3d18017a0eaa>2023:dfaa1e0c8354",
+  "verdict": "different",
+  "why": "renovation repeats as CS in FY2023; equipment update listed separately"
+ },
+ {
+  "id": "2024:0a502254338d>2025:18280fc446d6",
+  "verdict": "unsure",
+  "why": "FY2024 merged GI program and sewage-tech asks; FY2025 splits them"
+ },
+ {
+  "id": "2026:7de93a9c6cf3>2027:2cc48c5f0dcb",
+  "verdict": "unsure",
+  "why": "Canal South plan includes the Triangle; unclear how much broader"
+ },
+ {
+  "id": "2020:e5f84e8329b1>2021:c173e002263b",
+  "verdict": "different",
+  "why": "computer and science labs became separate FY2021 requests"
+ },
+ {
+  "id": "2026:bab34ddd4709>2027:6bd530a956c9",
+  "verdict": "different",
+  "why": "intersection list repeats in FY2027; Dyer Avenue is one site"
+ },
+ {
+  "id": "2025:b7341e97906f>2026:fb5d94b9da3a",
+  "verdict": "different",
+  "why": "district-wide text repeats in FY2026; this targets the Queensboro Bridge area"
+ },
+ {
+  "id": "2020:94df74594939>2021:0eab061171d2",
+  "verdict": "different",
+  "why": "full playground request repeats in FY2021; comfort station listed separately"
+ },
+ {
+  "id": "2020:95afd404079e>2021:3eae47db9ad6",
+  "verdict": "unsure",
+  "why": "near-copy drops sustainability programs; original text also repeats verbatim"
+ },
+ {
+  "id": "2022:936062b03751>2023:73cdf3408009",
+  "verdict": "different",
+  "why": "single 223 Street project versus ten-site drainage list"
+ },
+ {
+  "id": "2025:b352d64529ad>2026:c4ccf19a1ef4",
+  "verdict": "unsure",
+  "why": "FY2025 HW631 text repeats; Phase III item may be same project"
+ },
+ {
+  "id": "2024:5af232fa6130>2025:bc73ca6614a6",
+  "verdict": "different",
+  "why": "bridge reconstruction versus separate lighting request, both kept each year"
  }
 ]

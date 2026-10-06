@@ -1161,9 +1161,14 @@ FU_SCRIPT = r"""
     if(x.o.person){ var t=x.o.mine?'':honor(x.o.title||x.o.office); return t?t+' '+lastName(x.o.person):x.o.person; }
     return 'colleagues at '+agencyPhrase(x.ag);
   }
+  // "The process you described" only when a response describes one.
+  var PROCESS=/\b(apply|application|program|submit|form|portal|process|permit|grant|online|website|request through|request via)/i;
   function channelText(r,own){ return r.url?'Could you confirm that '+r.url+' is the right way for us to submit this request, and tell us if we should take any other step?'
     :says311(r)?'Could you confirm that 311 is the right way to handle this, and tell us if we should take any other step?'
-    :'Could you tell us how to submit this request through the process '+(own?'you':'the agency')+' described, or send us the form?'; }
+    // A request for proposals is for provider organizations, which the board can tell about it.
+    :/\bRFPs?\b|request for proposals/i.test(r.ar+' '+r.omb)?'Could you tell us when the next request for proposals for this work will open, so we can share it with organizations in our district?'
+    :PROCESS.test(r.ar+' '+r.omb)?'Could you tell us how to submit this request through the process '+(own?'you':'the agency')+' described, or send us the form?'
+    :'Could you tell us how we should submit this request, or send us any form it needs?'; }
   // The ask to an agency. The letter has just described the response, so the ask does not
   // restate it. own: the letter goes to the agency alone. short: one sentence for a list.
   function agencyAsk(r,own,orig,short){
@@ -1180,8 +1185,14 @@ FU_SCRIPT = r"""
       no_response:'Could you tell us your agency’s position on it?'})[r.purpose]||'Could you tell us its current status?';
     switch(r.purpose){
       case 'clarify': return 'We’d like to give '+yours+' the information it needs. Could you tell us what would help, or suggest a time for board members to meet with the right staff?';
-      case 'study': return 'Could you tell us where '+your+' review stands and when you expect to finish it? We can provide any information that would help.';
-      case 'discuss': return 'We’d like to discuss this request with the right staff. Could you tell us whom to contact and when they’re available?';
+      // When only OMB says the request needs study (the letter leaves OMB's note out), the ask says so.
+      case 'study': return /stud(y|ies)|review|evaluat|assess|investigat|analy/i.test(r.ar)
+        ?'Could you tell us where '+your+' review stands and when you expect to finish it? We can provide any information that would help.'
+        :(/stud(y|ies)|review|evaluat|assess|investigat|analy/i.test(r.omb)?'OMB’s Executive Budget response says this request needs further study. ':'')+
+          'Could you tell us whether '+yours+' is studying it and when you expect to finish? We can provide any information that would help.';
+      // A response that names a contact needs no "whom to contact".
+      case 'discuss': return r.named?'We’d like to discuss this request with the staff '+(own?'your':'the agency’s')+' response named. Could you put us in touch and tell us when they’re available?'
+        :'We’d like to discuss this request with the right staff. Could you tell us whom to contact and when they’re available?';
       case 'reconsider': return 'This request is still a priority for our district. Could you explain '+your+' reasons in more detail and tell us what would allow '+yours+' to reconsider it in the next budget?';
       case 'funding': return 'Could you share the estimated cost of this request and the funding '+yours+' would need to move it forward?';
       case 'advocacy': return 'Could you tell us which office or level of government would need to act on this request, and what the board can do to help?';

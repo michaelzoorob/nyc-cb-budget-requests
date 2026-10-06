@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Validate the labelers' output and merge it into pipeline/followup_labels.csv.
 
-    assemble.py WORK_DIR [LABELER_NOTE]
+    assemble.py WORK_DIR [LABELER_NOTE] [--replace]
 
 Reads WORK_DIR/chunks/chunk_NN.jsonl (the inputs) and WORK_DIR/out/labels_*.json (JSON
 arrays). Writes nothing if any input is missing, duplicated or unknown, or if an
 action or purpose is outside rubric.md, or the pair of them is not allowed. Rows
-already in followup_labels.csv are kept. The label for "no response at all" is added
+already in followup_labels.csv are kept; with --replace, a pair labeled again replaces its
+row (a relabel under a sharper rubric). The label for "no response at all" is added
 here, since no labeler is needed for it.
 """
 import glob
@@ -33,8 +34,9 @@ COLUMNS = ["id", "action", "purpose", "why", "contact", "url", "agency", "labele
 
 
 def main():
-    work = sys.argv[1]
-    note = sys.argv[2] if len(sys.argv) > 2 else "claude-sonnet"
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    work = args[0]
+    note = args[1] if len(args) > 1 else "claude-sonnet"
     inputs = {}
     for f in sorted(glob.glob(f"{work}/chunks/chunk_*.jsonl")):
         for line in open(f):
@@ -70,7 +72,10 @@ def main():
                  "labeler": "rule: no response published"})
     new = pd.DataFrame(rows, columns=COLUMNS)
     old = pd.read_csv(DEST, dtype=str).fillna("") if os.path.exists(DEST) else pd.DataFrame(columns=COLUMNS)
-    new = new[~new["id"].isin(old["id"])]
+    if "--replace" in sys.argv:
+        old = old[~old["id"].isin(new["id"])]
+    else:
+        new = new[~new["id"].isin(old["id"])]
     out = pd.concat([old, new]).sort_values("id")
     out.to_csv(DEST, index=False)
     print(f"kept {len(old)} labels, added {len(new)} -> {len(out)} in {os.path.normpath(DEST)}")

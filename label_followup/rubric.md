@@ -50,6 +50,20 @@ Pick exactly one. It shapes the letter the board sends.
 | no_response | both responses are blank | Contact agency |
 | none | nothing remains to ask | No follow-up needed |
 
+## Limits on four purposes
+
+The letter's closing ask follows the purpose, so a purpose must fit what the responses say.
+
+- **reconsider** only when the agency does not support the request. When the agency
+  supports it, or gives its reason and offers help or a contact, use the purpose the rest of
+  the responses call for, such as funding, discuss or status.
+- **status** only for work the agency agreed to, funded or scheduled and has not finished.
+  When a response says the work is complete, the action is No follow-up needed.
+- **advocacy** only when a response says the request needs legislation or a decision beyond
+  the agency, such as the State's or the federal government's. Money alone is funding.
+- **clarify** only when the agency needs more information from the board or did not
+  understand the request.
+
 ## Other fields
 
 - **why**: 5 to 15 words naming what in the responses decides it, for example "DPR lacks funds and recommends raising it with elected officials."

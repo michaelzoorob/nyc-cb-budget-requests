@@ -31,6 +31,23 @@ The first comparison found one systematic error. The Sonnet agents often chose T
 
 After that relabel, the two labelers chose the same action for 87% of the request-weighted sample (65 of 75) and 73% of the uniform sample (55 of 75). They agreed on 61 of the 64 pairs the Opus agent rated high confidence. The remaining disagreements are responses that support more than one next step. An example is an agency that supports a request, lacks the funds and says it will look for them, which could go to the agency or to elected officials. The letter panel lets the board choose other recipients in such cases.
 
+## Relabel after the live audit
+
+A live audit of 300 requests in October 2026 found letters whose closing ask did not fit the
+responses. Examples are an ask to reconsider sent to an agency that supported the request, and
+an ask for a timeline when the agency had declined or finished the work. The rubric now limits
+four purposes (reconsider, status, advocacy and clarify). Sonnet relabeled 891 pairs whose
+label conflicted with their responses, in two rounds, and `assemble.py --replace` merged
+them. A blind Opus labeler checked 120 of the changed labels. In the first round it chose the
+new label for 60 of 80 and the old one for 6. In the second it chose the new label for 22 of
+40 and the old one for 7, and it kept "status" where OMB says a citywide allocation funds the
+work. Its label is used wherever it differed from Sonnet's, and the second round keeps the old
+"status" label for 9 more pairs of that kind. Of the 38 closing asks the audit flagged, 32
+now read correctly.
+
+`pipeline/refresh_followup.py DATA_DIR` applies `followup_labels.csv` to each year's CSV again
+after a relabel, so the pages can be rebuilt without rebuilding the years.
+
 ## Labeling a new fiscal year
 
 1. Build the year's CSV with `pipeline/build_all_boards.py --fy YEAR`.
