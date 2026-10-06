@@ -12,7 +12,7 @@ The dashboard's Draft letter button writes a follow-up letter from a community b
 
 Each row is keyed by `text_key()` in `pipeline/shared.py`, a hash of the text described with whitespace and case normalized. A request's text is its title and explanation joined by ` || `, so identical requests share a description across boards and years.
 
-Requests from before FY2026 have DCP's category as their title, so they are not in the CSV. `generate_cb2_html.py` rewords the board's own first sentence when it starts with what the board asked for ("Provide funding to…" becomes "provide funding to…"). Otherwise, and for any text without a description, the letter falls back to a short quote.
+Requests from before FY2026 have DCP's category as their title, so they are not in the CSV. `generate_cb2_html.py` rewords the board's own first sentence when it starts with what the board asked for ("Provide funding to…" becomes "provide funding to…"). Otherwise, and for any text without a description, the letter quotes the board's own words, from the start through the first sentence that states the ask, and at least two sentences. A request from FY2020 to FY2025 also gets the site the City's Register records when the letter's words leave it out ("The City's Register gives its site as Montgomery Street between Nostrand Avenue and Rogers Avenue."). `hand.json` also holds corrections from an October 2026 audit of live letters, such as a response description that gave a reason the agency never gave.
 
 ## Method
 

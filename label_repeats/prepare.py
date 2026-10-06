@@ -3,6 +3,7 @@
 
     prepare.py DATA_DIR WORK_DIR [--floor 0.30 --per 1 --chunk 180] [--rejudge-located]
     prepare.py DATA_DIR WORK_DIR --sites [--chunk 180]
+    prepare.py DATA_DIR WORK_DIR --gaps [--chunk 180]
     prepare.py DATA_DIR WORK_DIR --pilot N --board QCB2 --since 2026 --floor 0.15 --per 2
 
 pipeline/enrich_years.py links a board's requests across years when the first 150
@@ -31,6 +32,11 @@ two years, where both requests name a site (shared.parse_site) and the sites are
 plainly one place (shared.site_match). A board may send one text for several sites, and
 the Register may name one site in several ways, so a model judges these too. Their ids use
 shared.site_key in place of the Label ID, and they carry "kind": "site".
+
+--gaps writes requests a board skipped a year or two: a request with no link to the year
+before, paired with its most similar request two or three years earlier (at or above
+--floor), when neither request appears in the years between. They are judged as reworded
+pairs.
 
 Writes WORK_DIR/chunks/pairs_NN.jsonl, --chunk pairs each. With --pilot, writes
 WORK_DIR/chunks/pilot_NN.jsonl instead: every pair from --board whose later request is
@@ -128,6 +134,31 @@ def pairs(rows, vecs, floor=FLOOR, per=PER_REQUEST):
     return out
 
 
+def gap_pairs(rows, vecs, floor=FLOOR):
+    """A request the board skipped one or two years: (similarity, earlier, later) pairs."""
+    by = collections.defaultdict(list)
+    for k, r in enumerate(rows):
+        by[(r["board"], r["fy"])].append(k)
+    first = min(fy for _, fy in by)
+    out, done = [], set()
+    for (board, fy), ks in sorted(by.items()):
+        for k in ks:
+            if fy - 1 in rows[k]["years"]:
+                continue
+            for back in (2, 3):
+                y, between = fy - back, set(range(fy - back + 1, fy))
+                if y < first or y in rows[k]["years"] or between & rows[k]["years"]:
+                    continue
+                prev = [j for j in by.get((board, y), []) if not (between | {fy}) & rows[j]["years"]
+                        and not same_text(rows[j]["n"], rows[k]["n"])]
+                sim, j = max(((cosine(vecs[k], vecs[j]), j) for j in prev), default=(0, None))
+                key = j is not None and (rows[j]["pid"], rows[k]["pid"], fy)
+                if j is not None and sim >= floor and key not in done:
+                    done.add(key)
+                    out.append((round(sim, 3), j, k))
+    return out
+
+
 def site_pairs(rows):
     """The same text in two years at sites that are not plainly one place, earlier year first."""
     items = [(r["board"], r["fy"], k, r["n"]) for k, r in enumerate(rows)]
@@ -167,6 +198,15 @@ def main():
             judged = set(old["then_fy"] + ":" + old["then_label"] + ">" + old["now_fy"] + ":" + old["now_label"])
             recs = [r for r in recs if r["id"] not in judged]
         print(f"{len(recs)} pairs of the same text at sites that are not plainly one place, not judged before; "
+              f"wrote {write(work, 'pairs', recs, chunk)} chunks of up to {chunk} pairs")
+        return
+    if "--gaps" in sys.argv:
+        recs = list({r["id"]: r for r in (record(rows, *p) for p in gap_pairs(rows, vectors(rows), floor))}.values())
+        if os.path.exists(LINKS):
+            old = pd.read_csv(LINKS, dtype=str)
+            judged = set(old["then_fy"] + ":" + old["then_label"] + ">" + old["now_fy"] + ":" + old["now_label"])
+            recs = [r for r in recs if r["id"] not in judged]
+        print(f"{len(recs)} pairs across a skipped year or two, not judged before; "
               f"wrote {write(work, 'pairs', recs, chunk)} chunks of up to {chunk} pairs")
         return
     found = pairs(rows, vectors(rows), floor, per)

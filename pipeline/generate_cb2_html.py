@@ -90,26 +90,47 @@ _ASK_VERB = re.compile(r"(?i)^(provide|fund|build|construct|reconstruct|install|
                        r"create|establish|expand|increase|hire|add|allocate|conduct|study|develop|improve|maintain|"
                        r"support|continue|extend|implement|design|acquire|purchase|assign|enhance|rehabilitate|"
                        r"resurface|repave|plant|clean|remove|convert|open|keep|train|complete|reduce|ensure|update|"
-                       r"modernize|redesign|investigate|evaluate|assess|reinstate|retain|preserve|protect|enforce)\b")
+                       r"modernize|redesign|investigate|evaluate|assess|reinstate|retain|preserve|protect|enforce|"
+                       r"dredge|demolish|relocate|reopen|rebuild|widen|fix|address|resume|prevent|prohibit|expedite)\b")
 _STREET = [(r"\bBlvd\b\.?", "Boulevard"), (r"\bPkwy\b\.?", "Parkway"), (r"\bExpwy\b\.?|\bExpy\b\.?", "Expressway"),
            (r"\b(\d+(?:st|nd|rd|th)|[A-Z][a-z]+) Ave\b\.?", r"\1 Avenue"), (r"\b(\d+(?:st|nd|rd|th)) St\b\.?", r"\1 Street"),
            (r"\b(in|within|throughout|across) (?:the )?(?:CB|CD|Community Board|Community District) ?\d+(?: district| area)?\b", r"\1 our district")]
 
 
+_ABBR = re.compile(r"^(?:\(?[A-Z]\.|(?:[A-Za-z]\.){2,}|(?:St|Ave|Dept|No|Nos|Mr|Ms|Mrs|Dr|Inc|Co|Corp|Jr|Sr|vs|approx"
+                   r"|Blvd|Rd|Pl|Pkwy|Bldg|Fl|Rm|Ste|Div|Mt|Ft)\.)$")
+_PREFIX = re.compile(r"(?i)^(?:requests?\s*[:\-–]\s*|please\s+)")
+
+
+def _sentences(s):
+    """A text's sentences, without breaking at "St." or "U.S." (as the page script splits them)."""
+    out, start = [], 0
+    for m in re.finditer(r"[.!?]+(?=\s|$)", s):
+        words = s[start:m.end()].split()
+        if m.end() < len(s) and words and _ABBR.match(words[-1]):
+            continue
+        out.append(s[start:m.end()].strip())
+        start = m.end()
+    if s[start:].strip():
+        out.append(s[start:].strip())
+    return out
+
+
 def rule_request(expl):
     """'Provide funding to social adult day services programs.' -> 'provide funding to social
-    adult day services programs', for the letter's 'asked the agency to ...'. Empty when the
-    first sentence does not start with what the board asked for."""
-    first = re.split(r"(?<=[a-z0-9)][.!?])\s+(?=[A-Z])", " ".join(clean_text(expl).split()))[0].strip()
-    first = re.sub(r"\s*\(Previous Tracking No[^)]*\)", "", first).rstrip(" .!?;,")
+    adult day services programs', for the letter's 'asked the agency to ...'. Its first sentence
+    (after a "Request:" label), when that sentence starts with what the board asked for and is
+    short enough to keep whole. A later sentence could need the first to make sense, so the
+    letter quotes those instead."""
+    real = [x for x in _sentences(" ".join(clean_text(expl).split())) if re.search(r"[A-Za-z]{3}", x)]
+    first = _PREFIX.sub("", re.sub(r"\s*\(Previous Tracking No[^)]*\)", "", real[0] if real else "")).rstrip(" .!?;,")
     if not _ASK_VERB.match(first):
         return ""
     for a, b in _STREET:
         first = re.sub(a, b, first)
     first = first[0].lower() + first[1:]
-    if len(first) > 220:
-        cut = max(first.rfind(", ", 0, 220), first.rfind(" and ", 0, 220))
-        first = first[:cut] if cut > 120 else first[:first.rfind(" ", 0, 220)]
+    if len(first) > 220:          # too long to paraphrase whole: the letter quotes it instead
+        return ""
     return first
 
 
@@ -319,7 +340,8 @@ for idx, (_, r) in enumerate(df.iterrows()):
                         ("data-fa", "Follow-up Agency"), ("data-id", "Label ID"), ("data-hy", "History Years"),
                         ("data-pr", "Prior Response"), ("data-cd", "Location Districts"),
                         ("data-cw", "Location Match"), ("data-rd", "Letter Request"),
-                        ("data-ad", "Letter Response"), ("data-od", "Letter OMB")] if str(r[c]).strip())
+                        ("data-ad", "Letter Response"), ("data-od", "Letter OMB"),
+                        ("data-loc", "Location")] if str(r[c]).strip())
     if r["Letter Facts"]:
         fu_attrs += f' data-lf="{html.escape(r["Letter Facts"], quote=True)}"'
     body.append(f'<tr class="{z}" data-search="{blob}" '
@@ -1030,8 +1052,22 @@ FU_SCRIPT = r"""
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   function reach(o){ return !!(o&&(o.email||o.form)); }
   function boroOf(b){ var m=/^(BX|BK|SI|M|Q)CB\d+$/.exec(b||''); return m?BORO[m[1]]:''; }
-  function agencyPhrase(a){ if(a==='Other'||!a) return 'a city agency';
-    return /^(the |Con ?Edison|Consolidated Edison|Amtrak|National Grid|Verizon|Spectrum|PSEG|Optimum|Metro-North|LIRR|FDNY Foundation)/i.test(a)?a:'the '+a; }
+  // The Register's short agency names, written out for a letter's prose.
+  var AGENCY_FULL={'Housing Preservation & Development':'Department of Housing Preservation and Development',
+    'Dept. of Health & Mental Hygiene':'Department of Health and Mental Hygiene',
+    'Youth & Community Development':'Department of Youth and Community Development',
+    'Small Business Services':'Department of Small Business Services',
+    'Office of Management & Budget':'Office of Management and Budget',
+    'Dept. of Consumer & Worker Protection':'Department of Consumer and Worker Protection',
+    'Office of Technology & Innovation (DoITT)':'Office of Technology and Innovation',
+    'Citywide Event Coordination & Management':'Office of Citywide Event Coordination and Management',
+    "Mayor's Office of Media & Entertainment":"Mayor's Office of Media and Entertainment",
+    'MTA / NYC Transit':'MTA New York City Transit', 'Economic Development Corporation':'NYC Economic Development Corporation',
+    'Special Enforcement':"Mayor's Office of Special Enforcement",
+    'District Attorney Kings Co.':"Kings County District Attorney's Office",
+    'District Attorney New York':"New York County District Attorney's Office"};
+  function agencyPhrase(a){ if(a==='Other'||!a) return 'a city agency'; a=AGENCY_FULL[a]||a;
+    return /^(the |NYC Health \+ Hospitals|Con ?Edison|Consolidated Edison|Amtrak|National Grid|Verizon|Spectrum|PSEG|Optimum|Metro-North|LIRR|FDNY Foundation)/i.test(a)?a:'the '+a; }
   function Cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
   // The honorific for a salutation ("Commissioner Diya Vij"), from a formal title such as
   // "Commissioner of the NYC Department of Cultural Affairs". Other titles use the name alone.
@@ -1043,11 +1079,14 @@ FU_SCRIPT = r"""
   // A greeting uses the honorific and last name ("Commissioner Whitaker", "Council Member
   // De La Rosa"). A field that names several people keeps the full names.
   var SUFFIX=/^(jr|sr|ii|iii|iv|esq|phd|md|ra|aia|pe)\.?$/i, PARTICLE={de:1,del:1,della:1,la:1,le:1,van:1,von:1,der:1,den:1,di:1,da:1,du:1,st:1};
-  function lastName(n){ n=(n||'').trim(); if(/\s(and|&)\s/i.test(n)) return n;
-    var t=n.replace(/,/g,' ').split(/\s+/).filter(Boolean); while(t.length>1&&SUFFIX.test(t[t.length-1])) t.pop();
+  // Credentials follow a comma ("Alister F. Martin, MD, MPP").
+  function lastName(n){ n=(n||'').trim();
+    if(/\s(and|&)\s/i.test(n)) return n.split(/\s+(?:and|&)\s+/i).map(function(p){ return p.split(',')[0].trim(); }).join(' and ');
+    var t=n.split(',')[0].split(/\s+/).filter(Boolean); while(t.length>1&&SUFFIX.test(t[t.length-1])) t.pop();
     if(t.length<2) return t.join(' '); var i=t.length-1; while(i>1&&PARTICLE[t[i-1].toLowerCase().replace(/\.$/,'')]) i--;
     return t.slice(i).join(' '); }
-  function cmName(m){ return 'Council Member '+lastName(m.name||(m.salutation||'').replace(/^Council Member\s+/i,'')); }
+  function cmName(m){ var nm=lastName(m.name||(m.salutation||'').replace(/^(Council Member|Speaker)\s+/i,''));
+    return (/^Speaker\b/i.test(m.salutation||'')?'Speaker ':'Council Member ')+nm; }
   function bpName(o){ return isBP(o)?'Borough President'+(o.person?' '+lastName(o.person):''):(o.person||'colleagues at the Borough President’s office'); }
   function today(){ var d=new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
   function niceDate(s){ var p=(s||'').split('-'); return p.length===3?MONTH[+p[1]-1]+' '+(+p[2])+', '+p[0]:s; }
@@ -1063,7 +1102,7 @@ FU_SCRIPT = r"""
       cds:(tr.dataset.cd||'').split('|').filter(Boolean).map(Number), where:tr.dataset.cw||'',
       hist:(tr.dataset.hy||'').split('|').filter(function(y){ return y&&+y<=+FY; }), prior:tr.dataset.pr||'',
       // plain-language descriptions (label_letters/): what the board asked for, and what the agency and OMB said
-      rd:tr.dataset.rd||'', ad:tr.dataset.ad||'', od:tr.dataset.od||'',
+      rd:tr.dataset.rd||'', ad:tr.dataset.ad||'', od:tr.dataset.od||'', loc:tr.dataset.loc||'',
       // local data from the City's open data (letter_facts.py), each {k, t, s, u}
       facts:factsOf(tr)};
   }
@@ -1224,13 +1263,28 @@ FU_SCRIPT = r"""
   // A "CS" request has no rank, so the letter names only its tracking code.
   function ids(r){ return [/^\d+$/.test(r.pri)?'priority '+r.pri:'', r.tc?'tracking code '+r.tc:''].filter(Boolean).join(', '); }
   function titleOf(r){ return (r.title||'').replace(/[\s.,;:]+$/,''); }
-  // What the board asked for, in its description. A request without one quotes the
-  // board's own first sentence.
+  // What the board asked for, in its description. Without one, the letter quotes the
+  // board's own words, from the start through the first sentence that states the ask (the
+  // first is often a heading or background), at least two sentences, or three when none of
+  // them opens with an ask. ASK repeats _ASK_VERB in generate_cb2_html.py.
+  var ASK=/^(?:requests?\s*[:\-–]\s*|please\s+)?(provide|fund|build|construct|reconstruct|install|repair|replace|renovate|upgrade|restore|create|establish|expand|increase|hire|add|allocate|conduct|study|develop|improve|maintain|support|continue|extend|implement|design|acquire|purchase|assign|enhance|rehabilitate|resurface|repave|plant|clean|remove|convert|open|keep|train|complete|reduce|ensure|update|modernize|redesign|investigate|evaluate|assess|reinstate|retain|preserve|protect|enforce|dredge|demolish|relocate|reopen|rebuild|widen|fix|address|resume|prevent|prohibit|expedite)\b/i;
+  function askQuote(r){ var p=sentences(r.expl||'').filter(function(x){ return /[A-Za-z]{3}/.test(x); }), n=3;
+    for(var j=0;j<Math.min(3,p.length);j++) if(ASK.test(p[j])){ n=Math.max(j+1,2); break; }
+    return stop(clip((p.length?p:[r.title||'']).slice(0,n).join(' '),420)); }
+  // The Register's site (FY2020 to FY2025) when the letter's words for the request leave it out.
+  var GENERIC=/^(district ?wide|commercial districts?|citywide|city ?wide|various( locations| sites)?|n\/?a|tbd|brooklyn|bronx|manhattan|queens|staten island)$/i;
+  function siteSentence(r,text){ var l=(r.loc||'').trim(); if(!l||GENERIC.test(l)) return '';
+    var m=/^(.*?)\s+-\s+(.*?)\s+&\s+(.*)$/.exec(l), n=m?null:/^(.*?)\s+&\s+(.*)$/.exec(l), main=m?m[1]:n?n[1]:l;
+    var place=m?(m[2].toLowerCase()===m[3].toLowerCase()?m[1]+' at '+m[2]:m[1]+' between '+m[2]+' and '+m[3]):n?n[1]+' at '+n[2]:l;
+    var key=main.toLowerCase().replace(/\b(street|avenue|road|boulevard|place|parkway|st|ave|rd|blvd|pl|pkwy)\b\.?/g,' ').replace(/[^a-z0-9]+/g,' ').trim();
+    if(key&&(' '+text.toLowerCase().replace(/[^a-z0-9]+/g,' ')+' ').indexOf(' '+key+' ')>-1) return '';
+    return ' The City’s Register gives its site as '+place+'.'; }
   function asked(r,to){
     var idt=ids(r), kind=(r.type?r.type.toLowerCase()+' ':'')+'request';
-    if(r.rd) return 'In its FY'+FY+' budget requests, '+r.full+' asked '+to+' to '+r.rd+' ('+[kind].concat(idt?[idt]:[]).join(', ')+').';
+    if(r.rd) return 'In its FY'+FY+' budget requests, '+r.full+' asked '+to+' to '+r.rd+' ('+[kind].concat(idt?[idt]:[]).join(', ')+').'+siteSentence(r,r.rd);
+    var q=askQuote(r);
     return 'In its FY'+FY+' budget requests, '+r.full+' sent '+to+' '+(/^[aeiou]/.test(kind)?'an ':'a ')+kind+(idt?' ('+idt+')':'')+
-      ' that read, “'+stop(lead(r.expl||r.title,1,260))+'”';
+      ' that read, “'+q+'”'+siteSentence(r,q);
   }
   // What the agency said: its description, or the response quoted when it has none.
   function said(r,who,max){
@@ -1254,7 +1308,10 @@ FU_SCRIPT = r"""
     parts.push('Thank you for your help.');
     return parts.join('\n\n');
   }
-  function subject(r){ return 'FY'+FY+' '+(r.type?r.type.toLowerCase()+' ':'')+'budget request, '+clip(r.title,70)+' ('+(boardName[r.board]||r.board)+(r.tc?', '+r.tc:'')+')'; }
+  // A DCP category title's "(i.e. ...)" list is dropped, and a cut never leaves a parenthesis open.
+  function shortTitle(t,max){ t=(t||'').replace(/\s*\((?:i\.e\.|e\.g\.)[^)]*\)?/gi,'').replace(/\s+/g,' ').trim();
+    var c=clip(t,max), o=c.lastIndexOf('('); if(o>0&&c.indexOf(')',o)<0) c=c.slice(0,o).replace(/[\s,;:–-]+$/,'')+'…'; return c; }
+  function subject(r){ return 'FY'+FY+' '+(r.type?r.type.toLowerCase()+' ':'')+'budget request, '+shortTitle(r.title,70)+' ('+(boardName[r.board]||r.board)+(r.tc?', '+r.tc:'')+')'; }
 
   // ---- a list of requests for one official (the digest) ----
   function digestBody(g){

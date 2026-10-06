@@ -16,11 +16,14 @@ When a board sent one text for two sites in a year, a verdict must name the site
 shared.site_key or by the Label ID and "@-" for the request with no site. A verdict that
 names only the Label ID is not used.
 
-Two requests judged different never end up in one history through a third, and neither do
-two identical requests (one Label ID) that a board listed in one year for sites that are not
-plainly one place. A request without a site does not link to the same text that the board
-sent for several sites in another year. Links are made in order of certainty, nearer years
-first. Two columns follow:
+A judged link, or one on a shared opening short of the same text, does not join two
+histories that each hold a different request from the same year: the board listed those
+side by side, so they are two requests. (Two rows from one year with the same text and site
+are one request listed twice.) Two requests judged different never end up in one history
+through a third. A request without a site does not link to the same text that the board
+sent for several sites in another year. Links are made in order of strength (the same text,
+then a shared opening, then pairs a model judged, closest first), nearer years first within
+each. Two columns follow:
 - History Years: every fiscal year in which the board made the request, "|"-separated
 - Prior Response: "<YEAR>: <text>", the agency response from the most recent earlier year
 
@@ -101,10 +104,9 @@ def load_items(frames):
     return items, sites, keys
 
 
-def main():
-    files = {re.search(r"CB FY(\d{4})", f).group(1): f
-             for f in sorted(glob.glob(os.path.join(DATA, "CB FY20*Requests (all boards, detailed, 2-stage).csv")))}
-    frames = {fy: pd.read_csv(f, dtype=str).fillna("") for fy, f in files.items()}
+def link(frames):
+    """Group every year's requests into histories (the rules above). Returns the items
+    (load_items) and the groups, as lists of item indexes."""
     items, sites, keys = load_items(frames)
     links = pd.read_csv(LINKS, dtype=str).fillna("") if os.path.exists(LINKS) else pd.DataFrame(
         columns=["then_fy", "then_label", "now_fy", "now_label", "verdict", "kind"])
@@ -113,14 +115,15 @@ def main():
     verdict = {(a, b, c, d): v for a, b, c, d, v in
                zip(links.then_fy, links.then_label, links.now_fy, links.now_label, links.verdict)}
     # The same text in two years: linked at once when the sites are plainly one place or
-    # either names none, otherwise only when judged the same request. Links are made in
+    # neither names one, last when only one names a site, otherwise only when judged the
+    # same request. Links are made in
     # order of certainty, so a doubtful one cannot block a plain one, and nearer years
     # first, so a request without a site joins the request of the year before.
     plain, judged, loose, apart, waiting = [], [], [], [], 0
     for a, b in text_pairs(items):
-        if sites[a] is None or sites[b] is None:
+        if (sites[a] is None) != (sites[b] is None):    # only one names a site
             loose.append((a, b))
-        elif site_match(sites[a], sites[b]) == "same":
+        elif sites[a] is None or site_match(sites[a], sites[b]) == "same":
             plain.append((a, b))
         else:
             v = verdict.get((items[a][1], keys[a], items[b][1], keys[b]))
@@ -129,15 +132,10 @@ def main():
     parent = list(range(len(items)))
     group = {k: {k} for k in range(len(items))}
     avoid = {k: set() for k in range(len(items))}   # rows a group may not take in
-    by_label, sited = {}, {}
-    for k, (b, fy, i, _) in enumerate(items):
+    years = {k: {items[k][1]: [k]} for k in range(len(items))}   # each group's requests by year
+    by_label = {}
+    for k, (_, fy, i, _) in enumerate(items):
         by_label.setdefault((fy, frames[fy].at[i, "Label ID"]), []).append(k)
-        if sites[k] is not None:
-            sited.setdefault((b, fy), []).append(k)
-    label = lambda k: frames[items[k][1]].at[items[k][2], "Label ID"]
-    for ks in sited.values():                       # one request listed for two sites in one year
-        apart += [(a, b) for x, a in enumerate(ks) for b in ks[x + 1:] if keys[a] != keys[b]
-                  and label(a) == label(b) and site_match(sites[a], sites[b]) == "judge"]
     for a, b in apart:
         avoid[a].add(b)
         avoid[b].add(a)
@@ -148,13 +146,22 @@ def main():
             x = parent[x]
         return x
 
-    def join(a, b):
+    def one(x, y):
+        """Two rows from one year that are one request listed twice: the same text and site."""
+        return keys[x] == keys[y] or (same_text(items[x][3], items[y][3]) and site_match(sites[x], sites[y]) == "same")
+
+    def join(a, b, judged_link=False):
         ra, rb = find(a), find(b)
         if ra == rb or avoid[ra] & group[rb]:
             return
+        ya, yb = years[ra], years[rb]
+        if judged_link and any(not one(x, y) for fy in ya.keys() & yb.keys() for x in ya[fy] for y in yb[fy]):
+            return                                    # requests the board listed side by side
         parent[ra] = rb
         group[rb] |= group.pop(ra)
         avoid[rb] |= avoid.pop(ra)
+        for fy, ks in years.pop(ra).items():
+            yb.setdefault(fy, []).extend(ks)
 
     # A request without a site whose text the board sent for several sites in another year
     # is not any one of them (a general request and a specific one, rubric.md).
@@ -169,9 +176,12 @@ def main():
     n_vague = sum(1 for a, b in loose if vague(a, b) or vague(b, a))
     loose = [(a, b) for a, b in loose if not (vague(a, b) or vague(b, a))]
     gap = lambda p: int(items[p[1]][1]) - int(items[p[0]][1])
-    plain, judged, loose = (sorted(x, key=gap) for x in (plain, judged, loose))
-    for a, b in plain + judged:
-        join(a, b)
+    lab = lambda k: frames[items[k][1]].at[items[k][2], "Label ID"]
+    # The same title and text first, then the same text, then a shared opening.
+    strength = lambda p: (gap(p), lab(p[0]) != lab(p[1]), items[p[0]][3] != items[p[1]][3])
+    plain, judged, loose = (sorted(x, key=strength) for x in (plain, judged, loose))
+    for a, b in plain + judged:            # a shared opening, short of the same text, is a weaker link
+        join(a, b, judged_link=items[a][3] != items[b][3])
     # Reworded requests a model judged the same request, by fiscal year and Label ID, or by
     # site key when the board sent the text for two sites that year.
     at = {}
@@ -184,7 +194,9 @@ def main():
             elif several:
                 at.setdefault((fy, lab + "@-"), []).append(k)
     n_links = unnamed = 0
-    for r in links[(links.verdict == "same") & (links.kind == "reworded")].to_dict("records"):
+    same = links[(links.verdict == "same") & (links.kind == "reworded")].copy()
+    same["sim"] = pd.to_numeric(same["similarity"], errors="coerce").fillna(0)
+    for r in same.sort_values("sim", ascending=False, kind="stable").to_dict("records"):   # closest first
         then, now = at.get((r["then_fy"], r["then_label"]), []), at.get((r["now_fy"], r["now_label"]), [])
         if not (then and now):
             continue
@@ -193,7 +205,7 @@ def main():
             continue
         for a in then:
             for b in now:
-                join(a, b)
+                join(a, b, judged_link=True)
         n_links += 1
     for a, b in loose:
         join(a, b)
@@ -206,9 +218,17 @@ def main():
     groups = {}
     for k in range(len(items)):
         groups.setdefault(find(k), []).append(k)
+    return items, list(groups.values())
+
+
+def main():
+    files = {re.search(r"CB FY(\d{4})", f).group(1): f
+             for f in sorted(glob.glob(os.path.join(DATA, "CB FY20*Requests (all boards, detailed, 2-stage).csv")))}
+    frames = {fy: pd.read_csv(f, dtype=str).fillna("") for fy, f in files.items()}
+    items, groups = link(frames)
     for fy, d in frames.items():
         d["History Years"], d["Prior Response"] = "", ""
-    for ks in groups.values():
+    for ks in groups:
         years = sorted({items[k][1] for k in ks})
         if len(years) < 2:
             continue

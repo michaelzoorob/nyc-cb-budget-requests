@@ -493,5 +493,80 @@
   "id": "2022:f63143bde1d6@cf5b01>2023:e9ea65e9274e",
   "verdict": "same",
   "why": "FY2022's Classon Avenue row is the Lafayette Gardens request, which is on Classon Avenue"
+ },
+ {
+  "id": "2020:247af0484dc4>2023:aab700694ce9",
+  "verdict": "unsure",
+  "why": "one named geriatric program in FY2020, general geriatric mental health funding later"
+ },
+ {
+  "id": "2024:f8d5b3519570>2027:8ff4892f91e5",
+  "verdict": "different",
+  "why": "street dispensers from Sanitation, then dispensers at park entrances from Parks"
+ },
+ {
+  "id": "2024:571e1d5dee14>2026:0dbd8d8c11f3",
+  "verdict": "different",
+  "why": "seats at every school level, then 3K and Pre-K construction only"
+ },
+ {
+  "id": "2025:d93451c580ef>2027:4c6892700ab5",
+  "verdict": "different",
+  "why": "loading zones across the district, then on Central Park West and West End Avenue only"
+ },
+ {
+  "id": "2021:fb1d0c75ca9a>2023:f711a0653bf7",
+  "verdict": "different",
+  "why": "a district-wide green infrastructure program, then Greeley Square alone"
+ },
+ {
+  "id": "2023:e9e24476d143>2025:667c6a8b1492",
+  "verdict": "different",
+  "why": "one sewer list for the district, later split by neighborhood; this keeps the Bay Ridge streets"
+ },
+ {
+  "id": "2023:e9e24476d143>2025:6dcd15353c43",
+  "verdict": "different",
+  "why": "one sewer list for the district, later split by neighborhood; this keeps the Dyker Heights streets"
+ },
+ {
+  "id": "2024:b0df8f27d89a>2027:75e162acddc5",
+  "verdict": "different",
+  "why": "College Access for All in middle schools, then general college readiness funding"
+ },
+ {
+  "id": "2024:64729f9d2fc7>2027:7f63c292f9b6",
+  "verdict": "different",
+  "why": "barriers under highway overpasses, then netting under the LIRR overpasses"
+ },
+ {
+  "id": "2022:e3a36641eabf>2025:361e91e41422",
+  "verdict": "unsure",
+  "why": "after-school programs at one school's address, then a general request"
+ },
+ {
+  "id": "2021:fb1d0c75ca9a>2023:97b410217cde",
+  "verdict": "different",
+  "why": "a district-wide green infrastructure program, then Penn Station alone"
+ },
+ {
+  "id": "2021:fb1d0c75ca9a>2023:316f6fc8aadc",
+  "verdict": "different",
+  "why": "a district-wide green infrastructure program, then Herald Square alone"
+ },
+ {
+  "id": "2021:fb1d0c75ca9a>2023:0def3c4281ac",
+  "verdict": "different",
+  "why": "a district-wide green infrastructure program, then Times Square alone"
+ },
+ {
+  "id": "2024:571e1d5dee14>2027:447bc1bdb6a7",
+  "verdict": "different",
+  "why": "seats at every school level, then 3K and Pre-K seats only"
+ },
+ {
+  "id": "2023:9f98624a7dcb>2025:605b3d17258b",
+  "verdict": "unsure",
+  "why": "paver repair on the Promenade, then a request that leads with new lighting"
  }
 ]
