@@ -36,13 +36,22 @@ folder judges those pairs too.
    site in several ways. These pairs have `kind` set to `site`, and they name each request
    by its site key (`shared.site_key`, the Label ID with a short hash of the site).
    `enrich_years.py` links such a pair only when it was judged the same request.
+5. `prepare.py --gaps` covers a request the board skipped for a year or two. A request with
+   no link to the year before is paired with its most similar request two or three years
+   earlier, at a similarity of 0.30 or more, when neither appears in the years between. The
+   judges use the same rubric.
 
-`enrich_years.py` never puts two requests judged different into one history through a third.
-The same holds for two identical requests a board listed in one year for sites that are not
-plainly one place. A request without a site does not link to the same text that the board
-sent for several sites in another year, since a general request and a specific one are
-different requests. When a board splits one request in two, its earlier years go to one side
-only. That happened once, to Queens CB13's Francis Lewis Boulevard median in FY2024.
+`enrich_years.py` makes the strongest links first: the same text, then a shared opening,
+then pairs a model judged, closest first. A judged link, or one that rests only on a shared
+opening, never joins two histories that each hold a different request from the same year.
+The board listed those side by side, so they are two requests, such as Queens CB3's housing
+for seniors and housing for families, or the Morris-Jumel Mansion's repairs and its
+water-damage work in Manhattan CB12. Two rows from one year with the same text and site
+count as one request listed twice. Two requests judged different never end up in one
+history through a third. A request without a site does not link to the same text that the
+board sent for several sites in another year, since a general request and a specific one
+are different requests. When a board splits one request in two, its earlier years go to one
+side only.
 
 ## Checks
 
@@ -76,17 +85,31 @@ only. That happened once, to Queens CB13's Francis Lewis Boulevard median in FY2
   ruled on, and one missed pair was added (Brooklyn CB3's Lafayette Gardens request). 36
   earlier verdicts named a text that a board sent for two sites in one year by its Label ID
   alone. They were dropped, and those requests were judged again with their sites.
-- **Final.** 4,557 reworded pairs, of which 3,467 were judged the same request, 865
-  different and 225 unsure. 1,011 site pairs, of which 214 were judged the same request and
-  797 different. `resolved.json` holds 99 rulings.
-- **Left out.** Pairs below 0.30 similarity. In the pilot, about 2% of them were the same
-  request.
+- **Skipped years.** 524 pairs of a request two or three years apart. Sonnet judged 184 the
+  same request, 286 different and 54 unsure. Blind Opus reviews covered all 184 same verdicts
+  and 20 others. They disagreed on 15, 14 of them same verdicts, most a district-wide request
+  paired with a later request for one of its sites. Each was ruled on by hand.
+- **Final.** 5,081 reworded pairs, of which 3,634 were judged the same request, 1,162
+  different and 285 unsure. 1,011 site pairs, of which 214 were judged the same request and
+  797 different. `resolved.json` holds 114 rulings.
+- **Live audit.** 300 requests drawn at random from the live site in October 2026, weighted
+  to FY2027 and FY2026. Sonnet read each linked year against the request it links to, and
+  the closest request in each year left out. Of 1,288 linked years, 532 were the same text
+  and 714 of the other 756 were judged the same request. 29 were wrong, nearly all because a
+  judged link joined two requests that the board lists side by side. The rule above now
+  removes 27 of them and keeps every same-text link. It also removes 25 links the audit
+  judged the same, and in each of those the board had listed both versions in one year.
+- **Left out.** Pairs below 0.30 similarity, a request's second-best match, and requests four
+  or more years apart. In the pilot, about 2% of pairs below 0.30 were the same request. The
+  live audit found 37 years left out among its 300 requests that were in fact the same
+  request. The skipped-year pairs recovered 19 of them. Most of the rest fall just below 0.30
+  or were a request's second-best match.
 
 ## Effect
 
-In FY2027, requests made in at least three budget years went from 1,997 to 2,538 of 3,809.
-Requests made every year since FY2020 went from 557 to 1,191. Queens CB2's FY2026 requests
-made in at least three years went from 26 to 61.
+In FY2027, requests made in at least three budget years went from 1,997 to 2,530 of 3,809.
+Requests made every year since FY2020 went from 557 to 1,153. Queens CB2's FY2026 requests
+made in at least three years went from 26 to 62.
 
 ## A new fiscal year
 
@@ -98,4 +121,6 @@ made in at least three years went from 26 to 61.
 3. Run `prepare.py DATA_DIR WORK_DIR` with a new work folder. It leaves out the pairs already
    in `pipeline/repeat_links.csv`, so only the new year's pairs remain, about 500 to 700.
 4. Judge each chunk in the same way and run `assemble.py WORK_DIR`. Then run
-   `enrich_years.py` again and rebuild the pages.
+   `enrich_years.py` again.
+5. Run `prepare.py DATA_DIR WORK_DIR --gaps` with a new work folder, judge it the same way,
+   run `assemble.py WORK_DIR` and `enrich_years.py`, and rebuild the pages.

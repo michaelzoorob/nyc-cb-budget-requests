@@ -418,5 +418,20 @@
   "kind": "response",
   "text": "said it supports the request but can't accommodate it, and that it has a set budgeted headcount and is filling vacancies to reach it",
   "source": "Agency supports but cannot accommodate. Based on the latest budget, the NYPD has a specific budgeted headcount. The agency is working on filling vacancies in order to get to that headcount."
+ },
+ {
+  "id": "4efb92ede996",
+  "kind": "response",
+  "text": "said it supports the request and can accommodate it, noting that forming or expanding a Business Improvement District can take years and needs broad community support, and that it offers technical support and rolling grants to explore feasibility"
+ },
+ {
+  "id": "53df528df334",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it, and that it supports more funding to enhance programs, services and resources at the Macon Library's African American Heritage Center"
+ },
+ {
+  "id": "5b54a4af32ec",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it, and that more funding for libraries would let it expand program offerings and better maintain its buildings"
  }
 ]
