@@ -4,6 +4,7 @@
     prepare.py DATA_DIR WORK_DIR [--floor 0.30 --per 1 --chunk 180] [--rejudge-located]
     prepare.py DATA_DIR WORK_DIR --sites [--chunk 180]
     prepare.py DATA_DIR WORK_DIR --gaps [--chunk 180]
+    prepare.py DATA_DIR WORK_DIR --more [--chunk 180]
     prepare.py DATA_DIR WORK_DIR --pilot N --board QCB2 --since 2026 --floor 0.15 --per 2
 
 pipeline/enrich_years.py links a board's requests across years when the first 150
@@ -32,6 +33,10 @@ two years, where both requests name a site (shared.parse_site) and the sites are
 plainly one place (shared.site_match). A board may send one text for several sites, and
 the Register may name one site in several ways, so a model judges these too. Their ids use
 shared.site_key in place of the Label ID, and they carry "kind": "site".
+
+--more writes, for a request with no link to the year before, its best match there when the
+similarity is from 0.25 to --floor, and its second-best match at --floor or more. The live
+audit found the same request missed in both ways.
 
 --gaps writes requests a board skipped a year or two: a request with no link to the year
 before, paired with its most similar request two or three years earlier (at or above
@@ -134,6 +139,26 @@ def pairs(rows, vecs, floor=FLOOR, per=PER_REQUEST):
     return out
 
 
+def more_pairs(rows, vecs, floor=FLOOR, low=0.25):
+    """Near misses for the year before: the best match from low to floor, the second at floor."""
+    by = collections.defaultdict(list)
+    for k, r in enumerate(rows):
+        by[(r["board"], r["fy"])].append(k)
+    out = []
+    for (board, fy), ks in sorted(by.items()):
+        prev = by.get((board, fy - 1), [])
+        for k in ks:
+            if fy - 1 in rows[k]["years"] or not prev:
+                continue
+            sc = sorted(((cosine(vecs[k], vecs[j]), j) for j in prev
+                         if not same_text(rows[j]["n"], rows[k]["n"])), reverse=True)
+            if sc and low <= sc[0][0] < floor:
+                out.append((round(sc[0][0], 3), sc[0][1], k))
+            if len(sc) > 1 and sc[1][0] >= floor:
+                out.append((round(sc[1][0], 3), sc[1][1], k))
+    return out
+
+
 def gap_pairs(rows, vecs, floor=FLOOR):
     """A request the board skipped one or two years: (similarity, earlier, later) pairs."""
     by = collections.defaultdict(list)
@@ -200,13 +225,14 @@ def main():
         print(f"{len(recs)} pairs of the same text at sites that are not plainly one place, not judged before; "
               f"wrote {write(work, 'pairs', recs, chunk)} chunks of up to {chunk} pairs")
         return
-    if "--gaps" in sys.argv:
-        recs = list({r["id"]: r for r in (record(rows, *p) for p in gap_pairs(rows, vectors(rows), floor))}.values())
+    if "--gaps" in sys.argv or "--more" in sys.argv:
+        found = (gap_pairs if "--gaps" in sys.argv else more_pairs)(rows, vectors(rows), floor)
+        recs = list({r["id"]: r for r in (record(rows, *p) for p in found)}.values())
         if os.path.exists(LINKS):
             old = pd.read_csv(LINKS, dtype=str)
             judged = set(old["then_fy"] + ":" + old["then_label"] + ">" + old["now_fy"] + ":" + old["now_label"])
             recs = [r for r in recs if r["id"] not in judged]
-        print(f"{len(recs)} pairs across a skipped year or two, not judged before; "
+        print(f"{len(recs)} {'pairs across a skipped year or two' if '--gaps' in sys.argv else 'near misses'}, not judged before; "
               f"wrote {write(work, 'pairs', recs, chunk)} chunks of up to {chunk} pairs")
         return
     found = pairs(rows, vectors(rows), floor, per)

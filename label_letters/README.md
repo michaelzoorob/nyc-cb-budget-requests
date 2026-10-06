@@ -22,6 +22,14 @@ The 70 most common responses, which answer 63% of all requests, were written by 
 
 `assemble.py` writes nothing if a record is missing, duplicated or unknown, or if a description has the wrong form. It lists style slips such as colons or web addresses, and `--strict` makes them errors too.
 
+## Reasons checked
+
+A response description that gives a reason ("can't accommodate it because ...") can turn the
+agency's context, a caveat or a statement of support into its reason. In October 2026,
+Sonnet compared all 1,535 response descriptions with a "because" against their responses
+and rewrote 281 of them. A blind Opus check of 50 rewrites found 35 better, 14 no
+different and 1 worse, which was put back.
+
 ## Describing a new fiscal year
 
 1. Build the year's CSV with `pipeline/build_all_boards.py --fy YEAR`.

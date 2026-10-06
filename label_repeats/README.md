@@ -40,6 +40,9 @@ folder judges those pairs too.
    no link to the year before is paired with its most similar request two or three years
    earlier, at a similarity of 0.30 or more, when neither appears in the years between. The
    judges use the same rubric.
+6. `prepare.py --more` covers near misses. A request with no link to the year before is also
+   paired with its best match there at a similarity from 0.25 to 0.30, and with its
+   second-best match at 0.30 or more.
 
 `enrich_years.py` makes the strongest links first: the same text, then a shared opening,
 then pairs a model judged, closest first. A judged link, or one that rests only on a shared
@@ -89,9 +92,13 @@ side only.
   same request, 286 different and 54 unsure. Blind Opus reviews covered all 184 same verdicts
   and 20 others. They disagreed on 15, 14 of them same verdicts, most a district-wide request
   paired with a later request for one of its sites. Each was ruled on by hand.
-- **Final.** 5,081 reworded pairs, of which 3,634 were judged the same request, 1,162
-  different and 285 unsure. 1,011 site pairs, of which 214 were judged the same request and
-  797 different. `resolved.json` holds 114 rulings.
+- **Near misses.** 795 pairs. Sonnet judged 111 the same request, 581 different and 103
+  unsure. A blind Opus review of all 111 same verdicts agreed with 90. The other 21 were
+  ruled on by hand, most a request that went on word for word while a new request stood
+  beside it.
+- **Final.** 5,876 reworded pairs, of which 3,709 were judged the same request, 1,774
+  different and 393 unsure. 1,011 site pairs, of which 214 were judged the same request and
+  797 different. `resolved.json` holds 135 rulings.
 - **Live audit.** 300 requests drawn at random from the live site in October 2026, weighted
   to FY2027 and FY2026. Sonnet read each linked year against the request it links to, and
   the closest request in each year left out. Of 1,288 linked years, 532 were the same text
@@ -99,16 +106,15 @@ side only.
   judged link joined two requests that the board lists side by side. The rule above now
   removes 27 of them and keeps every same-text link. It also removes 25 links the audit
   judged the same, and in each of those the board had listed both versions in one year.
-- **Left out.** Pairs below 0.30 similarity, a request's second-best match, and requests four
-  or more years apart. In the pilot, about 2% of pairs below 0.30 were the same request. The
-  live audit found 37 years left out among its 300 requests that were in fact the same
-  request. The skipped-year pairs recovered 19 of them. Most of the rest fall just below 0.30
-  or were a request's second-best match.
+- **Left out.** Pairs below 0.25 similarity, matches beyond a request's second-best, and
+  requests four or more years apart. The live audit found 37 years left out among its 300
+  requests that were in fact the same request. The skipped-year and near-miss pairs
+  recovered 29 of them.
 
 ## Effect
 
-In FY2027, requests made in at least three budget years went from 1,997 to 2,530 of 3,809.
-Requests made every year since FY2020 went from 557 to 1,153. Queens CB2's FY2026 requests
+In FY2027, requests made in at least three budget years went from 1,997 to 2,540 of 3,809.
+Requests made every year since FY2020 went from 557 to 1,173. Queens CB2's FY2026 requests
 made in at least three years went from 26 to 62.
 
 ## A new fiscal year
@@ -122,5 +128,6 @@ made in at least three years went from 26 to 62.
    in `pipeline/repeat_links.csv`, so only the new year's pairs remain, about 500 to 700.
 4. Judge each chunk in the same way and run `assemble.py WORK_DIR`. Then run
    `enrich_years.py` again.
-5. Run `prepare.py DATA_DIR WORK_DIR --gaps` with a new work folder, judge it the same way,
-   run `assemble.py WORK_DIR` and `enrich_years.py`, and rebuild the pages.
+5. Run `prepare.py DATA_DIR WORK_DIR --gaps`, and then `--more`, each with a new work folder.
+   Judge each the same way, run `assemble.py WORK_DIR` and `enrich_years.py`, and rebuild
+   the pages.
