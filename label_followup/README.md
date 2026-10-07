@@ -72,6 +72,11 @@ review was going and now asks elected officials to advocate for funding. `rubric
 allows study only for a study under way or planned, and redirect only for a body that should
 take the request up.
 
+A third live audit of the letters then found ten pairs labeled discuss where the agency funded
+part of a request and said the rest needs money. They now ask elected officials for funding,
+and the rubric's rule on partial funding says so. Four more labels were corrected by hand. A
+blind Opus check preferred all 14 new labels.
+
 ## Labeling a new fiscal year
 
 1. Build the year's CSV with `pipeline/build_all_boards.py --fy YEAR`.

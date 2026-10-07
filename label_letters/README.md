@@ -162,6 +162,55 @@ of 533 FY2027 requests. The 300 FY2027 requests the live audits had read were le
 their errors were corrected by hand. A response description serves every request with the
 same response, so a few corrections also reach other years.
 
+## A third live audit of the letters
+
+After the FY2027 descriptions and follow-up labels were checked, a third audit drew 200 more
+FY2027 requests and the digests of five more boards, with the same judges and rubric. The
+judges found 0.61 issues per request, down from 0.78, and 0.23 of medium severity, down from
+0.35. None was high. Half the requests had no issue, up from 42%. Issues with descriptions fell
+from 41 to 23 and issues with labels from 14 to 8. A fifth of the medium issues come from the
+City's own responses, such as a reply about a different site or one that calls unfinished work
+complete. A letter can only report these. The five digests had 31 issues, 11 of medium
+severity. Five of those come from the City's responses, four from descriptions and two from
+labels.
+
+Each change below gives the number of FY2027 requests it touched.
+
+- A subject too long to fit was cut between words and could end mid-phrase ("…between
+  Brighton Beach…"). It now ends where a phrase ends, before a reason, a purpose, a range of
+  streets or a list of examples (90). 159 subjects are still cut, down from 247.
+- A request made only last year and this year read "every year since FY2026" (499). It now
+  reads "We also made this request in FY2026."
+- OMB's advice to give the agency more detail was left out, so a letter offering details gave
+  no reason for it (7).
+- A response that named the State or federal government as the body that must act was asked
+  which level of government must act (10). It is now asked how the board can help.
+- A letter to OMB asked for "the funding your agency would need" (37). It now asks whether the
+  budget can fund the request.
+- A capital project the agency called completed was asked where it stands (72). It is now
+  asked what work was completed and whether any part remains. A program called completed is
+  usually one that runs on, and Opus preferred its old ask, so it keeps it.
+- A digest to an office that received requests from other agencies now names the agency that
+  sent them when there is only one.
+
+14 follow-up labels changed (15 requests). Ten responses funded part of a request and said the
+rest needs money, yet the letter only asked to discuss it. They now ask elected officials for
+funding, and `label_followup/rubric.md` says so. A Cultural Affairs response that needs a
+specific organization and project, where OMB recommends elected officials, now goes to both.
+The others are a Sanitation response saying it does not build public restrooms, an HRA
+request outside its budget and a Parks reply about developers' tree planting.
+
+12 descriptions were corrected by hand. Among them are the three Broadway plazas, cameras on
+Junius Street between Livonia and New Lots Avenues, basketball courts that only the agency's
+response placed at Lafayette Playground, two plans dated to FY2026, which has ended, and a
+response that called a request a duplicate of its own tracking code.
+
+Blind Opus checks preferred the new version in 78 of 84 pairs of changes and saw no difference
+in 1. Of the other 5, three led to the old ask for programs and one fix was taken back. The
+fifth was preferred once Opus could see the request's tracking code. Five judges' notes
+questioned the salutation "Commissioner" for the Commissioner of Youth and Community
+Development. The contact directory confirms her title.
+
 ## Describing a new fiscal year
 
 1. Build the year's CSV with `pipeline/build_all_boards.py --fy YEAR`.

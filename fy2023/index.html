@@ -4574,9 +4574,11 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
   // "Use 311 or another channel" needs no letter when the response gives a link or 311;
   // a named process ("Submit a space request") is a question for the agency.
   function linkOnly(r){ return r.action==='Use 311 or another channel'&&(!!r.url||says311(r)); }
-  // "every year since FY2024" when the years run without a gap to this one.
+  // "every year since FY2024" when the years run without a gap to this one, and "also in
+  // FY2026" when that is only last year.
   function histSentence(r){ var h=r.hist; if(h.length<2) return '';
     var every=+h[h.length-1]===+FY&&h.every(function(y,i){ return !i||+y===+h[i-1]+1; });
+    if(every&&h.length===2) return 'We also made this request in FY'+h[0]+'.';
     return every?'We’ve made this request every year since FY'+h[0]+'.':'We’ve made this request in '+h.length+' budget years, starting in FY'+h[0]+'.'; }
 
   function recipients(r){
@@ -4651,6 +4653,8 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
   function nameWords(s){ return (s||'').toLowerCase().replace(/[^a-z ]/g,' ').split(/\s+/).filter(function(w){ return w.length>2&&!NAME_STOP.test(w); }); }
   function namesOffice(named,x){ var nw=nameWords(named), rw=nameWords((x.o&&x.o.office||'')+' '+(x.name||''));
     return nw.length>0&&nw.every(function(w){ return rw.indexOf(w)>-1; }); }
+  // A response that names the State, the federal government or their laws as what must act.
+  var LEVEL=/State Legislature|New York State|\bNYS\b|\bthe State\b|Albany|[Ff]ederal|Congress|Governor|[Ss]tate law/;
   function agencyAsk(r,own,orig,short,to){
     var your=own?'your':'the agency’s', yours=own?'your agency':'the agency';
     if(r.purpose==='redirect'&&r.dest) return orig
@@ -4660,7 +4664,8 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
         :'Could you tell us whether '+(own?'your agency':agencyPhrase(r.dest))+' can take up this request, and whom we should contact about it?');
     if(short) return ({clarify:'Could you tell us what information would help?', study:'Could you tell us where your review stands?',
       discuss:'Could you tell us whom we should contact?', reconsider:'Could you tell us what would allow your agency to reconsider it?',
-      funding:'Could you share the estimated cost and the funding your agency would need?', advocacy:'Could you tell us which office would need to act?',
+      funding:own&&r.agency==='Office of Management & Budget'?'Could you tell us whether it can be funded in the next budget?':'Could you share the estimated cost and the funding your agency would need?',
+      advocacy:LEVEL.test(r.ar+' '+r.omb)?'Could you tell us how the board can help?':'Could you tell us which office would need to act?',
       status:'Could you share its current status and timeline?', channel:'Could you tell us how we should submit it?',
       no_response:'Could you tell us your agency’s position on it?'})[r.purpose]||'Could you tell us its current status?';
     switch(r.purpose){
@@ -4683,15 +4688,23 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
         return r.named?'We’d like to discuss this request with the staff '+(own?'your':'the agency’s')+' response named. Could you put us in touch and tell us when they’re available?'
         :'We’d like to discuss this request with the right staff. Could you tell us whom to contact and when they’re available?';
       case 'reconsider': return 'This request is still a priority for our district. Could you explain '+your+' reasons in more detail and tell us what would allow '+yours+' to reconsider it in the next budget?';
-      // A response that already gives a cost is asked about the funding instead.
-      case 'funding': return /\$\s?\d/.test(r.ar)?'Could you tell us whether any of the funding this request needs is planned, and how the board can help secure the rest?'
+      // A response that already gives a cost is asked about the funding instead. OMB, the
+      // budget office, is asked whether the budget can fund it.
+      case 'funding': if(own&&r.agency==='Office of Management & Budget') return 'Could you tell us whether this request can be funded in the next budget, and what the board can do to help?';
+        return /\$\s?\d/.test(r.ar)?'Could you tell us whether any of the funding this request needs is planned, and how the board can help secure the rest?'
         :'Could you share the estimated cost of this request and the funding '+yours+' would need to move it forward?';
-      case 'advocacy': return 'Could you tell us which office or level of government would need to act on this request, and what the board can do to help?';
+      // A response that already names the level of government that must act is not asked which one.
+      case 'advocacy': return LEVEL.test(r.ar+' '+r.omb)?'Could you tell us what the board can do to help move this request forward?'
+        :'Could you tell us which office or level of government would need to act on this request, and what the board can do to help?';
       // Not every request is a project with work to finish (a policy, a program that runs on).
       case 'status': return 'Could you tell us where this request stands, what the next steps and timeline are, and whom we should contact for updates?';
       case 'channel': return channelText(r,own);
       case 'no_response': return 'We couldn’t find a published response to this request in the Statement of Community District Needs or in the City’s Register of Community Board Budget Requests. Could you tell us '+your+(own?' agency’s':'')+' position on it?';
-      default: return 'Could you tell us where this request stands and '+(r.type==='Capital'?'whether any work remains?':'whether you plan any further steps on it?');
+      // A capital project the response calls completed has said where it stands. A program
+      // called completed is usually one that runs on, so it keeps the ask about further steps.
+      default: if(r.type==='Capital'&&/already been completed|has been completed|is (?:now )?complete\b/i.test(r.ar+' '+r.omb))
+          return 'Could you tell us what work was completed and whether any part of this request remains?';
+        return 'Could you tell us where this request stands and '+(r.type==='Capital'?'whether any work remains?':'whether you plan any further steps on it?');
     }
   }
   // Who a letter to elected officials asks: "you", or the Borough President when the
@@ -4752,6 +4765,8 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
     [/sidewalks are the responsibility of the adjacent property owner/i,'info','said sidewalks are the responsibility of the adjacent property owner'],
     [/more information is needed from the community board|requires additional information from the community board/i,'info','said the agency needs more information from the board'],
     [/includes more than one proposal/i,'info','noted that the request includes more than one proposal'],
+    // Advice to give the agency more detail is the reason for a letter that offers it.
+    [/reach out to the agency with more detail/i,'info','asked the board to give the agency more detail about this request'],
     [/further (study|investigation)|requires further study|contact the (relevant |responsible )?(agency|borough commissioner|transit authority)|for more information|reach out to the agency/i,'skip','']
   ];
   // OMB's stock paragraph on sidewalks, curbs and ramps, cut to the parts a request is about.
@@ -4844,12 +4859,25 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
     if((t.match(/"/g)||[]).length%2) t=t.replace(/"([^"]*)$/,'$1');  // and a quotation mark
     if(t.length>max) t=t.replace(/\s*\([^)]*\)/g,'').trim();
     if(t.length>max) t=t.replace(/,?\s+(?:such as|e\.g\.|i\.e\.|including|for example|by providing)(?=[\s,]|$).*$/i,'').trim();
-    var c=cut(t,max), o=c.lastIndexOf('('); if(o>0&&c.indexOf(')',o)<0) c=c.slice(0,o).replace(/[\s,;:–-]+$/,'')+'…'; return c; }
+    var c=phraseCut(t,max), o=c.lastIndexOf('('); if(o>0&&c.indexOf(')',o)<0) c=c.slice(0,o).replace(/[\s,;:–-]+$/,'')+'…'; return c; }
   // A cut falls between words, never at an initial taken for a sentence's end ("Guy R."), and
   // backs up past a small word or a number ("at 128…") to the last word that carries meaning.
   function cut(s,max){ s=(s||'').replace(/\s+/g,' ').trim(); if(s.length<=max) return s;
     var c=s.slice(0,max).replace(/\s+\S*$/,''), w=/[\s,;:]+(?:\d\S*|at|on|in|of|to|the|a|an|and|or|for|with|from|by|its|our|their|between|near|along)$|[,;:.]$/i;
     while(w.test(c)) c=c.replace(w,''); return c+'…'; }
+  // A subject too long to fit ends where a phrase ends, before a reason ("because ..."), a
+  // purpose ("to help ..."), a range of streets ("between ...", "from ... to ..."), examples
+  // ("such as ...") or a second action (", and repair ..."), so it reads whole. Only when no
+  // such place fits is it cut between words. "Work with the agency to ..." and "Ask the
+  // office to ..." keep their ask, which follows "to".
+  var VERBS='repair|replace|install|add|create|provide|consider|expand|improve|build|upgrade|restore|audit|assess|hire|fund|maintain|study|develop|plant|remove|clean|establish|increase|enforce|extend|reconstruct|renovate|redesign';
+  var BREAK=new RegExp(',?\\s(?=(?:because|since|which|where|while|so that|so|such as|including|especially|between|from (?=[^,]{1,60}? (?:to|through) )|throughout|for use|in order to|to (?:help|provide|clean|make|ensure|improve|reduce|address|support|allow|keep|prevent|protect|serve|meet|increase|create|accommodate|promote|encourage|deter|stop|bring|give|offer|reach|connect|attract|facilitate|mitigate|alleviate|combat|better|enhance|expand))\\b)|,\\s(?=and (?:'+VERBS+')\\b)','gi');
+  var WITH=/^(?:(?:work|partner|coordinate|collaborate|meet)\b[^,]*\bwith\b|(?:ask|urge|encourage|require|direct|press|push|lobby|help|allow|enable|get)\b)/i;
+  function phraseCut(s,max){ s=(s||'').replace(/\s+/g,' ').trim(); if(s.length<=max) return s;
+    var best=-1, m; BREAK.lastIndex=0;
+    while((m=BREAK.exec(s))){ if(m.index>max) break; var p=s.slice(0,m.index);
+      if(m.index>=35&&!DANGLES.test(p)&&!(WITH.test(p)&&/^,?\sto /.test(s.slice(m.index)))) best=m.index; }
+    return best>0?s.slice(0,best).replace(/[\s,;:]+$/,''):cut(s,max); }
   // A catch-all title ("Other capital budget request for DEP") says nothing about the request,
   // so the subject gives the start of its plain-language description instead.
   // A description that leans on "its" or "it" for the agency keeps the title, since a subject
@@ -4860,7 +4888,7 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
   var DANGLES=/\s(?:at|on|in|of|to|the|a|an|and|or|for|with|from|by|its|our|their|between|near|along|\d+(?:st|nd|rd|th)?|inspect|repair|replace|install|fund|build|add|provide|restore|create|improve|clean|remove|maintain|expand|increase|upgrade|renovate|reconstruct|hire)$/i;
   function subjectText(r){ if(!/^Other\b/i.test(r.title||'')||!r.rd) return shortTitle(r.title,90);
     var d=Cap(r.rd.replace(/\s+/g,' ').trim()), c=d.indexOf(', '), m=CLAUSE.exec(d);
-    var t=c>=25&&c<=90&&!DANGLES.test(d.slice(0,c))?d.slice(0,c):m&&m.index>=25&&m.index<=90?d.slice(0,m.index):cut(d,90);
+    var t=c>=25&&c<=90&&!DANGLES.test(d.slice(0,c))?d.slice(0,c):m&&m.index>=25&&m.index<=90?d.slice(0,m.index):phraseCut(d,90);
     return /\b(its|it|they|their|them)\b/i.test(t)?shortTitle(r.title,90):t; }
   function subject(r){ return 'FY'+FY+' '+(r.type?r.type.toLowerCase()+' ':'')+'budget request, '+subjectText(r)+' ('+(boardName[r.board]||r.board)+(r.tc?', '+r.tc:'')+')'; }
 
@@ -4880,10 +4908,12 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
           (caps?' We’d also welcome '+yours+' consideration of Reso A capital funds for '+(caps===n?it:'the capital projects')+'.':'')
         :'We’d appreciate '+yours+' help moving '+it+' forward, through advocacy with the agencies and in the City’s budget.'));
     } else {
-      // Requests another agency sent on are named as such, whether all of them or some.
-      var moved=rs.filter(function(r){ return r.dest===x.ag&&r.agency!==x.ag; }).length;
-      lines.push(intro+(many?'the '+n+' requests':'the request')+(moved===n?' below, which '+(many?'other agencies':'another agency')+' directed to your agency.'
-        :moved?' below. Of these, '+(moved===1?'one was made to another agency, which directed it':moved+' were made to other agencies, which directed them')+' to yours.'
+      // Requests another agency sent on are named as such, whether all of them or some, and
+      // that agency is named when there is only one.
+      var movedRs=rs.filter(function(r){ return r.dest===x.ag&&r.agency!==x.ag; }), moved=movedRs.length;
+      var from=movedRs.map(function(r){ return r.agency; }).filter(function(v,i,a){ return a.indexOf(v)===i; }), who=from.length===1?agencyPhrase(from[0]):'';
+      lines.push(intro+(many?'the '+n+' requests':'the request')+(moved===n?' below, which '+(who||(many?'other agencies':'another agency'))+' directed to your agency.'
+        :moved?' below. Of these, '+(moved===1?'one was made to '+(who||'another agency')+', which directed it':moved+' were made to '+(who||'other agencies')+', which directed them')+' to yours.'
         :' to your agency listed below.')+' We’re following up on '+(many?'each of them':'it')+'.');
     }
     var shown={};
