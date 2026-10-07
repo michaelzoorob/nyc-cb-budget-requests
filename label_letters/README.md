@@ -142,9 +142,32 @@ subject cut, the ask for a request that needs no follow-up, and the OMB descript
 second blind check of 24 letters with the reworked changes preferred the new letter 20 times,
 saw no difference twice and preferred the old letter twice.
 
+## FY2027 descriptions checked
+
+Boards draft letters for the current year's requests, so in October 2026 every FY2027
+description was checked against its source. Sonnet compared each of the 3,499 request
+descriptions and 2,153 response descriptions with the board's text or the agency's response,
+following `verify_rubric.md`. It corrected a description only for a wrong or reversed fact,
+a dropped site or main part of the request, something added, a wrong stance or status, a
+statement given to the wrong party, unreadable grammar or a meeting date that has passed.
+338 request descriptions and 103 response descriptions were corrected, about one in ten and
+one in twenty. Among them were a request to send officers to a precinct that read as sending
+them from it, and a curb request whose description had dropped the curbs.
+
+Two blind Opus checks of 99 corrections preferred the new text 95 times and saw no
+difference once. Of the three it preferred the old text for, one was left out. The other two
+dropped a meeting date that had passed, as the rubric intends. Opus also read 120 of the
+descriptions left as they were and found an error in one. The corrections change the letters
+of 533 FY2027 requests. The 300 FY2027 requests the live audits had read were left out, since
+their errors were corrected by hand. A response description serves every request with the
+same response, so a few corrections also reach other years.
+
 ## Describing a new fiscal year
 
 1. Build the year's CSV with `pipeline/build_all_boards.py --fy YEAR`.
 2. Run `prepare.py DATA_DIR WORK_DIR`. It skips text that already has a description.
 3. Describe each chunk with `rubric.md`, reading and writing no more than 50 records at a time.
-4. Run `assemble.py WORK_DIR`, then rebuild the pages.
+4. Run `assemble.py WORK_DIR`.
+5. Check the year's descriptions against their sources with `verify_rubric.md`, and put the
+   corrections in `WORK_DIR/out/fix_request_*.json` and `fix_response_*.json`, which
+   replace the first descriptions. Run `assemble.py WORK_DIR` again, then rebuild the pages.
