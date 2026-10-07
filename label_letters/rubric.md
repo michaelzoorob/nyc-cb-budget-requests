@@ -43,7 +43,7 @@ A response often opens with one of DCP's dispositions. Use these words for them,
 | This request has already been completed | said the request has already been completed |
 | The agency does not understand the request as written and requires more clarification | said it doesn't understand the request as written and needs more detail |
 
-When a negative disposition comes with no reason (only the disposition, perhaps with a stock "contact the agency" line), end with "and gave no reason", as in "said it doesn't support the request and gave no reason". When a response says nothing except to contact the agency, write "said we should contact it directly for more information".
+When a negative disposition comes with no reason, end with "and gave no reason", as in "said it doesn't support the request and gave no reason". When its only other words are a stock "contact the agency" line, say so instead, as in "said it doesn't support the request and asked us to contact it directly for more information". When a response says nothing except to contact the agency, write "said we should contact it directly for more information".
 
 Older responses sometimes add "; remove request" or "; resubmit request" and an "Explanation:" label. Ignore "remove request", "resubmit request" and the label, and describe the explanation.
 
@@ -51,7 +51,7 @@ Examples:
 
 | Response | Description |
 | --- | --- |
-| Agency does not support and cannot accommodate. PLEASE CONTACT THE AGENCY DIRECTLY AND PROMPTLY FOR MORE INFORMATION. | said it doesn't support the request and gave no reason |
+| Agency does not support and cannot accommodate. PLEASE CONTACT THE AGENCY DIRECTLY AND PROMPTLY FOR MORE INFORMATION. | said it doesn't support the request and asked us to contact it directly for more information |
 | Further study by the agency of this request is needed. | said it needs to study the request further |
 | Department of Parks and Recreation funds are insufficient for this project. We recommend this project be brought to the attention of your elected officials, i.e. Borough President and/or City Council member. (from Parks) | said it doesn't have the money for this project and suggested we bring it to our elected officials, such as the Borough President or our Council Member |
 | Agency supports but cannot accommodate. NYC DOT does not have capital funding to support this request, contact your local elected officials for funding. (from DOT) | said it supports the request but doesn't have capital funding for it and suggested we ask our elected officials for funding |

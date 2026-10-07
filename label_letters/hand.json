@@ -18,12 +18,6 @@
   "source": "The agency will try to accommodate this issue within existing resources."
  },
  {
-  "id": "7c39ca85a07d",
-  "kind": "response",
-  "text": "said it doesn't support the request and gave no reason",
-  "source": "Agency does not support and cannot accommodate. Please contact the agency directly and promptly for more information."
- },
- {
   "id": "d25935d5c7a9",
   "kind": "response",
   "text": "said it will handle this with the resources it already has",
@@ -58,12 +52,6 @@
   "kind": "response",
   "text": "said approval depends on getting enough federal and state funds",
   "source": "Approval of this request depends on sufficient Federal/State funds."
- },
- {
-  "id": "7c39ca85a07d",
-  "kind": "response",
-  "text": "said it doesn't support the request and gave no reason",
-  "source": "Agency does not support and cannot accommodate. PLEASE CONTACT THE AGENCY DIRECTLY AND PROMPTLY FOR MORE INFORMATION."
  },
  {
   "id": "22d9ce38d273",
@@ -106,12 +94,6 @@
   "kind": "response",
   "text": "said capital money for specific projects comes from local elected officials and that we should contact ours",
   "source": "Capital funds are allocated for specific projects by local elected officials. The Community Board should contact their local elected officials."
- },
- {
-  "id": "3e276346cce2",
-  "kind": "response",
-  "text": "said it doesn't support the request and gave no reason",
-  "source": "Agency does not support and cannot accommodate; remove request Explanation: Please contact the agency directly and promptly for more information."
  },
  {
   "id": "3edfe0bbfab2",
@@ -433,5 +415,251 @@
   "id": "5b54a4af32ec",
   "kind": "response",
   "text": "said it supports the request but can't accommodate it, and that more funding for libraries would let it expand program offerings and better maintain its buildings"
+ },
+ {
+  "id": "0a7af3d1bba1",
+  "kind": "request",
+  "text": "work with us and the Friends of City Hall Park on repairs and upgrades, such as new Bluestone paths, LED lighting, a repaired fountain, better wayfinding signs, a public restroom and action on food carts in the park",
+  "source": "City Hall Park || Parks should work with CB1 and Friends of City Hall Park relevant volunteer organizations to review list of recommended repairs for City Hall Park including replacing the current pathway material with the more durable Bluestone, increase illumination, replace gas lights with LEDs, and repair the fountain, enhance wayfinding and signage, adding a public restroom and addressing the issue of Food Carts within the Park confines."
+ },
+ {
+  "id": "efe3138e040e",
+  "kind": "request",
+  "text": "add funding for the Manhattan Outreach Consortium, Goddard Riverside's outreach to people living on the street, whose caseload remains high and whose teams can need up to 200 contacts to connect a person with healthcare, counseling, food and shelter",
+  "source": "Provide additional funding for the Manhattan Outreach Consortium || Provide additional funding for the Manhattan Outreach Consortium (MOC), a multiagency effort established by Goddard Riverside, to provide outreach to those experiencing street homelessness. Goddard Riverside dispatches MOC teams to respond to 311 calls and Goddard's caseload remains high. It can take up to 200 interactions over months or years to develop relationships with those experiencing street homelessness and provide them with access to healthcare, counseling, nutrition, and shelter."
+ },
+ {
+  "id": "428810ceda55",
+  "kind": "request",
+  "text": "fund ramps or wheelchair lifts at the entrances of residential buildings in our district that have steps but units suitable for wheelchair users, and meet with us to set goals for expanding the number of accessible buildings",
+  "source": "Allocate funding to make accessability improvemements to the entrances of residential buildings in CD12M. || Make funding available to available to residential buildings in CD12M to make building entrances accessible to wheelchair users and others with limited-mobility by installing a ramp and/or wheelchair lift. There are many residential buildings in CD12M that have elevators and units that could be suitable for wheelchair users but have steps to enter the building. HPD should fund accessibility improvements like the addition of ramps and/or wheelchair lift to facilitate entry into the building. We request to meet in November 2025 to discuss and set attainable, quantifiable goals to expand the number of wheelchair accessible residential buildings in CD12M."
+ },
+ {
+  "id": "e60cee2afa51",
+  "kind": "request",
+  "text": "add more smart compost bins in Prospect Heights, where existing bins fill up before late morning, and empty smart bins more often across the district to support organics recycling",
+  "source": "Provide more on-street trash cans and recycling containers || Smart bins usage in Prospect Heights is very high and there is a need for additional bins. Usage rates are so high that bins are often full before late morning has reached on days when the bins are dumped. Additional bins will allow greater access for organics collections and participation. Furthermore, we encourage increased collection of smart bins district-wide as they are a popular choice for residents in buildings that have yet to opt into curbside organics collections."
+ },
+ {
+  "id": "e2e619fea26f",
+  "kind": "request",
+  "text": "fund vocational training in high paying, in demand skills and NYOD English classes for our residents, and have Workforce1, which has no center near our district, work with the Boro Park Jewish Community Council and our local libraries to provide them",
+  "source": "Other workforce development requests || A large number of residents in our district do not have college degrees, and many also face language barriers. Investing in targeted vocational training, along with NYOD English language classes, is a priority that could help raise the low incomes many families are currently experiencing. Our residents are intelligent and capable, and they would benefit from training focused on high-paying, in-demand skills, as well as improving their English proficiency. Currently, there are no Work Force 1 (WF1) centers nearby to serve our district, so providing funding to fill this gap would be a valuable investment. We are requesting that Work Force 1 collaborate with our local CBO, the Boro Park Jewish Community Council, and our local public libraries to provide these vital services to our community."
+ },
+ {
+  "id": "f1b313e31884",
+  "kind": "request",
+  "text": "proactively identify and enforce against residents paving over the required green space in front of their property",
+  "source": "Code Enforcement - Front Yard Paving || Requesting a mandate on DOB's ability to pre-emptively identify and enforce the ongoing issue of residents paving over the required green space along the frontage of their property."
+ },
+ {
+  "id": "de87100ac4d0",
+  "kind": "request",
+  "text": "install a traffic or pedestrian signal at East 39th Street and Farragut Road, where vehicles block the view of drivers coming out of side streets",
+  "source": "Provide new traffic or pedestrian signals || Location: East 39th Street - Farragut Road & Farragut Road Very difficult for traffic emerging from the side streets without hindrance. Vehicles consistently obstructed full view."
+ },
+ {
+  "id": "62fc19dc816e",
+  "kind": "request",
+  "text": "provide safe public access to Newtown Creek and build an athletic field on City land next to the Department of Environmental Protection's Newtown Creek Aeration Facility in Maspeth, where safe places to play soccer are scarce",
+  "source": "Provide a new, or new expansion to, a building in a park || PROVIDE SAFE PUBLIC ACCESS TO NEWTOWN CREEK AND CONSTRUCT AN ATHLETIC FIELD AT THE NYC DEP NEWTOWN CREEK AERATION FACILITY PROPERTY The NYC DEP has had an aeration facility built at 58-26 47 Street, in Maspeth, Queens, to improve Newtown Creek water quality. Local soccer advocates request that the land owned by N.Y. City, adjacent to the planned aeration facility, be developed as an athletic field because there is a shortage of sites where soccer can be safely played."
+ },
+ {
+  "id": "e53f68d55a79",
+  "kind": "request",
+  "text": "reconstruct Foch Boulevard between Marsden Street and Merrick Boulevard, including curbs, sidewalks, center islands and sewers, and add a traffic light at 167th Street and more street lighting",
+  "source": "Repair or provide new street lights || Reconstruct Foch Blvd. bet Mardsen Street and Merrick Blvd, repair curbs sidewalks, center isles, sewers. Traffic light installation at 167th Street Roadways with steel reinforcements at corners and increase street lighting. The recent reconstruction of Foch Blvd. from Wan Wyck Blvd. was halted abruptly at Guy R. Brewer Blvd., instead of continuing on to Merrick Blvd. as the community had expected. At Merrick Blvd. the restoration of Foch Blvd. is now being undertaken to continue repairs eastward and into SQPA Park through a Parks and Recreation project. Project in progress"
+ },
+ {
+  "id": "933c84ce4642",
+  "kind": "request",
+  "text": "address traffic congestion in Bed-Stuy at Nostrand and DeKalb Avenues, and at Bedford and DeKalb Avenues, which slows emergency vehicles and public transportation",
+  "source": "Nostrand and Dekalb || Location: Nostrand & Dekalb Congestion continues to be a traffic issue that hinders the movement of traffic through Bed Stuy often interrupting emergency vehicles and public transportation at Bedford and Dekalb."
+ },
+ {
+  "id": "ea90464dde2e",
+  "kind": "request",
+  "text": "reconstruct the two full basketball courts at Woods Playground with new drainage, paving, fencing, backboards, hoops and bleachers, add a bottle filler and adult fitness equipment, rebuild the handball wall and build a small synthetic turf play area",
+  "source": "Woods Playground Basketball Courts || At Woods Playground, reconstruct 2 full court basketball courts including drainage, pavement, color seal coat, fencing, lexan backboards, hoops with nets, 3 tier bleachers and seating, bottle filler, install adult fitness equipment, reconstruct handball wall, construct small synthetic turf play area"
+ },
+ {
+  "id": "194ab5220957",
+  "kind": "request",
+  "text": "repair the cobblestone areas on both sides of the sidewalk on the west side of Washington Park between Myrtle and DeKalb Avenues, which the weekly farmers market uses heavily and which are eroded, uneven and dangerous to walk on",
+  "source": "Restore Cobblestones Along Fort Greene Park Sidewalks || BKCB2 recommends funding to repair and restore the cobblestone areas bordering both sides of the sidewalk on the west side of Washington Park between Myrtle and Dekalb. These areas are heavily used by the weekly farmers market and have become eroded, uneven, and dangerous to navigate."
+ },
+ {
+  "id": "a7a2214feed5",
+  "kind": "request",
+  "text": "deck over its properties, such as those between 6th and 8th Avenues from 36th to 39th Streets and on 38th Street between 4th and 5th Avenues, to build deeply affordable housing",
+  "source": "Other capital budget request for NYCTA || Deck over various MTA properties, including 6th to 8th Avenues between 36th and 39th Streets, 38th Street between 4th and 5th Avenues and others , to provide deeply affordable housing"
+ },
+ {
+  "id": "94317fc88329",
+  "kind": "request",
+  "text": "reconstruct Brighton Beach Avenue between West 5th Street and Corbin Place, which is built of concrete instead of asphalt and is costly to replace",
+  "source": "Reconstruct Brighton Beach Avenue || Location: Brighton Beach Avenue - West 5th Street & Corbin Place We need to reconstruct Brighton Beach Avenue. The avenue is built with concrete, not asphalt, and is costly to replace."
+ },
+ {
+  "id": "ba0db3da1f1e",
+  "kind": "request",
+  "text": "fund moving EMS Station 7 from its cramped temporary site at West 23rd Street and Tenth Avenue to a permanent one on West 29th Street between 11th and 12th Avenues, since the current site causes noise and exhaust pollution and is unsafe",
+  "source": "Provide new facilities such as a firehouse or EMS station || Fund the permanent relocation of the West 23rd Street #7 EMS station (FDNY) to West 29th Street (11/12 Ave) MCB4 specifically requests immediate funding for a relocation of the EMS station that is temporarily located on W. 23rd Street and Tenth Avenue. The current temporary location was never designed for the heavy use the EMS is placing on this site. The current small, cramped location adjacent to residential buildings has resulted in noise and exhaust pollution. The site is unsafe for both FDNY personnel and nearby residents and pedestrians."
+ },
+ {
+  "id": "546bbd936198",
+  "kind": "request",
+  "text": "run an information campaign for seniors in the Bronx about crime prevention and victim assistance programs, using tabling at community events, mailings, TV commercials and phone banking",
+  "source": "Continue Crime Prevention/Victim Assistance Program for Seniors || CB7 requests an information campaign about crime prevention and victim assistance programs for seniors in the Bronx. The Board requests targeted outreach activities including tabling at community events, mailings, television commercials, and phone banking advertising these services to our senior communities."
+ },
+ {
+  "id": "5c0e9c0abda8",
+  "kind": "request",
+  "text": "increase extermination visits and rat traps at NYCHA developments in our district, where Holmes Towers has over 1,100 open work orders and Isaacs Houses 1,500, and add health and building inspectors for lead, mold and bedbugs",
+  "source": "Improve public housing maintenance and cleanliness || There are over 1,100 open work orders at Holmes Towers and 1,500 open work orders at Isaacs Houses. Residents of NYCHA houses in our district have requested an Increase frequency of extermination services in apartments in need and provide more rat traps on the grounds of NYCHA housing. Provide more health and building inspectors for NYCHA facilities, in particular related to lead, mold, and bedbugs."
+ },
+ {
+  "id": "b277554b9e1e",
+  "kind": "request",
+  "text": "fund the design and construction of the Parks Department's conceptual plan for parks throughout our district, create new parks, and add water access for boats, paddle boards and kayaks and more retail opportunities",
+  "source": "Other expense budget request for DPR || Fund design and construction of Parks dept.- Conceptual plan- for parks throughout district. As well as creation of new parks, water access for boats, paddle boards and Kayak, also additional retail opportunities"
+ },
+ {
+  "id": "853e856ba95a",
+  "kind": "request",
+  "text": "fully rehabilitate Mosholu Parkway with the Department of Transportation, replacing its broken benches, crumbling stone pillars and failing fencing, since its last major rehabilitation was nearly 40 years ago",
+  "source": "Reconstruct or upgrade a park or amenity (i.e. playground, outdoor athletic field) || The last major rehabilitation of Mosholu Parkway took place nearly forty years ago. In the meantime, the parkway has been allowed to fall apart with an increasing number of benches out of service, stone pillars crumbling and fencing falling apart. The board calls on the department to work with DOT to undertake a total rehabilitation of Mosholu Parkway."
+ },
+ {
+  "id": "15db87f0ffff",
+  "kind": "request",
+  "text": "build a protected bike lane in the unused parking lanes of Pelham Parkway North from Stillwell Avenue to Bronxwood Avenue, joining the Greenway there or going on to White Plains Road as a painted lane, to ease crowding on the Pelham Parkway Greenway",
+  "source": "Pelham Parkway North bike lane || Pelham Parkway Greenway is a very heavily used pedestrian path that, even with its widening, is unable to support the volume of bike, scooter, and micromobility traffic it sees. Pelham Parkway North has an unused parking lane between Stillwell Ave. and Williamsbridge Ave as well as a nearly unused parking lane in front of the New York School for Special Education that extends to Bronxwood Ave. Creating a protected bike lane in this space would alleviate some of the congestion and conflict that arises on the Pelham Parkway Greenway and could either connect back to the Greenway at Bronxwood or continue on Pelham Parkway North to White Plains Rd. as a painted bike lane to connect to the lanes on White Plains Rd."
+ },
+ {
+  "id": "45024d9f531c",
+  "kind": "request",
+  "text": "improve lighting on Webster Avenue at 182nd Street, by the Police Athletic League youth facility, for the safety of the young people who use it",
+  "source": "Repair or provide new street lights || Community Board members voiced concern about the lack of adequate lighting along Webster Avenue. A PAL is located at this corner so improved lighting would add to the security of youth and enhance the attraction of this youth recreation facility."
+ },
+ {
+  "id": "434d42856b5e",
+  "kind": "request",
+  "text": "replace the exterior doors at the Plaza and Amsterdam Avenue entrances and upgrade the lift so that all are ADA compliant",
+  "source": "Provide more or better equipment to a library || Replace exterior doors on the Plaza and Amsterdam Avenue entrances and upgrade the Lift to make all ADA compliant"
+ },
+ {
+  "id": "eb30be766446",
+  "kind": "request",
+  "text": "add cameras and more enforcement against illegal dumping, and more sanitation trucks and workers, in our district, the city's second largest and still growing",
+  "source": "Other capital budget request for DSNY || We have a major illegal dumpling problem Community Board 12 district, there is a need for cameras and additional enforcement. With the increase in housing and illegal conversion there is a need for additional Sanitation trucks and manpower. We are the second largest district in the city and increasing. There is a need for additional services."
+ },
+ {
+  "id": "cd06946965c9",
+  "kind": "response",
+  "text": "said it supports the request and can accommodate it, and that it offers grants to boost corridor activity and support merchants. This fiscal year it awarded Small BID Support Grants to the Atlantic Avenue, Montague Street, Fulton Area Business Alliance and Myrtle Avenue BIDs",
+  "source": "Agency supports and can accommodate. SBS offers grant programming to neighborhood organizations to promote corridor activities, support merchants and increase foot traffic to the community, all of which help with retail attraction/retention. IIn this Fiscal Year, we awarded Small BID Support Grants to the Atlantic Avenue BID, Montague Street BID, Fulton Area Business (FAB) Alliance BID, and the Myrtle Avenue BID. These grants support efforts like business support & retention and retail attraction. SBS will continue to promote grant programs when available to both the local community boards and the BID. SBS encourages local community boards to share information about our grant programs with local non-profits."
+ },
+ {
+  "id": "a2b5758495dc",
+  "kind": "response",
+  "text": "said it doesn't understand the request as written and needs more detail. It said its Manhattan Borough Office wants to understand the request better, and that the planner assigned to Community District 3 will reach out to us in January with data and resources",
+  "source": "The agency does not understand the request as written and requires more clarification. The Manhattan Borough Office would like to better understand the board's request and the needs it seeks to address. DCP is committed to promoting housing production and affordability. The planner assigned to CD3 will reach out to the board in January to help point the CB towards publicly available data and resources if needed and is happy to discuss this inquiry further."
+ },
+ {
+  "id": "99683f608558",
+  "kind": "response",
+  "text": "said it supports the request and can accommodate it within existing resources, since its 18 Workforce1 centers already serve asylum seekers with work permits through workshops, counseling, job connections and English classes. It invited us to contact it to plan outreach",
+  "source": "Agency supports and can accommodate. SBS has been able to serve asylum-seekers with work permits within existing resources. The SBS Workforce1 system has 18 physical centers that support jobseekers through workshops, one-on-one counseling, and connections to available jobs for which they may be qualified. Workshops and one-on-one support include resume and interview prep, and the Workforce1 system has curated services for new arrivals with workshops such as “Understanding the American Workplace” and connections to ESOL classes. SBS has a dedicated outreach team that can continue outreach through the nearby Workforce1 center, located at 215 West 125th St, 6th Floor. SBS welcomes partnerships with additional community partners to connect work-authorized new arrivals with our resources. We encourage community boards to contact us at intergov@sbs.nyc.gov to coordinate on where we can conduct targeted outreach."
+ },
+ {
+  "id": "bb8da5b52087",
+  "kind": "response",
+  "text": "said it supports the request and can accommodate it because it gives child care vouchers to all income eligible families citywide, with no waiting list, through the MyCity portal. It noted that it no longer oversees the contracted child care system",
+  "source": "Agency supports and can accommodate. ACS provides child care vouchers to all income-eligible families throughout the city, including CD7. There is no waiting list. Families can apply through the MyCity portal: nyc.gov/mycity.nyc.gov (Note ACS no longer oversees the contracted child care system.)"
+ },
+ {
+  "id": "7c39ca85a07d",
+  "kind": "response",
+  "text": "said it doesn't support the request and asked us to contact it directly for more information",
+  "source": "Agency does not support and cannot accommodate. PLEASE CONTACT THE AGENCY DIRECTLY AND PROMPTLY FOR MORE INFORMATION."
+ },
+ {
+  "id": "3e276346cce2",
+  "kind": "response",
+  "text": "said it doesn't support the request and asked us to contact it directly for more information",
+  "source": "Agency does not support and cannot accommodate; remove request Explanation: Please contact the agency directly and promptly for more information."
+ },
+ {
+  "id": "212d6d22f6e9",
+  "kind": "response",
+  "text": "said it doesn't support the request and asked us to contact the New York Public Library to discuss it",
+  "source": "Agency does not support and cannot accommodate. Please contact NYPL to discuss."
+ },
+ {
+  "id": "639ab2eb4f05",
+  "kind": "response",
+  "text": "said it doesn't understand the request as written and needs more detail, and that the request went to the wrong agency, since it's a separate entity from the Department of Homeless Services",
+  "source": "The agency does not understand the request as written and requires more clarification. This was assigned to the wrong agency; we are a separate entity from DHS."
+ },
+ {
+  "id": "141c2a6fa5f6",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it. It said that although paths in all three parks were recently repaved, with another repaving planned for Fort Tryon Park, it needs more funding to repave further",
+  "source": "Agency supports but cannot accommodate. While paths have recently been repaved in all three parks, and another one is planned for Fort Tryon Park, funding is needed to do still more repaving in these parks."
+ },
+ {
+  "id": "1cb00521829f",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it. It said that although it has funding to reconstruct the seawall, it has no capital funding for other park sections. It suggested we ask our elected officials for capital funding",
+  "source": "Agency supports but cannot accommodate. Parks has funding to reconstruct the seawall. However, Parks does not have capital funding allocated to reconstruct other sections of the parks. The board can reach out to its elected officials for a capital funding request."
+ },
+ {
+  "id": "20923fcc8a64",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it. It said that although some paths and staircases in the park are due for renovation, funding is needed for additional work",
+  "source": "Agency supports but cannot accommodate. Some of the paths and staircases in the park are due to be renovated. However, funding is needed to do additional work."
+ },
+ {
+  "id": "21b02d22635e",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it. It said that although it continues to study the containerization program, funding for expanding it isn't currently available",
+  "source": "Agency supports but cannot accommodate. DSNY continues to study the containerization program. Funding for additional expansion beyond the existing program is currently unavailable."
+ },
+ {
+  "id": "23349bfd1db2",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it. It said that although its solar lighting pilot with DOT at Pier 42 has been a success and it's willing to expand elsewhere, it doesn't think Penn South Playground works because of heavy tree canopy",
+  "source": "Agency supports but cannot accommodate. We have been conducting a pilot project with solar lighting at the Pier 42 park in Lower Manhattan in coordination with DOT, which maintains the lights. There haven't been any problems, and we consider it to be a success and are willing to expand the use of solar lighting elsewhere. However, we do not feel that Penn South Playground would be a good location because of the heavy tree canopy."
+ },
+ {
+  "id": "24518faa20ce",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it. It said that although it supports more vouchers for households needing rental assistance, Section 8 is a federal resource with limited availability and funding",
+  "source": "Agency supports but cannot accommodate. While the Agency supports additional vouchers for households in need of rental assistance, Section 8 is a Federal resource with limited availability and funding."
+ },
+ {
+  "id": "71084be629a6",
+  "kind": "response",
+  "text": "said it doesn't support the request. It said that while it supports a new recreation center in our district, it disagrees with the proposed location and doesn't have capital funding available",
+  "source": "Agency does not support and cannot accommodate. While we support the request for a new recreation center within Community Board 13, we disagree with the proposed location and do not have capital funding available."
+ },
+ {
+  "id": "798530a605fc",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it. It said that although partial funding has been received for this park, a study is needed to reassess site usage",
+  "source": "Agency supports but cannot accommodate; resubmit request Explanation: Partial funding has been received for this park. Study is needed to reassess site usage."
+ },
+ {
+  "id": "8179805b0692",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it. It said that although capital improvements at Brower Park were partly completed two years ago, the rest of the park's capital needs aren't funded",
+  "source": "Agency supports but cannot accommodate. Capital improvements at Brower Park were partially completed two years ago, the balance of these capital needs at the park are not funded."
+ },
+ {
+  "id": "877a3070bc1e",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it. It said that although it has already installed rodent resistant trash bins at many parks across Brooklyn, it isn't funded to install them at the rest",
+  "source": "Agency supports but cannot accommodate. We have provided rodent-resistant trash bins at many parks throughout Brooklyn, but we are not funded for installation at the balance of remaining parks."
  }
 ]
