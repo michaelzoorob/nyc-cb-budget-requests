@@ -39,7 +39,7 @@ Pick exactly one. It shapes the letter the board sends.
 | purpose | use when | usual action |
 | --- | --- | --- |
 | clarify | the agency did not understand the request, or needs more information from the board | Contact agency |
-| study | further study or investigation by the agency is needed | Contact agency |
+| study | a response says the agency is studying the request or will study it | Contact agency |
 | discuss | a response asks the board to contact the agency or a named office | Contact agency |
 | reconsider | the agency does not support the request for reasons other than money | Contact agency |
 | redirect | a response says a different agency, office or public body handles the request | Contact agency |
@@ -50,7 +50,7 @@ Pick exactly one. It shapes the letter the board sends.
 | no_response | both responses are blank | Contact agency |
 | none | nothing remains to ask | No follow-up needed |
 
-## Limits on four purposes
+## Limits on six purposes
 
 The letter's closing ask follows the purpose, so a purpose must fit what the responses say.
 
@@ -63,6 +63,15 @@ The letter's closing ask follows the purpose, so a purpose must fit what the res
   the agency, such as the State's or the federal government's. Money alone is funding.
 - **clarify** only when the agency needs more information from the board or did not
   understand the request.
+- **study** only when a response says a study, review or assessment is under way or will
+  happen. OMB's stock line "Further study by the agency of this request is needed" does not
+  outweigh an agency that says what it lacks. When a response says a study would be needed
+  but the agency declines it or lacks the money for it, use funding when money is the
+  obstacle, reconsider for another stated reason, or discuss when it asks the board to get in
+  touch.
+- **redirect** only when a response says the other body should take the request up. When it
+  says that body already did the work or covers it, the action is No follow-up needed, unless
+  a response says something remains.
 
 ## Other fields
 
