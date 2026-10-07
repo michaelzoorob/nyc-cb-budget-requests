@@ -43,7 +43,7 @@ before and after the changes.
 
 The judges found 376 issues, 1 of them high. 211 came from the templates, mostly in joint
 letters and letters to elected officials, which the first audit did not read. The changes,
-counted over all letters:
+counted over all letters, follow.
 
 - A joint letter asked officials "to help us getting a response" (19,281 letters).
 - A letter to elected officials asked for help "getting a response" right after it reported
@@ -94,6 +94,53 @@ or a date in the board's text that has passed. The letters relay them as written
 NYC Health + Hospitals and the Brooklyn Public Library go to their press offices, and letters
 to the MTA to its feedback form, since those are the channels they publish. The judges
 questioned 13 follow-up labels, which stay as they are.
+
+## A second live audit of the letters
+
+A board drafts letters for the current year's requests, so the second audit leaned on FY2027.
+It drew 300 new requests from the live site, 200 of them from FY2027, and the digests of
+eight more boards. The judges and the rubric were the same as in the first audit, so the two
+can be compared. In FY2027 the judges found 0.78 issues per request, down from 1.36, and 0.35
+of medium or high severity, down from 0.68. 42% of requests had no issue, up from 32%. Fixed
+wording in the templates had caused most issues in the first audit and caused few in the
+second. Most that remain come from the follow-up labels, the City's own data and the
+descriptions.
+
+Each change below gives the number of FY2027 letters it touched.
+
+- A letter to the office a response named asked that office to put the board in touch with
+  itself (30 letters). It now asks to meet.
+- A letter to the agency a response pointed to said only "the agency said". It now names the
+  agency that responded (170).
+- A joint letter's study ask mixed "the agency" with "you" (180).
+- The ask for a request that needs no follow-up assumed some work remained. A program now gets
+  an ask about further steps (242), and a capital project keeps the ask about remaining work.
+- OMB's condition "if approved" was dropped (23). OMB's stock paragraph on sidewalks, curbs and
+  ramps now keeps only the parts a request is about (100), and a request about none of them
+  leaves it out.
+- A response that gave a cost was asked for the cost (22). The letter now asks whether the
+  funding is planned.
+- A link meant for residents or businesses was treated as a way for the board to submit the
+  request (7). A program for businesses is now shared with businesses.
+- An expense request's letter to the Borough President went to a capital programs office
+  (98). It now goes to a budget office or to the Borough President.
+- A subject built from a description could end on a dangling word, as in "Hire more workers to
+  inspect". It now ends at the first comma only where the words read whole. A title's unclosed
+  quotation mark is dropped (9).
+
+59 descriptions were corrected by hand, nearly all for FY2027. Two were wrong in substance. One
+put a garage on a waterfront site when the board asked for one off the waterfront. The other
+gave a Department of Transportation reply, filed under Parks, to Parks itself. Others restored
+a dropped place or a dropped part of the request, split a run-on, said which agency spoke, or
+named the speaker of a second sentence. A fix keyed by a response or OMB text applies to every
+request with that text, so it has to fit all of them. One that read an OMB sentence about "this
+practice" as being about cameras was wrong for other requests and was taken back.
+
+A blind Opus comparison of 66 changed FY2027 letters preferred the new letter 47 times. The
+17 losses came from four changes, which were reworked: OMB's stock sidewalk paragraph, the
+subject cut, the ask for a request that needs no follow-up, and the OMB description above. A
+second blind check of 24 letters with the reworked changes preferred the new letter 20 times,
+saw no difference twice and preferred the old letter twice.
 
 ## Describing a new fiscal year
 
