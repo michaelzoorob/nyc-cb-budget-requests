@@ -677,7 +677,7 @@
  {
   "id": "31f7fb28dc76",
   "kind": "response",
-  "text": "said it supports the request and can accommodate it and that it expanded its medical respite program with funding from Mount Sinai Beth Israel for eligible Bellevue patients. It also said Bellevue is also expanding its Adult Comprehensive Emergency Psychiatric Program to handle more patients",
+  "text": "said it supports the request and can accommodate it and that it expanded its medical respite program with funding from Mount Sinai Beth Israel for eligible Bellevue patients. It also said Bellevue is expanding its Adult Comprehensive Emergency Psychiatric Program to handle more patients",
   "source": "Agency supports and can accommodate. NYC Health + Hospitals expanded its medical respite program with funding from Mount Sinai Beth Israel to support eligible Bellevue patients. Bellevue is also currently undertaking a capital project to expand the clinical space of its Adult Comprehensive Emergency Psychiatric Program, which will accommodate the increase in patients and meet safety guidelines."
  },
  {
@@ -695,7 +695,7 @@
  {
   "id": "4726f06d0278",
   "kind": "response",
-  "text": "said it supports the request but can't accommodate it and that its Out of School Youth program, now called Train and Earn, is federally funded. It also said the City also expanded the Summer Youth Employment Program to serve youth up to age 24",
+  "text": "said it supports the request but can't accommodate it and that its Out of School Youth program, now called Train and Earn, is federally funded and its funding has been steady. It also said the City has expanded the Summer Youth Employment Program, which serves youth up to age 24",
   "source": "Agency supports but cannot accommodate. The Out of School Youth program, now known as Train and Earn, is funded by the federal government through the Workforce Innovation and Opportunity Act. Funding has been steady in recent years. The City has expanded the Summer Youth Employment Program, which serves youth up to age 24."
  },
  {
@@ -1015,5 +1015,65 @@
   "kind": "response",
   "text": "said the request has already been completed, that signs have been installed, and that most of the work is part of an already funded capital project",
   "source": "This request has already been completed. Signs have been installed. Most of this work be completed as part of the already-funded capital project."
+ },
+ {
+  "id": "4dd3447e67ab",
+  "kind": "request",
+  "text": "work with the Department of Design and Construction to bring electrical access to the three Broadway pedestrian plazas between 36th and 38th Streets and between 40th and 41st Streets, for better lighting, public use and safety",
+  "source": "Electrical access within the Broadway plazas || Location: Broadway - 36th St & 41st St We would like to see DDC and DOT work together to allow for electric access within the Broadway pedestrian plazas (36/37th, 37/38th, 40/41st Sts). These plazas are not yet identified to become permanent. Access to electric wiring within the plaza will allow for better lighting, more public use, and better safety."
+ },
+ {
+  "id": "5d1508d9966a",
+  "kind": "request",
+  "text": "install cameras on Junius Street between Livonia Avenue and New Lots Avenue, since Junius Street, East New York Avenue, Broadway and New Lots Avenue are constantly used for illegal dumping",
+  "source": "Install cameras || Location: Junius Street - Livonia Avenue & New Lots Ave - Livonia Avenue & Junius Street Junius Street, East New York Avenue, Broadway, New Lots Ave are always being dumped on."
+ },
+ {
+  "id": "8e2f708fc672",
+  "kind": "response",
+  "text": "said it supports the request and can accommodate it and that our district needs more affordable housing, which it will keep funding with tools like subsidies, tax exemptions and Low Income Housing Tax Credits. It also said building uses depend on eligibility with the funding sources applied",
+  "source": "Agency supports and can accommodate. Thank you for this request. We agree that your district need additional affordable housing. HPD will continue to use all tools available, including but not limited to subsidy, tax exemptions, and Low Income Housing Tax Credits (LIHTC) to fund the construction of affordable housing from the development pipeline to maximize available resources. Specific building uses depend on the eligibility of such uses with applied funding sources and discretionary funding."
+ },
+ {
+  "id": "3acb9f3afbbc",
+  "kind": "response",
+  "text": "said it supports the request and can accommodate it and that it has 20 million dollars in funding pending for improvements to John Hancock Playground, and planned to hold a community input meeting on the design by the end of fiscal year 2026",
+  "source": "Agency supports and can accommodate. We have $20 million of funding pending for improvements to John Hancock Playground and plan to host a community input meeting to inform the design for the site by the end of this fiscal year."
+ },
+ {
+  "id": "ae280cb46aa3",
+  "kind": "response",
+  "text": "said it supports the request but can't accommodate it and that funding for its block pruning program was restored after the pandemic and its 7-year pruning cycle matches industry standards. It also said it agrees more funding is needed to add staff, but that funding can't be determined yet",
+  "source": "Agency supports but cannot accommodate. Funding for our block pruning program was restored following the pandemic, and our 7-year street tree pruning cycle matches industry standards. If individual trees need pruning for public safety, we encourage anyone to submit a service request by locating the tree on the NYC Tree Map (and clicking on the “report a problem” tab), calling 311, or using our online tree service request system. Our inspectors will visit the tree and determine the appropriate action in accordance with our Tree Risk Management program. More details can be found on the Parks website: https://www.nycgovparks.org/services/forestry/risk-management. NYC Parks' Climber & Pruner Training Program is an in-house training program that connects current entry-level Parks employees with the training to become Climber & Pruners. With this program, Parks expects to add 15-20 new Climber & Pruners to the workforce every 15 months to help mitigate recruitment and hiring challenges. We agree with the need for more funding to increase staff, but that funding cannot be determined at this time."
+ },
+ {
+  "id": "491988e92a0c",
+  "kind": "response",
+  "text": "said it supports the request and can accommodate it and that several of its divisions are evaluating the area around PS 150 to assess adding a crosswalk where one is missing and other pedestrian safety measures, and that it will update us as developments happen",
+  "source": "Agency supports and can accommodate. Several divisions at NYC DOT are evaluating the area around PS150 to assess the feasibility of installing the missing crosswalk and adding other elements to enhance pedestrian safety in the area. We will update the Community Board on the matter as developments are made."
+ },
+ {
+  "id": "3ae0b75bea6a",
+  "kind": "response",
+  "text": "said it supports the request and can accommodate it and that it will work with us to study protected crosstown bike lanes in Midtown Manhattan, and that it scheduled conventional bike lanes on West 18th and West 22nd Streets, extending the existing lanes, for its FY2026 resurfacing season",
+  "source": "Agency supports and can accommodate. The New York City Department of Transportation (DOT) is dedicated to enhancing the safety and efficiency of the city’s streets. They will collaborate with Community Board 4 to introduce bicycle facilities in the area. The DOT will investigate the possibility of creating protected crosstown bicycle lanes in Midtown Manhattan. As you may know, designing this type of facility in the area presents challenges, including high vehicle volumes, curbside access requirements, and the need for network connectivity. The agency will continue to assess the feasibility of these improvements as it works to expand and upgrade the bicycle network. Additionally, the agency will install conventional bike lanes on West 18th and West 22nd Streets by extending the two existing bike lanes. This work is scheduled to be done during our resurfacing season in FY2026."
+ },
+ {
+  "id": "b6b8c206255d",
+  "kind": "request",
+  "text": "renovate the basketball courts at Lafayette Playground, including repaving, painting, a new backboard and hoop, and better lighting",
+  "source": "Reconstruct or upgrade a park or amenity (i.e. playground, outdoor athletic field) || The Board requests for the basketball courts to be renovated including repaving, painting, installing new goal and backboard, and improving lighting in on-court area."
+ },
+ {
+  "id": "e0ecfaa1088c",
+  "kind": "response",
+  "text": "said it doesn't support the request because it's a duplicate of tracking code 203202738E, which is this request's own code",
+  "source": "Agency does not support and cannot accommodate. This is a duplicate of 203202738E."
+ },
+ {
+  "id": "daa5595cc614",
+  "kind": "request",
+  "text": "secure permanent funding for extended library hours, literacy initiatives, employee salary increases, building maintenance, public technology access and new collections for Brooklyn readers",
+  "source": "Extend library hours or expand and enhance library programs || Increase Funding - Brooklyn Public Library Increased funding is necessary to maintain this vital community resource. Support for Brooklyn Public Library Expense Budget Requests to PERMANENTLY maintain extended hours of operation, Literacy Initiatives, Improved Salaries for Library Employees, Maintenance of Library Buildings, Public Access to Technology, and New Collections for Brooklyn Readers."
  }
 ]
