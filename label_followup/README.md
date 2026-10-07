@@ -48,6 +48,30 @@ now read correctly.
 `pipeline/refresh_followup.py DATA_DIR` applies `followup_labels.csv` to each year's CSV again
 after a relabel, so the pages can be rebuilt without rebuilding the years.
 
+## FY2027 labels checked
+
+Boards draft letters for the current year's requests, so this pass checked the labels of the
+2,389 FY2027 response pairs. A pilot gave Sonnet 200 pairs and every misfit rule. It changed
+6, and a blind Opus check preferred 4 of them. The pilot was too cautious. Opus judged 11 of
+40 labels it had kept unfit.
+
+Rules then flagged 180 pairs whose label might not fit. Examples are study when no study is
+pending, redirect when the response says the work is done, and discuss when the agency can
+accommodate the request and names no one to contact. Sonnet decided each flagged pair and
+changed 49. A blind Opus check preferred the new label for 42 and the old one for 7. Six old
+labels stay. The seventh is a School Construction Authority response that did not understand
+the request and said funding was not available. Its label now sends the agency a letter
+offering details and asks the elected officials for funding. Opus also read 40 labels the pass
+had kept and judged 5 unfit. Two of them were corrected by hand, and the other 3 are close
+calls.
+
+In all, 46 labels changed. They change the letters of 94 FY2027 requests and 1 FY2026
+request. The largest group moved from study to funding (21 pairs, 64 requests). NYC Aging's "Need
+additional funding to meet this request" is one. Its letter had asked the agency how its
+review was going and now asks elected officials to advocate for funding. `rubric.md` now
+allows study only for a study under way or planned, and redirect only for a body that should
+take the request up.
+
 ## Labeling a new fiscal year
 
 1. Build the year's CSV with `pipeline/build_all_boards.py --fy YEAR`.
