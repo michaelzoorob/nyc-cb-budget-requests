@@ -20,7 +20,7 @@ import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from shared import (FOLLOWUP_COLS, LATEST, PDF_YEARS, PUBLICATIONS, YEARS,  # noqa: E402
-                    load_letter_descriptions, load_letter_facts, request_text, site_key, text_key)
+                    SCHOOL_CAPACITY, load_letter_descriptions, load_letter_facts, request_text, site_key, text_key)
 
 argv = sys.argv[1:]
 FY = LATEST
@@ -303,18 +303,29 @@ _PARK_WORDS = lambda s: set(re.sub(r"[^a-z0-9 ]", " ", s.lower()).split()) - {
     "park", "playground", "square", "garden", "field", "oval", "triangle", "the", "and", "of", "at"}
 
 
-def _letter_facts(k, described):
+# Room for students in a school request, beyond shared.SCHOOL_CAPACITY: class size, classrooms, seating.
+_ROOM = re.compile(r"class size|classrooms?|seating|student body", re.I)
+
+
+def _letter_facts(k, described, text="", asks_money=False):
     named = [_PARK_WORDS(m.group(0)) for m in _PARK_NAME.finditer(described or "")]
     keep = []
     for f in FACTS.get(k, []):
         m = re.match(r"NYC Parks inspectors rated (?:the .+? at )?(.+?) unacceptable", f["t"])
         if f["k"] == "park_inspection" and m and named and not any(w & _PARK_WORDS(m.group(1)) for w in named):
             continue
+        # A school's enrollment bears on a request for room, and shows how many students a
+        # letter asking for money would serve. In any other letter (a status check on a ramp)
+        # it is offered unchecked: "d": 0 starts it off in the panel.
+        if f["k"] == "school" and not asks_money and not (SCHOOL_CAPACITY.search(text) or _ROOM.search(text)):
+            f = {**f, "d": 0}
         keep.append(f)
     return json.dumps(keep, ensure_ascii=False, separators=(",", ":")) if keep else ""
 
 
-df["Letter Facts"] = [_letter_facts(k, d) for k, d in zip(_keys, df["Letter Request"])]
+df["Letter Facts"] = [_letter_facts(k, d, f"{t} {e}", p in ("funding", "advocacy") or a.endswith("elected officials"))
+                      for k, d, t, e, p, a in zip(_keys, df["Letter Request"], df["Title"], df["Explanation"],
+                                                  df["Follow-up Purpose"], df["Follow-up"])]
 body = []
 # A row's type, board, agency, stance and follow-up are buttons (class "cf") that filter
 # the table to that value. The page script finds the column from the cell and sets
@@ -1133,7 +1144,10 @@ FU_SCRIPT = r"""
       // local data from the City's open data (letter_facts.py), each {k, t, s, u}
       facts:factsOf(tr)};
   }
-  function factsOf(tr){ try{ return JSON.parse(tr.dataset.lf||'[]'); }catch(e){ return []; } }
+  // A fact marked "d": 0 starts unchecked, once per request, so a board member can still check it.
+  var factInit={};
+  function factsOf(tr){ var f; try{ f=JSON.parse(tr.dataset.lf||'[]'); }catch(e){ return []; }
+    var key=rowKey(tr); f.forEach(function(x,i){ var k=key+'|'+i; if(x.d===0&&!factInit[k]) factOff[k]=1; factInit[k]=1; }); return f; }
   function factText(r){ return (r.facts||[]).filter(function(f,i){ return !factOff[r.key+'|'+i]; }).map(function(f){ return f.t; }).join(' '); }
   function says311(r){ return /\b311\b/.test(r.ar+' '+r.omb+' '+r.why+' '+r.named); }
   // "Use 311 or another channel" needs no letter when the response gives a link or 311;

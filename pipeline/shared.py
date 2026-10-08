@@ -231,6 +231,13 @@ def request_text(title, expl):
 FACTS_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), "letter_facts.csv")
 
 
+# A school request about room for students: crowding, seats, a new school, an addition.
+# letter_facts.py uses it to choose a school's enrollment fact, and the letter panel starts
+# that fact unchecked for a request that does not match it.
+SCHOOL_CAPACITY = re.compile(r"overcrowd|capacity|\bseats?\b|annex|addition|expan|new school|extension|trailers?|"
+                             r"\bTCUs?\b|portable classrooms?|enrollment", re.I)
+
+
 def load_letter_facts():
     """{Label ID: [{"k": kind, "t": text, "s": source, "u": url}, ...]} from letter_facts.py."""
     import pandas as pd

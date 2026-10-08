@@ -8,7 +8,8 @@ Two official sources:
 - Parks. A request that names a park or playground takes that property's council
   district(s) from NYC Parks Properties (NYC Open Data enfh-gkve). The park must be in
   the board's borough, and in the board's own district unless its name is specific
-  (three words or more).
+  (three words or more). A park in the board's own district also matches by another kind
+  of name ("Sixteen Sycamores Park" for Sixteen Sycamores Playground).
 - Streets. An FY2026+ Statement explanation that begins "Location: <street> - <cross>
   & <cross>", or an FY2020-FY2025 request whose Register site fields fill the Location
   column the same way, is placed where the street meets the first cross street (NYC
@@ -60,6 +61,14 @@ DIRECTION = {"EAST": "E", "WEST": "W", "NORTH": "N", "SOUTH": "S"}
 NUMBER = {w: str(i) for i, w in enumerate(["FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH", "SIXTH", "SEVENTH",
                                             "EIGHTH", "NINTH", "TENTH", "ELEVENTH", "TWELFTH"], 1)}
 ALIAS = {("1", "6 AVE"): "AVE OF THE AMERICAS"}
+# The kinds of park a name can end in.
+KINDS = r"(?:park|playground|garden|gardens|square|triangle|field|fields|plaza|mall|oval|ballfield|ballfields)"
+# A park the request names, as the board wrote it ("De Hostos Park").
+PARK_NAMED = re.compile(r"\b([A-Z][\w'.-]*(?:\s+[A-Z][\w'.-]*)*)\s+(?:Park|Playground|Garden|Gardens|Square|Field|Fields|Plaza|Oval)\b")
+# Words that name no particular park ("children's playground" is not Children's Garden).
+GENERIC = {"children", "childrens", "child", "kids", "kid", "s", "the", "of", "and", "a", "community", "neighborhood",
+           "public", "city", "school", "schools", "dog", "dogs", "little", "small", "big", "new", "old", "our",
+           "play", "sitting", "area", "vest", "pocket"}
 
 
 def fetch(url, params=None, tries=4):
@@ -139,6 +148,9 @@ def main():
                                                   "$limit": "10000"}))).fillna("")
     parks["key"] = parks["signname"].str.lower().str.replace(r"[^a-z0-9 ]", " ", regex=True).str.split().str.join(" ")
     parks = parks[parks["key"].str.split().str.len() >= 2]
+    # A park's name without its kind ("sixteen sycamores" for Sixteen Sycamores Playground), for
+    # a request that gives the park another kind of name ("Sixteen Sycamores Park").
+    parks["base"] = parks["key"].str.replace(rf"\s+{KINDS}$", "", regex=True)
     streets = Streets()
     # A site must lie in one of the board's own council districts; a match elsewhere is a
     # same-named street in another neighborhood, or part of a long parkway.
@@ -203,6 +215,16 @@ def main():
                 own = f"{BORO_CODE[pre]}{num:02d}"
                 cands = parks[(parks["borough"] == PARK_BORO[pre]) & parks["key"].map(lambda k: f" {k} " in text)]
                 cands = cands[cands["communityboard"].str.contains(own) | (cands["key"].str.split().str.len() >= 3)]
+                # A request naming several parks keeps none by another name: a letter about one
+                # of them would leave out the rest ("Martinez Park and De Hostos Park").
+                named = {" ".join(n.split()[-2:]).lower() for n in PARK_NAMED.findall(f"{title} {expl}")}
+                if not len(cands) and len(named) < 2:
+                    # Another kind of name for a park in the board's own district: its name
+                    # without its kind, two words or more, then any kind of park.
+                    alias = parks[(parks["borough"] == PARK_BORO[pre]) & parks["communityboard"].str.contains(own)
+                                  & (parks["base"] != parks["key"]) & (parks["base"].str.split().str.len() >= 2)
+                                  & parks["base"].map(lambda b: any(w not in GENERIC for w in b.split()))]
+                    cands = alias[alias["base"].map(lambda b: re.search(rf" {re.escape(b)} {KINDS} ", text) is not None)]
                 if len(cands):
                     best = cands.loc[cands["key"].str.len().idxmax()]
                     cd = sorted({int(c) for c in re.findall(r"\d+", best["councildistrict"])})
