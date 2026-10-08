@@ -211,6 +211,26 @@ fifth was preferred once Opus could see the request's tracking code. Five judges
 questioned the salutation "Commissioner" for the Commissioner of Youth and Community
 Development. The contact directory confirms her title.
 
+## Ten letters read closely
+
+In October 2026, 10 more FY2027 requests were read letter by letter, and the problems found
+were checked across all FY2027 letters. Each change gives the number of FY2027 requests it
+touched.
+
+- A response written in early 2026 said "this fiscal year", "the FY 27 Adopted Budget" or
+  "spring 2026", and the letter repeated it as still to come. 28 descriptions now put these
+  plans in the past, naming fiscal year 2026 (32). Two more were corrected by hand.
+- A subject fell back to a catch-all title ("Other expense budget request for HPD") when the
+  description said "its". "Its" now becomes "the" (35).
+- A category title's example could mislead, as in "Enhance park safety through design
+  interventions, e.g. better lighting" for cameras. The example is dropped when the request
+  never mentions it (10).
+- A response that says elected officials pay for the work (Argus cameras) was asked for "the
+  funding your agency would need". It is now asked for the cost, so the board can take it to
+  them (33).
+- A letter sent to the email address a response named asked that person to put the board in
+  touch with the staff the response named (3). It now asks to meet.
+
 ## Describing a new fiscal year
 
 1. Build the year's CSV with `pipeline/build_all_boards.py --fy YEAR`.
