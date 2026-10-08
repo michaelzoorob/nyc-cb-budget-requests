@@ -49,7 +49,7 @@ from shapely.geometry import LineString, Point
 from shapely.ops import transform, unary_union
 
 import locate_requests as loc
-from shared import YEARS, site_key
+from shared import SCHOOL_CAPACITY, YEARS, site_key
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROJ = os.path.dirname(HERE)
@@ -399,8 +399,7 @@ def park_inspections(reqs):
 SCHOOL_REF = re.compile(r"\b(P\.? ?S|I\.? ?S|M\.? ?S|J\.? ?H\.? ?S|P\.? ?S\.? ?/ ?I\.? ?S|I\.? ?S\.? ?/ ?P\.? ?S|"
                         r"P\.? ?S\.? ?/ ?M\.? ?S)\.? ?#? ?(\d{1,3})(?! ?(?:years?|yrs|percent|%|students|seats|feet|ft|"
                         r"degrees|hours|minutes|days|million|thousand|k\b))\b")
-CAPACITY = re.compile(r"overcrowd|capacity|\bseats?\b|annex|addition|expan|new school|extension|trailers?|"
-                      r"\bTCUs?\b|portable classrooms?|enrollment", re.I)
+CAPACITY = SCHOOL_CAPACITY
 
 
 def school_kind(ref):

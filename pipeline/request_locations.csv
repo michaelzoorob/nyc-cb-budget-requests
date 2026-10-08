@@ -85,6 +85,7 @@ a7e60ba8c0be@d0259e,3,intersection,MORTON ST & WEST ST
 9c7a43308308,4,park,Herald Square
 61c4a7081013,4,park,Peter Detmold Park
 accb5daf8437@5564ce,2,park,Bellevue South Park
+fe64dfab5352@c943bb,4,park,Dag Hammarskjold Plaza
 057956d06ea1,2,park,Stuyvesant Square
 4bef64db225c@cceac5,4,park,Sutton Place Park
 7dabfc4db282@99f087,4,intersection,1 AVE & E 23 ST
@@ -239,6 +240,7 @@ f3773aca4d10,14,park,Devoe Park
 2841b42f86e7@8a2d50,11,intersection,BROADWAY & W 251 ST
 94c944ef6288@4bc576,14,intersection,SUMMIT PL & HEATH AVE
 68fceca0d8d2,11,park,Van Cortlandt Park
+335b02c4c621,11,park,Spuyten Duyvil Playground
 374a41c4254e,11,park,Ewen Park
 10dfeb8b218d,11,park,Van Cortlandt Park
 11a4e9e9f18f,11,park,Van Cortlandt Park
@@ -307,6 +309,7 @@ e9e2617732d8@848afa,34,intersection,CLYMER ST & DIVISION AVE
 9eb80b5164e8,34,park,Memorial Gore
 bfa15c9a49b3,35,park,Commodore Barry Park
 f04246e77896,35,park,Fort Greene Park
+99f23af24054,35,park,Washington Hall Park
 9ba90bd49191,33,park,Cadman Plaza Park
 0e6213a555bf@11b5eb,35,intersection,FLATBUSH AVE & ATLANTIC AVE
 0f17e5b28495@88272d,35,intersection,ATLANTIC AVE & FLATBUSH AVE
@@ -346,6 +349,7 @@ a79ff06d1477@deb7bd,38,intersection,2 AVE & 29 ST
 2d7823167d4e@3d87eb,39,intersection,17 ST & 5 AVE
 db08dcbabddc,38,park,D'Emic Playground
 470c661b7793,38,park,Martin Luther Playground
+6413bb9cb222@8b9ec0,38,park,Pena Herrera Playground
 1286b2d58fee@fbd26a,38,intersection,41 ST & 3 AVE
 8267d5608b34,38,park,Sunset Park
 70407109711d,39,park,Prospect Park
@@ -481,6 +485,7 @@ ff97eb0fc5ef@40c512,22,park,Woodtree Playground
 16cb4452d318@95874a,22,park,Astoria Park
 f4c2b1a05655@956e24,26,park,Dutch Kills Playground
 eb2b505d3cf6,22,park,Astoria Park
+434ff3ff7b5e,22,park,St. Michael's Playground
 4cfef8b80f3f@64611d,22,park,Whitey Ford Field
 45c55bcb3a97,26,park,Sixteen Oaks Grove
 5dfc6d83f996,22,park,Astoria Park
@@ -742,6 +747,7 @@ e0d9a514e608,4,park,Bryant Park
 dd70b2eea083,4,park,Peter Detmold Park
 e9dd8f2af2b6@ec61bf,4,park,St. Vartan Park
 42e80357d626@5564ce,2,park,Bellevue South Park
+51aee85939cf@c943bb,4,park,Dag Hammarskjold Plaza
 65a565b1d002@99f087,4,intersection,1 AVE & E 23 ST
 07edf04bfdea,2,park,Bellevue South Park
 a5ea2c5882d3,6|7,park,Riverside Park
@@ -1001,6 +1007,7 @@ a6dc7434c451,6,park,Central Park
 150cf84cc7c0@733404,6,park,Central Park
 3e8359857260,4,park,Herald Square
 2c8f09aa0dc8@5564ce,2,park,Bellevue South Park
+6be255f1949f@c943bb,4,park,Dag Hammarskjold Plaza
 c7a3b6b641a1@2dc36b,4,intersection,1 AVE & E 23 ST
 811bebae835f@b6231e,4,park,East River Esplanade
 f98f6c3adc66,2,park,Bellevue South Park
@@ -1291,6 +1298,7 @@ cb156a28e6b4@cf0430,46,intersection,BERGEN AVE & AVE K
 b30d665a0191@fd6f80,22,intersection,STEINWAY ST & 30 AVE
 16cb4452d318@f86415,22,park,Astoria Park
 04af9df93bfe@2ef7c2,22,park,Astoria Park
+434ff3ff7b5e@281c41,22,park,St. Michael's Playground
 45c55bcb3a97@6110c1,26,park,Sixteen Oaks Grove
 5db8c510c147@3531c9,22,park,Astoria Park
 1622c510fdc0@2ef7c2,22,park,Astoria Park
@@ -1462,6 +1470,7 @@ dce94f51af09,3,park,Gutenberg Playground
 5b61413d146d,3,park,Worth Square
 316f6fc8aadc,4,park,Herald Square
 6cc9a5d30865@9ee2c7,2,park,Bellevue South Park
+73d23d1a684f@49d498,4,park,Dag Hammarskjold Plaza
 d0e6d29e3553@5e4292,4,park,Constance Baker Motley Recreation Center
 a76d1245d808@6e1178,2,park,Peter's Field
 2d1b126f2dda@ef526e,4,park,Murphy Brothers Playground
@@ -1528,6 +1537,7 @@ ac409a8898f8,11,park,Williamsbridge Oval
 53b5b568e472,11,park,Bailey Playground
 d623d42e2c8e,11,park,Van Cortlandt Park
 d283e1f9068b,11,park,Ewen Park
+7ae926cc6b8e,11,park,Spuyten Duyvil Playground
 68de27c7a77e,11,park,Van Cortlandt Park
 602ba8e430f8,11,park,Henry Hudson Park
 81aa2ec57f5e,11,park,Van Cortlandt Park
@@ -1549,6 +1559,7 @@ a58d708c56b6@040926,13,intersection,BRIDGE ST & MINNIEFORD AVE
 c50ccf2863fd@51c5ab,33,intersection,JORALEMON ST & BOERUM PL
 26cf9450e7ff,35,park,University Place
 65e527b76a9a,33,park,Walt Whitman Park
+4b60bfb3ff10,35,park,South Oxford Park
 b54475e18532@a7eb10,36,park,Herbert Von King Park
 3fc3657f729a@923c0e,36,intersection,JEFFERSON AVE & STUYVESANT AVE
 c04c9d1a2532@ec1922,36,park,El Shabazz Playground
@@ -1691,6 +1702,7 @@ c3d0f9b629a6,22,park,Socrates Sculpture Park
 7868b1621c0a@4e0780,21,intersection,114 ST & ASTORIA BLVD
 f5d753c5f428,25,park,Northern Playground
 a38d8fbbd4de,21,park,Louis Armstrong Playground
+da51f18873eb,21,park,Private William Gray Playground
 a80eb2219494@8b54b2,22,intersection,86 ST & 25 AVE
 93f37c41bbdf@4513ba,21,intersection,DITMARS BLVD & 27 AVE
 10736ce75bca,25,park,Travers Park
@@ -1723,6 +1735,7 @@ f7c086a4f35e@ad01bd,32,intersection,UNION TPKE & WOODHAVEN BLVD
 ff5d08cf7853,30,park,Benninger Playground
 0a8ae2039964,32,park,Forest Park
 964d4552b56f,29|32,park,Forest Park
+f2fc45524d12,24,park,Horace Harding Playground
 28b5658bc561,29|32,park,Jackie Robinson Parkway
 ebfa208257d0@e8529c,19,intersection,20 AVE & 127 ST
 50bbb233258b,20,park,Kissena Corridor Park
@@ -1884,6 +1897,7 @@ da9b47b8848c,11,park,Mosholu Parkway
 96f34748d21e,11,park,Bailey Playground
 efe793fb005e,11,park,Van Cortlandt Park
 7bb2325ae059,11,park,Henry Hudson Parkway
+960db6e540d5,11,park,Fort Independence Playground
 84ba42fa3fea,11,park,Van Cortlandt Park
 a66a12f11425,11,park,Van Cortlandt Park
 f83b41ef81a8,11,park,Riverdale Park
@@ -1974,6 +1988,7 @@ e68ff7c07967@b16ffb,37,intersection,SUNNYSIDE AVE & BARBEY ST
 f2e4bcf4288c@cf3109,37,intersection,DANFORTH ST & HEMLOCK ST
 bf0238ce974c@dab72a,42,intersection,EMERALD ST & LORING AVE
 aae1c7149268,38,park,Sunset Park
+6413bb9cb222@159476,38,park,Pena Herrera Playground
 88b928cf6948@16f8cc,43,park,Rainbow Playground
 6bbc8b4ca33d@20509d,38,park,Sunset Park
 78f882fe8b77,35|41,park,Eastern Parkway
@@ -2043,6 +2058,7 @@ b18112b9429a@497342,43,intersection,BAY PKWY & BATH AVE
 d987da93986e,38,park,Garibaldi Playground
 0ff8cb113148,47,park,Bensonhurst Park
 4b6c1dd4486c@8f88bc,47,intersection,SHORE PKWY & BAY PKWY
+37b37d61b53c,47,park,Bath Beach Park
 fb54510071a2,47,park,Bath Playground
 169188a9bf82@e3e1cd,50,intersection,SHORE PKWY & BAY 8 ST
 5c3190f22f33@20c57b,47,intersection,BAY PKWY & SHORE PKWY
@@ -2177,6 +2193,7 @@ dec2277aef65,32,park,Forest Park
 105bef1f5c1e@54726c,19,intersection,20 AVE & WHITESTONE EXPY
 8586f84451fd,20,park,Kissena Corridor Park
 ac383b94e6e2@f8b101,20,intersection,UNION ST & NORTHERN BLVD
+77e9d5d466b9,19,park,Frank Golden Park
 45962203b92c,20,park,Kissena Park
 b04a9b4588d5@542ee6,20,intersection,38 AVE & MAIN ST
 4fac3313fb95,20|21,park,Flushing Meadows Corona Park
@@ -2428,6 +2445,7 @@ e1d8398aa7fe@263f18,50,park,Dyker Beach Park
 fb4606e4d246@94eb5f,47,intersection,SHORE PKWY & BAY PKWY
 86c3dd65198d@b833cc,47,intersection,CROPSEY AVE & BAY PKWY
 d99646c7fb2d,47,park,Bath Beach Park
+2cf6ae450854,47,park,Bath Beach Park
 70537748dd90@712921,47,intersection,BAY PKWY & SHORE PKWY
 3724ddbf3b76,38,park,Milestone Park
 f2d7f751e9ca@bb8679,38,intersection,NEW UTRECHT AVE & 86 ST
@@ -2444,6 +2462,7 @@ b05986365ca4@f83a7b,48,intersection,SHEEPSHEAD BAY RD & EMMONS AVE
 07fc7312c045@c11234,48,intersection,SHEEPSHEAD BAY RD & E 14 ST
 87d53816953d@2e583d,48,intersection,HOMECREST AVE & SHORE PKWY
 86a4db34bc36@ec442a,48,intersection,EMMONS AVE & SHORE BLVD
+746a5a70441c@8ddd3d,41,park,Van Dyke Playground
 cb877dc51367@f8af5f,41,intersection,E 58 ST & LINDEN BLVD
 2187efe732b2@ce51e1,45,intersection,CORTELYOU RD & SCHENECTADY AVE
 63044eeb5f90@4c7730,45,intersection,CLARENDON RD & ALBANY AVE
@@ -2499,6 +2518,7 @@ a5fb74f9f7ba@2668df,34,intersection,MYRTLE AVE & FRESH POND RD
 8a4c7119ac6f@54726c,19,intersection,20 AVE & WHITESTONE EXPY
 c17192c7bde2,20,park,Kissena Corridor Park
 694700e68828@f8b101,20,intersection,UNION ST & NORTHERN BLVD
+16b0a7487337,19,park,Frank Golden Park
 1125c0359340,20,park,Kissena Park
 2153a58056c6@542ee6,20,intersection,38 AVE & MAIN ST
 d72b5926d466,19,park,College Point Fields
@@ -2725,6 +2745,7 @@ e50df252edba,35,park,Greene Playground
 81dc1a220cb9,33,park,Adam Yauch Park
 5169252ddf57,33,park,Adam Yauch Park
 da5c68894c9a,33,park,Cadman Plaza Park
+a97f5afc6a3d,33,park,Sixteen Sycamores Playground
 9a57b302605f,33,park,Korean War Veterans Plaza
 3b3e3d9cad9e,36,intersection,JEFFERSON AVE & STUYVESANT AVE
 f3dcecebca5e,36,park,El Shabazz Playground
@@ -2771,6 +2792,7 @@ b7df15183f11,37,park,Irving Square Park
 1023f56360fe,38,intersection,3 AVE & 15 ST
 a6e503fd86b7,38,intersection,1 AVE & 39 ST
 be5770248449,39,park,Prospect Park
+6413bb9cb222,38,park,Pena Herrera Playground
 1a30fc076742,38,intersection,5 AVE & 34 ST
 e091728c874d,38,park,Sunset Park
 6e9ba848dfbb,36,park,Woods Playground
@@ -3016,6 +3038,7 @@ ca399105ced6,29,park,Willow Lake Playground
 8bf33d431423,19,intersection,20 AVE & WHITESTONE EXPY
 bf62a7e44381,20,park,Kissena Corridor Park
 1cbe43397428,20,intersection,UNION ST & NORTHERN BLVD
+d025be06d842,19,park,Frank Golden Park
 4b981fb6dcac,20,park,Kissena Park
 30a0d0e03533,20,intersection,38 AVE & MAIN ST
 91edb02948ed,19,park,College Point Fields
@@ -3334,6 +3357,7 @@ e582deb9a5fb,13,intersection,MORRIS PARK AVE & EASTCHESTER RD
 166d5956bad2,35,park,Edmonds Playground
 187c598e7ec0,35,park,Fort Greene Park
 40464beb53c7,33,park,Korean War Veterans Plaza
+144424d182e6,33,park,Sixteen Sycamores Playground
 38e9cc1d7305,33|35,park,Bridge Park 3
 d71a23526b10,33,park,Hillside Dog Park
 90e2da4bdbda,33,park,Adam Yauch Park
@@ -3405,6 +3429,7 @@ f50d4c5c849b,46,park,Canarsie Park
 52482dfd5193,26,park,Court Square Park
 ad87862eda3a,26,park,Sabba Park
 8f7162133a69,26,park,Hunter's Point South Park
+db9088911baf,21,park,Helen Marshall Playground
 79b3c2f9eb65,22,park,Gorman Playground
 9204f858b5a4,25,park,Northern Playground
 868fe2078231,21,intersection,37 AVE & JUNCTION BLVD
@@ -3458,6 +3483,7 @@ f496c340bf91,29|32,park,Forest Park
 e8a70a9c6ec3,19,intersection,20 AVE & WHITESTONE EXPY
 9a39fe5608f3,20,intersection,UNION ST & NORTHERN BLVD
 9331afcee06a,20,park,Kissena Corridor Park
+9e5761741d5a,19,park,Frank Golden Park
 13f9ce1e9e2c,20,park,Kissena Park
 d870057334d0,20,intersection,38 AVE & MAIN ST
 6339f604f75d,19,park,Cross Island Parkway

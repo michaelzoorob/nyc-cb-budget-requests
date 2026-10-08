@@ -231,6 +231,18 @@ touched.
 - A letter sent to the email address a response named asked that person to put the board in
   touch with the staff the response named (3). It now asks to meet.
 
+A second reading of 10 more letters led to two changes.
+
+- A school's enrollment was local data in letters where it bears on nothing, such as a status
+  check on a ramp. It now starts unchecked unless the letter asks for money, where it shows how
+  many students the request would serve, or the request is about room for students
+  (`shared.SCHOOL_CAPACITY`, class size, seating). A board member can still check it (22).
+- `pipeline/locate_requests.py` now finds a park in the board's own district that the board
+  gives another kind of name, as "Sixteen Sycamores Park" for Sixteen Sycamores Playground.
+  A request that names two or more parks is left as it was, since a letter about one would
+  leave out the rest. 46 more requests across the years are placed, 6 of them in FY2027, and
+  four FY2027 letters now go only to the Council Member whose district holds the park.
+
 ## Describing a new fiscal year
 
 1. Build the year's CSV with `pipeline/build_all_boards.py --fy YEAR`.
