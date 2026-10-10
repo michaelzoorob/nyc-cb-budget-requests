@@ -295,6 +295,10 @@ else:
 p["_t"] = p["Type"].map({"Capital": 0, "Expense": 1}).fillna(2)
 p["_p"] = pd.to_numeric(p["Priority"], errors="coerce")
 p = p.sort_values(["_t", "_p"], kind="stable")
+# A Statement puts a request's site at the start of its explanation, so the Location
+# column (the Register's site fields, FY2020-FY2025) is blank here.
+if "Location" not in p:
+    p["Location"] = ""
 
 p[COLS].to_csv(OUT, index=False)
 
