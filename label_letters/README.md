@@ -6,7 +6,7 @@ The dashboard's Draft letter button writes a follow-up letter from a community b
 
 | Kind | What | Used as |
 | --- | --- | --- |
-| `request` | Each distinct FY2026 or later request, from its title and explanation | "…asked your agency to {description} (capital request, priority 1, tracking code …)." |
+| `request` | Each distinct FY2026 or later request, from its title and explanation | "We asked your agency to {description}." |
 | `response` | Each distinct agency response, from every year | "Your agency {description}." |
 | `omb` | OMB Executive Budget text that a letter would otherwise quote | "In the Executive Budget, OMB {description}." |
 
@@ -242,6 +242,84 @@ A second reading of 10 more letters led to two changes.
   A request that names two or more parks is left as it was, since a letter about one would
   leave out the rest. 46 more requests across the years are placed, 6 of them in FY2027, and
   four FY2027 letters now go only to the Council Member whose district holds the park.
+
+## Letters that advocate
+
+In October 2026 the letters were read the way a district manager would read them before
+sending one, starting with Queens CB2's request for fencing at Sabba Park. That letter named
+the board in the third person, gave the request's tracking code and priority number, and asked
+NYC Parks for the fencing's estimated cost and the funding the agency would need. A board
+doesn't write that way. It asks its elected officials to fund the project and urges the agency
+to make the project a priority. The Sabba Park letter was redrafted by hand.
+
+> Dear Council Member Won,
+>
+> On behalf of Queens Community Board 2, I am writing to ask for your support in funding new
+> fencing at Sabba Park. The park has no proper fence today. Only traffic barriers and chicken
+> wire separate it from the roadway, which leaves the children, pets and seniors who use it
+> exposed to traffic.
+>
+> NYC Parks supports the project but has no capital funding for it, and has encouraged us to
+> seek funding from our elected officials. OMB's Executive Budget response notes that Parks
+> recommends funding it, though funds are uncertain.
+>
+> We ask that you advocate for funding this project in the City's capital budget and consider
+> allocating Reso A funds to it.
+>
+> Thank you for your support.
+
+The templates now follow it, with the plain descriptions in place of the hand-written middle.
+Each change below gives the number of FY2027 requests it touched, out of the 3,792 with letters.
+
+- A letter opens in the board's voice, with who is writing and why: "On behalf of Queens
+  Community Board 2, I am writing to ask for your support in funding one of our FY2027
+  budget requests. We asked the Department of Parks & Recreation to install proper fencing at
+  Sabba Park, …" A letter to the agency that answered follows up on the request, a letter to
+  elected officials asks for their support in funding it or for their help, and other letters
+  write about it (3,792).
+- A letter no longer gives the tracking code, the priority number or the request type, in its
+  text or its subject (3,792). The panel still shows them, and the CSV download keeps the
+  tracking code. The subject reads "Funding request from Queens CB2: Sabba Park Fencing" when
+  the letter asks elected officials for money (1,314), and "FY2027 budget request from Queens
+  CB2: …" otherwise.
+- A letter to an agency about a request that needs money asked for the request's estimated
+  cost and the funding the agency would need (1,312). It now urges the agency to make the
+  request a priority for funding and, in a letter to the agency alone, says the board is also
+  asking its elected officials. A letter to OMB urges it to fund the request (37). For work
+  that elected officials' allocations pay for, such as Argus cameras, the letter says the board
+  is asking them (33).
+- A letter to elected officials asks in one sentence that they advocate for funding a capital
+  project in the City's capital budget and consider allocating Reso A funds to it. The ask for
+  a change in law or policy no longer opens with "The agency's response suggests this request
+  needs a decision beyond the agency" (22).
+- A letter that asks elected officials for money leaves out OMB's word that funds are
+  uncertain or short when the agency has already said it lacks them (139). It keeps OMB's word
+  that the agency recommends funding the request, which backs the ask.
+- When the reason is a lack of money, "said it supports the request but can't accommodate it
+  because it doesn't have capital funding" now reads "said it supports the request but doesn't
+  have capital funding" (545). Other reasons keep the City's words.
+- A response that called a request a duplicate of another by its tracking code now names the
+  other request by what it asks ("duplicates our request to study converting Malta Street …"),
+  and a code that is the request's own reads "this same request" (10).
+- OMB's summaries say "we" and "our elected officials" instead of "the board" (157). A letter
+  to officials closes with thanks for their support, and a letter to an agency with thanks for
+  its attention. A one-letter-per-official digest opens the same way, and lists each request
+  as "We asked the agency to …". Two lines that only older years and requests without a
+  response use now read "The site is …" and "We haven't seen a response to this request."
+
+A blind Opus comparison of 44 FY2027 letters, old and new in random order, preferred the new
+letter 37 times. All 7 losses came from one change. Letters asking officials for money had also
+dropped OMB's word that the agency recommends funding, which the judge read as backing for the
+ask, so that clause now stays. A second blind check of those 7 letters and 8 that still drop an
+OMB clause preferred the new letter in all 15. The judges' other notes, such as a category title
+in the subject that fits the request poorly, apply to the old and new letters alike.
+
+The pages were updated by swapping in the new letter script, since the build here lacks Queens
+CB2's committee form. For FY2027 and FY2024, a page built by the new generator was shown to be
+exactly a page built by the old one with the script swapped. That build also needed a fix to
+`pipeline/build_statement_sheet.py`, which now writes the blank Location column of a Statement
+year. Without it every Statement board failed, and `build_all_boards.py` fell back to the
+Register or silently read a sheet left from an earlier run.
 
 ## Describing a new fiscal year
 

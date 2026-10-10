@@ -8,8 +8,8 @@ fine. Judge from the text in your file only. Do not look anything up.
 
 ## How a letter uses the descriptions
 
-> In its FY2027 budget requests, Queens Community Board 2 asked your agency to {request}
-> (capital request, priority 1, tracking code 402202704C).
+> On behalf of Queens Community Board 2, I am writing to follow up on one of our FY2027
+> budget requests. We asked your agency to {request}.
 >
 > Your agency {response}.
 

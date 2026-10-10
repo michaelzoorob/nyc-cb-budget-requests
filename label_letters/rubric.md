@@ -8,7 +8,7 @@ Each record has an `id`, a `kind` (`response`, `request` or `omb`) and the text 
 
 A letter reads like this, with your text in the braces.
 
-> In its FY2027 budget requests, Queens Community Board 2 asked your agency to {request} (capital request, priority 1, tracking code 402202704C).
+> On behalf of Queens Community Board 2, I am writing to follow up on one of our FY2027 budget requests. We asked your agency to {request}.
 >
 > Your agency {response}. In the Executive Budget, OMB {omb}.
 
