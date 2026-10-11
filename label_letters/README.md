@@ -263,8 +263,8 @@ to make the project a priority. The Sabba Park letter was redrafted by hand.
 > seek funding from our elected officials. OMB's Executive Budget response notes that Parks
 > recommends funding it, though funds are uncertain.
 >
-> We ask that you advocate for funding this project in the City's capital budget and consider
-> allocating Reso A funds to it.
+> We ask that you advocate for funding this project in the next fiscal year's capital budget.
+> Please let us know if we can be helpful.
 >
 > Thank you for your support.
 
@@ -288,10 +288,14 @@ Each change below gives the number of FY2027 requests it touched, out of the 3,7
   asking its elected officials. A letter to OMB urges it to fund the request (37). For work
   that elected officials' allocations pay for, such as Argus cameras, the letter says the board
   is asking them (33).
-- A letter to elected officials asks in one sentence that they advocate for funding a capital
-  project in the City's capital budget and consider allocating Reso A funds to it. The ask for
-  a change in law or policy no longer opens with "The agency's response suggests this request
-  needs a decision beyond the agency" (22).
+- A letter to elected officials asks that they advocate for funding the request in the next
+  fiscal year's budget, or its capital budget for a capital project, and adds "Please let us
+  know if we can be helpful." It used to ask them to consider allocating Reso A funds as well,
+  which read oddly in an email and often doesn't fit. That ask is now left out unless the
+  person drafting checks "Also ask elected officials for discretionary funds" in the panel,
+  which appears when a letter asks officials for money and holds while the page is open. The
+  ask for a change in law or policy no longer opens with "The agency's response suggests this
+  request needs a decision beyond the agency" (22).
 - A letter that asks elected officials for money leaves out OMB's word that funds are
   uncertain or short when the agency has already said it lacks them (139). It keeps OMB's word
   that the agency recommends funding the request, which backs the ask.

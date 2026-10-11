@@ -135,7 +135,7 @@ body.fu-lock{overflow:hidden}
 .fu-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
 /* The panel's controls and notes can't be selected, so selecting across the panel to copy a
    letter picks up no interface text. The letter, its subject and the contacts stay selectable. */
-#fuModeSec,#fuFactSec,.fu-sec details,.fu-to,.fu-acts,.fu-note{-webkit-user-select:none;user-select:none}
+#fuModeSec,#fuDiscSec,#fuFactSec,.fu-sec details,.fu-to,.fu-acts,.fu-note{-webkit-user-select:none;user-select:none}
 .fu-fact{display:flex;gap:8px;align-items:flex-start;padding:4px 0;font-size:13px;cursor:pointer}
 .fu-fact a{white-space:nowrap;font-size:12px}
 .fu-act{border:1px solid #2563eb;background:#2563eb;color:#fff;border-radius:6px;padding:6px 10px;font-size:12.5px;cursor:pointer;text-decoration:none}
@@ -4456,6 +4456,7 @@ Block 8028 Lot 75 on Main Street and Block 8028 Lot 10 are vacant.  The owners a
 <div id="fuRecipSec" class="fu-sec"><div class="fu-h">Recipients</div><div id="fuRecips"></div></div>
 <div id="fuModeSec" class="fu-sec fu-row"><label><input type="radio" name="fuMode" value="each" checked> A separate letter for each recipient</label>
 <label><input type="radio" name="fuMode" value="joint"> One letter to all</label></div>
+<div id="fuDiscSec" class="fu-sec fu-row" hidden><label><input type="checkbox" id="fuDisc"> Also ask elected officials for discretionary funds</label></div>
 <div id="fuFactSec" class="fu-sec" hidden><div class="fu-h">Local data</div>
 <div class="fu-small">From the City’s open data, about this request’s site or need. A checked item goes in the letter.</div>
 <div id="fuFacts"></div></div>
@@ -4482,6 +4483,9 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
   var MONTH=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var fuName=document.getElementById('fuName'), fuRole=document.getElementById('fuRole');
   var cur=null, list=[], mode='each', lastFocus=null, digest=null, edits={};
+  // Whether letters asking elected officials for money also ask for their discretionary funds.
+  // It starts unchecked and holds while the page is open.
+  var askDisc=false;
   // Local data a user has left out of the letters, by request key and fact number.
   var factOff={};
 
@@ -4673,7 +4677,7 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
   // letter goes to the agency alone and the board is also writing to its elected officials.
   function fundingAsk(r,own,short,withElected){
     var cap=r.type==='Capital', it=short?'it':cap?'this project':'this request';
-    if(own&&r.agency==='Office of Management & Budget') return 'We urge you to fund '+it+' in the City’s next budget.';
+    if(own&&r.agency==='Office of Management & Budget') return 'We urge you to fund '+it+' in the next fiscal year’s budget.';
     if(ELECTED_FUND.test(r.ar+' '+r.omb)) return short?'We’re asking our elected officials to fund it.'
       :'Since elected officials’ allocations pay for this work, we’re asking ours to fund it, and we’d welcome '+(own?'your':'the agency’s')+' support.';
     return 'We urge '+(own?'your agency':agencyPhrase(r.agency))+' to make '+it+' a priority for funding.'+
@@ -4733,17 +4737,21 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
   // money, or the follow-up is to bring the request to them, unless it needs a change in law
   // or policy instead.
   function fundAsk(r){ return r.purpose!=='advocacy'&&(r.purpose==='funding'||/elected officials$/.test(r.action)); }
-  // Elected officials can advocate for a request in the City's budget. For a capital
-  // project they can also allocate Reso A funds, which the same sentence asks for.
+  // Elected officials can advocate for a request in the next fiscal year's budget. A board
+  // asks for their discretionary funds (Reso A for capital) only when the person drafting
+  // checks the panel's box, since that ask often doesn't fit.
+  function discAsk(you,joint,it){ return askDisc?' We’d also be grateful for '+(joint?'their':you==='you'?'your':'the Borough President’s')+
+    ' consideration of discretionary funds for '+it+'.':''; }
+  var HELPFUL=' Please let us know if we can be helpful.';
   function electedAsk(r,els,joint){
     // Several of the Borough President's staff all read as "the Borough President", once.
     var who=andList(els.map(function(x){ return x.kind==='council'?cmName(x.o):isBP(x.o)?bpName(x.o):'the Borough President'; })
       .filter(function(v,i,a){ return a.indexOf(v)===i; })), you=youFor(els);
     var ask=function(verb){ return joint?'We ask '+who+' to '+verb+'.':'We ask that '+you+' '+verb+'.'; };
-    if(r.purpose==='advocacy') return ask('help move this request forward, including through any legislation or policy change it needs');
+    if(r.purpose==='advocacy') return ask('help move this request forward, including through any legislation or policy change it needs')+HELPFUL;
     if(fundAsk(r))
-      return r.type==='Capital'?ask('advocate for funding this project in the City’s capital budget and consider allocating Reso A funds to it')
-        :ask('advocate for funding this request in the City’s next budget');
+      return (r.type==='Capital'?ask('advocate for funding this project in the next fiscal year’s capital budget')
+        :ask('advocate for funding this request in the next fiscal year’s budget'))+discAsk(you,joint,'it')+HELPFUL;
     // "Getting a response" only when none was published: the letter has just reported it.
     var ag=agencyPhrase(r.dest||r.agency), none=r.purpose==='no_response';
     return joint?'We ask '+who+' to help us '+(none?'get a response from ':'follow up with ')+ag+' and move this request forward.'
@@ -4961,7 +4969,7 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
       var money=digestMoney(g);
       var caps=rs.filter(function(r){ return r.type==='Capital'; }).length;
       lines.push(intro+(money?'to ask for your support in funding ':'to ask for your help with ')+these+' below. '+(money
-        ?'We ask that '+you+' advocate for funding '+it+' in the City’s next budget'+(caps?' and consider allocating Reso A funds to '+(caps===n?it:'the capital projects'):'')+'.'
+        ?'We ask that '+you+' advocate for funding '+it+' in the next fiscal year’s '+(caps===n?'capital budget':'budget')+'.'+discAsk(you,false,it)+HELPFUL
         :'We’d appreciate '+yours+' help moving '+it+' forward, through advocacy with the agencies and in the City’s budget.'));
     } else {
       // Requests another agency sent on are named as such, whether all of them or some, and
@@ -5068,9 +5076,12 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
       box.appendChild(f);
     }
   }
+  // The discretionary-funds box shows only when a letter asks elected officials for money.
+  function showDisc(on){ document.getElementById('fuDiscSec').hidden=!on; document.getElementById('fuDisc').checked=askDisc; }
   function renderLetters(){
     var box=document.getElementById('fuLetters'); box.innerHTML='';
     var sel=list.filter(function(x){return x.on;});
+    showDisc(fundAsk(cur)&&sel.some(function(x){ return x.kind!=='agency'; }));
     if(!sel.length){ box.innerHTML='<p class="fu-empty">Select at least one recipient to draft a letter.</p>'; return; }
     var groups=mode==='joint'?[sel]:sel.map(function(x){return [x];});
     groups.forEach(function(g){
@@ -5125,7 +5136,12 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
       'Recipients follow each request’s follow-up, as in its own Draft letter panel. Requests marked “No follow-up needed” and those that only need 311 or a link are left out.'+
       (Object.keys(boards).length>1?' The requests come from '+Object.keys(boards).length+' boards, so each board gets its own letters.':'')+'</div>';
     document.getElementById('fuAsOf').textContent=C.asOf?'council contacts as of '+C.asOf:'as published';
-    var box=document.getElementById('fuLetters'); box.innerHTML='';
+    renderDigest(); show();
+  }
+  function renderDigest(){
+    var box=document.getElementById('fuLetters'), boards={}; box.innerHTML='';
+    digest.forEach(function(g){ boards[g.board]=1; });
+    showDisc(digest.some(function(g){ return g.reqs.length===1?g.x.kind!=='agency'&&fundAsk(g.reqs[0]):digestMoney(g); }));
     if(!digest.length) box.innerHTML='<p class="fu-empty">None of the requests shown has a recipient to write to.</p>';
     var many=Object.keys(boards).length>1, lastBoard='';
     digest.forEach(function(g,i){
@@ -5134,7 +5150,6 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
         :'FY'+FY+' budget requests from '+bn+': '+g.reqs.length+' requests for follow-up';
       box.appendChild(letterCard('dig|'+i, g.x.name+' · '+g.reqs.length+' request'+(g.reqs.length>1?'s':''), [g.x], subj, digestBody(g), g.reqs, g.full));
     });
-    show();
   }
   function close(){ dlg.hidden=true; document.body.classList.remove('fu-lock'); if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
 
@@ -5184,6 +5199,8 @@ Contacts come from official city websites (<span id="fuAsOf"></span>); check the
   document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('.fu-btn'); if(b) open(b.closest('tr')); });
   document.getElementById('fuRecips').addEventListener('change',function(e){ var i=e.target.getAttribute('data-i'); if(i===null) return; list[+i].on=e.target.checked; renderLetters(); });
   [].forEach.call(document.querySelectorAll('input[name=fuMode]'),function(r){ r.addEventListener('change',function(){ mode=r.value; renderLetters(); }); });
+  // A letter the user has edited keeps the edits, as when recipients change.
+  document.getElementById('fuDisc').addEventListener('change',function(){ askDisc=this.checked; if(cur) renderLetters(); else if(digest) renderDigest(); });
   // A letter the user has edited keeps the edits: the fact is taken out of it, or put back
   // after the request's paragraph, where a new letter has it.
   function dropFact(s,t){ return s.indexOf(t)<0?s:s.replace(t,'').replace(/ {2,}/g,' ').replace(/ +\n/g,'\n').replace(/\n +/g,'\n').replace(/\n{3,}/g,'\n\n'); }
