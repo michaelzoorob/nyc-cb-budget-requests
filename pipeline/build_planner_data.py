@@ -11,10 +11,12 @@ For each of the 59 boards it joins three sources on the board code (QCB2):
 and adds, for every DCP request category, how agencies have answered it across all
 boards and years ("what works").
 
-    python3 build_planner_data.py [--data DIR] [--out PATH] [--refresh]
+    python3 build_planner_data.py [--data DIR] [--out PATH] [--refresh] [--as-of YYYY-MM-DD]
 
 Downloads are cached in the data directory (default ~/Downloads, like update.sh);
---refresh downloads them again. Standard library only.
+--refresh downloads them again. The 311 windows end at the start of the month of
+--as-of (default today), so a rebuild can keep the windows of an earlier one.
+Standard library only.
 """
 import csv
 import datetime as dt
@@ -34,6 +36,7 @@ arg = lambda flag, default: sys.argv[sys.argv.index(flag) + 1] if flag in sys.ar
 DATA = os.path.expanduser(arg("--data", "~/Downloads"))
 OUT = arg("--out", os.path.join(PROJ, "plan", "planner.json"))
 REFRESH = "--refresh" in sys.argv
+AS_OF = dt.date.fromisoformat(arg("--as-of", dt.date.today().isoformat()))
 
 REGISTER_URL = "https://data.cityofnewyork.us/resource/vn4m-mk4t.csv"
 SR311_URL = "https://data.cityofnewyork.us/resource/erm2-nwe9.json"
@@ -216,7 +219,7 @@ def rank_desc(values):
 
 def main():
     os.makedirs(DATA, exist_ok=True)
-    wins = windows(dt.date.today())
+    wins = windows(AS_OF)
 
     # --- district profiles -------------------------------------------------------
     atlas = json.load(open(fetch(ATLAS_URL, "nyc_cd_atlas_profiles.json")))
@@ -274,8 +277,8 @@ def main():
         elif r["publication"] in agency_round:
             rows.append((agency_round[r["publication"]], code, r))
 
-    cats = defaultdict(lambda: {"n": 0, "stance": Counter(), "redirect": 0, "funded": 0,
-                                "responses": Counter(), "agencies": Counter(), "fys": Counter(), "examples": []})
+    cats = defaultdict(lambda: {"n": 0, "stance": Counter(), "redirect": 0, "funded": 0, "responses": Counter(),
+                                "agencies": Counter(), "types": Counter(), "fys": Counter(), "examples": []})
     latest = max(PUBLICATIONS)
     board_requests = Counter()
     board_categories = defaultdict(Counter)
@@ -284,7 +287,10 @@ def main():
         st = stance(r["response"])
         first = first_sentence(r["response"])
         omb_resp = omb.get((fy, r["tracking_code"]), "")
-        cap = "Capital" if r["tracking_code"].endswith("C") else "Expense"
+        # Only a final E marks an expense request, as in build_register_year.py. Capital
+        # codes end in C, or in CS for continued support (FY2026 on), and 31 FY2023
+        # codes have no letter.
+        cap = "Expense" if r["tracking_code"].strip().endswith("E") else "Capital"
 
         c = cats[r["request"]]
         c["n"] += 1
@@ -294,7 +300,7 @@ def main():
         c["responses"][first] += 1
         c["agencies"][agency] += 1
         c["fys"][fy] += 1
-        c["type"] = cap
+        c["types"][cap] += 1
         if st == "Support" and 150 <= len(r["explanation"] or "") <= 700:
             c["examples"].append({"board": code, "fy": fy, "explanation": r["explanation"],
                                   "response": first})
@@ -324,10 +330,12 @@ def main():
             need["yearsRequested"].sort()
             need["yearsMentioned"] = sorted(set(need["yearsMentioned"]) - set(need["yearsRequested"]))
 
+    # Some category names are used for both capital and expense requests, so a
+    # category's type, like its agency, is the most common one.
     categories = {}
     for name, c in cats.items():
         categories[name] = {
-            "n": c["n"], "type": c["type"],
+            "n": c["n"], "type": c["types"].most_common(1)[0][0],
             "support": round(c["stance"]["Support"] / c["n"], 3),
             "oppose": round(c["stance"]["Oppose"] / c["n"], 3),
             "redirect": round(c["redirect"] / c["n"], 3),
